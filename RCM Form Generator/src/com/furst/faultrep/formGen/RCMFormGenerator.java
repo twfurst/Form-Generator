@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
@@ -67,7 +65,7 @@ public class RCMFormGenerator extends JRibbonFrame {
         folderTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jProgressBar1 = new javax.swing.JProgressBar();
-        jLabel1 = new javax.swing.JLabel();
+        dmCounterLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -79,7 +77,7 @@ public class RCMFormGenerator extends JRibbonFrame {
         folderTable.setModel(ftm);
         jScrollPane1.setViewportView(folderTable);
 
-        jLabel1.setText(counterText);
+        dmCounterLabel.setText(counterText);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -87,7 +85,7 @@ public class RCMFormGenerator extends JRibbonFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(dmCounterLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 485, Short.MAX_VALUE)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -98,7 +96,7 @@ public class RCMFormGenerator extends JRibbonFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1))
+                        .addComponent(dmCounterLabel))
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -199,12 +197,49 @@ public class RCMFormGenerator extends JRibbonFrame {
     */
     private void processFolder(File dir)
     {
+        //will need to have a SwingWorker once working
         File[] xmlFiles = dir.listFiles(new XmlFileFilter());
+        File[] allFiles = dir.listFiles();
+        String[] names = new String[allFiles.length];
         
+        List<DataModuleObject> mods = new ArrayList();
+        
+        int i = 0;
+        for(File f : allFiles)
+        {
+            names[i] = f.getName();
+            i++;
+        }
+        
+        int c = 0;
         for(File f : xmlFiles)
         {
+            String name = f.getName().substring(0, f.getName().lastIndexOf("."));
+            String bpName = name + ".xlsm";
+            String pdfName = name + ".pdf";
+            boolean bp = false;
+            boolean pdf = false;
             
+            if(Arrays.asList(names).contains(bpName))
+            {
+                bp = true;
+            }
+            
+            if(Arrays.asList(names).contains(pdfName))
+            {
+                pdf = true;
+            }
+            
+            mods.add(new DataModuleObject(name,bp,pdf));
+            
+            c++;
         }
+        
+        FolderTableModel ftm = new FolderTableModel(mods);
+        folderTable.setModel(ftm);
+        
+        counterText = "Folder has " + c + " modules";
+        dmCounterLabel.setText(counterText);
     }
     
     
@@ -268,9 +303,9 @@ public class RCMFormGenerator extends JRibbonFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel dmCounterLabel;
     private javax.swing.JTable folderTable;
     private javax.swing.JFileChooser jFileChooser1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
