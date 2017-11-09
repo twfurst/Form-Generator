@@ -11,9 +11,11 @@ import com.furst.faultrep.tables.FolderTableModel;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
@@ -38,6 +40,8 @@ public class RCMFormGenerator extends JRibbonFrame {
     /**
      * Creates new form RCMFormGenerator
      */
+    
+    private String counterText = "";
     public RCMFormGenerator() {
         initComponents();
         this.setApplicationIcon(getIcon("rcmLogoNoBg32x32.png"));
@@ -53,37 +57,49 @@ public class RCMFormGenerator extends JRibbonFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser1 = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         List<DataModuleObject> dummyList = new ArrayList();
         DataModuleObject dmo = new DataModuleObject("TEST",true,false);
         dummyList.add(dmo);
         ftm = new FolderTableModel(dummyList);
-        jTable1 = new javax.swing.JTable();
+        folderTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jProgressBar1 = new javax.swing.JProgressBar();
+        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Forms Generator");
-        setMinimumSize(new java.awt.Dimension(300, 200));
+        setMinimumSize(new java.awt.Dimension(1000, 600));
 
-        jTable1.setModel(ftm);
-        jScrollPane1.setViewportView(jTable1);
+        folderTable.setModel(ftm);
+        jScrollPane1.setViewportView(folderTable);
+
+        jLabel1.setText(counterText);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 485, Short.MAX_VALUE)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1))
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -103,21 +119,21 @@ public class RCMFormGenerator extends JRibbonFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -169,38 +185,55 @@ public class RCMFormGenerator extends JRibbonFrame {
         String resource = "com/furst/faultrep/icons/" + res;
         return ImageWrapperResizableIcon.getIcon(RCMFormGenerator.class.getClassLoader().getResource(resource), new Dimension(32, 32));
     }
+    //method call to process the files
+    /*
+        1. find all .xml
+            a. Ensure they are dmodules (check via XPath)
+                i. update the label giving the count of modules in the folder
+        2. find any .xlsm
+            a. compare to names of .xml, matches indicate BP exists
+                i. need to ask if update is required for those that exist
+        3. find any .pdf
+            a. compare to names of .xml, matched indicate PDF exists
+                i. need to ask if update is required
+    */
+    private void processFolder(File dir)
+    {
+        File[] xmlFiles = dir.listFiles(new XmlFileFilter());
+        
+        for(File f : xmlFiles)
+        {
+            
+        }
+    }
     
     
     private void setRibbon() {
-        /*
-            Declare all of these items as global vars
-         */
-//        RichTooltip rtp = new RichTooltip();
-//        rtp.addDescriptionSection("Creates a new DB in MySQL Server. Root password is requried.");
-        createSettingsBand = new JRibbonBand("Input", null);
-        createSettingsBand2 = new JFlowRibbonBand("Output settings", null);
+
+        chooseFolderBand = new JRibbonBand("Input", null);
+        createSettingsBand = new JFlowRibbonBand("Output settings", null);
         outputBand = new JRibbonBand("Ouput types", null);
 
-        b1b = new JCommandButton("Create new DB", getIcon("database.png"));
-        b1b.addActionListener(new ActionListener() {
+        chooseFolderButton = new JCommandButton("Choose Folder", getIcon("folder-12.png"));
+        chooseFolderButton.setDisabledIcon(getIcon("folder-12.png"));
+        chooseFolderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
-        b1 = new JCommandButton("Choose Folder", getIcon("folder-12.png"));
-        b1.setDisabledIcon(getIcon("database-15.png"));
-        b1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
+                jFileChooser1.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                jFileChooser1.setDialogTitle("Choose Folder");
+                int res = jFileChooser1.showOpenDialog(RCMFormGenerator.this);
+                if(res == JFileChooser.APPROVE_OPTION)
+                {
+                    processFolder(jFileChooser1.getSelectedFile());
+                }
             }
         });
 //        b1a = new JCommandButton("Update and maintain DMs", getIcon("database-16.png"));
 //        b1a.setDisabledIcon(getIcon("database-16.png"));
 
-        b2 = new JCommandButton("Compare DM content to DB", getIcon("view.png"));
-        b3 = new JCommandButton("Create Data Module(s) from DB", getIcon("file-4.png"));
+        createAllItemsButton = new JCommandButton("Create Boilerplate and PDF", getIcon("list.png"));
+        createAllBoilerButton = new JCommandButton("Create only Boilerplate", getIcon("notepad.png"));
+        createAllPdfButton = new JCommandButton("Create only PDF", getIcon("notebook.png"));
         
         mylabel = new javax.swing.JLabel();
         myjtf = new javax.swing.JTextField();
@@ -212,19 +245,20 @@ public class RCMFormGenerator extends JRibbonFrame {
         JRibbonComponent jrc = new JRibbonComponent(rp);
         //JRibbonComponent jrc2 = new JRibbonComponent(myjtf);
         
-        createSettingsBand.addCommandButton(b1, RibbonElementPriority.TOP);
+        chooseFolderBand.addCommandButton(chooseFolderButton, RibbonElementPriority.TOP);
         //createSettingsBand.addCommandButton(b1a, RibbonElementPriority.TOP);
-        createSettingsBand2.addFlowComponent(jrc);
+        createSettingsBand.addFlowComponent(jrc);
         //createSettingsBand2.addRibbonComponent(jrc2);
-        outputBand.addCommandButton(b2, RibbonElementPriority.TOP);
-        outputBand.addCommandButton(b3, RibbonElementPriority.TOP);
+        outputBand.addCommandButton(createAllItemsButton, RibbonElementPriority.TOP);
+        outputBand.addCommandButton(createAllBoilerButton, RibbonElementPriority.TOP);
+        outputBand.addCommandButton(createAllPdfButton, RibbonElementPriority.TOP);
 
-        createSettingsBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.None(createSettingsBand.getControlPanel()), new IconRibbonBandResizePolicy(createSettingsBand.getControlPanel())));
+        chooseFolderBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.None(chooseFolderBand.getControlPanel()), new IconRibbonBandResizePolicy(chooseFolderBand.getControlPanel())));
         //createSettingsBand2.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.(createSettingsBand2.getControlPanel())));
-        createSettingsBand2.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.FlowThreeRows(createSettingsBand2.getControlPanel())));
+        createSettingsBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.FlowThreeRows(createSettingsBand.getControlPanel())));
         outputBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.None(outputBand.getControlPanel()), new IconRibbonBandResizePolicy(outputBand.getControlPanel())));
 
-        createTask = new RibbonTask("Generator Functions", createSettingsBand, createSettingsBand2,outputBand);
+        createTask = new RibbonTask("Generator Functions", chooseFolderBand, createSettingsBand, outputBand);
 
         menu = new AppMenu();
 
@@ -234,13 +268,15 @@ public class RCMFormGenerator extends JRibbonFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable folderTable;
+    private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 
@@ -252,14 +288,14 @@ public class RCMFormGenerator extends JRibbonFrame {
     
     private RibbonApplicationMenu menu;
     
-    private JRibbonBand createSettingsBand;
-    private JFlowRibbonBand createSettingsBand2;
+    private JRibbonBand chooseFolderBand;
+    private JFlowRibbonBand createSettingsBand;
     private JRibbonBand outputBand;
     
-    private JCommandButton b1;
-    private JCommandButton b1b;
-    private JCommandButton b2;
-    private JCommandButton b3;
+    private JCommandButton chooseFolderButton;
+    private JCommandButton createAllItemsButton;
+    private JCommandButton createAllBoilerButton;
+    private JCommandButton createAllPdfButton;
     
     private FolderTableModel ftm;
 class AppMenu extends RibbonApplicationMenu {
