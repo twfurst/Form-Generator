@@ -6,6 +6,8 @@
 package com.furst.faultrep.menus;
 
 import java.awt.GridLayout;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JCheckBox;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -23,9 +25,13 @@ public class DatePickerPanel extends javax.swing.JPanel{
     private JCheckBox jcb;
     private GridLayout layout = new GridLayout(0,1);
     private boolean chooseToday = true;
+    private final String pattern = "MM/dd/yyyy";
+    private SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+    
     public DatePickerPanel()
     {
         setLayout();
+        mod.setSelected(chooseToday);
         dp = new JDatePanelImpl(mod);
         jdp = new JDatePickerImpl(dp);
         jcb = new JCheckBox();
@@ -37,12 +43,18 @@ public class DatePickerPanel extends javax.swing.JPanel{
             dp.setEnabled(false);
         }
         
-        this.add(jcb);
+        //this.add(jcb);
         this.add(jdp);
     }
     
     private void setLayout()
     {
         this.setLayout(layout);
+    }
+    
+    public String getDate()
+    {
+        Date date = (Date)jdp.getModel().getValue();
+        return sdf.format(date);
     }
 }

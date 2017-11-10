@@ -5,6 +5,13 @@
  */
 package com.furst.faultrep.menus;
 
+import com.furst.faultrep.formGen.ATRReviewer;
+import com.furst.faultrep.formGen.QA1Reviewer;
+import com.furst.faultrep.formGen.Writer;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author tfurst
@@ -14,17 +21,60 @@ public class RibbonPanel extends javax.swing.JPanel {
     /**
      * Creates new form RibbonPanel
      */
+    private List<Writer> writers = new ArrayList();
+    private List<QA1Reviewer> qa1_revs = new ArrayList();
+    private List<ATRReviewer> atr_revs = new ArrayList();
+    
     public RibbonPanel() {
+        popWriters();
+        popQa1();
+        popAtr();
         initComponents();
+    }
+    
+    private void popWriters()
+    {
+        String[] writer_names = new String[]{"Some person", "That Guy"};
+        for(String w : writer_names)
+        {
+            writers.add(new Writer(w));
+        }
+    }
+    
+    private void popQa1()
+    {
+        String[] writer_names = new String[]{"Some person", "That Guy"};
+        for(String w : writer_names)
+        {
+            qa1_revs.add(new QA1Reviewer(w));
+        }
+    }
+    
+    private void popAtr()
+    {
+        String[] writer_names = new String[]{"Some person", "That Guy"};
+        for(String w : writer_names)
+        {
+            atr_revs.add(new ATRReviewer(w));
+        }
     }
     
     public String getWriter()
     {
-        return jTextField1.getText();
+        return writerCombo.getSelectedItem().toString();
     }
     public String getAtr()
     {
-        return jTextField2.getText();
+        return atrCombo.getSelectedItem().toString();
+    }
+    public String getQa1()
+    {
+        return qa1Combo.getSelectedItem().toString();
+    }
+    
+    public String getWriterDate()
+    {
+        return datePickerPanel1.getDate();
     }
 
     /**
@@ -36,19 +86,36 @@ public class RibbonPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         datePickerPanel1 = new com.furst.faultrep.menus.DatePickerPanel();
+        writerCombo = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        qa1Combo = new javax.swing.JComboBox();
+        datePickerPanel2 = new com.furst.faultrep.menus.DatePickerPanel();
+        jLabel3 = new javax.swing.JLabel();
+        atrCombo = new javax.swing.JComboBox();
+        datePickerPanel3 = new com.furst.faultrep.menus.DatePickerPanel();
 
-        jLabel1.setText("Writer:");
+        jLabel6.setText("Writer:");
 
-        jTextField1.setText("jTextField1");
+        jLabel7.setText("QA1 Rev:");
 
-        jLabel2.setText("ATR:");
+        jLabel8.setText("ATR Rev:");
 
-        jTextField2.setText("jTextField2");
+        writerCombo.setModel(new DefaultComboBoxModel(writers.toArray()));
+
+        jLabel1.setText("Start Date:");
+
+        jLabel2.setText("Rev Date:");
+
+        qa1Combo.setModel(new javax.swing.DefaultComboBoxModel(qa1_revs.toArray()));
+
+        jLabel3.setText("Rev Date:");
+
+        atrCombo.setModel(new javax.swing.DefaultComboBoxModel(atr_revs.toArray()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -58,41 +125,72 @@ public class RibbonPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                    .addComponent(jTextField2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(datePickerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(datePickerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(writerCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(16, 16, 16)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(datePickerPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                    .addComponent(qa1Combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(datePickerPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(atrCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(writerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(qa1Combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(atrCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)))
+                            .addComponent(jLabel2)
+                            .addComponent(datePickerPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(datePickerPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(datePickerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addGap(44, 44, 44)
+                        .addComponent(datePickerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> atrCombo;
     private com.furst.faultrep.menus.DatePickerPanel datePickerPanel1;
+    private com.furst.faultrep.menus.DatePickerPanel datePickerPanel2;
+    private com.furst.faultrep.menus.DatePickerPanel datePickerPanel3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JComboBox<String> qa1Combo;
+    private javax.swing.JComboBox<String> writerCombo;
     // End of variables declaration//GEN-END:variables
 }

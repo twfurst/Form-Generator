@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
@@ -73,7 +74,7 @@ public class RCMFormGenerator extends JRibbonFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Forms Generator");
-        setMinimumSize(new java.awt.Dimension(1000, 600));
+        setMinimumSize(new java.awt.Dimension(1100, 600));
 
         folderTable.setModel(ftm);
         //folderTable.setDefaultRenderer(Object.class, new BoolCellRenderer());
@@ -268,10 +269,17 @@ public class RCMFormGenerator extends JRibbonFrame {
                 }
             }
         });
-//        b1a = new JCommandButton("Update and maintain DMs", getIcon("database-16.png"));
-//        b1a.setDisabledIcon(getIcon("database-16.png"));
 
         createAllItemsButton = new JCommandButton("Create Boilerplate and PDF", getIcon("list.png"));
+        createAllItemsButton.addActionListener(new ActionListener(){
+        
+            @Override
+            public void actionPerformed(ActionEvent e){
+                String writer = rp.getWriter();
+                String writeDate = rp.getWriterDate();
+                JOptionPane.showMessageDialog(RCMFormGenerator.this, rp.getWriter() + " - " + writeDate);
+            }
+            });
         createAllBoilerButton = new JCommandButton("Create only Boilerplate", getIcon("notepad.png"));
         createAllPdfButton = new JCommandButton("Create only PDF", getIcon("notebook.png"));
         
@@ -290,13 +298,16 @@ public class RCMFormGenerator extends JRibbonFrame {
         createSettingsBand.addFlowComponent(jrc);
         //createSettingsBand2.addRibbonComponent(jrc2);
         outputBand.addCommandButton(createAllItemsButton, RibbonElementPriority.TOP);
-        outputBand.addCommandButton(createAllBoilerButton, RibbonElementPriority.TOP);
-        outputBand.addCommandButton(createAllPdfButton, RibbonElementPriority.TOP);
+        outputBand.addCommandButton(createAllBoilerButton, RibbonElementPriority.MEDIUM);
+        outputBand.addCommandButton(createAllPdfButton, RibbonElementPriority.MEDIUM);
 
         chooseFolderBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.None(chooseFolderBand.getControlPanel()), new IconRibbonBandResizePolicy(chooseFolderBand.getControlPanel())));
         //createSettingsBand2.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.(createSettingsBand2.getControlPanel())));
         createSettingsBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.FlowThreeRows(createSettingsBand.getControlPanel())));
-        outputBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.None(outputBand.getControlPanel()), new IconRibbonBandResizePolicy(outputBand.getControlPanel())));
+        outputBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.None(outputBand.getControlPanel()), 
+                new CoreRibbonResizePolicies.Mirror(outputBand.getControlPanel()),
+                new CoreRibbonResizePolicies.Mid2Low(outputBand.getControlPanel()),
+                new IconRibbonBandResizePolicy(outputBand.getControlPanel())));
 
         createTask = new RibbonTask("Generator Functions", chooseFolderBand, createSettingsBand, outputBand);
 
