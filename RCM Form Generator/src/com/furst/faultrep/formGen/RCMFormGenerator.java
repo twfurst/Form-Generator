@@ -15,6 +15,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon;
@@ -75,6 +76,10 @@ public class RCMFormGenerator extends JRibbonFrame {
         setMinimumSize(new java.awt.Dimension(1000, 600));
 
         folderTable.setModel(ftm);
+        //folderTable.setDefaultRenderer(Object.class, new BoolCellRenderer());
+        ((JComponent) folderTable.getDefaultRenderer(Boolean.class)).setOpaque(true);
+        //folderTable.getColumnModel().getColumn(1).setCellRenderer(new BoolCellRenderer());
+        //folderTable.getColumnModel().getColumn(2).setCellRenderer(new BoolCellRenderer());
         jScrollPane1.setViewportView(folderTable);
 
         dmCounterLabel.setText(counterText);
@@ -333,7 +338,7 @@ public class RCMFormGenerator extends JRibbonFrame {
     private JCommandButton createAllPdfButton;
     
     private FolderTableModel ftm;
-class AppMenu extends RibbonApplicationMenu {
+    class AppMenu extends RibbonApplicationMenu {
 
         private boolean testBool = false;
         private AppMenuPrimaryEntry exitEntry;
@@ -351,4 +356,5 @@ class AppMenu extends RibbonApplicationMenu {
 
         }
     }
+
 }

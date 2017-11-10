@@ -74,6 +74,7 @@
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List&lt;DataModuleObject&gt; dummyList = new ArrayList();&#xa;DataModuleObject dmo = new DataModuleObject(&quot;TEST&quot;,true,false);&#xa;dummyList.add(dmo);&#xa;ftm = new FolderTableModel(dummyList);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="//folderTable.setDefaultRenderer(Object.class, new BoolCellRenderer());&#xa;((JComponent) folderTable.getDefaultRenderer(Boolean.class)).setOpaque(true);&#xa;//folderTable.getColumnModel().getColumn(1).setCellRenderer(new BoolCellRenderer());&#xa;//folderTable.getColumnModel().getColumn(2).setCellRenderer(new BoolCellRenderer());"/>
               </AuxValues>
             </Component>
           </SubComponents>

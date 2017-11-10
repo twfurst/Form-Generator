@@ -17,6 +17,15 @@ public class RibbonPanel extends javax.swing.JPanel {
     public RibbonPanel() {
         initComponents();
     }
+    
+    public String getWriter()
+    {
+        return jTextField1.getText();
+    }
+    public String getAtr()
+    {
+        return jTextField2.getText();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
