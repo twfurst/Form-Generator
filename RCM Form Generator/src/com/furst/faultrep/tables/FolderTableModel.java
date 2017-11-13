@@ -6,6 +6,7 @@
 package com.furst.faultrep.tables;
 
 import com.furst.faultrep.formGen.DataModuleObject;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -65,4 +66,13 @@ public class FolderTableModel extends AbstractTableModel{
         return getValueAt(0,col).getClass();
     }
     
+    public List<DataModuleObject> getAllMods()
+    {
+        return dmods;
+    }
+    
+    public DataModuleObject getDmod(int row)
+    {
+        return dmods.get(row);
+    }
 }

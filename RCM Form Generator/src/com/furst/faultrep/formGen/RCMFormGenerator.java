@@ -12,12 +12,35 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.xml.XMLConstants;
+import javax.xml.namespace.NamespaceContext;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import static org.apache.xerces.jaxp.JAXPConstants.JAXP_SCHEMA_LANGUAGE;
+import static org.apache.xerces.jaxp.JAXPConstants.W3C_XML_SCHEMA;
+import org.apache.xerces.util.XMLCatalogResolver;
+import org.apache.xml.resolver.tools.CatalogResolver;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
@@ -30,6 +53,10 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -43,6 +70,8 @@ public class RCMFormGenerator extends JRibbonFrame {
     
     private String counterText = "";
     public RCMFormGenerator() {
+        initDb();
+        initXpath();
         initComponents();
         this.setApplicationIcon(getIcon("rcmLogoNoBg32x32.png"));
         setRibbon();
@@ -204,6 +233,9 @@ public class RCMFormGenerator extends JRibbonFrame {
     private void processFolder(File dir)
     {
         //will need to have a SwingWorker once working
+        folderPath = dir.getAbsolutePath();
+        String title = this.getTitle();
+        this.setTitle(title + " - " + folderPath);
         File[] xmlFiles = dir.listFiles(new XmlFileFilter());
         File[] allFiles = dir.listFiles();
         String[] names = new String[allFiles.length];
@@ -248,6 +280,142 @@ public class RCMFormGenerator extends JRibbonFrame {
         dmCounterLabel.setText(counterText);
     }
     
+    private void createBp()
+    {
+        List<DataModuleObject> dms = new ArrayList();
+        FolderTableModel model = (FolderTableModel)folderTable.getModel();
+        dms = model.getAllMods();
+        
+        for(DataModuleObject d : dms)
+        {
+            if(d.isHasBoiler())
+            {
+                //ask if it needs to be updated
+            }
+            else
+            {
+                populateBp(folderPath + File.separator + d.getBaseDmc() + ".xlsm", getDmTitle(d));
+            }
+        }
+    }
+    
+    private void populateBp(String bpSavePath, String title)
+    {
+        try(FileInputStream fis = new FileInputStream(new File("templates/CRH-BoilerPlate-REV2.xlsm")))
+        {
+           XSSFWorkbook wb = new XSSFWorkbook(fis);
+           XSSFSheet bpSheet = wb.getSheet("BoilerPlate");
+           
+           XSSFCell titleCell = bpSheet.getRow(5).getCell(1);
+           titleCell.setCellValue(title);
+           
+           
+           try(FileOutputStream fos = new FileOutputStream(new File(bpSavePath)))
+           {
+               wb.write(fos);
+           }
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private String getDmTitle(DataModuleObject dmo)
+    {
+        String xmlFile = folderPath + File.separator + dmo.getBaseDmc() + ".xml";
+        String tn_xp = "/dmodule/identAndStatusSection/dmAddress/dmAddressItems/dmTitle/techName";
+        String in_xp = "/dmodule/identAndStatusSection/dmAddress/dmAddressItems/dmTitle/infoName";
+        try
+        {
+            Document doc = DB.parse(new File(xmlFile));
+            Node tn = (Node)XP.compile(tn_xp).evaluate(doc, XPathConstants.NODE);
+            Node iN = (Node)XP.compile(in_xp).evaluate(doc, XPathConstants.NODE);
+            
+            return tn + " - " + iN;
+        } catch (SAXException | IOException | XPathExpressionException ex) {
+            Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+    }
+    
+    private XMLCatalogResolver createXMLCatalogResolver(CatalogResolver resolver)
+    {
+        int i = 0;
+        
+        Vector files = resolver.getCatalog().getCatalogManager().getCatalogFiles();
+        String[] catalogs = new String[files.size()];
+        XMLCatalogResolver xcr = new XMLCatalogResolver();
+        
+        for(Object file : files)
+        {
+            catalogs[i] = new File(file.toString()).getAbsolutePath();
+        }
+        
+        xcr.setCatalogList(catalogs);
+        return xcr;
+    }
+    
+    private void initDb()
+    {
+        try 
+        {
+            //DBF = DocumentBuilderFactory.newInstance();
+            //DB = DBF.newDocumentBuilder();
+            resolver = new CatalogResolver();
+            eHandler = new DocumentErrorHandler();
+            XMLCatalogResolver xres = createXMLCatalogResolver(resolver);
+            DBF = DocumentBuilderFactory.newInstance();
+            DBF.setAttribute(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
+            DBF.setNamespaceAware(true);
+            DB = DBF.newDocumentBuilder();
+            DB.setEntityResolver(xres);
+            DB.setErrorHandler(eHandler);
+        } 
+        catch (ParserConfigurationException ex) 
+        {
+            Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void initXpath()
+    {
+        XPF = XPathFactory.newInstance();
+        XP = XPF.newXPath();
+        
+        XP.setNamespaceContext(new NamespaceContext(){
+            @Override
+            public String getNamespaceURI(String prefix) {
+                if(prefix == null)
+                {
+                    throw new NullPointerException("Null prefix");
+                }
+                else if("xsi".equals(prefix))
+                {
+                    return "http://www.w3.org/2001/XMLSchema-instance";
+                }
+                else if("xml".equals(prefix))
+                {
+                    return XMLConstants.XML_NS_URI;
+                }
+                else
+                {
+                    return XMLConstants.NULL_NS_URI;
+                }
+            }
+
+            @Override
+            public String getPrefix(String namespaceURI) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public Iterator getPrefixes(String namespaceURI) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        
+        });
+    }
     
     private void setRibbon() {
 
@@ -272,7 +440,6 @@ public class RCMFormGenerator extends JRibbonFrame {
 
         createAllItemsButton = new JCommandButton("Create Boilerplate and PDF", getIcon("list.png"));
         createAllItemsButton.addActionListener(new ActionListener(){
-        
             @Override
             public void actionPerformed(ActionEvent e){
                 String writer = rp.getWriter();
@@ -333,6 +500,15 @@ public class RCMFormGenerator extends JRibbonFrame {
 
     private javax.swing.JLabel mylabel;
     private javax.swing.JTextField myjtf;
+    
+    private DocumentBuilderFactory DBF;
+    private DocumentBuilder DB;
+    private XPathFactory XPF;
+    private XPath XP;
+    private CatalogResolver resolver;
+    private ErrorHandler eHandler;
+    
+    private String folderPath;
     
     private RibbonPanel rp;
     private RibbonTask createTask; //Database actions tab
