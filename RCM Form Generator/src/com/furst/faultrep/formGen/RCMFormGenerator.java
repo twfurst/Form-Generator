@@ -8,11 +8,14 @@ package com.furst.faultrep.formGen;
 import com.furst.faultrep.menus.AppMenuPrimaryEntry;
 import com.furst.faultrep.menus.RibbonPanel;
 import com.furst.faultrep.tables.FolderTableModel;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,6 +28,10 @@ import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
+import javax.swing.Painter;
+import javax.swing.SwingWorker;
+import javax.swing.UIDefaults;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
@@ -54,6 +61,7 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
@@ -69,10 +77,12 @@ public class RCMFormGenerator extends JRibbonFrame {
      */
     
     private String counterText = "";
+    private final String FORM_TIT = "Forms Generator";
     public RCMFormGenerator() {
         initDb();
         initXpath();
         initComponents();
+        jProgressBar1.setVisible(false);
         this.setApplicationIcon(getIcon("rcmLogoNoBg32x32.png"));
         setRibbon();
     }
@@ -99,11 +109,11 @@ public class RCMFormGenerator extends JRibbonFrame {
         dmCounterLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        outputArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Forms Generator");
-        setMinimumSize(new java.awt.Dimension(1100, 600));
+        setMinimumSize(new java.awt.Dimension(1300, 600));
 
         folderTable.setModel(ftm);
         //folderTable.setDefaultRenderer(Object.class, new BoolCellRenderer());
@@ -111,6 +121,12 @@ public class RCMFormGenerator extends JRibbonFrame {
         //folderTable.getColumnModel().getColumn(1).setCellRenderer(new BoolCellRenderer());
         //folderTable.getColumnModel().getColumn(2).setCellRenderer(new BoolCellRenderer());
         jScrollPane1.setViewportView(folderTable);
+
+        UIDefaults defs = new UIDefaults();
+        defs.put("ProgressBar[Enabled+Indeterminate].foregroundPainter", new ProgressBarPainter(new Color(51,204,255)));
+        defs.put("ProgressBar[Enabled+Indeterminate].progressPadding", 6);
+        jProgressBar1.putClientProperty("Nimbus.Overrides.InheritDefaults", Boolean.TRUE);
+        jProgressBar1.putClientProperty("Nimbus.Overrides", defs);
 
         dmCounterLabel.setText(counterText);
 
@@ -121,8 +137,9 @@ public class RCMFormGenerator extends JRibbonFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(dmCounterLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 485, Short.MAX_VALUE)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 376, Short.MAX_VALUE)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,11 +155,15 @@ public class RCMFormGenerator extends JRibbonFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Process Output"));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setWrapStyleWord(true);
-        jScrollPane2.setViewportView(jTextArea1);
+        outputArea.setEditable(false);
+        outputArea.setBackground(new java.awt.Color(0, 0, 0));
+        outputArea.setColumns(20);
+        outputArea.setForeground(new java.awt.Color(51, 204, 255));
+        outputArea.setLineWrap(true);
+        outputArea.setRows(5);
+        outputArea.setTabSize(5);
+        outputArea.setWrapStyleWord(true);
+        jScrollPane2.setViewportView(outputArea);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -234,8 +255,7 @@ public class RCMFormGenerator extends JRibbonFrame {
     {
         //will need to have a SwingWorker once working
         folderPath = dir.getAbsolutePath();
-        String title = this.getTitle();
-        this.setTitle(title + " - " + folderPath);
+        this.setTitle(FORM_TIT + " - " + folderPath);
         File[] xmlFiles = dir.listFiles(new XmlFileFilter());
         File[] allFiles = dir.listFiles();
         String[] names = new String[allFiles.length];
@@ -273,50 +293,162 @@ public class RCMFormGenerator extends JRibbonFrame {
             c++;
         }
         
-        FolderTableModel ftm = new FolderTableModel(mods);
-        folderTable.setModel(ftm);
+        FolderTableModel model = new FolderTableModel(mods);
+        folderTable.setModel(model);
         
         counterText = "Folder has " + c + " modules";
         dmCounterLabel.setText(counterText);
     }
     
+    private void createPdf()
+    {
+        
+    }
+    
     private void createBp()
     {
-        List<DataModuleObject> dms = new ArrayList();
+        jProgressBar1.setVisible(true);
+        jProgressBar1.setStringPainted(true);
+        jProgressBar1.setString("Creating boilerplates...");
+        jProgressBar1.setIndeterminate(true);
         FolderTableModel model = (FolderTableModel)folderTable.getModel();
-        dms = model.getAllMods();
-        
-        for(DataModuleObject d : dms)
+        final List<DataModuleObject> dms = model.getAllMods();
+        SwingWorker<Boolean, Integer> worker = new SwingWorker<Boolean, Integer>()
         {
-            if(d.isHasBoiler())
+            @Override
+            protected Boolean doInBackground() 
             {
-                //ask if it needs to be updated
+                if(rp.getWriter().equals("Choose...") || rp.getQa1().equals("Choose...") || rp.getAtr().equals("Choose..."))
+                {
+                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+                }
+                else
+                {
+                    for(DataModuleObject d : dms)
+                    {
+                        System.out.println(d.getBaseDmc());
+                        jProgressBar1.setString("Processing " + d.getBaseDmc() + "...");
+                        outputArea.append("Processing " + d.getBaseDmc() + "...\n");
+                        populateBp(d);
+                    }
+                }
+                
+                return true; 
+            }
+            @Override
+            protected void done()
+            {
+                jProgressBar1.setIndeterminate(false);
+                jProgressBar1.setStringPainted(false);
+                jProgressBar1.setVisible(false);
+            }
+
+        };
+        worker.execute();
+    }
+    
+    private boolean checkBpExist(DataModuleObject d)
+    {
+        int res;
+        if(d.isHasBoiler())
+        {
+            res = JOptionPane.showConfirmDialog(RCMFormGenerator.this, d.getBaseDmc() + " has a boilerplate. Update with new info?", "Boilerplare exists", JOptionPane.YES_NO_OPTION);
+            
+            if(res == JOptionPane.YES_OPTION)
+            {
+                System.out.println(true);
+                return true;
             }
             else
             {
-                populateBp(folderPath + File.separator + d.getBaseDmc() + ".xlsm", getDmTitle(d));
+                System.out.println(false);
+                return false;
             }
+        }
+        else
+        {
+            System.out.println(true);
+            return true;
         }
     }
     
-    private void populateBp(String bpSavePath, String title)
+    private void populateBp(DataModuleObject dmod)
     {
-        try(FileInputStream fis = new FileInputStream(new File("templates/CRH-BoilerPlate-REV2.xlsm")))
+        String bpSavePath = folderPath + File.separator + dmod.getBaseDmc() + ".xlsm";
+        String title = getDmTitle(dmod);
+        if(checkBpExist(dmod))
         {
-           XSSFWorkbook wb = new XSSFWorkbook(fis);
-           XSSFSheet bpSheet = wb.getSheet("BoilerPlate");
+            try(FileInputStream fis = new FileInputStream(new File("templates/CRH-BoilerPlate-REV2.xlsm")))
+            {
+                XSSFWorkbook wb = new XSSFWorkbook(fis);
+                jProgressBar1.setString("Updating " + dmod.getBaseDmc() + " boiler plate sheet...");
+                outputArea.append("\tUpdating " + dmod.getBaseDmc() + " boiler plate sheet...\n");
+                //process to the output pane
+                XSSFSheet bpSheet = wb.getSheet("BoilerPlate");
+
+                XSSFCell titleCell = bpSheet.getRow(5).getCell(1);
+                titleCell.setCellValue(title);
+
+                XSSFCell wpCell = bpSheet.getRow(7).getCell(1);
+                wpCell.setCellValue(getDmWp(dmod));
+
+                XSSFCell writerCell = bpSheet.getRow(3).getCell(5);
+                XSSFCell writerDateCell = bpSheet.getRow(4).getCell(6);
+                XSSFCell qa1Cell  = bpSheet.getRow(7).getCell(5);
+                XSSFCell qa1DateCell = bpSheet.getRow(8).getCell(6);
+                XSSFCell atrCell  = bpSheet.getRow(11).getCell(5);
+                XSSFCell atrDateCell = bpSheet.getRow(12).getCell(6);
+                
+                writerCell.setCellValue(rp.getWriter());
+                writerDateCell.setCellValue(rp.getWriterDate());
+                qa1Cell.setCellValue(rp.getQa1());
+                qa1DateCell.setCellValue(rp.getQa1Date());
+                atrCell.setCellValue(rp.getAtr());
+                atrDateCell.setCellValue(rp.getAtrDate());
+
+                jProgressBar1.setString("Updating " + dmod.getBaseDmc() + " QA 20038 sheet...");
+                outputArea.append("\tUpdating " + dmod.getBaseDmc() + " QA 20038 sheet...\n");
+                XSSFSheet qa20038 = wb.getSheet("RCM20038_QA_");
+                XSSFCell commCell = qa20038.getRow(17).getCell(3);
+                commCell.setCellValue("NO COMMENTS");
+                
+                jProgressBar1.setString("Updating " + dmod.getBaseDmc() + " ATR 20038 sheet...");
+                outputArea.append("\tUpdating " + dmod.getBaseDmc() + " ATR 20038 sheet...\n");
+                XSSFSheet atr20038 = wb.getSheet("RCM20038_ATR_");
+                XSSFCell atrcommCell = atr20038.getRow(17).getCell(3);
+                atrcommCell.setCellValue("NO COMMENTS");
+
+                try(FileOutputStream fos = new FileOutputStream(new File(bpSavePath)))
+                {
+                    wb.write(fos);
+                }
+            } 
+            catch (IOException ex) {
+                Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            processFolder(new File(folderPath));
+        }
+    }
+    
+    private String getDmWp(DataModuleObject dmo)
+    {
+       String xmlFile = folderPath + File.separator + dmo.getBaseDmc() + ".xml";
+       String dmc_xp = "/dmodule/identAndStatusSection/dmAddress/dmIdent/dmCode";
+       try
+       {
+           Document doc = DB.parse(new File(xmlFile));
+           Node dmc = (Node)XP.compile(dmc_xp).evaluate(doc, XPathConstants.NODE);
+           NamedNodeMap dmc_atts = dmc.getAttributes();
            
-           XSSFCell titleCell = bpSheet.getRow(5).getCell(1);
-           titleCell.setCellValue(title);
+           return dmc_atts.getNamedItem("systemCode").getNodeValue() + "-" +
+                   dmc_atts.getNamedItem("subSystemCode").getNodeValue() + dmc_atts.getNamedItem("subSubSystemCode").getNodeValue() + "-" +
+                   dmc_atts.getNamedItem("assyCode").getNodeValue() + "-" + 
+                   dmc_atts.getNamedItem("disassyCode").getNodeValue() + dmc_atts.getNamedItem("disassyCodeVariant").getNodeValue() + "-" +
+                   dmc_atts.getNamedItem("infoCode").getNodeValue() + dmc_atts.getNamedItem("infoCodeVariant").getNodeValue() + "-" + dmc_atts.getNamedItem("itemLocationCode").getNodeValue();
            
-           
-           try(FileOutputStream fos = new FileOutputStream(new File(bpSavePath)))
-           {
-               wb.write(fos);
-           }
-        } 
-        catch (IOException ex) {
+       } catch (SAXException | IOException | XPathExpressionException ex) {
             Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
     
@@ -331,8 +463,9 @@ public class RCMFormGenerator extends JRibbonFrame {
             Node tn = (Node)XP.compile(tn_xp).evaluate(doc, XPathConstants.NODE);
             Node iN = (Node)XP.compile(in_xp).evaluate(doc, XPathConstants.NODE);
             
-            return tn + " - " + iN;
-        } catch (SAXException | IOException | XPathExpressionException ex) {
+            return tn.getTextContent() + " - " + iN.getTextContent();
+        } 
+        catch (SAXException | IOException | XPathExpressionException ex) {
             Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
@@ -354,6 +487,14 @@ public class RCMFormGenerator extends JRibbonFrame {
         
         xcr.setCatalogList(catalogs);
         return xcr;
+    }
+    
+    private void clearTable()
+    {
+        while(folderTable.getRowCount() > 0)
+        {
+            ((FolderTableModel)folderTable.getModel()).removeRow(0);
+        }
     }
     
     private void initDb()
@@ -421,7 +562,7 @@ public class RCMFormGenerator extends JRibbonFrame {
 
         chooseFolderBand = new JRibbonBand("Input", null);
         createSettingsBand = new JFlowRibbonBand("Output settings", null);
-        outputBand = new JRibbonBand("Ouput types", null);
+        outputBand = new JRibbonBand("Batch ouput types", null);
 
         chooseFolderButton = new JCommandButton("Choose Folder", getIcon("folder-12.png"));
         chooseFolderButton.setDisabledIcon(getIcon("folder-12.png"));
@@ -448,12 +589,19 @@ public class RCMFormGenerator extends JRibbonFrame {
             }
             });
         createAllBoilerButton = new JCommandButton("Create only Boilerplate", getIcon("notepad.png"));
+        createAllBoilerButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                createBp();
+            }
+        });
         createAllPdfButton = new JCommandButton("Create only PDF", getIcon("notebook.png"));
-        
-        mylabel = new javax.swing.JLabel();
-        myjtf = new javax.swing.JTextField();
-        mylabel.setText("Writer");
-        myjtf.setColumns(100);
+        createAllPdfButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                createPdf();
+            }
+        });
         
         rp = new RibbonPanel();
         
@@ -495,12 +643,9 @@ public class RCMFormGenerator extends JRibbonFrame {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea outputArea;
     // End of variables declaration//GEN-END:variables
 
-    private javax.swing.JLabel mylabel;
-    private javax.swing.JTextField myjtf;
-    
     private DocumentBuilderFactory DBF;
     private DocumentBuilder DB;
     private XPathFactory XPF;
@@ -525,6 +670,7 @@ public class RCMFormGenerator extends JRibbonFrame {
     private JCommandButton createAllPdfButton;
     
     private FolderTableModel ftm;
+    
     class AppMenu extends RibbonApplicationMenu {
 
         private boolean testBool = false;
@@ -543,5 +689,19 @@ public class RCMFormGenerator extends JRibbonFrame {
 
         }
     }
-
+    class ProgressBarPainter implements Painter<javax.swing.JProgressBar>{
+        private final Color color;
+        
+        public ProgressBarPainter(Color c)
+        {
+            this.color = c;
+        }
+        
+        @Override
+        public void paint(Graphics2D g, JProgressBar object, int width, int height) {
+            g.setColor(color);
+            g.fillRect(0, 0, (width/2), height);
+        }
+        
+    }
 }

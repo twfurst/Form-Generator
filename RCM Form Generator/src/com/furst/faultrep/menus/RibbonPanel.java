@@ -7,10 +7,20 @@ package com.furst.faultrep.menus;
 
 import com.furst.faultrep.formGen.ATRReviewer;
 import com.furst.faultrep.formGen.QA1Reviewer;
+import com.furst.faultrep.formGen.RCMFormGenerator;
 import com.furst.faultrep.formGen.Writer;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -26,10 +36,58 @@ public class RibbonPanel extends javax.swing.JPanel {
     private List<ATRReviewer> atr_revs = new ArrayList();
     
     public RibbonPanel() {
-        popWriters();
-        popQa1();
-        popAtr();
+//        popWriters();
+//        popQa1();
+//        popAtr();
+        fillDropDowns();
         initComponents();
+    }
+    
+    private void fillDropDowns()
+    {
+        writers.add(new Writer("Choose..."));
+        qa1_revs.add(new QA1Reviewer("Choose..."));
+        atr_revs.add(new ATRReviewer("Choose..."));
+        try(FileInputStream fis = new FileInputStream(new File("templates/CRH-BoilerPlate-REV2.xlsm")))
+        {
+            XSSFWorkbook wb = new XSSFWorkbook(fis);
+            XSSFSheet dataSheet = wb.getSheet("Data Sheet");
+            
+            int col = 8;
+            int atrFirstRow = 1;
+            int atrLastRow = 7;
+            int writerFirstRow = 9;
+            int writerLastRow = 25;
+            int qaFirstRow = 28;
+            int qaLastRow = 48;
+            
+            //build writer list
+            for(int i = writerFirstRow; i <= writerLastRow; i++)
+            {
+                XSSFCell w_cell = dataSheet.getRow(i).getCell(col);
+                Writer writer = new Writer(w_cell.getStringCellValue());
+                writers.add(writer);
+            }
+            
+            for(int i = qaFirstRow; i <= qaLastRow; i++)
+            {
+                XSSFCell qa_cell = dataSheet.getRow(i).getCell(col);
+                QA1Reviewer qa1 = new QA1Reviewer(qa_cell.getStringCellValue());
+                qa1_revs.add(qa1);
+            }
+            
+            for(int i = atrFirstRow; i <= atrLastRow; i++)
+            {
+                XSSFCell atr_cell = dataSheet.getRow(i).getCell(col);
+                ATRReviewer atr = new ATRReviewer(atr_cell.getStringCellValue());
+                atr_revs.add(atr);
+            }
+        } 
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(RibbonPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(RibbonPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void popWriters()
@@ -74,7 +132,17 @@ public class RibbonPanel extends javax.swing.JPanel {
     
     public String getWriterDate()
     {
-        return datePickerPanel1.getDate();
+        return writerDatePicker.getDate();
+    }
+    
+    public String getQa1Date()
+    {
+        return qa1DatePicker.getDate();
+    }
+    
+    public String getAtrDate()
+    {
+        return atrDatePicker.getDate();
     }
 
     /**
@@ -89,15 +157,15 @@ public class RibbonPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        datePickerPanel1 = new com.furst.faultrep.menus.DatePickerPanel();
+        writerDatePicker = new com.furst.faultrep.menus.DatePickerPanel();
         writerCombo = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         qa1Combo = new javax.swing.JComboBox();
-        datePickerPanel2 = new com.furst.faultrep.menus.DatePickerPanel();
+        qa1DatePicker = new com.furst.faultrep.menus.DatePickerPanel();
         jLabel3 = new javax.swing.JLabel();
         atrCombo = new javax.swing.JComboBox();
-        datePickerPanel3 = new com.furst.faultrep.menus.DatePickerPanel();
+        atrDatePicker = new com.furst.faultrep.menus.DatePickerPanel();
 
         jLabel6.setText("Writer:");
 
@@ -128,7 +196,7 @@ public class RibbonPanel extends javax.swing.JPanel {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(datePickerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(writerDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(writerCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +207,7 @@ public class RibbonPanel extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addGap(16, 16, 16)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(datePickerPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                    .addComponent(qa1DatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                     .addComponent(qa1Combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +215,7 @@ public class RibbonPanel extends javax.swing.JPanel {
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(datePickerPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(atrDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(atrCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
@@ -168,12 +236,12 @@ public class RibbonPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(datePickerPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(qa1DatePicker, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
-                            .addComponent(datePickerPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(atrDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addComponent(datePickerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(writerDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -181,9 +249,7 @@ public class RibbonPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> atrCombo;
-    private com.furst.faultrep.menus.DatePickerPanel datePickerPanel1;
-    private com.furst.faultrep.menus.DatePickerPanel datePickerPanel2;
-    private com.furst.faultrep.menus.DatePickerPanel datePickerPanel3;
+    private com.furst.faultrep.menus.DatePickerPanel atrDatePicker;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -191,6 +257,8 @@ public class RibbonPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JComboBox<String> qa1Combo;
+    private com.furst.faultrep.menus.DatePickerPanel qa1DatePicker;
     private javax.swing.JComboBox<String> writerCombo;
+    private com.furst.faultrep.menus.DatePickerPanel writerDatePicker;
     // End of variables declaration//GEN-END:variables
 }

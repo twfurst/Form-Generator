@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -22,7 +23,6 @@ public class DatePickerPanel extends javax.swing.JPanel{
     private UtilDateModel mod = new UtilDateModel();
     private JDatePanelImpl dp; 
     private JDatePickerImpl jdp;
-    private JCheckBox jcb;
     private GridLayout layout = new GridLayout(0,1);
     private boolean chooseToday = true;
     private final String pattern = "MM/dd/yyyy";
@@ -34,16 +34,6 @@ public class DatePickerPanel extends javax.swing.JPanel{
         mod.setSelected(chooseToday);
         dp = new JDatePanelImpl(mod);
         jdp = new JDatePickerImpl(dp);
-        jcb = new JCheckBox();
-        jcb.setText("Use Today's Date");
-        jcb.setSelected(chooseToday);
-        if(jcb.isSelected())
-        {
-            jdp.setEnabled(false);
-            dp.setEnabled(false);
-        }
-        
-        //this.add(jcb);
         this.add(jdp);
     }
     

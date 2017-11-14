@@ -75,4 +75,10 @@ public class FolderTableModel extends AbstractTableModel{
     {
         return dmods.get(row);
     }
+    
+    public void removeRow(int row)
+    {
+        fireTableRowsDeleted(row,row);
+        dmods.remove(row);
+    }
 }
