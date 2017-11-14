@@ -13,18 +13,20 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -37,10 +39,22 @@ import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import org.apache.fop.apps.FOPException;
+import org.apache.fop.apps.FOUserAgent;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.FopFactory;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -48,6 +62,7 @@ import static org.apache.xerces.jaxp.JAXPConstants.JAXP_SCHEMA_LANGUAGE;
 import static org.apache.xerces.jaxp.JAXPConstants.W3C_XML_SCHEMA;
 import org.apache.xerces.util.XMLCatalogResolver;
 import org.apache.xml.resolver.tools.CatalogResolver;
+import org.apache.xmlgraphics.util.MimeConstants;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
@@ -79,12 +94,16 @@ public class RCMFormGenerator extends JRibbonFrame {
     private String counterText = "";
     private final String FORM_TIT = "Forms Generator";
     public RCMFormGenerator() {
+        
+        initFop();
         initDb();
         initXpath();
         initComponents();
+        
         jProgressBar1.setVisible(false);
         this.setApplicationIcon(getIcon("rcmLogoNoBg32x32.png"));
         setRibbon();
+        Logger.getRootLogger().addAppender(new FormGenAppenderSkeleton(outputArea));
     }
 
     /**
@@ -117,6 +136,7 @@ public class RCMFormGenerator extends JRibbonFrame {
 
         folderTable.setModel(ftm);
         //folderTable.setDefaultRenderer(Object.class, new BoolCellRenderer());
+        clearTable();
         ((JComponent) folderTable.getDefaultRenderer(Boolean.class)).setOpaque(true);
         //folderTable.getColumnModel().getColumn(1).setCellRenderer(new BoolCellRenderer());
         //folderTable.getColumnModel().getColumn(2).setCellRenderer(new BoolCellRenderer());
@@ -302,7 +322,56 @@ public class RCMFormGenerator extends JRibbonFrame {
     
     private void createPdf()
     {
-        
+        /*
+            swing worker
+            sys out listeners for FOP output to ta
+            look into colored text for differnet level severity
+        */
+        jProgressBar1.setVisible(true);
+        jProgressBar1.setStringPainted(true);
+        jProgressBar1.setString("Creating PDFs...");
+        jProgressBar1.setIndeterminate(true);
+        FolderTableModel model = (FolderTableModel)folderTable.getModel();
+        final List<DataModuleObject> dms = model.getAllMods();
+        SwingWorker<Boolean, Integer> worker = new SwingWorker<Boolean, Integer>()
+        {
+            @Override
+            protected Boolean doInBackground() 
+            {
+                if(rp.getWriter().equals("Choose...") || rp.getQa1().equals("Choose...") || rp.getAtr().equals("Choose..."))
+                {
+                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+                }
+                else
+                {
+                    for(DataModuleObject d : dms)
+                    {
+                        jProgressBar1.setString("Creating " + d.getBaseDmc() + " PDF...");
+                        publishOutput("Creating " + d.getBaseDmc() + " PDF");
+//                        outputArea.append("Processing " + d.getBaseDmc() + "...\n");
+//                        outputArea.setCaretPosition(outputArea.getText().length());
+                        populatePdf(d);
+                    }
+                }
+                
+                return true; 
+            }
+            @Override
+            protected void done()
+            {
+                jProgressBar1.setIndeterminate(false);
+                jProgressBar1.setStringPainted(false);
+                jProgressBar1.setVisible(false);
+            }
+
+        };
+        worker.execute();
+    }
+    
+    private void publishOutput(String output)
+    {
+        outputArea.append(output + "...\n");
+        outputArea.setCaretPosition(outputArea.getText().length());
     }
     
     private void createBp()
@@ -328,7 +397,9 @@ public class RCMFormGenerator extends JRibbonFrame {
                     {
                         System.out.println(d.getBaseDmc());
                         jProgressBar1.setString("Processing " + d.getBaseDmc() + "...");
-                        outputArea.append("Processing " + d.getBaseDmc() + "...\n");
+                        publishOutput("Processing " + d.getBaseDmc());
+//                        outputArea.append("Processing " + d.getBaseDmc() + "...\n");
+//                        outputArea.setCaretPosition(outputArea.getText().length());
                         populateBp(d);
                     }
                 }
@@ -372,6 +443,33 @@ public class RCMFormGenerator extends JRibbonFrame {
         }
     }
     
+    private void populatePdf(DataModuleObject dmod)
+    {
+        String pdfSavePath = folderPath + File.separator + dmod.getBaseDmc() + ".pdf";
+        File f = new File(folderPath + File.separator + dmod.getBaseDmc() + ".xml");
+        try(OutputStream out = new BufferedOutputStream(new FileOutputStream(pdfSavePath)))
+        {
+            File xsl = new File("styles/test3.xsl");
+            
+            Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, out);
+            FOUserAgent foua = fopFactory.newFOUserAgent();
+            foua.getEventBroadcaster().addEventListener(new SysOutEventListener());
+
+            TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
+
+            Transformer transformer = factory.newTransformer(new StreamSource(xsl));
+
+            Source src = new StreamSource(f);
+            
+            Result res = new SAXResult(fop.getDefaultHandler());
+            
+            transformer.transform(src, res);
+        } 
+        catch (IOException | FOPException | TransformerException ex) {
+            java.util.logging.Logger.getLogger(RCMFormGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
+    
     private void populateBp(DataModuleObject dmod)
     {
         String bpSavePath = folderPath + File.separator + dmod.getBaseDmc() + ".xlsm";
@@ -382,7 +480,8 @@ public class RCMFormGenerator extends JRibbonFrame {
             {
                 XSSFWorkbook wb = new XSSFWorkbook(fis);
                 jProgressBar1.setString("Updating " + dmod.getBaseDmc() + " boiler plate sheet...");
-                outputArea.append("\tUpdating " + dmod.getBaseDmc() + " boiler plate sheet...\n");
+                //outputArea.append("\tUpdating " + dmod.getBaseDmc() + " boiler plate sheet...\n");
+                publishOutput("\tUpdating " + dmod.getBaseDmc() + " boiler plate sheet");
                 //process to the output pane
                 XSSFSheet bpSheet = wb.getSheet("BoilerPlate");
 
@@ -407,13 +506,15 @@ public class RCMFormGenerator extends JRibbonFrame {
                 atrDateCell.setCellValue(rp.getAtrDate());
 
                 jProgressBar1.setString("Updating " + dmod.getBaseDmc() + " QA 20038 sheet...");
-                outputArea.append("\tUpdating " + dmod.getBaseDmc() + " QA 20038 sheet...\n");
+                //outputArea.append("\tUpdating " + dmod.getBaseDmc() + " QA 20038 sheet...\n");
+                publishOutput("\tUpdating " + dmod.getBaseDmc() + " QA 20038 sheet");
                 XSSFSheet qa20038 = wb.getSheet("RCM20038_QA_");
                 XSSFCell commCell = qa20038.getRow(17).getCell(3);
                 commCell.setCellValue("NO COMMENTS");
                 
                 jProgressBar1.setString("Updating " + dmod.getBaseDmc() + " ATR 20038 sheet...");
-                outputArea.append("\tUpdating " + dmod.getBaseDmc() + " ATR 20038 sheet...\n");
+                //outputArea.append("\tUpdating " + dmod.getBaseDmc() + " ATR 20038 sheet...\n");
+                publishOutput("\tUpdating " + dmod.getBaseDmc() + " ATR 20038 sheet");
                 XSSFSheet atr20038 = wb.getSheet("RCM20038_ATR_");
                 XSSFCell atrcommCell = atr20038.getRow(17).getCell(3);
                 atrcommCell.setCellValue("NO COMMENTS");
@@ -424,7 +525,7 @@ public class RCMFormGenerator extends JRibbonFrame {
                 }
             } 
             catch (IOException ex) {
-                Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.FATAL, null, ex);
             }
             processFolder(new File(folderPath));
         }
@@ -447,7 +548,7 @@ public class RCMFormGenerator extends JRibbonFrame {
                    dmc_atts.getNamedItem("infoCode").getNodeValue() + dmc_atts.getNamedItem("infoCodeVariant").getNodeValue() + "-" + dmc_atts.getNamedItem("itemLocationCode").getNodeValue();
            
        } catch (SAXException | IOException | XPathExpressionException ex) {
-            Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.FATAL, null, ex);
             return null;
         }
     }
@@ -466,7 +567,7 @@ public class RCMFormGenerator extends JRibbonFrame {
             return tn.getTextContent() + " - " + iN.getTextContent();
         } 
         catch (SAXException | IOException | XPathExpressionException ex) {
-            Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.FATAL, null, ex);
             return null;
         }
         
@@ -515,7 +616,19 @@ public class RCMFormGenerator extends JRibbonFrame {
         } 
         catch (ParserConfigurationException ex) 
         {
-            Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.FATAL, null, ex);
+        }
+    }
+    
+    private void initFop()
+    {
+        try
+        {
+            fopFactory = FopFactory.newInstance(new File("conf/fop.xconf"));
+        }
+        catch(SAXException | IOException ex)
+        {
+            Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.WARN, null, ex);
         }
     }
     
@@ -574,6 +687,7 @@ public class RCMFormGenerator extends JRibbonFrame {
                 int res = jFileChooser1.showOpenDialog(RCMFormGenerator.this);
                 if(res == JFileChooser.APPROVE_OPTION)
                 {
+                    clearTable();
                     processFolder(jFileChooser1.getSelectedFile());
                 }
             }
@@ -652,6 +766,8 @@ public class RCMFormGenerator extends JRibbonFrame {
     private XPath XP;
     private CatalogResolver resolver;
     private ErrorHandler eHandler;
+    
+    private FopFactory fopFactory;
     
     private String folderPath;
     
