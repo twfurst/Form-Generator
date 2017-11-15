@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+           	
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. Reflect the changes done for the DM Schema on RPC comments.     *
+    *====================================================================*
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="dmaddr3.xsd"/>                         *
+    ********************************************************************** -->
+
+
+	<xs:element name="dmtitle">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dmtitle (Data Module Title) containing:-            *
+    *  techname - Mandatory  Single      contains Parsed Character Data. *
+    *  infoname - Optional   Single      contains Parsed Character Data. *
+    **********************************************************************
+		</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="techname"/>
+				<xs:element ref="infoname" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="techname" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element techname (Technical Name) containing:-              *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="infoname" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element infoname (Information Name) containing:-            *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>		
+	</xs:element>
+
+	<xs:element name="language">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element language (Language of Data Module) containing:-     *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  language - CDATA     - REQUIRED - Language Code (lowercase).      *
+    *  country  - CDATA     - IMPLIED  - Country Code (uppercase).       *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="language" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+    						<xs:pattern value="[a-z]{2,3}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="country">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+    						<xs:pattern value="[A-Z]{2}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="rpc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element rpc (Responsible Partner Company) of data module    *
+    * containing:-                                                       *
+    *  Parsed Character Data           - The NCAGE code of the RPC.      *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  rpcname  - "RPCNAME" - IMPLIED  - The name of the RPC responsible *
+    *                                    for the DM in the list entry.   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="rpcname" type="RPCNAME"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

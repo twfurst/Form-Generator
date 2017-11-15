@@ -1,0 +1,2157 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Remove inclusion of file FIG_TAB.XSD.            *
+    *                   Move inclusion of files LISTS.XSD and            *
+    *                   PARACON_STATIC.XSD to file WRNGFLDSSCHEMA.XSD.   *
+    * 2. CPF 2004-46US: Add optional subelements <dsc.econtact> and      *
+    *                   <dsc.statedes> to the content models of elements *
+    *                   <dsc.elecequip> and <dsc.connector>.             *
+    *                   Add optional subelement <dsc.nomenc> to the      *
+    *                   model of element <dsc.elecequip>.                *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="wrngflds.xsd"/>                        *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Define Group "CONTENT" (Content Breakdown) containing:-  wrngflds. *
+    ********************************************************************** -->
+	<xs:group name="CONTENT">
+		<xs:sequence>
+			<xs:element ref="wrngflds"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:group name="DSCDECL">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "DSCDECL" (Description and Declaration)  containing:- *
+    *  fldname    - Mandatory Single   contains   Parsed Character Data. *
+    *  dscr       - Optional  Single   contains   Parsed Character Data. *
+    *  refs       - Optional  Single   contains   norefs, refdm, reftp.  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="fldname"/>
+			<xs:element ref="dscr" minOccurs="0"/>
+			<xs:element ref="refs" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+
+
+	<xs:element name="wrngflds">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wrngflds (Wiring Data Description/Fields Container) *
+    * containing:-                                                       *
+    *  dsc.wires      - Optional  Single   contains dsc.circode,         *
+    *                                       dsc.wireno, dsc.secid,       *
+    *                                       dsc.wiretype, dsc.wiregauge, *
+    *                                       dsc.harnid, dsc.emc-code,    *
+    *                                       dsc.length, dsc.colour,      *
+    *                                       dsc.twist, dsc.coax,         *
+    *                                       dsc.triax, dsc.signal,       *
+    *                                       dsc.rfd, dsc.contact,        *
+    *                                       dsc.wireconcode,             *
+    *                                       dsc.netanacode, dsc.screen,  *
+    *                                       dsc.pre, dsc.fin, dsc.rpc,   *
+    *                                       dsc.routing, dsc.wireroute,  *
+    *                                       dsc.restriction,             *
+    *                                       dsc.fdescref, dsc.illref.    *
+    *  dsc.harness    - Optional  Single   contains dsc.harnid, dsc.pnr, *
+    *                                       dsc.altpnr, dsc.mfc,         *
+    *                                       dsc.harnvar, dsc.harnissue,  *
+    *                                       dsc.illref, dsc.routing,     *
+    *                                       dsc.rpc, dsc.fdescref.       *
+    *  dsc.elecequip  - Optional  Single   contains dsc.rfd, dsc.pnr,    *
+    *                                       dsc.altpnr, dsc.mfc,         *
+    *                                       dsc.instloc, dsc.accdopl,    *
+    *                                       dsc.assy, dsc.nhassy,        *
+    *                                       dsc.sbc, dsc.sibplugid,      *
+    *                                       dsc.trl, dsc.clc,            *
+    *                                       dsc.econtact, dsc.statedes,  *
+    *                                       dsc.rpc, dsc.nomenc,         *
+    *                                       dsc.equdescref, dsc.fdescref,*
+    *                                       dsc.illref.                  *
+    *  dsc.stdparts   - Optional  Single   contains dsc.connector,       *
+    *                                       dsc.vpart, dsc.accessory,    *
+    *                                       dsc.solder-sleeve,           *
+    *                                       dsc.shrink-sleeve,           *
+    *                                       dsc.ident-sleeve,            *
+    *                                       dsc.conduit, dsc.wire-mat.   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsc.wires" minOccurs="0"/>
+				<xs:element ref="dsc.harness" minOccurs="0"/>
+				<xs:element ref="dsc.elecequip" minOccurs="0"/>
+				<xs:element ref="dsc.stdparts" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.wires">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.wires (Wire Data/Field Descriptions)            *
+    * containing:-                                                       *
+    *  dsc.circode     - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.wireno      - Mandatory Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.secid       - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.wiretype    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.wiregauge   - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.harnid      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.emc-code    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.length      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.colour      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.twist       - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.coax        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.triax       - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.signal      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.rfd         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.contact     - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.wireconcode - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.netanacode  - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.screen      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.pre         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.fin         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.rpc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.routing     - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.wireroute   - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.restriction - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.fdescref    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.illref      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsc.circode" minOccurs="0"/>
+				<xs:element ref="dsc.wireno"/>
+				<xs:element ref="dsc.secid" minOccurs="0"/>
+				<xs:element ref="dsc.wiretype" minOccurs="0"/>
+				<xs:element ref="dsc.wiregauge" minOccurs="0"/>
+				<xs:element ref="dsc.harnid" minOccurs="0"/>
+				<xs:element ref="dsc.emc-code" minOccurs="0"/>
+				<xs:element ref="dsc.length" minOccurs="0"/>
+				<xs:element ref="dsc.colour" minOccurs="0"/>
+				<xs:element ref="dsc.twist" minOccurs="0"/>
+				<xs:element ref="dsc.coax" minOccurs="0"/>
+				<xs:element ref="dsc.triax" minOccurs="0"/>
+				<xs:element ref="dsc.signal" minOccurs="0"/>
+				<xs:element ref="dsc.rfd" minOccurs="0"/>
+				<xs:element ref="dsc.contact" minOccurs="0"/>
+				<xs:element ref="dsc.wireconcode" minOccurs="0"/>
+				<xs:element ref="dsc.netanacode" minOccurs="0"/>
+				<xs:element ref="dsc.screen" minOccurs="0"/>
+				<xs:element ref="dsc.pre" minOccurs="0"/>
+				<xs:element ref="dsc.fin" minOccurs="0"/>
+				<xs:element ref="dsc.rpc" minOccurs="0"/>
+				<xs:element ref="dsc.routing" minOccurs="0"/>
+				<xs:element ref="dsc.wireroute" minOccurs="0"/>
+				<xs:element ref="dsc.restriction" minOccurs="0"/>
+				<xs:element ref="dsc.fdescref" minOccurs="0"/>
+				<xs:element ref="dsc.illref" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.routing">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.routing (Routing Description) containing:-      *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.wireroute">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.wireroute (Wire Route Lane Code Description)    *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.restriction">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.restriction (Wire Restriction Description)      *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.screen">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.screen (Screening Description) containing:-     *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.fin">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.fin (Finish Description) containing:-           *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.pre">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.pre (Preparation Description) containing:-      *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.contact">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.contact (Contact Description) containing:-      *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.wireconcode">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.wireconcode (Wire Connection Code Description)  *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.netanacode">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.netanacode (Network Analysis Code Description)  *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.rfd">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.rfd (Reference Designator Description)          *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.length">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.length (Length Description) containing:-        *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.harnid">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.harnid (Harness Identification Description)     *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.colour">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.colour (Colour Description) containing:-        *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.emc-code">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.emc-code (EMC-Code Description) containing:-    *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.wiretype">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.wiretype (Wire Type Description) containing:-   *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.secid">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.secid (Section Identification Description)      *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.wireno">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.wireno (Wire Number Description)                *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.circode">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.circode (Circuit Code Description)              *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.wiregauge">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.wiregauge (Wire Gauge Description)              *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.twist">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.twist (Twist Description) containing:-          *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.coax">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.coax (Coax Description) containing:-            *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.triax">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.triax (Triax Description) containing:-          *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.signal">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.signal (Signal Description) containing:-        *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.illref">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.illref (Illustration Reference Description)     *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.harness">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.harness (Harness Data/Field Descriptions)       *
+    * containing:-                                                       *
+    *  dsc.harnid      - Mandatory Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.pnr         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.altpnr      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mfc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.harnvar     - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.harnissue   - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.routing     - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.rpc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.fdescref    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.illref      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsc.harnid"/>
+				<xs:element ref="dsc.pnr" minOccurs="0"/>
+				<xs:element ref="dsc.altpnr" minOccurs="0"/>
+				<xs:element ref="dsc.mfc" minOccurs="0"/>
+				<xs:element ref="dsc.harnvar" minOccurs="0"/>
+				<xs:element ref="dsc.harnissue" minOccurs="0"/>
+				<xs:element ref="dsc.routing" minOccurs="0"/>
+				<xs:element ref="dsc.rpc" minOccurs="0"/>
+				<xs:element ref="dsc.fdescref" minOccurs="0"/>
+				<xs:element ref="dsc.illref" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.pnr">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.pnr (Part Number Description) containing:-      *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.harnvar">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.harnvar (Harness Variant Description)           *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.harnissue">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.harnissue (Harness Issue Description)           *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.rpc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.rpc (Responsible Partner Company Description)   *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.elecequip">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.elecequip (Equipment Data/Field Descriptions)   *
+    * containing:-                                                       *
+    *  dsc.rfd         - Mandatory Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.pnr         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.altpnr      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mfc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.instloc     - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.accdopl     - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.assy        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.nhassy      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.sbc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.sibplugid   - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.trl         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.clc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.econtact    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.statedes    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.rpc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.nomenc      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.equdescref  - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.fdescref    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.illref      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsc.rfd"/>
+				<xs:element ref="dsc.pnr" minOccurs="0"/>
+				<xs:element ref="dsc.altpnr" minOccurs="0"/>
+				<xs:element ref="dsc.mfc" minOccurs="0"/>
+				<xs:element ref="dsc.instloc" minOccurs="0"/>
+				<xs:element ref="dsc.accdopl" minOccurs="0"/>
+				<xs:element ref="dsc.assy" minOccurs="0"/>
+				<xs:element ref="dsc.nhassy" minOccurs="0"/>
+				<xs:element ref="dsc.sbc" minOccurs="0"/>
+				<xs:element ref="dsc.sibplugid" minOccurs="0"/>
+				<xs:element ref="dsc.trl" minOccurs="0"/>
+				<xs:element ref="dsc.clc" minOccurs="0"/>
+				<xs:element ref="dsc.econtact" minOccurs="0"/>
+				<xs:element ref="dsc.statedes" minOccurs="0"/>
+				<xs:element ref="dsc.rpc" minOccurs="0"/>
+				<xs:element ref="dsc.nomenc" minOccurs="0"/>
+				<xs:element ref="dsc.equdescref" minOccurs="0"/>
+				<xs:element ref="dsc.fdescref" minOccurs="0"/>
+				<xs:element ref="dsc.illref" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Elements <dsc.econtact>, <dsc.statedes> and <dsc.nomenc> added -->
+<!-- Element <dsc.equdescref> repositioned -->
+
+	<xs:element name="dsc.econtact">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.econtact (Electrical Connection Contact         *
+    * Description)                                                       *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.statedes">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.statedes (Electrical State Description Field)   *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.nomenc">
+		<xs:annotation>
+			<xs:documentation>
+<!--**********************************************************************
+    * Define Element dsc.nomenc (Electrical Equipment Nomenclature       *
+    *                            Field Description)                      *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    ********************************************************************** -->
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.instloc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.instloc (Install Location Description)          *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.accdopl">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.accdopl (Access Door and Panel Description)     *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.assy">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.assy (Assembly Description) containing:-        *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.nhassy">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.nhassy (Next Higher Assembly Description)       *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.fdescref">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.fdescref (Functional Description Reference      *
+    *                              Description) containing:-             *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.sbc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.sbc (System Breakdown Code Description)         *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.equdescref">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.equdescref (Equipment Description Reference     *
+    *                                Description) containing:-           *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.sibplugid">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.sibplugid (Sibling Plug Identification          *
+    *                               Description) containing:-            *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.trl">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.trl (Transverse Link Description) containing:-  *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.clc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.clc (Connection List Code Description)          *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.stdparts">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.stdparts (Standard Parts Data/Field             *
+    *                              Descriptions)                         *
+    * containing:-                                                       *
+    *  dsc.connector     - Optional  Single   contains dsc.pnr,          *
+    *                                          dsc.altpnr, dsc.mfc,      *
+    *                                          dsc.mass, dsc.orientation,*
+    *                                          dsc.assy, dsc.rack,       *
+    *                                          dsc.ccount, dsc.contact,  *
+    *                                          dsc.cdia, dsc.fin,        *
+    *                                          dsc.tplus, dsc.tminus,    *
+    *                                          dsc.sterm, dsc.coax,      *
+    *                                          dsc.triax, dsc.module,    *
+    *                                          dsc.block, dsc.shunt,     *
+    *                                          dsc.econtact,             *
+    *                                          dsc.statedes, dsc.accpnr, *
+    *                                          dsc.fdescref, dsc.illref. *
+    *  dsc.vpart         - Optional  Single   contains dsc.pnr,          *
+    *                                          dsc.altpnr, dsc.mfc,      *
+    *                                          dsc.csize, dsc.mat,       *
+    *                                          dsc.mass, dsc.colour,     *
+    *                                          dsc.protect, dsc.cdia,    *
+    *                                          dsc.mint, dsc.maxt,       *
+    *                                          dsc.fdescref, dsc.illref. *
+    *  dsc.accessory     - Optional  Single   contains dsc.pnr,          *
+    *                                          dsc.altpnr, dsc.mfc,      *
+    *                                          dsc.mass, dsc.orientation,*
+    *                                          dsc.assy, dsc.fdescref,   *
+    *                                          dsc.illref.               *
+    *  dsc.solder-sleeve - Optional  Single   contains dsc.pnr,          *
+    *                                          dsc.altpnr, dsc.mfc,      *
+    *                                          dsc.length, dsc.mat,      *
+    *                                          dsc.mass, dsc.mind,       *
+    *                                          dsc.maxd, dsc.fdescref,   *
+    *                                          dsc.illref.               *
+    *  dsc.shrink-sleeve - Optional  Single   contains dsc.pnr,          *
+    *                                          dsc.altpnr, dsc.mfc,      *
+    *                                          dsc.size, dsc.mass,       *
+    *                                          dsc.colour, dsc.mind,     *
+    *                                          dsc.maxd, dsc.mint,       *
+    *                                          dsc.maxt, dsc.minh,       *
+    *                                          dsc.maxh, dsc.fdescref,   *
+    *                                          dsc.illref.               *
+    *  dsc.ident-sleeve  - Optional  Single   contains dsc.pnr,          *
+    *                                          dsc.altpnr, dsc.mfc,      *
+    *                                          dsc.length, dsc.mat,      *
+    *                                          dsc.mass, dsc.fdescref,   *
+    *                                          dsc.illref.               *
+    *  dsc.conduit       - Optional  Single   contains dsc.pnr,          *
+    *                                          dsc.altpnr, dsc.mfc,      *
+    *                                          dsc.size, dsc.mass,       *
+    *                                          dsc.colour, dsc.wallthk,  *
+    *                                          dsc.mint, dsc.maxt,       *
+    *                                          dsc.fdescref, dsc.illref. *
+    *  dsc.wire-mat      - Optional  Single   contains dsc.pnr,          *
+    *                                          dsc.altpnr, dsc.mfc,      *
+    *                                          dsc.wiretype,             *
+    *                                          dsc.wiregauge, dsc.core,  *
+    *                                          dsc.size, dsc.mass,       *
+    *                                          dsc.colour,               *
+    *                                          dsc.outjackcol,           *
+    *                                          dsc.outdia, dsc.res,      *
+    *                                          dsc.voltage, dsc.amperage,*
+    *                                          dsc.mint, dsc.maxt,       *
+    *                                          dsc.screencount, dsc.coax,*
+    *                                          dsc.triax, dsc.impedance, *
+    *                                          dsc.freq, dsc.attenuation,*
+    *                                          dsc.fdescref, dsc.illref. *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsc.connector" minOccurs="0"/>
+				<xs:element ref="dsc.vpart" minOccurs="0"/>
+				<xs:element ref="dsc.accessory" minOccurs="0"/>
+				<xs:element ref="dsc.solder-sleeve" minOccurs="0"/>
+				<xs:element ref="dsc.shrink-sleeve" minOccurs="0"/>
+				<xs:element ref="dsc.ident-sleeve" minOccurs="0"/>
+				<xs:element ref="dsc.conduit" minOccurs="0"/>
+				<xs:element ref="dsc.wire-mat" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.connector">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.connector (Connector Data/Field Descriptions)   *
+    * containing:-                                                       *
+    *  dsc.pnr         - Mandatory Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.altpnr      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mfc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mass        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.orientation - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.assy        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.rack        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.ccount      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.contact     - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.cdia        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.fin         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.tplus       - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.tminus      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.sterm       - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.coax        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.triax       - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.module      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.block       - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.shunt       - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.econtact    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.statedes    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.accpnr      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.fdescref    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.illref      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsc.pnr"/>
+				<xs:element ref="dsc.altpnr" minOccurs="0"/>
+				<xs:element ref="dsc.mfc" minOccurs="0"/>
+				<xs:element ref="dsc.mass" minOccurs="0"/>
+				<xs:element ref="dsc.orientation" minOccurs="0"/>
+				<xs:element ref="dsc.assy" minOccurs="0"/>
+				<xs:element ref="dsc.rack" minOccurs="0"/>
+				<xs:element ref="dsc.ccount" minOccurs="0"/>
+				<xs:element ref="dsc.contact" minOccurs="0"/>
+				<xs:element ref="dsc.cdia" minOccurs="0"/>
+				<xs:element ref="dsc.fin" minOccurs="0"/>
+				<xs:element ref="dsc.tplus" minOccurs="0"/>
+				<xs:element ref="dsc.tminus" minOccurs="0"/>
+				<xs:element ref="dsc.sterm" minOccurs="0"/>
+				<xs:element ref="dsc.coax" minOccurs="0"/>
+				<xs:element ref="dsc.triax" minOccurs="0"/>
+				<xs:element ref="dsc.module" minOccurs="0"/>
+				<xs:element ref="dsc.block" minOccurs="0"/>
+				<xs:element ref="dsc.shunt" minOccurs="0"/>
+				<xs:element ref="dsc.econtact" minOccurs="0"/>
+				<xs:element ref="dsc.statedes" minOccurs="0"/>
+				<xs:element ref="dsc.accpnr" minOccurs="0"/>
+				<xs:element ref="dsc.fdescref" minOccurs="0"/>
+				<xs:element ref="dsc.illref" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Elements <dsc.econtact> and <dsc.statedes> added to content model -->
+<!-- Element <dsc.accpnr> repositioned after <dsc.statedes> -->
+
+	<xs:element name="dsc.accpnr">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.accpnr (Accessory Part Number Description)      *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.altpnr">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.altpnr (Alternative Part Number Description)    *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.mfc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.mfc (Manufacturer Code Description)             *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.mass">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.mass (Mass Description) containing:-            *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.orientation">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.orientation (Orientation Description)           *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.rack">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.rack (Rack Description) containing:-            *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.ccount">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.ccount (Contact Count Description)              *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.cdia">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.cdia (Contact Diameter Description)             *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.tplus">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.tplus (Termo Couple Plus Description)           *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.tminus">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.tminus (Termo Couple Minus Description)         *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.sterm">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.sterm (Special Terminals Description)           *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.module">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.module (Module Description) containing:-        *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.block">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.block (Block Description) containing:-          *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.shunt">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.shunt (Shunt Description) containing:-          *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.vpart">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.vpart (Vpart Data/Field Descriptions)           *
+    * containing:-                                                       *
+    *  dsc.pnr         - Mandatory Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.altpnr      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mfc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.csize       - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mat         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mass        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.colour      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.protect     - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.cdia        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mint        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.maxt        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.fdescref    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.illref      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsc.pnr"/>
+				<xs:element ref="dsc.altpnr" minOccurs="0"/>
+				<xs:element ref="dsc.mfc" minOccurs="0"/>
+				<xs:element ref="dsc.csize" minOccurs="0"/>
+				<xs:element ref="dsc.mat" minOccurs="0"/>
+				<xs:element ref="dsc.mass" minOccurs="0"/>
+				<xs:element ref="dsc.colour" minOccurs="0"/>
+				<xs:element ref="dsc.protect" minOccurs="0"/>
+				<xs:element ref="dsc.cdia" minOccurs="0"/>
+				<xs:element ref="dsc.mint" minOccurs="0"/>
+				<xs:element ref="dsc.maxt" minOccurs="0"/>
+				<xs:element ref="dsc.fdescref" minOccurs="0"/>
+				<xs:element ref="dsc.illref" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.csize">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.csize (Contact Size Description) containing:-   *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.protect">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.protect (Protect Description) containing:-      *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.mat">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.mat (Material Description) containing:-         *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.mint">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.mint (Minimum Temperature Description)          *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.maxt">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.maxt (Maximum Temperature Description)          *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.accessory">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.accessory (Accessory Data/Field Descriptions)   *
+    * containing:-                                                       *
+    *  dsc.pnr         - Mandatory Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.altpnr      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mfc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mass        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.orientation - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.assy        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.fdescref    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.illref      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsc.pnr"/>
+				<xs:element ref="dsc.altpnr" minOccurs="0"/>
+				<xs:element ref="dsc.mfc" minOccurs="0"/>
+				<xs:element ref="dsc.mass" minOccurs="0"/>
+				<xs:element ref="dsc.orientation" minOccurs="0"/>
+				<xs:element ref="dsc.assy" minOccurs="0"/>
+				<xs:element ref="dsc.fdescref" minOccurs="0"/>
+				<xs:element ref="dsc.illref" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.solder-sleeve">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.solder-sleeve (Solder-Sleeve Data/Field         *
+    *                                   Descriptions) containing:-       *
+    *  dsc.pnr         - Mandatory Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.altpnr      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mfc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.length      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mat         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mass        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mind        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.maxd        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.fdescref    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.illref      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsc.pnr"/>
+				<xs:element ref="dsc.altpnr" minOccurs="0"/>
+				<xs:element ref="dsc.mfc" minOccurs="0"/>
+				<xs:element ref="dsc.length" minOccurs="0"/>
+				<xs:element ref="dsc.mat" minOccurs="0"/>
+				<xs:element ref="dsc.mass" minOccurs="0"/>
+				<xs:element ref="dsc.mind" minOccurs="0"/>
+				<xs:element ref="dsc.maxd" minOccurs="0"/>
+				<xs:element ref="dsc.fdescref" minOccurs="0"/>
+				<xs:element ref="dsc.illref" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.mind">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.mind (Minimum Diameter Description)             *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.maxd">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.maxd (Maximum Diameter Description)             *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.shrink-sleeve">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.shrink-sleeve (Shrink-Sleeve Data/Field         *
+    *                                   Descriptions) containing:-       *
+    *  dsc.pnr         - Mandatory Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.altpnr      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mfc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.size        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mass        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.colour      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mind        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.maxd        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mint        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.maxt        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.minh        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.maxh        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.fdescref    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.illref      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsc.pnr"/>
+				<xs:element ref="dsc.altpnr" minOccurs="0"/>
+				<xs:element ref="dsc.mfc" minOccurs="0"/>
+				<xs:element ref="dsc.size" minOccurs="0"/>
+				<xs:element ref="dsc.mass" minOccurs="0"/>
+				<xs:element ref="dsc.colour" minOccurs="0"/>
+				<xs:element ref="dsc.mind" minOccurs="0"/>
+				<xs:element ref="dsc.maxd" minOccurs="0"/>
+				<xs:element ref="dsc.mint" minOccurs="0"/>
+				<xs:element ref="dsc.maxt" minOccurs="0"/>
+				<xs:element ref="dsc.minh" minOccurs="0"/>
+				<xs:element ref="dsc.maxh" minOccurs="0"/>
+				<xs:element ref="dsc.fdescref" minOccurs="0"/>
+				<xs:element ref="dsc.illref" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.size">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.size (Size Description) containing:-            *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+          
+	<xs:element name="dsc.minh">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.minh (Minimum Harness Size Description)         *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.maxh">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.maxh (Maximum Harness Size Description)         *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+          
+	<xs:element name="dsc.ident-sleeve">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.ident-sleeve (Ident-Sleeve Data/Field           *
+    *                                  Descriptions) containing:-        *
+    *  dsc.pnr         - Mandatory Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.altpnr      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mfc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.length      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mat         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mass        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.fdescref    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.illref      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsc.pnr"/>
+				<xs:element ref="dsc.altpnr" minOccurs="0"/>
+				<xs:element ref="dsc.mfc" minOccurs="0"/>
+				<xs:element ref="dsc.length" minOccurs="0"/>
+				<xs:element ref="dsc.mat" minOccurs="0"/>
+				<xs:element ref="dsc.mass" minOccurs="0"/>
+				<xs:element ref="dsc.fdescref" minOccurs="0"/>
+				<xs:element ref="dsc.illref" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.conduit">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.conduit (Conduit Data/Field Descriptions)       *
+    * containing:-                                                       *
+    *  dsc.pnr         - Mandatory Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.altpnr      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mfc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.size        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mass        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.colour      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.wallthk     - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mint        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.maxt        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.fdescref    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.illref      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsc.pnr"/>
+				<xs:element ref="dsc.altpnr" minOccurs="0"/>
+				<xs:element ref="dsc.mfc" minOccurs="0"/>
+				<xs:element ref="dsc.size" minOccurs="0"/>
+				<xs:element ref="dsc.mass" minOccurs="0"/>
+				<xs:element ref="dsc.colour" minOccurs="0"/>
+				<xs:element ref="dsc.wallthk" minOccurs="0"/>
+				<xs:element ref="dsc.mint" minOccurs="0"/>
+				<xs:element ref="dsc.maxt" minOccurs="0"/>
+				<xs:element ref="dsc.fdescref" minOccurs="0"/>
+				<xs:element ref="dsc.illref" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.wallthk">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.wallthk (Wall Thickness Description)            *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.wire-mat">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.wire-mat (Wire Material Data/Field Descriptions *
+    * containing:-                                                       *
+    *  dsc.pnr         - Mandatory Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.altpnr      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mfc         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.wiretype    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.wiregauge   - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.core        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.size        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mass        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.colour      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.outjackcol  - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.outdia      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.res         - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.voltage     - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.amperage    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.mint        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.maxt        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.screencount - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.coax        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.triax       - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.impedance   - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.freq        - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.attenuation - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.fdescref    - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    *  dsc.illref      - Optional  Single   contains Definition stored   *
+    *                                                in group "DSCDECL". *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsc.pnr"/>
+				<xs:element ref="dsc.altpnr" minOccurs="0"/>
+				<xs:element ref="dsc.mfc" minOccurs="0"/>
+				<xs:element ref="dsc.wiretype" minOccurs="0"/>
+				<xs:element ref="dsc.wiregauge" minOccurs="0"/>
+				<xs:element ref="dsc.core" minOccurs="0"/>
+				<xs:element ref="dsc.size" minOccurs="0"/>
+				<xs:element ref="dsc.mass" minOccurs="0"/>
+				<xs:element ref="dsc.colour" minOccurs="0"/>
+				<xs:element ref="dsc.outjackcol" minOccurs="0"/>
+				<xs:element ref="dsc.outdia" minOccurs="0"/>
+				<xs:element ref="dsc.res" minOccurs="0"/>
+				<xs:element ref="dsc.voltage" minOccurs="0"/>
+				<xs:element ref="dsc.amperage" minOccurs="0"/>
+				<xs:element ref="dsc.mint" minOccurs="0"/>
+				<xs:element ref="dsc.maxt" minOccurs="0"/>
+				<xs:element ref="dsc.screencount" minOccurs="0"/>
+				<xs:element ref="dsc.coax" minOccurs="0"/>
+				<xs:element ref="dsc.triax" minOccurs="0"/>
+				<xs:element ref="dsc.impedance" minOccurs="0"/>
+				<xs:element ref="dsc.freq" minOccurs="0"/>
+				<xs:element ref="dsc.attenuation" minOccurs="0"/>
+				<xs:element ref="dsc.fdescref" minOccurs="0"/>
+				<xs:element ref="dsc.illref" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.core">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.core (Core Description) containing:-            *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.outjackcol">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.outjackcol (Outer Jacket Colour Description)    *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.res">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.res (Resistance Description) containing:-       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.outdia">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.outdia (Outer Diameter Description)             *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.voltage">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.voltage (Voltage Description) containing:-      *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.amperage">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.amperage (Amperage Description) containing:-    *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+          
+	<xs:element name="dsc.screencount">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.screencount (Screen Count Description)          *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.impedance">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.impedance (Impedance Description) containing:-  *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+          
+	<xs:element name="dsc.freq">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.freq (Frequency Description) containing:-       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dsc.attenuation">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dsc.attenuation (Attenuation Description)           *
+    * containing:-                                                       *
+    *  Definition stored in group "DSCDECL".                             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DSCDECL"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+          
+	<xs:element name="fldname" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element fldname (Data/Field Name) containing:-              *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="dscr" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dscr (Data/Field Description) containing:-          *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+
+</xs:schema>

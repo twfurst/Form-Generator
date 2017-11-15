@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Move elements <note> and <para> from file        *
+    *                   WCNP.XSD to here, i.e. split WCNP.XSD into WC.XSD*
+    *                   and PARAGRAPHS.XSD.                              *
+    *                   Remove inclusion of group "gen_inc" from element *
+    *                   <para>.                                          *
+    *                   Move group "NP" from file COMMON.XSD to here.    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="paragraphs.xsd"/>                      *
+    ********************************************************************** -->
+
+
+<!-- Call with minOccurs="0" maxOccurs="unbounded" !-->
+	<xs:group name="NP">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "NP" (Note or Paragraph) containing:-                 *
+    *  note      - Mandatory Single   contains applic, symbol, para,     *
+    *                                 Definition stored in group "list". *
+    *  or                                                                *
+    *   para     - Mandatory Single   contains applic, Definition stored *
+    *                                 in group "paracon".                *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="note"/>
+			<xs:element ref="para"/>
+		</xs:choice>
+	</xs:group>
+
+
+	<xs:element name="note">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element note (Note) containing:-                            *
+    *   applic  - Optional   Single      contains type, model.           *
+    *====================================================================*
+    * Mandatory Repeatable Group.                                        *
+    *====================================================================*
+    *   symbol  - Mandatory  Single      contains applic.                *
+    *  or                                                                *
+    *   para    - Mandatory  Single      contains applic, Definition     *
+    *                                     stored in group "paracon".     *
+    *  or                                                                *
+    *   Definition stored in group "list".                               *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  type     - CDATA    - IMPLIED  - Specifies the type of Note.      *
+    *  xrefid   - IDREF    - IMPLIED  - Specifies a unique identifier of *
+    *                                   an element.                      *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="symbol"/>
+					<xs:element ref="para"/>
+					<xs:group ref="list"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="type" type="xs:string"/>
+			<xs:attribute name="xrefid" type="xs:IDREF"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="para">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element para (Paragraph) containing:-                       *
+    *   applic  - Optional   Single      contains type, model.           *
+    *   Definition stored in group "paracon"  - Mandatory Repeatable.    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:group ref="paracon" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+			<xs:attributeGroup ref="secur"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Content model changed -->
+
+
+</xs:schema>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2004-49DE: Redefine pattern on element <seqnum> to contain  *
+    *                   always a 5-digit positive integer.               *
+    *                                                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="seqnum.xsd"/>                          *
+    ********************************************************************** -->
+
+
+	<xs:element name="seqnum">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element seqnum (Sequence Number of DDN, DML and Comment for *
+    *                        current year)                               *
+    * containing:-                                                       *
+    *  Positive 5-digit integer number.                                  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:positiveInteger">
+				<xs:pattern value="[0-9]{5}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+
+</xs:schema>

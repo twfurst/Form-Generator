@@ -374,6 +374,51 @@ public class RCMFormGenerator extends JRibbonFrame {
         outputArea.setCaretPosition(outputArea.getText().length());
     }
     
+    private void createBoth()
+    {
+        jProgressBar1.setVisible(true);
+        jProgressBar1.setStringPainted(true);
+        jProgressBar1.setString("Creating boilerplates and PDFs...");
+        jProgressBar1.setIndeterminate(true);
+        FolderTableModel model = (FolderTableModel)folderTable.getModel();
+        final List<DataModuleObject> dms = model.getAllMods();
+        SwingWorker<Boolean, Integer> worker = new SwingWorker<Boolean, Integer>()
+        {
+            @Override
+            protected Boolean doInBackground() 
+            {
+                if(rp.getWriter().equals("Choose...") || rp.getQa1().equals("Choose...") || rp.getAtr().equals("Choose..."))
+                {
+                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+                }
+                else
+                {
+                    for(DataModuleObject d : dms)
+                    {
+                        System.out.println(d.getBaseDmc());
+                        jProgressBar1.setString("Processing " + d.getBaseDmc() + "...");
+                        publishOutput("Processing " + d.getBaseDmc());
+//                        outputArea.append("Processing " + d.getBaseDmc() + "...\n");
+//                        outputArea.setCaretPosition(outputArea.getText().length());
+                        populateBp(d);
+                        populatePdf(d);
+                    }
+                }
+                
+                return true; 
+            }
+            @Override
+            protected void done()
+            {
+                jProgressBar1.setIndeterminate(false);
+                jProgressBar1.setStringPainted(false);
+                jProgressBar1.setVisible(false);
+            }
+
+        };
+        worker.execute();
+    }
+    
     private void createBp()
     {
         jProgressBar1.setVisible(true);
@@ -697,9 +742,7 @@ public class RCMFormGenerator extends JRibbonFrame {
         createAllItemsButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                String writer = rp.getWriter();
-                String writeDate = rp.getWriterDate();
-                JOptionPane.showMessageDialog(RCMFormGenerator.this, rp.getWriter() + " - " + writeDate);
+                createBoth();
             }
             });
         createAllBoilerButton = new JCommandButton("Create only Boilerplate", getIcon("notepad.png"));

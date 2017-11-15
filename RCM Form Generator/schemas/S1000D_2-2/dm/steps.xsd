@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Replace group "NP" by new group "NPFFT" in the   *
+    *                   content model of "stepcon".                      *
+    *                   Remove inclusion of "fft_inc" on elements        *
+    *                   <step1> thru <step5>.                            *
+    * 2. CPF 2004-32US: Expand Process DM to include <step1> content:    *
+    *                   Create STEPX content groups that can be          *
+    *                   customized for static and interactive use.       *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="steps.xsd"/>                           *
+    ********************************************************************** -->
+
+
+	<xs:group name="stepcon">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "stepcon" (Step Content) containing:-                 *
+    *  Definition stored in group "HEADING1".                            *
+    *  Definition stored in group "WC".                                  *
+    *  Definition stored in group "NPFFT".                               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="HEADING1"/>
+			<xs:group ref="WC"/>
+			<xs:group ref="NPFFT" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:group>
+<!-- Group "NP" replaced by "NPFFT" -->
+
+	<xs:element name="step1">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element step1 (Procedural Step Level 1) containing:-        *
+    *  Definition stored in group "stepcon".                             *
+    *  Definition stored in group "STEP2".                               *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "CHECKSTP".   *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="stepcon"/>
+				<xs:group ref="STEP2" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="CHECKSTP"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed and content model changed -->
+
+	<xs:element name="step2">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element step2 (Procedural Step Level 2) containing:-        *
+    *  Definition stored in group "stepcon".                             *
+    *  Definition stored in group "STEP3".                               *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "CHECKSTP".   *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="stepcon"/>
+				<xs:group ref="STEP3" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="CHECKSTP"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>	
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed and content model changed -->
+
+	<xs:element name="step3">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element step3 (Procedural Step Level 3) containing:-        *
+    *  Definition stored in group "stepcon".                             *
+    *  Definition stored in group "STEP4".                               *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "CHECKSTP".   *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="stepcon"/>
+				<xs:group ref="STEP4" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="CHECKSTP"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed and content model changed -->
+
+	<xs:element name="step4">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element step4 (Procedural Step Level 4) containing:-        *
+    *  Definition stored in group "stepcon".                             *
+    *  Definition stored in group "STEP5".                               *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "CHECKSTP".   *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="stepcon"/>	
+				<xs:group ref="STEP5" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="CHECKSTP"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed and content model changed -->
+
+	<xs:element name="step5">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element step5 (Procedural Step Level 5) containing:-        *
+    *  Definition stored in group "stepcon".                             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "CHECKSTP".   *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>
+			<xs:group ref="stepcon"/>
+			<xs:attributeGroup ref="CHECKSTP"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed and content model changed -->
+
+
+</xs:schema>

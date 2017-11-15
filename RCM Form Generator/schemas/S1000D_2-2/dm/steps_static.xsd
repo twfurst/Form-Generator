@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2004-32US: Expand Process DM to include <step1> content:    *
+    *                   Create STEPX content groups for static           *
+    *                   data modules.                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="steps_static.xsd"/>                    *
+    ********************************************************************** -->
+
+	<xs:group name="STEP1">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group STEP1 (First Level Step content) containing:-         *
+    *  step1    - Mandatory Single       contains Definition stored in   *
+    *                                    group "stepcon", step2.         *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="step1"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:group name="STEP2">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group STEP2 (Second Level Step content) containing:-        *
+    *  step2    - Mandatory Single       contains Definition stored in   *
+    *                                    group "stepcon", step3.         *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="step2"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:group name="STEP3">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group STEP3 (Third Level Step content) containing:-         *
+    *  step3    - Mandatory Single       contains Definition stored in   *
+    *                                    group "stepcon", step4.         *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="step3"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:group name="STEP4">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group STEP4 (Fourth Level Step content) containing:-        *
+    *  step4    - Mandatory Single       contains Definition stored in   *
+    *                                    group "stepcon", step5.         *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="step4"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:group name="STEP5">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group STEP5 (Fifth Level Step content) containing:-         *
+    *  step5    - Mandatory Single       contains Definition stored in   *
+    *                                    group "stepcon".                *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="step5"/>
+		</xs:sequence>
+	</xs:group>
+	
+
+</xs:schema>

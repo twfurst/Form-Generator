@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2004-32US: Schema created.                                  *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="applic_static.xsd"/>                   *
+    ********************************************************************** -->
+
+	<xs:group name="APPLIC">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group APPLIC (Applicability content) containing:-           *
+    *  type       - Optional Single      contains Parsed Character Data. *
+    *  model      - Optional Repeatable  contains version, csnref, nsn,  *
+    *                                             mfc, pnr, serialno,    *
+    *                                             batchno, moduleno,     *
+    *                                             customer, softprog,    *
+    *                                             maintlevel, config.    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="type" minOccurs="0"/>
+			<xs:element ref="model" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:group>
+
+</xs:schema>

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2004-32US: Expand Process DM to include <step1> content:    *
+    *                   Moved <closeup> from PROCED.XSD to here.         *
+    * 2. CPF 2004-03SE: Rename element <closeup> to <closereqs>. Change  *
+    *                   its content model to include element <reqconds>  *
+    *                   only and remove inclusion of <figure>, <foldout> *
+    *                   and <table>.                                     *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="closereq.xsd"/>                        *
+    ********************************************************************** -->
+
+	<xs:element name="closereqs">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    *  Define Element closeup (Close up procedures) containing:-         *
+    *  Define Element closereqs (Close up requirements) containing:-     *
+    *  reqconds   - Mandatory  Single     contains noconds, reqcond,     *
+    *                                              reqcondm, reqcontp.   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="reqconds"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Element <closeup> renamed to <closereqs>, content model changed and
+     inclusion of <figure>, <foldout>, <table> removed. -->
+
+
+</xs:schema>

@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Move elements <note> and <para> to new file      *
+    *                   PARAGRAPHS.XSD, i.e. split WCNP.XSD into WC.XSD  *
+    *                   and PARAGRAPHS.XSD.                              *
+    *                   Move group "WC" from file COMMON.XSD to here.    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="wc.xsd"/>                              *
+    ********************************************************************** -->
+
+
+	<xs:group name="WC">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "WC" (Warning and Caution) containing:-               *
+    *  warning  - Optional Repeatable  contains applic, symbol, para,    *
+    *                                           Definition stored in     *
+    *                                           group "list".            *
+    *  caution  - Optional Repeatable  contains applic, symbol, para,    *
+    *                                           Definition stored in     *
+    *                                           group "list".            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="warning" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="caution" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:element name="warning">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element warning (Warning) containing:-                      *
+    *   applic  - Optional   Single      contains type, model.           *
+    *====================================================================*
+    * Mandatory Repeatable Group.                                        *
+    *====================================================================*
+    *   symbol  - Mandatory  Single      contains applic.                *
+    *  or                                                                *
+    *   para    - Mandatory  Single      contains applic, Definition     *
+    *                                     stored in group "paracon".     *
+    *  or                                                                *
+    *   Definition stored in group "list".                               *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  type     - CDATA    - IMPLIED  - Specifies the type of Warning.   *
+    *  xrefid   - IDREF    - IMPLIED  - Specifies a unique identifier of *
+    *                                   an element.                      *
+    *  vital    - NUMBER   - "0"      - Declares if vital warning.       *
+    *           - "0"      - None Vital Warning.                         *
+    *           - "1"      - Vital Warning.                              *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="symbol"/>
+					<xs:element ref="para"/>
+					<xs:group ref="list"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="type" type="xs:string"/>
+			<xs:attribute name="xrefid" type="xs:IDREF"/>
+			<xs:attribute name="vital" type="yesorno" default="0"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="caution">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element caution (Caution) containing:-                      *
+    *   applic  - Optional   Single      contains type, model.           *
+    *====================================================================*
+    * Mandatory Repeatable Group.                                        *
+    *====================================================================*
+    *   symbol  - Mandatory  Single      contains applic.                *
+    *  or                                                                *
+    *   para    - Mandatory  Single      contains applic, Definition     *
+    *                                     stored in group "paracon".     *
+    *  or                                                                *
+    *   Definition stored in group "list".                               *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  type     - CDATA    - IMPLIED  - Specifies the type of Caution.   *
+    *  xrefid   - IDREF    - IMPLIED  - Specifies a unique identifier of *
+    *                                   an element.                      *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="symbol"/>
+					<xs:element ref="para"/>
+					<xs:group ref="list"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="type" type="xs:string"/>
+			<xs:attribute name="xrefid" type="xs:IDREF"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

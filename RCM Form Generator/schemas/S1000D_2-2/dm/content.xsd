@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Replace group "text" by "TEXT-NOREFS" in the     *
+    *                   content model of element <reftp>.                *
+    * 2. CPF 2004-06SE: Make element <refs> optional and change its      *
+    *                   content model. Remove element <techpub>, move    *
+    *                   its content model up one level under element     *
+    *                   <reftp> and change content occurrences from      *
+    *                   multiple to single.                              *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="content.xsd"/>                         *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Import the XLINK definitions.                                      *
+    ********************************************************************** -->
+	<xs:import 	namespace="http://www.w3.org/1999/xlink" 
+			schemaLocation="xlink.xsd"/>
+
+
+	<xs:element name="content">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element content (Content Structure) containing:-            *
+    *  refs     - Optional   Single      contains norefs, refdm, reftp.  *
+    *  Definition stored in group CONTENT.                               *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id       - ID       - IMPLIED  - Unique identifier of content.    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="refs" minOccurs="0"/>
+				<xs:group ref="CONTENT"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Occurrence of <refs> now optional. -->
+
+	<xs:element name="refs">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element refs (References) containing:-                      *
+    *====================================================================*
+    *  Mandatory Single Group.                                           *
+    *====================================================================*
+    *   refdm   - Mandatory  Repeatable   contains applic, Definition    *
+    *                                     stored in group "ALLDMC",      *
+    *                                     issno, dmtitle, Definition     *
+    *                                     stored in group "XLINKEXT".    *
+    *   reftp   - Optional   Repeatable   contains applic, Definitions   *
+    *                                     stored in groups "TEXT-NOREFS",*
+    *                                     "PUBREF", "XLINKEXT".          *
+    *====================================================================*
+    * or                                                                 *
+    *  reftp    - Mandatory  Repeatable   contains applic, Definitions   *
+    *                                     stored in groups "TEXT-NOREFS",*
+    *                                     "PUBREF", "XLINKEXT".          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="refdm" maxOccurs="unbounded"/>
+					<xs:element ref="reftp" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:element ref="reftp" maxOccurs="unbounded"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+<!-- Content model changed. -->
+
+	<xs:element name="refdm">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element refdm (Reference Data Module) containing:-          *
+    *====================================================================*
+    * Mandatory Single Group.                                            *
+    *====================================================================*
+    *  applic   - Optional   Single      contains type, model.           *
+    *  Definition stored in group "ALLDMC".                              *
+    *  issno    - Optional   Single      contains No Other Tags.         *
+    *  dmtitle  - Optional   Single      contains techname, infoname.    *
+    *====================================================================*
+    * or                                                                 *
+    *  Definition stored in group "XLINKEXT".                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  target  - CDATA   - IMPLIED - Cross reference ID within target DM *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "XLINKATT".   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="applic" minOccurs="0"/>
+					<xs:group ref="ALLDMC"/>
+					<xs:element ref="issno" minOccurs="0"/>
+					<xs:element ref="dmtitle" minOccurs="0"/>
+				</xs:sequence>
+				<xs:group ref="xlink:XLINKEXT" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:attribute name="target" type="xs:string"/>
+			<xs:attributeGroup ref="bodyatt"/>
+			<xs:attributeGroup ref="xlink:XLINKATT"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="reftp">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element reftp (Reference Technical Publication)             *
+    * containing:-                                                       *
+    *   applic   - Optional   Single      contains type, model.          *
+    *====================================================================*
+    *   Mandatory Single Group.                                          *
+    *====================================================================*
+    *     Definition stored in group "TEXT-NOREFS" - Optional Repeatable.*
+    *    or                                                              *
+    *     Definition stored in group "PUBREF".                           *
+    *====================================================================*
+    *  or                                                                *
+    *   Definition stored in group "XLINKEXT" - Optional  Repeatable.    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "XLINKATT4".  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:choice>
+					<xs:group ref="TEXT-NOREFS" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:group ref="PUBREF"/>
+				</xs:choice>
+				<xs:group ref="xlink:XLINKEXT" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+			<xs:attributeGroup ref="xlink:XLINKATT4"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Content model of previous subelement <techpub> inserted. -->
+
+
+</xs:schema>

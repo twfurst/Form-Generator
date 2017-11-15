@@ -1,0 +1,3687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2013, v.4002-->
+<?Pub Inc?>
+<?APT StylesheetID Title="S1000D Technical Repository Module Styler Editor Stylesheet" Description="" CompositionTypes=",dmp,epub" StylerVersion="6.02"?>
+<Styler xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="http://www.arbortext.com/namespace/doctypes/styler"
+xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements"
+xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements"
+xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements"
+xmlns:_dtd="http://www.arbortext.com/namespace/Styler/UserElements"
+xmlns:rtf="http://www.cambridgedocs.com/namespace/fo/rtf"
+xmlns:saxon="http://saxon.sf.net/"
+xmlns:dc="http://www.purl.org/dc/elements/1.1/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:ch="http://www.arbortext.com/namespace/chunker"
+xmlns:atidlm="http://www.arbortext.com/namespace/atidlm"
+xmlns:_acl="java:com.arbortext.epic.Acl"
+xmlns:_js="java:com.arbortext.epic.internal.js.JavaScript">
+<StyleSheetInfo minorVersion="2" printPdfEngine="FOSI" stylerVersion="6">
+<ElementSet/>
+<ChunkConfig/>
+<HtmlOutputConfig cssStyleLocation="inHtmlHead"
+cssStyling="allProperties" listItemsAsTables="yes" output="htmlfile"
+outputXhtml="no" titlesAsTables="yes"/>
+<HtmlOutputConfig cssStyleLocation="externalCssFile"
+cssStyling="allProperties" listItemsAsTables="yes" output="web"
+outputXhtml="no" titlesAsTables="no"/>
+<HtmlOutputConfig cssStyleLocation="externalCssFile"
+cssStyling="allProperties" listItemsAsTables="yes" output="htmlhelp"
+outputXhtml="no" titlesAsTables="no"/>
+<HtmlOutputConfig cssStyleLocation="externalCssFile"
+cssStyling="allProperties" listItemsAsTables="yes" output="dmp"
+outputXhtml="no" titlesAsTables="no"/>
+<Language defaultLanguage="en" langAttribute="xml:lang"
+langDetermination="attribute">
+<GentextLanguage gentextLanguageName="en"/>
+<LanguageMap sourceLanguage="en" targetLanguage="en-US"/>
+<LanguageMap sourceLanguage="de" targetLanguage="de-1996"/></Language>
+</StyleSheetInfo><?Pub Caret -2?>
+<PropertySets>
+<PropertySet propertySetId="box"><?Pub Dtl?>
+<BaseProperties>
+<Highlight shading="#E0FFDF"/></BaseProperties>
+<EditedSource sourceType="fosi">&lt;charsubset charsubsetid="box">
+&lt;boxing toffset="2pt" boffset="2pt" loffset="2pt" roffset="2pt"
+thick="1pt" inclr="#E0FFE0"/>&lt;/charsubset></EditedSource>
+<EditedSource sourceType="xslFo">&lt;xsl:template name="ps-box">
+   &lt;xsl:attribute name="background-color">#E0FFE0&lt;/xsl:attribute>
+    &lt;xsl:attribute name="border">thin solid&lt;/xsl:attribute>
+  &lt;xsl:attribute name="padding">2pt&lt;/xsl:attribute>   &lt;/xsl:template></EditedSource>
+<EditedSource sourceType="xslHtml">&lt;xsl:variable name="ps-box">background-color:
+#E0F0E0; border: thin  solid; padding: 2pt; &lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslDmp">&lt;xsl:variable name="ps-box">background-color:
+#E0F0E0; border: thin  solid; padding: 2pt; &lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslHtmlHelp">&lt;xsl:variable name="ps-box">background-color:
+#E0F0E0; border: thin  solid; padding: 2pt; &lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslEpub">&lt;xsl:variable name="ps-box">background-color:
+#E0F0E0; border: thin  solid; padding: 2pt; &lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslWeb">&lt;xsl:variable name="ps-box">background-color:
+#E0F0E0; border: thin  solid; padding: 2pt; &lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslFoRtf">&lt;xsl:template name="ps-box">
+   &lt;xsl:attribute name="background-color">#E0FFE0&lt;/xsl:attribute>
+    &lt;xsl:attribute name="border">thin solid&lt;/xsl:attribute>
+  &lt;xsl:attribute name="padding">2pt&lt;/xsl:attribute>   &lt;/xsl:template></EditedSource>
+</PropertySet>
+<PropertySet propertySetId="double-underline"><?Pub Dtl?>
+<BaseProperties>
+<Highlight textUnderlineStyle="underline"/></BaseProperties>
+<EditedSource sourceType="fosi">&lt;charsubset charsubsetid="double-underline">
+&lt;highlt scoring="1" scorewt="0.05em" scoreoff="0.08em" xscoring="1"
+xscorewt="0.05em"  xscoreoff="0.24em"/>&lt;/charsubset></EditedSource>
+<EditedSource sourceType="xslFo"> &lt;xsl:template name="ps-double-underline">
+    &lt;xsl:attribute name="text-decoration">underline &lt;/xsl:attribute>
+    &lt;xsl:attribute name="atixslfoext:text-underline-style">double&lt;/xsl:attribute>
+  &lt;/xsl:template></EditedSource>
+<EditedSource sourceType="xslHtml">&lt;xsl:variable name="ps-double-underline">border-bottom:
+0.2em double;     &lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslDmp">&lt;xsl:variable name="ps-double-underline">border-bottom:
+0.2em double;     &lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslHtmlHelp">&lt;xsl:variable name="ps-double-underline">border-bottom:
+0.2em double;     &lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslEpub">&lt;xsl:variable name="ps-double-underline">border-bottom:
+0.2em double;     &lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslWeb">&lt;xsl:variable name="ps-double-underline">border-bottom:
+0.2em double;     &lt;/xsl:variable></EditedSource>
+</PropertySet>
+<PropertySet propertySetId="Footnote_font">
+<BaseProperties>
+<Font family="Serif" italic="no" size="12pt" weight="normal"/>
+<Highlight allcaps="no" color="#000000" shading="#FFFFFF" smallcaps="no"
+textLineThroughStyle="none" textUnderlineStyle="none"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Index_grouphead_space"><?Pub Dtl?>
+<BaseProperties>
+<SpaceAfter minimum=".3pc" optimum=".5pc" precedence="medium"/>
+</BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Index_group_space"><?Pub Dtl?>
+<BaseProperties>
+<SpaceBefore maximum="1.6pc" minimum="1.2pc" optimum="1.5pc"
+precedence="medium"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Link"><?Pub Dtl?>
+<BaseProperties>
+<Highlight color="#0000FF" textUnderlineStyle="underline"/>
+</BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="List_item_space"><?Pub Dtl?>
+<BaseProperties>
+<SpaceBefore conditionality="discard" maximum="8pt" minimum="4pt"
+optimum="6pt" precedence="medium"/>
+<SpaceAfter maximum="8pt" minimum="4pt" optimum="6pt"
+precedence="medium"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="overline"><?Pub Dtl?>
+<BaseProperties></BaseProperties>
+<EditedSource sourceType="fosi">&lt;charsubset charsubsetid="overline">&lt;highlt
+scoring="1" scorewt="0.05em" scoreoff="-0.8em">&lt;/charsubset></EditedSource>
+<EditedSource sourceType="xslFo">&lt;xsl:template name="ps-overline">&lt;xsl:attribute
+name="text-decoration">overline&lt;/xsl:attribute>&lt;/xsl:template></EditedSource>
+<EditedSource sourceType="xslHtml">&lt;xsl:variable name="ps-overline">text-decoration:
+overline&lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslDmp">&lt;xsl:variable name="ps-overline">text-decoration:
+overline&lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslHtmlHelp">&lt;xsl:variable name="ps-overline">text-decoration:
+overline&lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslEpub">&lt;xsl:variable name="ps-overline">text-decoration:
+overline&lt;/xsl:variable></EditedSource>
+<EditedSource sourceType="xslWeb">&lt;xsl:variable name="ps-overline">text-decoration:
+overline&lt;/xsl:variable></EditedSource>
+</PropertySet>
+<PropertySet propertySetId="overstrike-with-slash"><?Pub Dtl?>
+<BaseProperties>
+<Highlight textLineThroughStyle="wordsAndSpaces"/></BaseProperties>
+<EditedSource sourceType="fosi">&lt;charsubset charsubsetid="overstrike-with-slash">
+&lt;highlt scorechron="1" scorechr="/"/>&lt;/charsubset></EditedSource>
+<EditedSource sourceType="xslFo">&lt;xsl:template name="ps-overstrike-with-slash">
+    &lt;xsl:attribute name="atixslfoext:overstrike">true&lt;/xsl:attribute>
+    &lt;xsl:attribute name="atixslfoext:overstrike-character">/&lt;/xsl:attribute>
+  &lt;/xsl:template></EditedSource>
+</PropertySet>
+<PropertySet propertySetId="Standard_space"><?Pub Dtl?>
+<BaseProperties>
+<SpaceBefore conditionality="discard" maximum="10pt" minimum="6pt"
+optimum="8pt" precedence="none"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Table_space"><?Pub Dtl?>
+<BaseProperties>
+<SpaceBefore maximum="1.2em" minimum="1.2em" optimum="1.2em"
+precedence="low"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_1"><?Pub Dtl?>
+<BaseProperties>
+<Font size="20pt" weight="bold"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_2"><?Pub Dtl?>
+<BaseProperties>
+<Font size="18pt" weight="bold"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_3"><?Pub Dtl?>
+<BaseProperties>
+<Font size="16pt" weight="bold"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_4"><?Pub Dtl?>
+<BaseProperties>
+<Font size="14pt" weight="bold"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_5"><?Pub Dtl?>
+<BaseProperties>
+<Font size="12pt" weight="bold"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_6"><?Pub Dtl?>
+<BaseProperties>
+<Font size="12pt"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_7"><?Pub Dtl?>
+<BaseProperties>
+<Font size="12pt" weight="bold"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_8"><?Pub Dtl?>
+<BaseProperties>
+<Font size="12pt" weight="bold"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_9"><?Pub Dtl?>
+<BaseProperties>
+<Font size="12pt" weight="bold"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_alignment"><?Pub Dtl?>
+<BaseProperties>
+<Alignment align="left" lastLineAlign="relative"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_color"><?Pub Dtl?>
+<BaseProperties>
+<Highlight color="#0000FF"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_color_for_print"><?Pub Dtl?>
+<BaseProperties>
+<Highlight color="#0000FF"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_font"><?Pub Dtl?>
+<BaseProperties>
+<Font family="Sanserif"/></BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_keeps"><?Pub Dtl?>
+<BaseProperties>
+<Hyphenation hyphenate="no"/>
+<Keep keepScope="withinColumn" together="7" withNext="7"/>
+</BaseProperties>
+</PropertySet>
+<PropertySet propertySetId="Title_space"><?Pub Dtl?>
+<BaseProperties>
+<LineSpacing lineHeight="1.1em"/>
+<SpaceBefore maximum="2em" minimum="1em" optimum="1.5em"
+precedence="medium"/>
+<SpaceAfter maximum="1.5em" minimum=".8em" optimum="1em"
+precedence="high"/></BaseProperties>
+</PropertySet>
+</PropertySets>
+<Elements>
+<Element
+description='This element wraps all "Add before" and "Add after" generated text.'
+name="_sfe:BeforeOrAfterText" style="nostyle">
+<Context priority="0" selector="_sfe:BeforeOrAfterText">
+<BaseProperties></BaseProperties>
+</Context>
+</Element>
+<Element
+description='This element wraps the content of each item whose content is inserted by Insert Element Content, when occurrence is "all".'
+name="_sfe:CollectionItem" style="inline"><?Pub Dtl?>
+<Context priority="14.01" selector="_sfe:CollectionItem[1]">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+<Context priority="9.01"
+selector="_sfe:CollectionItem[position()>1 and not(position()=last())]">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Aa89be2ec-9289-4094-9f6a-31c7563cbf8f"><_gte:Target lang="en"
+>, </_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="4.01" selector="_sfe:CollectionItem[last()]">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A754daec6-dc37-4223-b1bd-87c8bf68dd72"><_gte:Target lang="en"
+>, and </_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="0" selector="_sfe:CollectionItem">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps all generated cross-references."
+name="_sfe:CrossReference" style="inline"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:CrossReference">
+<BaseProperties></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps title text in a cross-reference"
+name="_sfe:CrossReferenceTitle" style="inline"><?Pub Dtl?>
+<Context priority="10"
+selector="_sfe:HeaderOrFooter//_sfe:CrossReferenceTitle">
+<BaseProperties></BaseProperties>
+</Context>
+<Context priority="0" selector="_sfe:CrossReferenceTitle">
+<BaseProperties>
+<Font italic="yes"/></BaseProperties>
+</Context>
+</Element>
+<Element description="This element wraps all generated external links."
+name="_sfe:ExternalLink" style="link">
+<LinkDetails primary="no" uriAttrname="href"/>
+<Context priority="0" selector="_sfe:ExternalLink">
+<BaseProperties propertySetReferences="Link"></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps headers, footers, TOCs, cross references, and repeating titles generated text."
+name="_sfe:Gentext" style="nostyle"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:Gentext">
+<BaseProperties></BaseProperties>
+</Context>
+</Element>
+<Element description="This element wraps all headers and footers."
+name="_sfe:HeaderOrFooter" style="block"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:HeaderOrFooter">
+<BaseProperties>
+<SpaceBefore maximum="0pt" minimum="0pt" optimum="0pt"
+precedence="force"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element description="This element wraps all indexes." name="_sfe:Index"
+style="block"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:Index">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps the group head and all index entries for an alphabetic group."
+name="_sfe:IndexAlphaGroup_Main_Index" style="block"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:IndexAlphaGroup_Main_Index">
+<BaseProperties>
+<SpaceBefore maximum="1.6pc" minimum="1.2pc" optimum="1.5pc"
+precedence="medium"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element contains the text of the last page number in a merged page number range."
+name="_sfe:IndexEndPage_Main_Index" style="inline"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:IndexEndPage_Main_Index">
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ae61eeb7e-383b-4267-8dd9-0eca23279695"><_gte:Target lang="en"
+>–</_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element description="This element wraps an index entry at any level."
+name="_sfe:IndexEntry_Main_Index" style="block"><?Pub Dtl?>
+<Context priority="30"
+selector="_sfe:IndexEntry_Main_Index/_sfe:IndexEntry_Main_Index/_sfe:IndexEntry_Main_Index/_sfe:IndexEntry_Main_Index">
+<BaseProperties>
+<Indent firstLineIndent="*-.5em" leftIndent="@1em"/>
+<Alignment align="left"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="20"
+selector="_sfe:IndexEntry_Main_Index/_sfe:IndexEntry_Main_Index/_sfe:IndexEntry_Main_Index">
+<BaseProperties>
+<Indent firstLineIndent="*-.5em" leftIndent="@1em"/>
+<Alignment align="left"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="10"
+selector="_sfe:IndexEntry_Main_Index/_sfe:IndexEntry_Main_Index">
+<BaseProperties>
+<Indent firstLineIndent="*-.5em" leftIndent="@1em"/>
+<Alignment align="left"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="0" selector="_sfe:IndexEntry_Main_Index">
+<BaseProperties>
+<Indent firstLineIndent="*-.5em" lastLineRightIndent="0pt"
+leftIndent="@.5em" rightIndent="@2pc"/>
+<Alignment align="left"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element contains the heading for a group of index entries."
+name="_sfe:IndexGroupHead_Main_Index" style="block"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:IndexGroupHead_Main_Index">
+<BaseProperties>
+<Font family="Sanserif" size="14pt" weight="bold"/>
+<Highlight allcaps="yes"/>
+<Alignment align="left"/>
+<SpaceAfter minimum=".3pc" optimum=".5pc" precedence="medium"/>
+<Breaks blockOrInline="block"/>
+<Keep withNext="7"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element contains the indexed text of an index entry."
+name="_sfe:IndexHeading_Main_Index" style="inline"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:IndexHeading_Main_Index">
+<BaseProperties>
+<Keep keepScope="withinLine" together="3"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps the page numbers or other locators of an index entry."
+name="_sfe:IndexLocators_Main_Index" style="inline"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:IndexLocators_Main_Index">
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A1b79d31f-c32d-45dc-ba1b-cb24570b361c"><_gte:Target lang="en"
+><_gte:Leaders leaderType="dots" leaderSpacing="1em" lenType="fit"
+minLen="3.00em"/></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element contains the text of a single page number or other locator."
+name="_sfe:IndexPage_Main_Index" style="inline"><?Pub Dtl?>
+<Context priority="2" selector="_sfe:IndexPage_Main_Index[position()>1]">
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Adf421331-22b7-4ac3-bcde-b27f8ba65549"><_gte:Target lang="en"
+>, </_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="0" selector="_sfe:IndexPage_Main_Index">
+<BaseProperties></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps a group head and all index entries that follow alphabetic entries."
+name="_sfe:IndexPostGroup_Main_Index" style="block"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:IndexPostGroup_Main_Index">
+<BaseProperties>
+<SpaceBefore maximum="1.6pc" minimum="1.2pc" optimum="1.5pc"
+precedence="medium"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps a group head and all index entries that precede alphabetic entries."
+name="_sfe:IndexPreGroup_Main_Index" style="block"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:IndexPreGroup_Main_Index">
+<BaseProperties>
+<SpaceBefore maximum="1.6pc" minimum="1.2pc" optimum="1.5pc"
+precedence="medium"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps the group head and all index entries for a group that encompasses a range of characters."
+name="_sfe:IndexRangeGroup_Main_Index" style="block"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:IndexRangeGroup_Main_Index">
+<BaseProperties>
+<SpaceBefore maximum="1.6pc" minimum="1.2pc" optimum="1.5pc"
+precedence="medium"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description='This element contains the text of a "See Also" reference in an index entry.'
+name="_sfe:IndexSeeAlso_Main_Index" style="block"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:IndexSeeAlso_Main_Index">
+<BaseProperties>
+<Indent firstLineIndent="*-1.5em" leftIndent="@3em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ab6bf6b50-c48c-4554-88c8-c882dafc75e6"><_gte:Target lang="en"
+><_gte:Font Posture="italic">See also </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element
+description='This element contains the text of a "See" reference in an index entry.'
+name="_sfe:IndexSee_Main_Index" style="inline"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:IndexSee_Main_Index">
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Affe275f1-90df-4686-bde6-c383d7ab28ff"><_gte:Target lang="en"
+>, <_gte:Font Posture="italic">See </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element contains the heading for a sub-group of index entries (Chinese modes 1 and 3 only)."
+name="_sfe:IndexSubGroupHead_Main_Index" style="block"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:IndexSubGroupHead_Main_Index">
+<BaseProperties>
+<Font size="14pt" weight="bold"/>
+<Highlight allcaps="yes"/>
+<Alignment align="left"/>
+<SpaceBefore maximum="2pc" minimum="2pc" optimum="2pc" precedence="high"/>
+<Breaks blockOrInline="block"/>
+<Keep withNext="7"/></BaseProperties>
+</Context>
+</Element>
+<Element description="This element wraps an index."
+name="_sfe:Index_Main_Index" style="block"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:Index_Main_Index">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element description="This element wraps all generated internal links."
+name="_sfe:InternalLink" style="link">
+<LinkDetails idrefAttrname="targetId" primary="no"/>
+<Context priority="0" selector="_sfe:InternalLink">
+<BaseProperties propertySetReferences="Link"></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps repeating titles (also known as continued titles)."
+name="_sfe:RepeatingTitle" style="block"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:RepeatingTitle">
+<BaseProperties>
+<SpaceAfter conditionality="keep" optimum="18pt" precedence="low"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps repeating bottom titles (also known as bottom continued titles)."
+name="_sfe:RepeatingTitleBottom" style="block"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:RepeatingTitleBottom">
+<BaseProperties>
+<SpaceBefore conditionality="keep" optimum="18pt" precedence="low"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="SITA" style="block">
+<Context priority="10" selector="enterpriseSpec//SITA">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Af7d548c3-d992-4afd-90f5-f60af6b49f2b"><_gte:Target lang="en"
+><_gte:Font Weight="bold">SITA: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="0" selector="SITA">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element description="This element wraps all tables of contents."
+name="_sfe:TableOfContents" style="block"><?Pub Dtl?>
+<Context priority="0" selector="_sfe:TableOfContents">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps first level table of contents entries."
+name="_sfe:TocEntry1_content__lof" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry1_content__lof">
+<BaseProperties>
+<Indent/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="3.00em" followWith="emspace" includeLabel="no"
+numberAlignment="left" tabtoAfter="6.00em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps first level table of contents entries."
+name="_sfe:TocEntry1_content__lot" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry1_content__lot">
+<BaseProperties>
+<Indent/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="3.00em" followWith="emspace" includeLabel="no"
+numberAlignment="left" tabtoAfter="6.00em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps first level table of contents entries."
+name="_sfe:TocEntry1_content__toc" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry1_content__toc">
+<BaseProperties>
+<Indent firstLineIndent="*-4.00em" lastLineRightIndent="0pt"
+leftIndent="@4.00em" rightIndent="@2pc"/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="3.00em" followWith="emspace" includeLabel="no"
+numberAlignment="left" tabtoAfter="6.00em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps second level table of contents entries."
+name="_sfe:TocEntry2_content__lof" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry2_content__lof">
+<BaseProperties>
+<Indent/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="3.00em" followWith="emspace" includeLabel="no"
+numberAlignment="left" tabtoAfter="6.00em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps second level table of contents entries."
+name="_sfe:TocEntry2_content__lot" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry2_content__lot">
+<BaseProperties>
+<Indent/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="3.00em" followWith="emspace" includeLabel="no"
+numberAlignment="left" tabtoAfter="6.00em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps second level table of contents entries."
+name="_sfe:TocEntry2_content__toc" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry2_content__toc">
+<BaseProperties>
+<Indent firstLineIndent="*-4.00em" lastLineRightIndent="0pt"
+leftIndent="@4.00em" rightIndent="@2pc"/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="3.00em" followWith="emspace" includeLabel="no"
+numberAlignment="left" tabtoAfter="6.00em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps third level table of contents entries."
+name="_sfe:TocEntry3_content__lof" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry3_content__lof">
+<BaseProperties>
+<Indent/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="3.00em" followWith="emspace" includeLabel="no"
+numberAlignment="left" tabtoAfter="6.00em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps third level table of contents entries."
+name="_sfe:TocEntry3_content__lot" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry3_content__lot">
+<BaseProperties>
+<Indent/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="3.00em" followWith="emspace" includeLabel="no"
+numberAlignment="left" tabtoAfter="6.00em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps third level table of contents entries."
+name="_sfe:TocEntry3_content__toc" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry3_content__toc">
+<BaseProperties>
+<Indent firstLineIndent="*-4.00em" lastLineRightIndent="0pt"
+leftIndent="@4.00em" rightIndent="@2pc"/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="3.00em" followWith="emspace" includeLabel="no"
+numberAlignment="left" tabtoAfter="6.00em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps fourth level table of contents entries."
+name="_sfe:TocEntry4_content__lof" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry4_content__lof">
+<BaseProperties>
+<Indent/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="0em" followWith="space" includeLabel="yes"
+numberAlignment="left" tabtoAfter="0em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps fourth level table of contents entries."
+name="_sfe:TocEntry4_content__lot" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry4_content__lot">
+<BaseProperties>
+<Indent/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="0em" followWith="space" includeLabel="yes"
+numberAlignment="left" tabtoAfter="0em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps fourth level table of contents entries."
+name="_sfe:TocEntry4_content__toc" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry4_content__toc">
+<BaseProperties>
+<Indent firstLineIndent="*-2em" lastLineRightIndent="0pt"
+leftIndent="@2em" rightIndent="@2pc"/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="0em" followWith="space" includeLabel="yes"
+numberAlignment="left" tabtoAfter="0em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps fifth level table of contents entries."
+name="_sfe:TocEntry5_content__lof" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry5_content__lof">
+<BaseProperties>
+<Indent/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="0em" followWith="space" includeLabel="yes"
+numberAlignment="left" tabtoAfter="0em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps fifth level table of contents entries."
+name="_sfe:TocEntry5_content__lot" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry5_content__lot">
+<BaseProperties>
+<Indent/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="0em" followWith="space" includeLabel="yes"
+numberAlignment="left" tabtoAfter="0em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps fifth level table of contents entries."
+name="_sfe:TocEntry5_content__toc" style="link">
+<LinkDetails idrefAttrname="tocentry_id" primary="no"/>
+<Context priority="0" selector="_sfe:TocEntry5_content__toc">
+<BaseProperties>
+<Indent firstLineIndent="*-2em" lastLineRightIndent="0pt"
+leftIndent="@2em" rightIndent="@2pc"/>
+<Breaks blockOrInline="block"/>
+<NumberLayout alignAt="0em" followWith="space" includeLabel="yes"
+numberAlignment="left" tabtoAfter="0em"/></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps the label and number of table of contents entries."
+name="_sfe:TocLabel_content__lof" style="inline">
+<Context priority="0" selector="_sfe:TocLabel_content__lof">
+<BaseProperties></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps the label and number of table of contents entries."
+name="_sfe:TocLabel_content__lot" style="inline">
+<Context priority="0" selector="_sfe:TocLabel_content__lot">
+<BaseProperties></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps the label and number of table of contents entries."
+name="_sfe:TocLabel_content__toc" style="inline">
+<Context priority="0" selector="_sfe:TocLabel_content__toc">
+<BaseProperties></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps page numbers in table of contents entries."
+name="_sfe:TocPage_content__lof" style="inline">
+<Context priority="0" selector="_sfe:TocPage_content__lof">
+<BaseProperties>
+<Hidden hidden="yes"/></BaseProperties>
+<OutputProperties output="printpdf">
+<Hidden hidden="no"/></OutputProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps page numbers in table of contents entries."
+name="_sfe:TocPage_content__lot" style="inline">
+<Context priority="0" selector="_sfe:TocPage_content__lot">
+<BaseProperties>
+<Hidden hidden="yes"/></BaseProperties>
+<OutputProperties output="printpdf">
+<Hidden hidden="no"/></OutputProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps page numbers in table of contents entries."
+name="_sfe:TocPage_content__toc" style="inline">
+<Context priority="0" selector="_sfe:TocPage_content__toc">
+<BaseProperties>
+<Hidden hidden="yes"/></BaseProperties>
+<OutputProperties output="printpdf">
+<Hidden hidden="no"/></OutputProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps title text in table of contents entries."
+name="_sfe:TocTitle_content__lof" style="inline">
+<Context priority="0" selector="_sfe:TocTitle_content__lof">
+<BaseProperties></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps title text in table of contents entries."
+name="_sfe:TocTitle_content__lot" style="inline">
+<Context priority="0" selector="_sfe:TocTitle_content__lot">
+<BaseProperties></BaseProperties>
+</Context>
+</Element>
+<Element
+description="This element wraps title text in table of contents entries."
+name="_sfe:TocTitle_content__toc" style="inline">
+<Context priority="0" selector="_sfe:TocTitle_content__toc">
+<BaseProperties></BaseProperties>
+</Context>
+</Element>
+<Element description="This element wraps a table of contents."
+name="_sfe:Toccontent__lof" style="block">
+<Context priority="0" selector="_sfe:Toccontent__lof">
+<BaseProperties></BaseProperties>
+</Context>
+</Element>
+<Element description="This element wraps a table of contents."
+name="_sfe:Toccontent__lot" style="block">
+<Context priority="0" selector="_sfe:Toccontent__lot">
+<BaseProperties></BaseProperties>
+</Context>
+</Element>
+<Element description="This element wraps a table of contents."
+name="_sfe:Toccontent__toc" style="block">
+<Context priority="0" selector="_sfe:Toccontent__toc">
+<BaseProperties></BaseProperties>
+</Context>
+</Element>
+<Element name="accessFrom" style="block">
+<Context priority="0" selector="accessFrom">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A7cbb3724-b0fc-4be9-bdf2-5b2761762963"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Access from: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="accessPointAlt" style="block">
+<Context priority="0" selector="accessPointAlt">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="8.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A43b00333-a736-4f26-ae6e-a2624d89f26c"><_gte:Target lang="en"
+><_gte:Font Posture="italic" Weight="bold">Alternate access point</_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="accessPointIdent" style="block">
+<Context priority="0" selector="accessPointIdent">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Ab80fc8b8-f2ef-475b-994e-6522848bd1c5"><_gte:Target lang="en"
+><_gte:Font Weight="bold"> <_gte:AttributeContent
+attr="accessPointNumber" occur="1" scope="accessPointIdent"/> </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="accessPointRefGroup" style="block">
+<Context priority="0" selector="accessPointRefGroup">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="accessPointRepository" style="block">
+<Context priority="0" selector="accessPointRepository">
+<BaseProperties>
+<Font family="Sanserif"/>
+<SpaceBefore optimum="16pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A4a31a49c-470d-4152-ba65-c44874f852e3"><_gte:Target lang="en"
+><_dtd:_touchup FontWeight="bold" TextbrkStartln="yes"
+TextbrkEndln="yes" FontSize="20pt" PostspNominal="12pt"
+PostspMinimum="12pt" PostspMaximum="12pt" PrespNominal="16pt"
+PrespMinimum="16pt" PrespMaximum="16pt">Access Point Repository</_dtd:_touchup
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="accessPointSpec" style="block">
+<Context priority="0" selector="accessPointSpec">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="12pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Afd393c7f-6033-477e-bd42-7213affab2ca"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Access point </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="accessPointType" style="block">
+<Context priority="0" selector="accessPointType">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="accessPointTypeValue" testType="equals"
+testValue="accpnl01"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A5aed9d8c-939c-4758-9738-8c1efd9a5917"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Door access type </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="accessPointTypeValue" testType="equals"
+testValue="accpnl02"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A1bc27d6d-e7bd-456c-acdf-28b385046129"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Panel access type </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="accessPointTypeValue" testType="equals"
+testValue="accpnl03"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A6da0b4d3-ff1e-4c49-b912-0280ad29dc78"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Electrical panel access type </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="accessTo" style="block">
+<Context priority="0" selector="accessTo">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A869cc388-fc98-40e2-8520-7b8769b5c3a0"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Access to: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="altPart" style="block">
+<Context priority="0" selector="altPart">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Abad1e601-37bd-4bf3-9f18-52305365909f"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Alternate part: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Aedc8c44c-f69a-409c-93ef-9ab683673dec"><_gte:Target lang="en"
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="altPartDescr" style="inline">
+<Context priority="0" selector="altPartDescr">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Element>
+<Element name="boundary" style="inline">
+<Context priority="0" selector="boundary">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Element>
+<Element name="boundaryFrom" style="block">
+<Context priority="0" selector="boundaryFrom">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ab493443b-5d95-4e56-90b9-5bad9fec420a"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Boundary from: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="boundaryTo" style="block">
+<Context priority="0" selector="boundaryTo">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ac38209e3-d61f-4a61-9bd0-5c297c9dc765"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Boundary from: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="businessUnit" style="block">
+<Context priority="0" selector="businessUnit">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="12pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ac634db50-fe49-4e1d-bcbc-6f981a8634dd"><_gte:Target lang="en"
+><_gte:Font Posture="italic" Weight="bold">Business Unit</_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="businessUnitAddress" style="block">
+<Context priority="20" selector="contactaddr/businessUnitAddress">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="8.00pt"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="0" selector="businessUnitAddress">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="businessUnitName" style="block">
+<Context priority="10" selector="enterpriseSpec//businessUnitName">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ab247bacd-cf1c-412c-aac8-4749e187c9bc"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Business unit: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="0" selector="businessUnitName">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="buyerFurnishedEquipFlag" style="block">
+<Context priority="0" selector="buyerFurnishedEquipFlag">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A9c80528a-57ff-48cb-b046-06224e894fb4"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Buyer furnished equipment </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="circuitBreakerAlt" style="block">
+<Context priority="0" selector="circuitBreakerAlt">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="8.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Afa287004-87ea-4567-aa82-2e6c925927b7"><_gte:Target lang="en"
+><_gte:Font Posture="italic" Weight="bold">Alternate circuit breaker</_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="circuitBreakerClass" style="inline">
+<Context priority="0" selector="circuitBreakerClass">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Aad2169e1-7c55-482d-9248-5ace0762e085"><_gte:Target lang="en"
+> (<_gte:AttributeContent attr="circuitBreakerType" occur="1"
+scope="circuitBreakerClass"/>) </_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="circuitBreakerType" testType="equals"
+testValue="elmec"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ab9d06c01-f1d8-42fd-89e0-591377907da2"><_gte:Target lang="en"
+> (electro-mechanic) </_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="circuitBreakerType" testType="equals"
+testValue="eltro"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ae2c4c1ce-da73-4fe4-b208-6a1d991748a4"><_gte:Target lang="en"
+> (electronic) </_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="circuitBreakerIdent" style="block">
+<Context priority="0" selector="circuitBreakerIdent">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A994dfb4f-1799-4154-8bbf-1aaa58ee541f"><_gte:Target lang="en"
+><_gte:Font Weight="bold"> <_gte:AttributeContent
+attr="circuitBreakerNumber" occur="1" scope="circuitBreakerIdent"
+/> </_gte:Font></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="circuitBreakerRepository" style="block">
+<Context priority="0" selector="circuitBreakerRepository">
+<BaseProperties>
+<Font family="Sanserif"/>
+<SpaceBefore optimum="16pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A1cf46ff1-e922-4f7c-a112-5a221310a919"><_gte:Target lang="en"
+><_dtd:_touchup FontWeight="bold" TextbrkStartln="yes"
+TextbrkEndln="yes" FontSize="20pt" PostspNominal="12pt"
+PostspMinimum="12pt" PostspMaximum="12pt" PrespNominal="16pt"
+PrespMinimum="16pt" PrespMaximum="16pt">Circuit Breaker Repository</_dtd:_touchup
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="circuitBreakerSpec" style="block">
+<Context priority="0" selector="circuitBreakerSpec">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="12pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A85088ba4-8e91-41af-b9ba-938f046295b7"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Circuit breaker </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="contactPerson" style="block">
+<Context priority="0" selector="contactPerson">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="12pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ad8226ba4-11ae-40d7-b57e-79da546a6b69"><_gte:Target lang="en"
+><_gte:Font Posture="italic" Weight="bold">Contact person</_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="contactPersonAddress" style="block">
+<Context priority="0" selector="contactPersonAddress">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="controlIndicatorDescr" style="block">
+<Context priority="0" selector="controlIndicatorDescr">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A6b4ec5df-794a-4bb0-9cfb-d8df82877e1f"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Description: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="controlIndicatorFunction" style="block">
+<Context priority="0" selector="controlIndicatorFunction">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A9389dd94-3c80-4ae2-9380-f2ca465a793e"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Function: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="controlIndicatorGroup" style="block">
+<Context priority="0" selector="controlIndicatorGroup">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="controlIndicatorKey" style="block">
+<Context priority="0" selector="controlIndicatorKey">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Aa102da16-3d94-462c-99b6-4b566e20cecd"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Key: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="controlIndicatorName" style="block">
+<Context priority="0" selector="controlIndicatorName">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A54a36c74-b908-4a6d-8203-dcd63a5646d4"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Designation: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="controlIndicatorRepository" style="block">
+<Context priority="0" selector="controlIndicatorRepository">
+<BaseProperties>
+<Font family="Sanserif"/>
+<SpaceBefore optimum="16pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A39e1d1af-347b-44c1-8695-9f68557e60ec"><_gte:Target lang="en"
+><_dtd:_touchup FontWeight="bold" TextbrkStartln="yes"
+TextbrkEndln="yes" FontSize="20pt" PostspNominal="12pt"
+PostspMinimum="12pt" PostspMaximum="12pt" PrespNominal="16pt"
+PrespMinimum="16pt" PrespMaximum="16pt">Control Indicator Repository</_dtd:_touchup
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="controlIndicatorSpec" style="block">
+<Context priority="0" selector="controlIndicatorSpec">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="12pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Aa1e95038-97d4-4b15-830c-043f7a74b543"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Control indicator <_gte:AttributeContent
+attr="controlIndicatorNumber" occur="1" scope="controlIndicatorSpec"
+/></_gte:Font></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="enterpriseIdent" style="block">
+<Context priority="0" selector="enterpriseIdent">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A627c64e6-6e14-4bae-92da-6c8d2b3146b9"><_gte:Target lang="en"
+><_gte:Font Weight="bold"> <_gte:AttributeContent
+attr="manufacturerCodeValue" occur="1" scope="enterpriseIdent"/> </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="enterpriseIdentAlt" style="block">
+<Context priority="0" selector="enterpriseIdentAlt">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Aebd03737-ec15-4199-b78c-bac9e552dbdd"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Alternate identifier: <_gte:AttributeContent
+attr="altCode" occur="1" scope="enterpriseIdentAlt"/> type <_gte:AttributeContent
+attr="altCodeType" occur="1" scope="enterpriseIdentAlt"/> </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="enterpriseRef" style="block">
+<Context priority="0" selector="enterpriseRef">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="enterpriseRepository" style="block">
+<Context priority="0" selector="enterpriseRepository">
+<BaseProperties>
+<Font family="Sanserif"/>
+<SpaceBefore optimum="16pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ae85e19ca-662c-4ed5-822d-4173e69965f8"><_gte:Target lang="en"
+><_dtd:_touchup FontWeight="bold" TextbrkStartln="yes"
+TextbrkEndln="yes" FontSize="20pt" PostspNominal="12pt"
+PostspMinimum="12pt" PostspMaximum="12pt" PrespNominal="16pt"
+PrespMinimum="16pt" PrespMaximum="16pt">Enterprise Repository</_dtd:_touchup
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="enterpriseSpec" style="block">
+<Context priority="0" selector="enterpriseSpec">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="9.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Aa719ad42-43c0-4755-883a-d413b527bc9c"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Enterprise information item </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="fastener" style="block">
+<Context priority="20" selector="accessPointAlt/fastener">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="0" selector="fastener">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="fastenerQuantity" style="inline">
+<Context priority="0" selector="fastenerQuantity">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ab4c58c48-d338-4e19-8a4b-db8d487be02c"><_gte:Target lang="en"
+> Quantity </_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="fastenerType" style="inline">
+<Context priority="0" selector="fastenerType">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A954d5822-f2eb-4360-84da-779ad7f14a19"><_gte:Target lang="en"
+> Fastener </_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="functionalItemAlt" style="block">
+<Context priority="0" selector="functionalItemAlt">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="8.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ab0541a47-cc0d-4267-9ddd-8b912a88514d"><_gte:Target lang="en"
+><_gte:Font Posture="italic" Weight="bold">Alternate functional item</_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="functionalItemIdent" style="block">
+<Context priority="0" selector="functionalItemIdent">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A836a0557-e007-4fa7-a60b-2122fb0eb622"><_gte:Target lang="en"
+><_gte:Font Weight="bold"> <_gte:AttributeContent
+attr="functionalItemNumber" occur="1" scope="functionalItemIdent"
+/> </_gte:Font></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="functionalItemRefGroup" style="block">
+<Context priority="0" selector="functionalItemRefGroup">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="8.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Abea0077a-eb0f-4cd3-a2cf-2d20c2fc4228"><_gte:Target lang="en"
+><_gte:Font Posture="italic" Weight="bold">Reference group <_gte:AttributeContent
+attr="functionalItemRefType" occur="1" scope="functionalItemRefGroup"
+/></_gte:Font></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="functionalItemRepository" style="block">
+<Context priority="0" selector="functionalItemRepository">
+<BaseProperties>
+<Font family="Sanserif"/>
+<SpaceBefore optimum="16pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A7f9f8cdf-7d00-49cd-b761-4506f7d11ca6"><_gte:Target lang="en"
+><_dtd:_touchup FontWeight="bold" TextbrkStartln="yes"
+TextbrkEndln="yes" FontSize="20pt" PostspNominal="12pt"
+PostspMinimum="12pt" PostspMaximum="12pt" PrespNominal="16pt"
+PrespMinimum="16pt" PrespMaximum="16pt">Functional Item Repository</_dtd:_touchup
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="functionalItemSpec" style="block">
+<Context priority="0" selector="functionalItemSpec">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="9.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A22bb3625-acd8-48cd-a2eb-1106eb004dbe"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Functional item </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="functionalPhysicalAreaIdent" style="block">
+<Context priority="0" selector="functionalPhysicalAreaIdent">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A8c244df7-88e8-4bd3-8275-9b01b8fe7a2e"><_gte:Target lang="en"
+><_gte:Font Weight="bold"> <_gte:AttributeContent attr="systemCode"
+occur="1" scope="functionalPhysicalAreaIdent"/>-<_gte:AttributeContent
+attr="subSystemCode" occur="1" scope="functionalPhysicalAreaIdent"
+/>-<_gte:AttributeContent attr="subSubSystemCode" occur="1"
+scope="functionalPhysicalAreaIdent"/>-<_gte:AttributeContent
+attr="assyCode" occur="1" scope="functionalPhysicalAreaIdent"/> </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="functionalPhysicalAreaRef" style="block">
+<Context priority="0" selector="functionalPhysicalAreaRef">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A9a5d5f3e-1ff1-496a-9082-477ddb21113d"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Physical area: <_gte:AttributeContent
+attr="systemCode" occur="1" scope="functionalPhysicalAreaRef"/>-<_gte:AttributeContent
+attr="subSystemCode" occur="1" scope="functionalPhysicalAreaRef"/>-<_gte:AttributeContent
+attr="subSubSystemCode" occur="1" scope="functionalPhysicalAreaRef"
+/>-<_gte:AttributeContent attr="assyCode" occur="1"
+scope="functionalPhysicalAreaRef"/></_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="functionalPhysicalAreaRefGroup" style="block">
+<Context priority="0" selector="functionalPhysicalAreaRefGroup">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="8.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ae6567d3e-69ff-4f10-aa17-67d9b8c7ac70"><_gte:Target lang="en"
+><_gte:Font Posture="italic" Weight="bold">Reference group </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="functionalPhysicalAreaRepository" style="block">
+<Context priority="0" selector="functionalPhysicalAreaRepository">
+<BaseProperties>
+<Font family="Sanserif"/>
+<SpaceBefore optimum="16pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A9d2b4a72-3d46-4048-9e90-edc66e906bc4"><_gte:Target lang="en"
+><_dtd:_touchup FontWeight="bold" TextbrkStartln="yes"
+TextbrkEndln="yes" FontSize="20pt" PostspNominal="12pt"
+PostspMinimum="12pt" PostspMaximum="12pt" PrespNominal="16pt"
+PrespMinimum="16pt" PrespMaximum="16pt">Functional Physical Area Repository</_dtd:_touchup
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="functionalPhysicalAreaSpec" style="block">
+<Context priority="0" selector="functionalPhysicalAreaSpec">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="9.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ad3914af2-625f-4589-ba19-905074e3c4a6"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Physical area item </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="hoursToOpen" style="block">
+<Context priority="20" selector="accessPointAlt/hoursToOpen">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A7f0aecbd-6584-4b8b-a1be-b7e3543e2a91"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Hours to open: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="0" selector="hoursToOpen">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="itemDescr" style="block">
+<Context priority="0" selector="itemDescr">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Aa0059a03-c385-4447-b403-280a63d8e58b"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Description: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="itemIdentData" style="block">
+<Context priority="0" selector="itemIdentData">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="localFabricationMaterial" style="block">
+<Context priority="0" selector="localFabricationMaterial">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ade6d0854-6fc0-40dc-8107-4d4e0ad794a0"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Raw part: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A975205f9-d1d2-451c-b0ba-10e371d25c73"><_gte:Target lang="en"
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="location" style="block">
+<Context priority="0" selector="location">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A1c45450e-468e-4b13-a15e-9ab0cd0218ef"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Location: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="lowestAuthorizedLevel" style="block">
+<Context priority="0" selector="lowestAuthorizedLevel">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A1b21eeb2-dcf5-4514-add0-b6a479d3c612"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Lowest authorized maintenance level: <_gte:AttributeContent
+attr="lowestLevel" occur="1" scope="lowestAuthorizedLevel"/></_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="lowestAuthorizedLevelGroup" style="block">
+<Context priority="0" selector="lowestAuthorizedLevelGroup">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="monitored" style="inline">
+<Context priority="0" selector="monitored">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A7874b3c6-41aa-4f10-9985-00c2a0b9d0c4"><_gte:Target lang="en"
+>, monitored</_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="optionalPart" style="block">
+<Context priority="0" selector="optionalPart">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A3f08f99f-fab9-480f-81c0-271c9e9c469c"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Optional part: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A34f73193-7e50-4973-83f4-8a9492d546cd"><_gte:Target lang="en"
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="optionalSupplierCode" style="block">
+<Context priority="0" selector="optionalSupplierCode">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A2a953fb7-58af-4c22-a473-f223c24b8b4e"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Optional upplier code: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="otherItems" style="block">
+<Context priority="20" selector="accessTo/otherItems">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="0" selector="otherItems">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="overLengthPartNumber" style="block">
+<Context priority="0" selector="overLengthPartNumber">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Abf623ebd-47b0-4ada-9e19-edf898c0122d"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Over-length P/N: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="packaging" style="block">
+<Context priority="0" selector="packaging">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Af3e4814d-e26c-44d2-8f85-e00cda970f93"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Packaging: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="partIdent" style="block">
+<Context priority="0" selector="partIdent">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Ac46dc2dc-9187-4a10-946e-85c84d113be6"><_gte:Target lang="en"
+><_gte:Font Weight="bold"> <_gte:AttributeContent
+attr="manufacturerCodeValue" occur="1" scope="partIdent"/> <_gte:AttributeContent
+attr="partNumberValue" occur="1" scope="partIdent"/> </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="partKeyword" style="block">
+<Context priority="0" selector="partKeyword">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Abef946a6-296d-4c0d-a74a-440a1b522a91"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Keyword: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="partRef" style="inline">
+<Context priority="0" selector="partRef">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A0b77b04c-6eae-40d2-9734-7e55ba2410f8"><_gte:Target lang="en"
+> <_gte:AttributeContent attr="manufacturerCodeValue" occur="1"
+scope="partRef"/>/<_gte:AttributeContent attr="partNumberValue"
+occur="1" scope="partRef"/> </_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="partRefGroup" style="block">
+<Context priority="0" selector="partRefGroup">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="partRepository" style="block">
+<Context priority="0" selector="partRepository">
+<BaseProperties>
+<Font family="Sanserif"/>
+<SpaceBefore optimum="16pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ab16997ee-8aee-40c5-9361-0c1488ac6a40"><_gte:Target lang="en"
+><_dtd:_touchup FontWeight="bold" TextbrkStartln="yes"
+TextbrkEndln="yes" FontSize="20pt" PostspNominal="12pt"
+PostspMinimum="12pt" PostspMaximum="12pt" PrespNominal="16pt"
+PrespMinimum="16pt" PrespMaximum="16pt">Part Repository</_dtd:_touchup
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="partSpec" style="block">
+<Context priority="0" selector="partSpec">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="12pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A52b99749-b559-4dc4-95de-eb4de1cd07ef"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Part </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="preferredSparePart" style="block">
+<Context priority="0" selector="preferredSparePart">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Aacaedfab-e84a-405c-86d3-b0b895915dd3"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Preferred spare part: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A119d6c30-5c19-48fb-8f69-29bb1718b542"><_gte:Target lang="en"
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="procurementData" style="block">
+<Context priority="0" selector="procurementData">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="provisioned" style="inline">
+<Context priority="0" selector="provisioned">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A6f67ebe9-68a1-44b4-b499-5507c20a87b3"><_gte:Target lang="en"
+>, provisioned</_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="rcmd" style="block">
+<Context priority="0" selector="rcmd">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A6c485a21-164a-43e2-9b9a-2209ff9f78c3"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Recommendation: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="rcmdQuantity" style="block">
+<Context priority="0" selector="rcmdQuantity">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A0a286f51-5f83-4ceb-a2c6-3556f4bdd228"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Recommended quantity: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="replacedBy" style="block">
+<Context priority="0" selector="replacedBy">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Aeb3d2407-7060-4868-8709-90335db80b95"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Replacement part: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A113b6641-8c04-49cc-895d-70d62d4212fd"><_gte:Target lang="en"
+> code: <_gte:AttributeContent attr="replacementCode" occur="1"
+scope="replacedBy"/> </_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="replacementCond" style="block">
+<Context priority="20" selector="replacedBy/replacementCond">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+<Context priority="0" selector="replacementCond">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="safetyCategory" style="block">
+<Context priority="0" selector="safetyCategory">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="safetyCategoryValue" testType="equals"
+testValue="A"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A68c8535a-8711-4586-9b46-0f93f48648f0"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Alternative is mandatory for safety reasons</_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="safetyCategoryValue" testType="equals"
+testValue="B"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Accd099ac-586a-479f-a12f-4b194b669ca1"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Alternative is recommended</_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="safetyCategoryValue" testType="equals"
+testValue="C"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Aa92a87d9-5691-4444-a564-2800caec62f0"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Alternative is commonly available</_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="shelfLife" style="block">
+<Context priority="0" selector="shelfLife">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A10ba3eee-c349-45a6-b9ec-20ba2ab1a223"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Shelf life: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="shippingInfo" style="block">
+<Context priority="0" selector="shippingInfo">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="simpleRemark" style="block">
+<Context priority="0" selector="simpleRemark">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Af5fd458f-741b-405e-b535-68ed4f1b5b18"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Remark: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="sparePartClass" style="block">
+<Context priority="0" selector="sparePartClass">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A2cfe0e99-59b7-4f24-888c-632affa840a3"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Spare part class: </_gte:Font><_gte:AttributeContent
+attr="sparePartClassCode" occur="1" scope="sparePartClass"/></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="specDocument" style="block">
+<Context priority="0" selector="specDocument">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A9ef470ef-7f15-490f-b478-d95efc9af14e"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Specification <_gte:AttributeContent
+attr="specDocumentNumber" occur="1" scope="specDocument"/> </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="specificationGroup" style="block">
+<Context priority="0" selector="specificationGroup">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="12pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A6e6048ef-3529-415b-8771-9e6f8f437bf4"><_gte:Target lang="en"
+><_gte:Font Posture="italic" Weight="bold">Specifications</_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="stockNumber" style="block">
+<Context priority="0" selector="stockNumber">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A3534d606-dfe0-4502-ab77-851e0bdcf862"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Stock number: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="suppliedBy" style="block">
+<Context priority="20" selector="supplierGroup/suppliedBy">
+<BaseProperties>
+<SpaceBefore optimum="8.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A6eea9186-cbb5-4902-b5e4-fe04dcfae5fd"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Supplier <_gte:AttributeContent
+attr="manufacturerCodeValue" occur="1" scope="suppliedBy"/> </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="locallySuppliedFlag" testType="equals"
+testValue="1"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A21d2b1d0-29f2-419f-bc5b-85f63e31ca16"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Local supplier <_gte:AttributeContent
+attr="manufacturerCodeValue" occur="1" scope="suppliedBy"/> </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+<Context priority="0" selector="suppliedBy">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="supplierCode" style="block">
+<Context priority="0" selector="supplierCode">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A6c33fee7-be7a-482f-856e-72670d5040be"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Supplier code: </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="supplierGroup" style="block">
+<Context priority="0" selector="supplierGroup">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="12pt"/>
+<SpaceAfter optimum="8pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A8fb954e2-bd97-47c2-842d-e71f03d325fb"><_gte:Target lang="en"
+><_gte:Font Posture="italic" Weight="bold">Suppliers</_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="supplyIdent" style="block">
+<Context priority="0" selector="supplyIdent">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A4cafeca5-31f9-4952-86c6-be0fbea3c1ad"><_gte:Target lang="en"
+><_gte:Font Weight="bold"> <_gte:AttributeContent attr="supplyNumber"
+occur="1" scope="supplyIdent"/> </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="supplyRef" style="block">
+<Context priority="0" selector="supplyRef">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="supplyRepository" style="block">
+<Context priority="0" selector="supplyRepository">
+<BaseProperties>
+<Font family="Sanserif"/>
+<SpaceBefore optimum="16pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A86216190-f07b-4f4c-9d5a-28b8d972c10c"><_gte:Target lang="en"
+><_dtd:_touchup FontWeight="bold" TextbrkStartln="yes"
+TextbrkEndln="yes" FontSize="20pt" PostspNominal="12pt"
+PostspMinimum="12pt" PostspMaximum="12pt" PrespNominal="16pt"
+PrespMinimum="16pt" PrespMaximum="16pt">Supply Repository</_dtd:_touchup
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="supplyRqmtAlt" style="block">
+<Context priority="0" selector="supplyRqmtAlt">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="8.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A2991a0f7-2bdc-43d4-b1fe-64b5950e41b3"><_gte:Target lang="en"
+><_gte:Font Posture="italic" Weight="bold">Alternate requirement</_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="supplyRqmtAltIdent" style="block">
+<Context priority="0" selector="supplyRqmtAltIdent">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Aafbd616f-9108-4a81-a397-a14116d033aa"><_gte:Target lang="en"
+><_gte:Font Weight="bold"> <_gte:AttributeContent
+attr="supplyRqmtNumber" occur="1" scope="supplyRqmtAltIdent"/> </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="supplyRqmtIdent" style="block">
+<Context priority="0" selector="supplyRqmtIdent">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Adb35fe4a-584f-44d0-852b-e65c4cbc6e2d"><_gte:Target lang="en"
+><_gte:Font Weight="bold"> <_gte:AttributeContent
+attr="supplyRqmtNumber" occur="1" scope="supplyRqmtIdent"/> </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="supplyRqmtRepository" style="block">
+<Context priority="0" selector="supplyRqmtRepository">
+<BaseProperties>
+<Font family="Sanserif"/>
+<SpaceBefore optimum="16pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Aaee589c5-3ce0-4113-87cf-a4118fef7f29"><_gte:Target lang="en"
+><_dtd:_touchup FontWeight="bold" TextbrkStartln="yes"
+TextbrkEndln="yes" FontSize="20pt" PostspNominal="12pt"
+PostspMinimum="12pt" PostspMaximum="12pt" PrespNominal="16pt"
+PrespMinimum="16pt" PrespMaximum="16pt">Supply Requirements Repository</_dtd:_touchup
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="supplyRqmtSpec" style="block">
+<Context priority="0" selector="supplyRqmtSpec">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="12pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ac238889d-911f-4d3a-80ae-9c63dc4bd067"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Supply requirement item </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="supplySet" style="block">
+<Context priority="0" selector="supplySet">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="supplySetGroup" style="block">
+<Context priority="0" selector="supplySetGroup">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="supplySpec" style="block">
+<Context priority="0" selector="supplySpec">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="12pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ada54b3b9-d35f-4f5c-8a80-18ae76e29f4d"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Supply item </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="taskCategory" style="block">
+<Context priority="0" selector="taskCategory">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A32cc52c0-d305-466c-aff6-1dd8fa913658"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Tool usage: <_gte:AttributeContent
+attr="taskCategoryCode" occur="1" scope="taskCategory"/></_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="techData" style="block">
+<Context priority="0" selector="techData">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="techRepository" style="block">
+<Context priority="0" selector="techRepository">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="toolAlt" style="block">
+<Context priority="0" selector="toolAlt">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="8.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A8cc8c022-27fd-4554-9726-2a3a7676447c"><_gte:Target lang="en"
+><_gte:Font Posture="italic" Weight="bold">Alternate tool</_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="toolIdent" style="block">
+<Context priority="0" selector="toolIdent">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Ac34d5b5c-2fbe-4a0a-8ff2-b6c7ccbf7d11"><_gte:Target lang="en"
+><_gte:Font Weight="bold"> <_gte:AttributeContent
+attr="manufacturerCodeValue" occur="1" scope="toolIdent"/> <_gte:AttributeContent
+attr="toolNumber" occur="1" scope="toolIdent"/> </_gte:Font></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="toolRefGroup" style="block">
+<Context priority="0" selector="toolRefGroup">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="toolRepository" style="block">
+<Context priority="0" selector="toolRepository">
+<BaseProperties>
+<Font family="Sanserif"/>
+<SpaceBefore optimum="16pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A20bd873c-3823-4ad3-954e-1055a3b0cef7"><_gte:Target lang="en"
+><_dtd:_touchup FontWeight="bold" TextbrkStartln="yes"
+TextbrkEndln="yes" FontSize="20pt" PostspNominal="12pt"
+PostspMinimum="12pt" PostspMaximum="12pt" PrespNominal="16pt"
+PrespMinimum="16pt" PrespMaximum="16pt">Tool Repository</_dtd:_touchup
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="toolSpec" style="block">
+<Context priority="0" selector="toolSpec">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="12pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A39ba335d-91fa-4892-86a7-20e6a63d9812"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Tool </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="transport" style="block">
+<Context priority="0" selector="transport">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A799cbe20-b25b-47b1-822c-1f22538f07f7"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Transport: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="usage" style="block">
+<Context priority="0" selector="usage">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ad362c5b4-8adf-486d-b17a-45ce9fddac2c"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Usage: </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="usageCategory" style="block">
+<Context priority="0" selector="usageCategory">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A430a3f3f-4c33-41c9-bd7a-4436a32f4d0b"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Usage category: </_gte:Font><_gte:AttributeContent
+attr="usageCategoryCode" occur="1" scope="usageCategory"/></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="zoneAlt" style="block">
+<Context priority="0" selector="zoneAlt">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="8.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Acf1a1fc3-42dc-46d3-9013-1920aceb4743"><_gte:Target lang="en"
+><_gte:Font Posture="italic" Weight="bold">Alternate zone</_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="zoneIdent" style="block">
+<Context priority="0" selector="zoneIdent">
+<BaseProperties>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A16287706-2638-4a29-ba91-4a8f9f7ae3b4"><_gte:Target lang="en"
+><_gte:Font Weight="bold"> <_gte:AttributeContent attr="zoneNumber"
+occur="1" scope="zoneIdent"/> </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="zoneRefGroup" style="block">
+<Context priority="0" selector="zoneRefGroup">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="zoneRepository" style="block">
+<Context priority="0" selector="zoneRepository">
+<BaseProperties>
+<Font family="Sanserif"/>
+<SpaceBefore optimum="16pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ac4ad4009-778a-4fc9-bd01-e1c6dc46ab17"><_gte:Target lang="en"
+><_dtd:_touchup FontWeight="bold" TextbrkStartln="yes"
+TextbrkEndln="yes" FontSize="20pt" PostspNominal="12pt"
+PostspMinimum="12pt" PostspMaximum="12pt" PrespNominal="16pt"
+PrespMinimum="16pt" PrespMaximum="16pt">Zone Repository</_dtd:_touchup
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="zoneSide" style="block">
+<Context priority="0" selector="zoneSide">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="zoneSideValue" testType="equals"
+testValue="rh"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A496fcc07-ff48-4e0e-9ffb-20fef830cd41"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Located on product right side </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="zoneSideValue" testType="equals"
+testValue="lh"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Aad2cfcac-acce-4a6e-b221-514e67048a99"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Located on product left side </_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="zoneSpec" style="block">
+<Context priority="0" selector="zoneSpec">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="12pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A9004c39d-b522-4ce0-a1bd-bf357d4fe8c4"><_gte:Target lang="en"
+><_gte:Font Weight="bold">Zone </_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+</Elements>
+<Styles>
+<Style styleName="block">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="crossReference">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<GeneratedText></GeneratedText>
+</BaseProperties>
+</Context>
+</Style>
+<Style styleName="customTable">
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Table_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="customTableCell">
+<Context priority="0" selector="$customTable//$elemname">
+<BaseProperties>
+<Indent firstLineIndent="*0pt" leftIndent="0pt" rightIndent="0pt"/>
+<SpaceBefore maximum="0pt" minimum="0pt" optimum="0pt"
+precedence="force"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="customTableHeaderCell">
+<Context priority="0" selector="$customTable//$elemname">
+<BaseProperties>
+<Indent firstLineIndent="*0pt" leftIndent="0pt" rightIndent="0pt"/>
+<SpaceBefore maximum="0pt" minimum="0pt" optimum="0pt"
+precedence="force"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="customTableRow">
+<Context priority="0" selector="$customTable/$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="customTableHeaderRow">
+<Context priority="0" selector="$customTable/$elemname">
+<BaseProperties propertySetReferences="bold">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="customTableTitle">
+<Context priority="10" selector="$customTable/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space customTableTitle">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A5ccfd71f-327a-4a9c-8ad8-283e38e972aa"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<RepeatingTitle><_sfe:Gentext><_sfe:RepeatingTitle><_gte:Translate
+translate="on" id="A0319abcf-ed36-462e-8dc6-34b51ecb6e97"><_gte:Target
+lang="en"><_gte:ElementLabelAndNumber/><_gte:Leaders leaderType="space"
+lenType="specified" specLen="1em"/><_gte:ElementContent/> (cont'd.)</_gte:Target
+></_gte:Translate></_sfe:RepeatingTitle></_sfe:Gentext></RepeatingTitle>
+<Numbering alignAt="0pt" followWith="space" format="(CURRENT)"
+numberAlignment="left" numberScope="(none)" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="Ad7888deb-4282-4789-b43c-b4157be73ef1"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Style>
+<Style styleName="definitionList">
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="definitionListItem">
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division1">
+<Context divisionLevel="1" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block" startNew="page"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division2">
+<Context divisionLevel="2" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block" startNew="page"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division3">
+<Context divisionLevel="3" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division4">
+<Context divisionLevel="4" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division5">
+<Context divisionLevel="5" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division6">
+<Context divisionLevel="6" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division7">
+<Context divisionLevel="7" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division8">
+<Context divisionLevel="8" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division9">
+<Context divisionLevel="9" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="document">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block" newPageSet="Default_Page_Set"
+startNew="page"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="footnote">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/>
+<Footnote footnoteModelReference="Default_Footnotes"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A39b907e7-17ee-464f-94c3-262e74c9c130"><_gte:Target lang="en"
+><_gte:Font TypeSize=".69em" Offset=".33em"><_gte:ElementNumber/></_gte:Font
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0pt" followWith="nothing" format="(CURRENT)"
+numberAlignment="left">
+<LabelAndNumber><_gte:Translate translate="off"
+id="Aa7dcf3af-92ec-4d19-a916-eeababcffcc9"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context footnoteModelReference="Default_Footnotes" priority="-0.005"
+selector="$elemname">
+<BaseProperties propertySetReferences="Footnote_font">
+<Indent firstLineIndent="*-1.5pc" leftIndent="@1.5pc"/>
+<Alignment align="left"/>
+<Breaks blockOrInline="block"/>
+<Footnote footnoteModelReference="Default_Footnotes"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A83f3359e-2f13-42ac-b28a-4553c2d18095"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+display="1."/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0pt" followWith="tab" format="(CURRENT) '.'"
+numberAlignment="left" tabtoAfter="1.5pc">
+<LabelAndNumber><_gte:Translate translate="off"
+id="A163a97ac-13bf-40d1-bfcd-6d2b018997f0"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Style>
+<Style styleName="footnoteReference">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/>
+<Footnote footnoteIdRefAttrName="rid"
+footnoteModelReference="Default_Footnotes" referenceType="references"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Aca7f4ab4-ccdd-4327-b19a-e33ea86c97f0"><_gte:Target lang="en"
+><_gte:Font TypeSize=".69em" Offset=".33em"><_gte:CrossReference
+refAttr="rid" xrefStyle="Number"/></_gte:Font></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Style>
+<Style styleName="formalBlock">
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="graphic">
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="hidden">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="index">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block" spanInto="2" startNew="page"/>
+<GeneratedText></GeneratedText>
+</BaseProperties>
+</Context>
+</Style>
+<Style styleName="indexTermAttributeModel">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="indexTermElementModel">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="indexTermNestingElementModel">
+<Context priority="20"
+selector="$elemname//$elemname//$elemname//$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+<Context priority="15" selector="$elemname//$elemname//$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+<Context priority="10" selector="$elemname//$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="inline">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="link">
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Link">
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="linkTarget">
+<Context priority="0" selector="$elemname">
+<BaseProperties></BaseProperties>
+</Context>
+</Style>
+<Style styleName="bulletedList">
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="numberedList">
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="listItem">
+<Context priority="25"
+selector="*numberedList//*numberedList//*numberedList//*numberedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-2.5em" leftIndent="@2.5em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A79ba6028-d470-40fd-81ea-3320d7be865a"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="1.5em" followWith="tab" format="(CURRENT) ')'"
+numberAlignment="right" numberStyle="1" tabtoAfter="2.5em">
+<LabelAndNumber><_gte:Translate translate="off"
+id="Af8d50b8d-953a-480c-8173-14cb2789dc74"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="20"
+selector="*bulletedList//*bulletedList//*bulletedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-1.25em" leftIndent="@1.25em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Adae1308d-0fe2-4e06-8773-9a21e29b70f9"><_gte:Target lang="en"
+><_gte:BulletMarker><_gte:Font>♦</_gte:Font></_gte:BulletMarker></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+<Bulleting alignAt="0em" followWith="tab" tabtoAfter="1.25em"/>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="20"
+selector="*numberedList//*numberedList//*numberedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-3em" leftIndent="@3em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Acdb75f26-04c8-49d6-ad3d-2f5815e49734"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="2em" followWith="tab" format="(CURRENT) '.'"
+numberAlignment="right" numberStyle="i" tabtoAfter="3em">
+<LabelAndNumber><_gte:Translate translate="off"
+id="A4bc952b5-16e1-40e8-ba94-76f50683c552"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="15" selector="*bulletedList//*bulletedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-1.25em" leftIndent="@1.25em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A5526f8d3-6519-4655-b22f-9bdbebeb9377"><_gte:Target lang="en"
+><_gte:BulletMarker><_gte:Font>–</_gte:Font></_gte:BulletMarker></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+<Bulleting alignAt="0em" followWith="tab" tabtoAfter="1.25em"/>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="15" selector="*numberedList//*numberedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-2em" leftIndent="@2em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A8916e511-9ef7-43c2-8d11-ba7b1a6d7a82"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="1em" followWith="tab" format="(CURRENT) '.'"
+numberAlignment="right" numberStyle="a" tabtoAfter="2em">
+<LabelAndNumber><_gte:Translate translate="off"
+id="Abc2ba347-51ce-4cb1-93f5-550a46488933"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="10" selector="*bulletedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-1.25em" leftIndent="@1.25em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A403d4936-fd7d-4b42-8e53-ebdff7ddbd35"><_gte:Target lang="en"
+><_gte:BulletMarker><_gte:Font>•</_gte:Font></_gte:BulletMarker></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+<Bulleting alignAt="0em" followWith="tab" tabtoAfter="1.25em"/>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="10" selector="*numberedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-2.5em" leftIndent="@2.5em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A1011ce30-686a-44db-ae52-0afce5d6988c"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="1.5em" followWith="tab" format="(CURRENT) '.'"
+numberAlignment="right" numberStyle="1" tabtoAfter="2.5em">
+<LabelAndNumber><_gte:Translate translate="off"
+id="Aa5a70906-d4e3-4b30-8a10-a11e57e4f0e9"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="10" selector="*definitionList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="paragraph">
+<Context priority="20" selector="*listItem/$elemname[1]">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+<Context priority="15" selector="*footnote//$elemname[1]">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+<Context priority="10" selector="*listItem/$elemname[position()>1]">
+<BaseProperties propertySetReferences="List_item_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="preformatted">
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="preformatted_font">
+<Alignment align="preformatted"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style
+description="Not used to style a table; see tableRoot and tableTgroup"
+styleName="table">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="tableCell">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Indent firstLineIndent="*0pt" leftIndent="0pt" rightIndent="0pt"/>
+<SpaceBefore maximum="0pt" minimum="0pt" optimum="0pt"
+precedence="force"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="tableHeaderCell">
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="bold">
+<Indent firstLineIndent="*0pt" leftIndent="0pt" rightIndent="0pt"/>
+<SpaceBefore maximum="0pt" minimum="0pt" optimum="0pt"
+precedence="force"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="tableHead">
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="bold">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="tableFoot">
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="bold">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style
+description="Used to style the table element in the HTML table model"
+styleName="tableRoot">
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Table_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style description="Used to style tgroup in CALS/OASIS table model"
+styleName="tableTgroup">
+<Context priority="0" selector="$elemname[1]">
+<BaseProperties propertySetReferences="Table_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="0" selector="$elemname[position()>1]">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="tableOfContents">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText></GeneratedText>
+</BaseProperties>
+</Context>
+</Style>
+<Style styleName="title">
+<Context priority="10" selector="*document/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_document">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="10" selector="*tableOfContents/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_TOC">
+<Breaks blockOrInline="block"/>
+<GeneratedText></GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="10" selector="*formalBlock/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_formalBlock">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Ab59ad1be-f89c-456e-89eb-66ed01694c50"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<RepeatingTitle><_sfe:Gentext><_sfe:RepeatingTitle><_gte:Translate
+translate="on" id="A894d7db4-57e5-400b-bcc9-0e2a1f46f2f2"><_gte:Target
+lang="en"><_gte:ElementLabelAndNumber/><_gte:Leaders leaderType="space"
+lenType="specified" specLen="1em"/><_gte:ElementContent/> (cont'd.)</_gte:Target
+></_gte:Translate></_sfe:RepeatingTitle></_sfe:Gentext></RepeatingTitle>
+<Numbering alignAt="0pt" followWith="space" format="(CURRENT)"
+numberAlignment="left" numberScope="(none)" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="A9a5771be-5770-4b8b-a983-fff9889f0deb"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="10" selector="*division1/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_1">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A7f1ff3b8-a788-49a0-8137-e8ffb0e21962"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0pt" followWith="space" format="(CURRENT)"
+numberAlignment="left" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="Ae4f15cd6-75a7-4687-a8c6-c5f5ea1f20b6"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="10" selector="*division2/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_2">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Aa1d8872e-0751-49b1-86e6-e6eed5c90a5a"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="A1a0380a1-3378-4010-b97b-d3cc96f1df5f"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="10" selector="*division3/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_3">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Aa37904cd-e751-4d5a-8af6-913c4ce4271e"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="Ac120e40d-7994-40db-8438-55808d0e9937"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context selector="*division4/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_4">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A9186fafd-6081-426b-9a03-ba482d208192"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="A55ed43a4-135a-483f-9cd4-47df6a0e7bfb"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context selector="*division5/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_5">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Ad55957a6-c24f-4a8c-809a-86e54faee6bb"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="Afce47915-8840-4233-8a9d-0c382c55d03f"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context selector="*division6/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_6">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A51c1d6c5-104e-4d9d-8916-6181d8ad9d73"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="A45cf8cbd-5885-4c19-82d7-91f81e514df8"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context selector="*division7/$elemname">
+<BaseProperties
+propertySetReferences="Title_color Title_alignment Title_keeps Title_space Title_7">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Aa643f778-2b59-4379-bc78-a0fe9ab4a1e1"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="A163e75ae-c58c-4033-8b24-bedcaaeefd7e"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context selector="*division8/$elemname">
+<BaseProperties
+propertySetReferences="Title_color Title_alignment Title_keeps Title_space Title_8">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A348b60b9-5ac2-45e9-b7f9-f4120b6dc5fb"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="A26707ce9-2236-46c3-8b54-5b3f1fe9eaf6"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context selector="*division9/$elemname">
+<BaseProperties
+propertySetReferences="Title_color Title_alignment Title_keeps Title_space Title_9">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Aa9124fa1-231d-44fe-8705-949e51fb5558"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="A890a1fd7-64f0-4d99-8978-54710e428d24"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="0" selector="$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space bold">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="nostyle">
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="unstyled">
+<Context priority="0" selector="$elemname">
+<BaseProperties></BaseProperties>
+</Context>
+</Style>
+</Styles>
+<Bullets>
+<Bullet><?Pub Dtl?><_gte:Font>•</_gte:Font></Bullet>
+<Bullet><?Pub Dtl?><_gte:Font>–</_gte:Font></Bullet>
+<Bullet><?Pub Dtl?><_gte:Font>♦</_gte:Font></Bullet>
+<Bullet><?Pub Dtl?><_gte:Font>◊</_gte:Font></Bullet>
+<Bullet><?Pub Dtl?><_gte:Font>⇒</_gte:Font></Bullet>
+</Bullets>
+<ReferenceFormats>
+<ReferenceFormat referenceFormatName="Label_Number"><?Pub Dtl?><_gte:Translate
+translate="off" id="Aa839343c-7812-46c0-9f2e-6adf82d650b3"><_gte:Target
+lang="en"><_gte:ElementLabelAndNumber/></_gte:Target></_gte:Translate
+></ReferenceFormat>
+<ReferenceFormat referenceFormatName="Label_Number_Text"><?Pub Dtl?><_gte:Translate
+translate="off" id="Ab107ba9f-335e-4ed8-9115-ab73553c2c8d"><_gte:Target
+lang="en"><_gte:ElementLabelAndNumber/> <_sfe:CrossReferenceTitle
+><_gte:ElementContent/></_sfe:CrossReferenceTitle></_gte:Target></_gte:Translate
+></ReferenceFormat>
+<ReferenceFormat referenceFormatName="Label_Number_Text_Page"><?Pub Dtl?><_gte:Translate
+translate="on" id="A681fd6a2-a772-4b34-a6a3-8ffac9ae5250"><_gte:Target
+lang="en"><_gte:ElementLabelAndNumber/> <_sfe:CrossReferenceTitle
+><_gte:ElementContent/></_sfe:CrossReferenceTitle>, page <_gte:PageNumberReference
+/></_gte:Target></_gte:Translate></ReferenceFormat>
+<ReferenceFormat referenceFormatName="Number"><?Pub Dtl?><_gte:Translate
+translate="off" id="Afb22d66d-7de4-4d6e-ac2a-46ae97505b81"><_gte:Target
+lang="en"><_gte:ElementNumber/></_gte:Target></_gte:Translate></ReferenceFormat>
+<ReferenceFormat referenceFormatName="Number_Text"><?Pub Dtl?><_gte:Translate
+translate="off" id="Adebe28df-3356-4658-a9d2-d508e7e51486"><_gte:Target
+lang="en"><_gte:ElementNumber/> <_sfe:CrossReferenceTitle><_gte:ElementContent
+/></_sfe:CrossReferenceTitle></_gte:Target></_gte:Translate></ReferenceFormat>
+<ReferenceFormat referenceFormatName="Page"><?Pub Dtl?><_gte:Translate
+translate="off" id="Aae3923c1-143d-44b1-bb04-51620d5cfcc5"><_gte:Target
+lang="en"><_gte:PageNumberReference/></_gte:Target></_gte:Translate
+></ReferenceFormat>
+<ReferenceFormat referenceFormatName="Text"><?Pub Dtl?><_gte:Translate
+translate="off" id="A062401bb-fdc4-42de-9657-dd1fb967b01b"><_gte:Target
+lang="en"><_sfe:CrossReferenceTitle><_gte:ElementContent/></_sfe:CrossReferenceTitle
+></_gte:Target></_gte:Translate></ReferenceFormat>
+</ReferenceFormats>
+<Indexes>
+<Index headingsAlignment="left" headingsAllcaps="yes" headingsBold="yes"
+headingsItalic="no" indexName="Main_Index" leaderDots="yes"
+leaderSpacing="1em" numberPosition="rightAligned" showHeadings="yes"/>
+</Indexes>
+<PrintPageSets>
+<PrintPageSet pageSetName="Default_A4_Page_Set"><?Pub Dtl?>
+<Margins bottom="40mm" evenLeft="25mm" evenRight="25mm" oddLeft="25mm"
+oddRight="25mm" paperHeight="297mm" paperWidth="210mm" top="40mm"/>
+<Headers></Headers>
+<Footers></Footers>
+<Layouts right="Default_A4_Page_Set_right"/>
+<Columns>
+<ColumnSet columnCount="2" columnWidth="1*" gutterWidth="5mm">
+</ColumnSet>
+<ColumnSet columnCount="3" columnWidth="1*" gutterWidth="5mm">
+</ColumnSet>
+<ColumnSet columnCount="4" columnWidth="1*" gutterWidth="5mm">
+</ColumnSet>
+<ColumnSet columnCount="5" columnWidth="1*" gutterWidth="5mm">
+</ColumnSet>
+<ColumnSet columnCount="6" columnWidth="1*" gutterWidth="5mm">
+</ColumnSet>
+<ColumnSet columnCount="7" columnWidth="1*" gutterWidth="5mm">
+</ColumnSet>
+<ColumnSet columnCount="8" columnWidth="1*" gutterWidth="5mm">
+</ColumnSet>
+</Columns>
+<PageNumbers><_gte:Translate translate="off"
+id="Aa12c8e0d-59ba-49fb-951e-7d0755b0d991"><_gte:Target lang="en"
+><_gte:PageNumber/></_gte:Target></_gte:Translate></PageNumbers>
+</PrintPageSet>
+<PrintPageSet pageSetName="Default_US_Letter_Page_Set"><?Pub Dtl?>
+<Margins/>
+<Headers></Headers>
+<Footers></Footers>
+<Layouts right="Default_US_Letter_Page_Set_right"/>
+<Columns></Columns>
+<PageNumbers><_gte:Translate translate="off"
+id="Ae30076a5-e5b4-4b58-9a50-07f447c3bd9c"><_gte:Target lang="en"
+><_gte:PageNumber/></_gte:Target></_gte:Translate></PageNumbers>
+</PrintPageSet>
+</PrintPageSets>
+<PageTypes>
+<PageType pageTypeName="Default_A4_Page_Set_right">
+<PageRegionReference pageRegionName="main_content_region"/>
+<PageRegionReference pageRegionName="Default_A4_Page_Set_ftr_reg"/>
+</PageType>
+<PageType pageTypeName="Default_US_Letter_Page_Set_right">
+<PageRegionReference pageRegionName="main_content_region"/>
+<PageRegionReference pageRegionName="Default_US_Letter_Page_Set_ftr_reg"/>
+</PageType>
+</PageTypes>
+<PageRegions>
+<PageRegion pageRegionName="Default_A4_Page_Set_ftr_reg">
+<PageRegionPosition height="15.01mm" origin="bottomLeft"
+positionHeight="absolute" positionY="fromPageBottom" y="25mm"/>
+<PageRegionTextContent contentType="generated"
+generatedContentName="Default_A4_Page_Set_ftr" verticalAlign="bottom"/>
+</PageRegion>
+<PageRegion pageRegionName="Default_US_Letter_Page_Set_ftr_reg">
+<PageRegionPosition height="0.5in" origin="bottomLeft"
+positionHeight="absolute" positionY="fromPageBottom" y="1in"/>
+<PageRegionTextContent contentType="generated"
+generatedContentName="Default_US_Letter_Page_Set_ftr"
+verticalAlign="bottom"/></PageRegion>
+<PageRegion pageRegionName="main_content_region">
+<PageRegionPosition/>
+<PageRegionTextContent contentType="main"/></PageRegion>
+</PageRegions>
+<GeneratedContents>
+<GeneratedContent generatedContentName="Default_A4_Page_Set_ftr">
+<Content><_sfe:Gentext><_sfe:HeaderOrFooter><_gte:Translate
+translate="off" id="Acc5f3524-5470-4de2-8aa0-f68d1e096d42"><_gte:Target
+lang="en"><_dtd:table frame="none"><_dtd:tgroup cols="3"><?PubTbl
+tgroup
+clmarg="0.00pt"
+crmarg="0.00pt"
+ctmarg="0.00pt" cbmarg="0.00pt"?><_dtd:colspec align="left"
+colname="col1" colsep="0" rowsep="0"/><_dtd:colspec align="center"
+colname="col2" colsep="0" rowsep="0"/><_dtd:colspec align="right"
+colname="col3" colsep="0" rowsep="0"/><_dtd:tbody><_dtd:row><_dtd:entry
+valign="bottom"></_dtd:entry><_dtd:entry valign="bottom"><_gte:FormattedPageNumber
+/></_dtd:entry><_dtd:entry valign="bottom"></_dtd:entry></_dtd:row
+></_dtd:tbody></_dtd:tgroup></_dtd:table></_gte:Target></_gte:Translate
+></_sfe:HeaderOrFooter></_sfe:Gentext></Content>
+</GeneratedContent>
+<GeneratedContent generatedContentName="Default_US_Letter_Page_Set_ftr">
+<Content><_sfe:Gentext><_sfe:HeaderOrFooter><_gte:Translate
+translate="off" id="A971f1270-3f34-4652-aa67-b67cc1092806"><_gte:Target
+lang="en"><_dtd:table frame="none"><_dtd:tgroup cols="3"><?PubTbl
+tgroup
+clmarg="0.00pt" crmarg="0.00pt" ctmarg="0.00pt" cbmarg="0.00pt"?><_dtd:colspec
+align="left" colname="col1" colsep="0" rowsep="0"/><_dtd:colspec
+align="center" colname="col2" colsep="0" rowsep="0"/><_dtd:colspec
+align="right" colname="col3" colsep="0" rowsep="0"/><_dtd:tbody><_dtd:row
+><_dtd:entry valign="bottom"></_dtd:entry><_dtd:entry valign="bottom"
+><_gte:FormattedPageNumber/></_dtd:entry><_dtd:entry valign="bottom"
+></_dtd:entry></_dtd:row></_dtd:tbody></_dtd:tgroup></_dtd:table></_gte:Target
+></_gte:Translate></_sfe:HeaderOrFooter></_sfe:Gentext></Content>
+</GeneratedContent>
+</GeneratedContents>
+<TablesOfContents>
+<TableOfContents formalBlockElement="figure" leaderDots="yes"
+leaderMinLength="3pc" leaderSpacing="3pt" printPageNumbers="yes"
+rightAlignPageNumbers="yes" textRightIndent="2pc" tocDivLevels="0"
+tocIndented="no" tocName="content__lof" useForBookmarks="no">
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="2"/>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="3"/>
+<TocLevelIndent alignAt="0em" followWith="space" includeLabel="yes"
+indentFollowing="2em" numberAlignment="left" numbered="yes"
+tabtoAfter="0em" tocLevel="4"/>
+<TocLevelIndent alignAt="0em" followWith="space" includeLabel="yes"
+indentFollowing="2em" numberAlignment="left" numbered="yes"
+tabtoAfter="0em" tocLevel="5"/>
+<TocTitleContexts>
+<TocTitleContext titleContextSelector="_ufe:dmtitle">
+<TocEntry tocLevel="1" tocNameReference="content__lof">
+<TocEntryContents><_sfe:TocEntry1_content__lof><_sfe:TocLabel_content__lof
+><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__lof><_sfe:TocTitle_content__lof><_gte:ElementContent
+/></_sfe:TocTitle_content__lof><_sfe:TocPage_content__lof><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__lof></_sfe:TocEntry1_content__lof></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="_ufe:toc/_ufe:dmtitle">
+<TocEntry tocLevel="1" tocNameReference="content__lof">
+<TocEntryContents><_sfe:TocEntry1_content__lof><_sfe:TocLabel_content__lof
+><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__lof><_sfe:TocTitle_content__lof><_gte:ElementContent
+/></_sfe:TocTitle_content__lof><_sfe:TocPage_content__lof><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__lof></_sfe:TocEntry1_content__lof></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="infoname/_ufe:infoname_title">
+<TocEntry tocLevel="1" tocNameReference="content__lof">
+<TocEntryContents><_sfe:TocEntry1_content__lof><_sfe:TocLabel_content__lof
+><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__lof><_sfe:TocTitle_content__lof><_gte:ElementContent
+/></_sfe:TocTitle_content__lof><_sfe:TocPage_content__lof><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__lof></_sfe:TocEntry1_content__lof></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="_ufe:infoname_title">
+<TocEntry tocLevel="1" tocNameReference="content__lof">
+<TocEntryContents><_sfe:TocEntry1_content__lof><_sfe:TocLabel_content__lof
+><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__lof><_sfe:TocTitle_content__lof><_gte:ElementContent
+/></_sfe:TocTitle_content__lof><_sfe:TocPage_content__lof><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__lof></_sfe:TocEntry1_content__lof></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="figure/title">
+<TocEntry tocLevel="1" tocNameReference="content__lof">
+<TocEntryContents><_sfe:TocEntry1_content__lof><_sfe:TocLabel_content__lof
+><_gte:LabelAndNumberMarker><_gte:ElementNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__lof><_sfe:TocTitle_content__lof><_gte:ElementContent
+/></_sfe:TocTitle_content__lof><_sfe:TocPage_content__lof><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__lof></_sfe:TocEntry1_content__lof></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+</TocTitleContexts>
+</TableOfContents>
+<TableOfContents formalBlockElement="table" leaderDots="yes"
+leaderMinLength="3pc" leaderSpacing="3pt" printPageNumbers="yes"
+rightAlignPageNumbers="yes" textRightIndent="2pc" tocDivLevels="0"
+tocIndented="no" tocName="content__lot" useForBookmarks="no">
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="2"/>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="3"/>
+<TocLevelIndent alignAt="0em" followWith="space" includeLabel="yes"
+indentFollowing="2em" numberAlignment="left" numbered="yes"
+tabtoAfter="0em" tocLevel="4"/>
+<TocLevelIndent alignAt="0em" followWith="space" includeLabel="yes"
+indentFollowing="2em" numberAlignment="left" numbered="yes"
+tabtoAfter="0em" tocLevel="5"/>
+<TocTitleContexts>
+<TocTitleContext titleContextSelector="_ufe:dmtitle">
+<TocEntry tocLevel="1" tocNameReference="content__lot">
+<TocEntryContents><_sfe:TocEntry1_content__lot><_sfe:TocLabel_content__lot
+><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__lot><_sfe:TocTitle_content__lot><_gte:ElementContent
+/></_sfe:TocTitle_content__lot><_sfe:TocPage_content__lot><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__lot></_sfe:TocEntry1_content__lot></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="_ufe:toc/_ufe:dmtitle">
+<TocEntry tocLevel="1" tocNameReference="content__lot">
+<TocEntryContents><_sfe:TocEntry1_content__lot><_sfe:TocLabel_content__lot
+><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__lot><_sfe:TocTitle_content__lot><_gte:ElementContent
+/></_sfe:TocTitle_content__lot><_sfe:TocPage_content__lot><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__lot></_sfe:TocEntry1_content__lot></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="infoname/_ufe:infoname_title">
+<TocEntry tocLevel="1" tocNameReference="content__lot">
+<TocEntryContents><_sfe:TocEntry1_content__lot><_sfe:TocLabel_content__lot
+><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__lot><_sfe:TocTitle_content__lot><_gte:ElementContent
+/></_sfe:TocTitle_content__lot><_sfe:TocPage_content__lot><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__lot></_sfe:TocEntry1_content__lot></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="_ufe:infoname_title">
+<TocEntry tocLevel="1" tocNameReference="content__lot">
+<TocEntryContents><_sfe:TocEntry1_content__lot><_sfe:TocLabel_content__lot
+><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__lot><_sfe:TocTitle_content__lot><_gte:ElementContent
+/></_sfe:TocTitle_content__lot><_sfe:TocPage_content__lot><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__lot></_sfe:TocEntry1_content__lot></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="table/title">
+<TocEntry tocLevel="1" tocNameReference="content__lot">
+<TocEntryContents><_sfe:TocEntry1_content__lot><_sfe:TocLabel_content__lot
+><_gte:LabelAndNumberMarker><_gte:ElementNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__lot><_sfe:TocTitle_content__lot><_gte:ElementContent
+/></_sfe:TocTitle_content__lot><_sfe:TocPage_content__lot><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__lot></_sfe:TocEntry1_content__lot></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+</TocTitleContexts>
+</TableOfContents>
+<TableOfContents leaderDots="yes" leaderMinLength="3pc"
+leaderSpacing="3pt" printPageNumbers="yes" rightAlignPageNumbers="yes"
+textRightIndent="2pc" tocDivLevels="3" tocIndented="no"
+tocName="content__toc" useForBookmarks="no">
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="2"/>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="3"/>
+<TocLevelIndent alignAt="0em" followWith="space" includeLabel="yes"
+indentFollowing="2em" numberAlignment="left" numbered="yes"
+tabtoAfter="0em" tocLevel="4"/>
+<TocLevelIndent alignAt="0em" followWith="space" includeLabel="yes"
+indentFollowing="2em" numberAlignment="left" numbered="yes"
+tabtoAfter="0em" tocLevel="5"/>
+<TocTitleContexts>
+<TocTitleContext titleContextSelector="subpara1/title">
+<TocEntry tocLevel="2" tocNameReference="content__toc">
+<TocEntryContents><_sfe:TocEntry2_content__toc><_sfe:TocLabel_content__toc
+><_gte:LabelAndNumberMarker><_gte:ElementNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__toc><_sfe:TocTitle_content__toc><_gte:ElementContent
+/></_sfe:TocTitle_content__toc><_sfe:TocPage_content__toc><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__toc></_sfe:TocEntry2_content__toc></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="2"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="para0/title">
+<TocEntry tocLevel="1" tocNameReference="content__toc">
+<TocEntryContents><_sfe:TocEntry1_content__toc><_sfe:TocLabel_content__toc
+><_gte:LabelAndNumberMarker><_gte:ElementNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__toc><_sfe:TocTitle_content__toc><_gte:ElementContent
+/></_sfe:TocTitle_content__toc><_sfe:TocPage_content__toc><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__toc></_sfe:TocEntry1_content__toc></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="_ufe:dmtitle">
+<TocEntry tocLevel="1" tocNameReference="content__toc">
+<TocEntryContents><_sfe:TocEntry1_content__toc><_sfe:TocLabel_content__toc
+><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__toc><_sfe:TocTitle_content__toc><_gte:ElementContent
+/></_sfe:TocTitle_content__toc><_sfe:TocPage_content__toc><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__toc></_sfe:TocEntry1_content__toc></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="_ufe:toc/_ufe:dmtitle">
+<TocEntry tocLevel="1" tocNameReference="content__toc">
+<TocEntryContents><_sfe:TocEntry1_content__toc><_sfe:TocLabel_content__toc
+><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__toc><_sfe:TocTitle_content__toc><_gte:ElementContent
+/></_sfe:TocTitle_content__toc><_sfe:TocPage_content__toc><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__toc></_sfe:TocEntry1_content__toc></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="infoname/_ufe:infoname_title">
+<TocEntry tocLevel="1" tocNameReference="content__toc">
+<TocEntryContents><_sfe:TocEntry1_content__toc><_sfe:TocLabel_content__toc
+><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__toc><_sfe:TocTitle_content__toc><_gte:ElementContent
+/></_sfe:TocTitle_content__toc><_sfe:TocPage_content__toc><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__toc></_sfe:TocEntry1_content__toc></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="_ufe:infoname_title">
+<TocEntry tocLevel="1" tocNameReference="content__toc">
+<TocEntryContents><_sfe:TocEntry1_content__toc><_sfe:TocLabel_content__toc
+><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__toc><_sfe:TocTitle_content__toc><_gte:ElementContent
+/></_sfe:TocTitle_content__toc><_sfe:TocPage_content__toc><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__toc></_sfe:TocEntry1_content__toc></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="infoname">
+<TocEntry tocLevel="1" tocNameReference="content__toc">
+<TocEntryContents><_sfe:TocEntry1_content__toc><_sfe:TocLabel_content__toc
+><_gte:LabelAndNumberMarker><_gte:ElementNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__toc><_sfe:TocTitle_content__toc><_gte:ElementContent
+/></_sfe:TocTitle_content__toc><_sfe:TocPage_content__toc><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__toc></_sfe:TocEntry1_content__toc></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="subpara2/title">
+<TocEntry tocLevel="3" tocNameReference="content__toc">
+<TocEntryContents><_sfe:TocEntry3_content__toc><_sfe:TocLabel_content__toc
+><_gte:LabelAndNumberMarker><_gte:ElementNumber/></_gte:LabelAndNumberMarker
+></_sfe:TocLabel_content__toc><_sfe:TocTitle_content__toc><_gte:ElementContent
+/></_sfe:TocTitle_content__toc><_sfe:TocPage_content__toc><_gte:Leaders
+leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference
+/></_sfe:TocPage_content__toc></_sfe:TocEntry3_content__toc></TocEntryContents>
+<TocLevelIndent alignAt="3.00em" followWith="emspace" includeLabel="no"
+indentFollowing="4.00em" numberAlignment="left" numbered="yes"
+tabtoAfter="6.00em" tocLevel="3"/></TocEntry>
+</TocTitleContext>
+</TocTitleContexts>
+</TableOfContents>
+</TablesOfContents>
+<FootnoteModels>
+<FootnoteModel columnOrPageWide="page"
+footnoteModelName="Default_Footnotes" footnoteNumberStyle="1"
+insertSeparator="yes" separatorAlign="left"
+separatorLengthType="specified" separatorRuleLength="9pc"
+separatorRuleThickness=".5pt" spaceAboveFootnote="15pt"
+spaceBelowSeparator="2pt"/></FootnoteModels>
+<Tables>
+<TableModel model="cals" primary="yes"/></Tables>
+<CustomTables>
+<CustomTableModel tableColumnWidthDefault="1*"
+tableFosiComposeUsingStylesheet="no" tableModelName="capbody"
+tableRulesDefault="all">
+<Table element="capbody"/>
+<Row element="caprow">
+<Cell element="capentry"></Cell>
+</Row>
+</CustomTableModel>
+</CustomTables>
+<SizeDefinitions></SizeDefinitions>
+<CombinedFonts></CombinedFonts>
+<Modules>
+<Module>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+href="idstatusModule.style"><xi:fallback><!--Fallback markup for "idstatusModule.style"--></xi:fallback
+></xi:include>
+</Module>
+<Module>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+href="sharedModule.style"><xi:fallback><!--Fallback markup for "sharedModule.style"--></xi:fallback
+></xi:include>
+</Module>
+</Modules>
+</Styler>

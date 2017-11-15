@@ -1,0 +1,557 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Split FIG_TAB.XSD into FIGURE.XSD and TABLE.XSD. *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="table.xsd"/>                           *
+    ********************************************************************** -->
+
+
+<xs:element name="foldout">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element foldout (A3 Foldout) containing:-                   *
+    *  figure   - Mandatory  Single     contains Definition stored in    *
+    *                                   group "titles", applic, graphic, *
+    *                                   sheet, rfa, legend.              *
+    * or                                                                 *
+    *  table    - Mandatory  Single     contains Definition stored in    *
+    *                                   group "titles", tgroup, graphic. *
+    **********************************************************************
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexType>
+		<xs:choice>
+			<xs:element ref="figure"/>
+			<xs:element ref="table"/>
+		</xs:choice>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="table">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element table (Table) containing:-                          *
+    *  applic   - Optional   Single      contains type, model.           *
+    *  title    - Optional   Single      contains Definition stored in   *
+    *                                             group "text".          *
+    *====================================================================*
+    *  tgroup   - Mandatory  Repeatable  contains colspec, spanspec,     *
+    *                                    thead, tfoot, tbody.            *
+    * or                                                                 *
+    *  graphic  - Mandatory  Repeatable  contains hotspot.               *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  tabstyle - NMTOKEN  - IMPLIED  - A unique table style.            *
+    *  tocentry - NUMBER   - "1"      - Included in list of tables.      *
+    *  frame    - Declared - IMPLIED  - Position of border siderules, as *
+    *                      - well as the required top and bottom rules.  *
+    *           - "top"    -                                             *
+    *           - "bottom" -                                             *
+    *           - "topbot" -                                             *
+    *           - "all"    -                                             *
+    *           - "sides"  -                                             *
+    *           - "none"   -                                             *
+    *  colsep   - NUMBER   - IMPLIED  - Internal Column rulings.         *
+    *           - "0"      - Do Not display internal column rulings.     *
+    *           - "1"      - Display internal column rulings.            *
+    *  rowsep   - NUMBER   - IMPLIED  - Internal Row rulings.            *
+    *           - "0"      - Do Not display internal row rulings.        *
+    *           - "1"      - Display internal row rulings.               *
+    *  orient   - Declared - IMPLIED  - Writing direction of table.      *
+    *           - "port"   - Table writing direction (along rows) is the *
+    *                      - same as marginal text.                      *
+    *           - "land"   - Table writing direction is 90 degrees       *
+    *                      - counterclockwise to marginal text and title.*
+    *  pgwide   - NUMBER   - IMPLIED  - Width of table.                  *
+    *           - "0"      - The table runs just across the (galley)     *
+    *                      - width of the current column of the page.    *
+    *           - "1"      - The table runs across the page.             *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    ********************************************************************** 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="applic" minOccurs="0"/>
+			<xs:element ref="title" minOccurs="0"/>
+			<xs:choice>
+				<xs:element ref="tgroup" maxOccurs="unbounded"/>
+				<xs:element ref="graphic" maxOccurs="unbounded"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="tabstyle" type="xs:NMTOKEN"/>
+		<xs:attribute name="tocentry" type="yesorno" default="1"/>
+		<xs:attribute name="frame">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="top"/>
+					<xs:enumeration value="bottom"/>
+					<xs:enumeration value="topbot"/>
+					<xs:enumeration value="all"/>
+					<xs:enumeration value="sides"/>
+					<xs:enumeration value="none"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="colsep" type="yesorno"/>
+		<xs:attribute name="rowsep" type="yesorno"/>
+		<xs:attribute name="orient">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="port"/>
+					<xs:enumeration value="land"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="pgwide" type="yesorno"/>
+		<xs:attributeGroup ref="bodyatt"/>
+		<xs:attributeGroup ref="secur"/>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="tgroup">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element tgroup (Table Group) containing:-                   *
+    *  colspec  - Optional   Repeatable  contains No Other Tags.         *
+    *  spanspec - Optional   Repeatable  contains No Other Tags.         *
+    *  thead    - Optional   Single      contains colspec, row.          *
+    *  tfoot    - Optional   Single      contains colspec, row.          *
+    *  tbody    - Mandatory  Single      contains row.                   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  cols     - NUMBER   - REQUIRED - The number of distinct columns.  *
+    *  tgstyle  - NMTOKEN  - IMPLIED  - A unique table group style.      *
+    *  colsep   - NUMBER   - IMPLIED  - Internal Column rulings.         *
+    *           - "0"      - Do Not display internal column rulings.     *
+    *           - "1"      - Display internal column rulings.            *
+    *  rowsep   - NUMBER   - IMPLIED  - Internal Row rulings.            *
+    *           - "0"      - Do Not display internal row rulings.        *
+    *           - "1"      - Display internal row rulings.               *
+    *  align    - Declared - "left"   - Text horizontal position within  *
+    *                        the column (or portion controlled by this   *
+    *                        tgroup.                                     *
+    *           - "left"   - Quad (flush) left.                          *
+    *           - "center" - Centered.                                   *
+    *           - "right"  - Quad (flush) right.                         *
+    *           - "justify"- Both quad left and quad right.              *
+    *           - "char"   - Align on leftmost of char, position be      *
+    *                        charoff.                                    *
+    *  charoff  - NUTOKEN  - IMPLIED  - The percent of the current width *
+    *                        to the left of the (left edge of) the       *
+    *                        alignment character, eg "50".               *
+    *  char     - CDATA    - IMPLIED  - The value is the alignment       *
+    *                        character on which entries controlled by    *
+    *                        this tgroup are aligned.                    *
+    **********************************************************************
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="colspec" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="spanspec" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="thead" minOccurs="0"/>
+			<xs:element ref="tfoot" minOccurs="0"/>
+			<xs:element ref="tbody"/>
+		</xs:sequence>
+		<xs:attribute name="cols" type="xs:string" use="required"/>
+		<xs:attribute name="tgstyle" type="xs:NMTOKEN"/>
+		<xs:attribute name="colsep" type="yesorno"/>
+		<xs:attribute name="rowsep" type="yesorno"/>
+		<xs:attribute name="align" default="left">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="left"/>
+					<xs:enumeration value="right"/>
+					<xs:enumeration value="center"/>
+					<xs:enumeration value="justify"/>
+					<xs:enumeration value="char"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="charoff" type="xs:string" default="50"/>
+		<xs:attribute name="char" type="xs:string"/>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="colspec">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element colspec (Column Specification) containing:-         *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute List:-                                                   *
+    *  colnum   - NUMBER   - IMPLIED  - This identifies the number of    *
+    *                        the column counting from 1 at left of table.*
+    *  colname  - NMTOKEN  - IMPLIED  - Name of the column.              *
+    *  align    - Declared - IMPLIED  - Text horizontal position within  *
+    *                        the column (or portion controlled by this   *
+    *                        tgroup.                                     *
+    *           - "left"   - Quad (flush) left.                          *
+    *           - "center" - Centered.                                   *
+    *           - "right"  - Quad (flush) right.                         *
+    *           - "justify"- Both quad left and quad right.              *
+    *           - "char"   - Align on leftmost of char, position be      *
+    *                        charoff.                                    *
+    *  charoff  - NUTOKEN  - IMPLIED  - The percent of the current width *
+    *                        to the left of the (left edge of) the       *
+    *                        alignment character, eg "50".               *
+    *  char     - CDATA    - IMPLIED  - The value is the alignment       *
+    *                        character on which entries are aligned.     *
+    *  colwidth - CDATA    - IMPLIED  - Width of the column.             *
+    *  colsep   - NUMBER   - IMPLIED  - Internal Column rulings.         *
+    *           - "0"      - Do Not display internal column rulings.     *
+    *           - "1"      - Display internal column rulings.            *
+    *  rowsep   - NUMBER   - IMPLIED  - Internal Row rulings.            *
+    *           - "0"      - Do Not display internal row rulings.        *
+    *           - "1"      - Display internal row rulings.               *
+    ********************************************************************** 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexType>
+		<xs:attribute name="colnum" type="xs:string"/>
+		<xs:attribute name="colname" type="xs:NMTOKEN"/>
+		<xs:attribute name="align">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="left"/>
+					<xs:enumeration value="right"/>
+					<xs:enumeration value="center"/>
+					<xs:enumeration value="justify"/>
+					<xs:enumeration value="char"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="charoff" type="xs:string"/>
+		<xs:attribute name="char" type="xs:string"/>
+		<xs:attribute name="colwidth" type="xs:string"/>
+		<xs:attribute name="colsep" type="yesorno"/>
+		<xs:attribute name="rowsep" type="yesorno"/>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="spanspec">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element spanspec (Span Column Specification) containing:-   *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  namest   - NMTOKEN  - REQUIRED - Name of the left most column of  *
+    *                        the span.                                   *
+    *  nameend  - NMTOKEN  - REQUIRED - Name of the right most column of *
+    *                        the span.                                   *
+    *  spanname - NMOTKEN  - REQUIRED - Name of the horizontal span.     *
+    *  align    - Declared - "center" - Text horizontal position within  *
+    *                        the column.                                 *
+    *           - "left"   - Quad (flush) left.                          *
+    *           - "center" - Centered.                                   *
+    *           - "right"  - Quad (flush) right.                         *
+    *           - "justify"- Both quad left and quad right.              *
+    *           - "char"   - Align on leftmost of char, position be      *
+    *                        charoff.                                    *
+    *  charoff  - NUTOKEN  - IMPLIED  - The percent of the current width *
+    *                        to the left of the (left edge of) the       *
+    *                        alignment character, eg "50".               *
+    *  char     - CDATA    - IMPLIED  - The value is the alignment       *
+    *                        character on which entries are aligned.     *
+    *  colsep   - NUMBER   - IMPLIED  - Internal Column rulings.         *
+    *           - "0"      - Do Not display internal column rulings.     *
+    *           - "1"      - Display internal column rulings.            *
+    *  rowsep   - NUMBER   - IMPLIED  - Internal Row rulings.            *
+    *           - "0"      - Do Not display internal row rulings.        *
+    *           - "1"      - Display internal row rulings.               *
+    ********************************************************************** 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexType>
+		<xs:attribute name="namest" type="xs:NMTOKEN" use="required"/>
+		<xs:attribute name="nameend" type="xs:NMTOKEN" use="required"/>
+		<xs:attribute name="spanname" type="xs:NMTOKEN" use="required"/>
+		<xs:attribute name="align" default="center">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="left"/>
+					<xs:enumeration value="right"/>
+					<xs:enumeration value="center"/>
+					<xs:enumeration value="justify"/>
+					<xs:enumeration value="char"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="charoff" type="xs:string"/>
+		<xs:attribute name="char" type="xs:string"/>
+		<xs:attribute name="colsep" type="yesorno"/>
+		<xs:attribute name="rowsep" type="yesorno"/>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="thead">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element thead (Table Header) containing:-                   *
+    *  colspec  - Optional   Repeatable  contains No Other Tags.         *
+    *  row      - Mandatory  Repeatable  contains entry.                 *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  valign   - Declared - "bottom" - Text vertical positioning within *
+    *                                   the entries.                     *
+    *           - "top"    - Align text vertically to top of entries.    *
+    *           - "middle" - Approximately vertically centered.          *
+    *           - "bottom" - Align text vertically to bottom of entries. *
+    ********************************************************************** 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="colspec" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="row" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="valign" default="bottom">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="top"/>
+					<xs:enumeration value="middle"/>
+					<xs:enumeration value="bottom"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="tfoot">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element tfoot (Table Footer) containing:-                   *
+    *  colspec  - Optional   Repeatable  contains No Other Tags.         *
+    *  row      - Mandatory  Repeatable  contains entry.                 *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  valign   - Declared - "top"    - Text vertical positioning within *
+    *                                   the entries.                     *
+    *           - "top"    - Align text vertically to top of entries.    *
+    *           - "middle" - Approximately vertically centered.          *
+    *           - "bottom" - Align text vertically to bottom of entries. *
+    ********************************************************************** 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="colspec" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="row" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="valign" default="top">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="top"/>
+					<xs:enumeration value="middle"/>
+					<xs:enumeration value="bottom"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="tbody">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element tbody (Table Body) containing:-                     *
+    *   row      - Mandatory  Repeatable  contains entry.                *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  valign   - Declared - "top"    - Text vertical positioning within *
+    *                                   the entries.                     *
+    *           - "top"    - Align text vertically to top of entries.    *
+    *           - "middle" - Approximately vertically centered.          *
+    *           - "bottom" - Align text vertically to bottom of entries. *
+    ********************************************************************** 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="row" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="valign" default="top">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="top"/>
+					<xs:enumeration value="middle"/>
+					<xs:enumeration value="bottom"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="row">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element row (Row Of Table) containing:-                     *
+    *   entry    - Mandatory  Repeatable  contains para, warning, caution*
+    *                                     note, legend, definition stored*
+    *                                     in group "paracon".            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  rowsep   - NUMBER   - IMPLIED  - Internal Row rulings.            *
+    *           - "0"      - Do Not display internal row rulings.        *
+    *           - "1"      - Display internal row rulings.               *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexType>
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element ref="entry"/>
+		</xs:sequence>
+		<xs:attribute name="rowsep" type="yesorno"/>
+		<xs:attributeGroup ref="bodyatt"/>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="entry">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element entry (Table Entry) containing:-                    *
+    *====================================================================*
+    * Mandatory Repeatable Group.                                        *
+    *====================================================================*
+    *   para     - Mandatory  Single      contains definition stored in  *
+    *                                     group "paracon".               *
+    *  or                                                                *
+    *   warning  - Mandatory  Single      contains applic, para,         *
+    *                                     definition stored in group     *
+    *                                     "list".                        *
+    *  or                                                                *
+    *   caution  - Mandatory  Single      contains applic, para,         *
+    *                                     definition stored in group     *
+    *                                     "list".                        *
+    *  or                                                                *
+    *   note     - Mandatory  Single      contains applic, para,         *
+    *                                     definition stored in group     *
+    *                                     "list".                        *
+    *  or                                                                *
+    *   legend   - Mandatory  Single      contains deflist.              *
+    *  or                                                                *
+    *   Definition stored in group "paracon".                            *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  colname  - NMTOKEN  - IMPLIED  - Column name of entry.            *
+    *                                                                    *
+    * Note.                                                              *
+    * The following attributes namest and nameend are included for       *
+    * compatibility with MIL-M-28001A. They are not currently applicable *
+    * to S1000D data module use.                                         *
+    *                                                                    *
+    *  namest   - NMTOKEN  - IMPLIED  - Name of the left most column of  *
+    *                                   the span.                        *
+    *  nameend  - NMTOKEN  - IMPLIED  - Name of the right most column of *
+    *                                   the span.                        *
+    *  spanname - NMTOKEN  - IMPLIED  - Name of horizontal span.         *
+    *  morerows - NUMBER   - "0"      - Number of additional rows in a   *
+    *                        vertical straddle.                          *
+    *  colsep   - NUMBER   - IMPLIED  - Internal Column rulings.         *
+    *           - "0"      - Do Not display internal column rulings.     *
+    *           - "1"      - Display internal column rulings.            *
+    *  rowsep   - NUMBER   - IMPLIED  - Internal Row rulings.            *
+    *           - "0"      - Do Not display internal row rulings.        *
+    *           - "1"      - Display internal row rulings.               *
+    *  rotate   - NUMBER   - "0"      - Rotation of entry content.       *
+    *           - "0"      - Content is in the orientation of the table. *
+    *           - "1"      - Content is 90 degrees counterclockwise to   *
+    *                        table orientation.                          *
+    *  valign   - Declared - "top"    - Text vertical positioning within *
+    *                                   the entries.                     *
+    *           - "top"    - Align text vertically to top of entries.    *
+    *           - "middle" - Approximately vertically centered.          *
+    *           - "bottom" - Align text vertically to bottom of entries. *
+    *  align    - Declared - IMPLIED  - Text horizontal position within  *
+    *                                   the column.                      *
+    *           - "left"   - Quad (flush) left.                          *
+    *           - "center" - Centered.                                   *
+    *           - "right"  - Quad (flush) right.                         *
+    *           - "justify"- Both quad left and quad right.              *
+    *           - "char"   - Align on leftmost of char, position be      *
+    *                        charoff.                                    *
+    *  charoff  - NUTOKEN  - IMPLIED  - The percent of the current width *
+    *                        to the left of the (left edge of) the       *
+    *                        alignment character, eg "50".               *
+    *  char     - CDATA    - IMPLIED  - The value is the alignment       *
+    *                        character on which entries are aligned.     *
+    *  id       - ID       - IMPLIED  - The unique identifier of this    *
+    *                                   table entry.                     *
+    ********************************************************************** 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexType mixed="true">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element ref="para"/>
+			<xs:element ref="warning"/>
+			<xs:element ref="caution"/>
+			<xs:element ref="note"/>
+			<xs:element ref="legend"/>
+			<xs:group ref="paracon" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:choice>
+		<xs:attribute name="colname" type="xs:NMTOKEN"/>
+		<xs:attribute name="namest" type="xs:NMTOKEN"/>
+		<xs:attribute name="nameend" type="xs:NMTOKEN"/>
+		<xs:attribute name="spanname" type="xs:NMTOKEN"/>
+		<xs:attribute name="morerows" type="xs:string" default="0"/>
+		<xs:attribute name="colsep" type="yesorno"/>
+		<xs:attribute name="rowsep" type="yesorno"/>
+		<xs:attribute name="rotate" type="yesorno" default="0"/>
+		<xs:attribute name="valign" default="top">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="top"/>
+					<xs:enumeration value="bottom"/>
+					<xs:enumeration value="middle"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="align">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="left"/>
+					<xs:enumeration value="right"/>
+					<xs:enumeration value="center"/>
+					<xs:enumeration value="justify"/>
+					<xs:enumeration value="char"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="charoff" type="xs:string"/>
+		<xs:attribute name="char" type="xs:string"/>
+		<xs:attribute name="id" type="xs:ID"/>
+	</xs:complexType>
+</xs:element>
+
+
+</xs:schema>

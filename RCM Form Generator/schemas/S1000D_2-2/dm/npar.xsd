@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Define new group "NPFFT" which references groups *
+    *                   "NP" and "FFT" in its content model.             *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="npar.xsd"/>                            *
+    ********************************************************************** -->
+
+
+	<!-- call with minOccurs="0" and maxOccurs="unbounded" !-->
+	<xs:group name="NPFFT">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "NPFFT" (Note or Paragraph or Figure or Foldout or    *
+    *                       Table)                                       *
+    * containing:-                                                       *
+    *   Definition stored in group "NP" (see PARAGRAPHS.XSD).            *
+    *  or                                                                *
+    *   Definition stored in group "FFT" (see FFT.XSD).                  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:group ref="NP"/>
+			<xs:group ref="FFT"/>
+		</xs:choice>
+	</xs:group>
+<!-- Newly introduced group -->
+
+	<xs:group name="NPAR">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "NPAR" (Numbered Paragraphs) containing:-             *
+    *  Definition stored in group "WC" (see WC.XSD).                     *
+    *  Definition stored in group "NPFFT".                               *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>		
+			<xs:group ref="WC"/>
+			<xs:group ref="NPFFT" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:group>
+
+	
+</xs:schema>

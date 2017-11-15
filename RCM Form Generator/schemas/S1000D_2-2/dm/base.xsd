@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. Bug fix:       Correct the pattern definitions on attributes    *
+    *                   issno and inwork of element issno.               *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="base.xsd"/>                            *
+   ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Import the RDF Metadata Definitions.                               *
+    ********************************************************************** -->
+	<xs:import 	namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+			schemaLocation="rdf.xsd"/>
+			
+<!--**********************************************************************
+    * Include the Data Module Code Breakdown.                            *
+    ********************************************************************** -->
+	<xs:include schemaLocation="dmc.xsd"/>
+
+<!--**********************************************************************
+    * Inlcude the Publication Module Code Breakdown.                     *
+    ********************************************************************** -->
+	<xs:include schemaLocation="pmc.xsd"/>
+
+<!--**********************************************************************
+    * Include the Status Breakdown.                                      *
+    ********************************************************************** -->
+	<xs:include schemaLocation="status.xsd" />
+
+
+	<xs:element name="dmodule">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dmodule (Data Module) containing:-                  *
+    *  rdf:Description - Optional Single   contains Defintion stored in  *
+    *                                               group "DCMES".       *
+    *  idstatus        - Mandatory Single  contains dmaddres, status.    *
+    *  content         - Mandatory Single  contains refs, Definition     *
+    *                                      stored in group "CONTENT".    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id       - ID       - IMPLIED  - Unique identifier of Data Module *
+    **********************************************************************
+		</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="rdf:Description" minOccurs="0"/>
+				<xs:element ref="idstatus"/>
+				<xs:element ref="content"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="idstatus">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element idstatus (Identification and Status Information)    *
+    * containing:-                                                       *
+    *  dmaddres - Mandatory  Single      contains dmc, dmtitle, issno,   *
+    *                                    issdate, language.              *
+    *  status   - Mandatory  Single      contains Definition stored in   *
+    *                                    group "STATUS".                 *
+    **********************************************************************
+		</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dmaddres"/>
+				<xs:element ref="status"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dmaddres">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dmaddres (Data Module Address) containing:-         *
+    *  dmc      - Mandatory  Single      contains definition stored in   *
+    *                                    group "ALLDMC".                 *
+    *  dmtitle  - Mandatory  Single      contains techname, infoname.    *
+    *  issno    - Mandatory  Single      contains No Other Tags.         *
+    *  issdate  - Mandatory  Single      contains No Other Tags.         *
+    *  language - Optional   Single      contains No Other Tags.         *
+    **********************************************************************
+		</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dmc"/>
+				<xs:element ref="dmtitle"/>
+				<xs:element ref="issno"/>
+				<xs:element ref="issdate"/>
+				<xs:element ref="language" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dmtitle">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dmtitle (Data Module Title) containing:-            *
+    *  techname - Mandatory  Single      contains Parsed Character Data. *
+    *  infoname - Optional   Single      contains Parsed Character Data. *
+    **********************************************************************
+		</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="techname"/>
+				<xs:element ref="infoname" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="techname" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element techname (Technical Name) containing:-              *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+		</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="infoname" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element infoname (Information Name) containing:-            *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+		</xs:documentation>
+		</xs:annotation>		
+	</xs:element>
+
+
+	<xs:simpleType name="NONNEGI2">
+		<xs:restriction base="xs:nonNegativeInteger">
+			<xs:pattern value="\d{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+<!-- Pattern definition corrected --> 
+
+	<xs:element name="issno">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element issno (Issue Number) containing:-                   *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  issno    - NUMBER    - REQUIRED - Issue Number (XXX).             *
+    *  inwork   - NUMBER    - IMPLIED  - Sub-Issue Number (XX).          *
+    *  type     - Declared  - "new"    - Status of this issue of the     *
+    *                                    data module.                    *
+    *           - "new"      - New Data Module.                          *
+    *           - "changed"  - Changed. Changes marked by change markers.*
+    *           - "deleted"  - Deleted.                                  *
+    *           - "revised"  - Completely Revised. Changes not marked by *
+    *                           change markers.                          *
+    *           - "status"   - Only Status information changed.          *
+    *           - "rinstate-changed" - Data Module has been reinstated   *
+    *                                   and changed. Changes marked by   *
+    *                                   change markers.                  *
+    *           - "rinstate-revised" - Data Module has been reinstated   *
+    *                                   and is completely Revised.       *
+    *                                   Changes not marked by change     *
+    *                                   markers.                         *
+    *           - "rinstate-status"  - Data Module has been reinstated   *
+    *                                  and status has been changed.      *
+    **********************************************************************
+		</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="issno" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:pattern value="\d{3}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="inwork" type="NONNEGI2"/>
+			<xs:attribute name="type" default="new">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="new"/>
+						<xs:enumeration value="changed"/>
+						<xs:enumeration value="deleted"/>
+						<xs:enumeration value="revised"/>
+						<xs:enumeration value="status"/>
+						<xs:enumeration value="rinstate-changed"/>
+						<xs:enumeration value="rinstate-revised"/>
+						<xs:enumeration value="rinstate-status"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+<!-- Pattern definition on attribute issno corrected -->
+
+	<xs:element name="issdate">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element issdate (Issue Date) containing:-                   *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "DATE".       *
+    **********************************************************************
+		</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attributeGroup ref="DATE"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="language">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element language (Language of Data Module) containing:-     *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  language - CDATA     - REQUIRED - Language Code (lowercase).      *
+    *  country  - CDATA     - IMPLIED  - Country Code (uppercase).       *
+    **********************************************************************
+		</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="language" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[a-z]{2,3}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="country">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[A-Z]{2}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

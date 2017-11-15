@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://www.purl.org/dc/elements/1.1/"
+           xmlns:dc= "http://www.purl.org/dc/elements/1.1/"
+	   xmlns:xs= "http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.1                            *
+    *                       Date: 2004-02-29                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. Update public identifier date.                                  *
+    * 2. CPF 2003-13DE: Remove attribute issno and attribute inwork from *
+    *                   dc:Identifier pattern.                           *
+    *                                                                    *
+    * The following import statement may be used to call this set of     *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" *
+    *            schemaLocation="dc_ddn.xsd"/>                           *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Dublin Core (DC) definitions.                                      *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Define the DC metadata elements used in S1000D                     *
+    * all containing:                                                    *
+    *  Parsed Character Data, some with predefined sensible patterns.    *
+    ********************************************************************** -->
+
+	<xs:simpleType name="TITLE">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define fixed Mapping Pattern to dc:Title                           *
+    **********************************************************************
+    * Note: Fixed string is "Data Dispatch Note".                        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Data Dispatch Note"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SENDID">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Mapping Pattern for element sendid to dc:Publisher          *
+    **********************************************************************
+    * Element must contain five alphanumeric characters.                 *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Za-z0-9]{5}"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="DDNC">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Mapping Pattern for element ddnc to dc:Identifier           *
+    *   "modelic-sendid-recvid-diyear-seqnum"                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Za-z0-9]{2,14}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[0-9]{4}-[A-Fa-f0-9]{2}"/>
+<!-- Attributes issno and inwork removed from pattern -->
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SECURITY">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Mapping Pattern for element security to dc:Rights           *
+    **********************************************************************
+    * If both attributes commcls and caveat are there:                   *
+    *   "class_commcls_caveat"                                           *
+    * If only attribute commcls is there:                                *
+    *   "class_commcls"                                                  *
+    * If only attribute caveat is there:                                 *
+    *   "class__caveat"                                                  *
+    * otherwise:                                                         *
+    *   "class"                                                          *
+    **********************************************************************
+    * Notes:  commcls must begin with "cc" followed by two digits.       *
+    *         caveat  must begin with "cv" followed by two digits.       *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{1,2}(_(cc[0-9]{2})?(_cv[0-9]{2})?)?"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	
+	<xs:element name="Title" type="dc:TITLE"/>
+	<xs:element name="Creator" type="xs:string"/>
+	<xs:element name="Subject" type="dc:TITLE"/>
+	<xs:element name="Publisher" type="dc:SENDID"/>
+	<xs:element name="Contributor" type="xs:string"/>
+	<xs:element name="Date" type="xs:date"/>
+	<xs:element name="Type" type="xs:string" fixed="text"/>
+	<xs:element name="Format" type="xs:string" fixed="text/xml"/>
+	<xs:element name="Identifier" type="dc:DDNC"/>
+	<xs:element name="Language" type="xs:string"/>
+	<xs:element name="Rights" type="dc:SECURITY"/>
+	
+	
+	
+	<xs:group name="DCMES">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "DCMES" (Dublin Core Metadata Element Set for S1000D) *
+    * containing:-                                                       *
+    *  dc:Title       - Mandatory Single, contains Parsed Character Data.*
+    * or                                                                 *
+    *  dc:Creator     - Mandatory Single, contains Parsed Character Data.*
+    * or                                                                 *
+    *  dc:Subject     - Mandatory Single, contains Parsed Character Data.*
+    * or                                                                 *
+    *  dc:Publisher   - Mandatory Single, contains Parsed Character Data.*
+    * or                                                                 *
+    *  dc:Contributor - Mandatory Single, contains Parsed Character Data.*
+    * or                                                                 *
+    *  dc:Date        - Mandatory Single, contains Parsed Character Data.*
+    * or                                                                 *
+    *  dc:Type        - Mandatory Single, contains Parsed Character Data.*
+    * or                                                                 *
+    *  dc:Format      - Mandatory Single, contains Parsed Character Data.*
+    * or                                                                 *
+    *  dc:Identifier  - Mandatory Single, contains Parsed Character Data.*
+    * or                                                                 *
+    *  dc:Language    - Mandatory Single, contains Parsed Character Data.*
+    * or                                                                 *
+    *  dc:Rights      - Mandatory Single, contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="dc:Title"/>
+			<xs:element ref="dc:Creator"/>
+			<xs:element ref="dc:Subject"/>
+			<xs:element ref="dc:Publisher"/>
+			<xs:element ref="dc:Contributor"/>
+			<xs:element ref="dc:Date"/>
+			<xs:element ref="dc:Type"/>
+			<xs:element ref="dc:Format"/>
+			<xs:element ref="dc:Identifier"/>
+			<xs:element ref="dc:Language"/>
+			<xs:element ref="dc:Rights"/>
+		</xs:choice>
+	</xs:group>
+  
+</xs:schema>

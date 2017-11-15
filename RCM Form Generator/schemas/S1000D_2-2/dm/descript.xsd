@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Replace group "gen_inc" by "FFTC" on <descript>. *
+    *                   Move inclusion of files WCNP.XSD, FIG_TAB.XSD    *
+    *                   and PARACON_CAPGRP.XSD to DESCRIPTSCHEMA.XSD.    *
+    *                   Define new group "TEXT-NOREFS", same as "text",  *
+    *                   except <refdm>, <reftp>, <change>, <emphasis>    *
+    *                   and <ftnote> removed.                            *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="descript.xsd"/>                        *
+    ********************************************************************** -->
+
+
+	<xs:group name="CONTENT">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "CONTENT" (Content Breakdown) containing:-  descript. *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="descript"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:group name="HEADING">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "HEADING" (Numbered Paragraphs Heading) containing:-  *
+    *  Definition stored in group "HEADING1".                            *
+    *  capgrp   - Optional   Single    contains colspec,spanspec,capbody.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:sequence>
+			<xs:group ref="HEADING1"/>
+			<xs:element ref="capgrp" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+
+	<!-- call with minOccurs="0" and maxOccurs="unbounded" !-->
+	<xs:group name="NPFFT">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "NPFFT" (Note or Paragraph or Figure or Foldout or    *
+    *                       Table or Caption)                            *
+    * containing:-                                                       *
+    *   Definition stored in group "NP".                                 *
+    *  or                                                                *
+    *   Definition stored in group "FFTC".                               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:group ref="NP"/>
+			<xs:group ref="FFTC"/>
+		</xs:choice>
+	</xs:group>
+<!-- Newly introduced group -->
+
+	<xs:group name="NPAR">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define group "NPAR" (Numbered Paragraphs) containing:-             *
+    *   Definition stored in group "WC".                                 *
+    *             - Mandatory Single     contains warning, caution.      *
+    *   Definition stored in group "NPFFT".                              *
+    *             - Optional Repeatable  contains note, para, Definition *
+    *                                    stored in group "FFTC".         *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:sequence>
+			<xs:group ref="WC"/>
+			<xs:group ref="NPFFT" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:group>
+<!-- Group "NP" replaced by "NPFFT" in content model -->
+
+<!-- use	<xs:complexType mixed="true"> -->
+<!-- call with  minOccurs="0" maxOccurs="unbounded" !!! -->
+	<xs:group name="text">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Group "text" (Running Text) containing:-                    *
+    *   Parsed Character Data.                                           *
+    *  or                                                                *
+    *   xref     - Mandatory Single     contains applic, Definition      *
+    *                                            stored in group         *
+    *                                            "SPARCON".              *
+    *  or                                                                *
+    *   indxflag - Mandatory Single     contains No Other Tags.          *
+    *  or                                                                *
+    *   change   - Mandatory Single     contains Definition stored in    *
+    *                                            group "text".           *
+    *  or                                                                *
+    *   emphasis - Mandatory Single     contains Definition stored in    *
+    *                                            group "text".           *
+    *  or                                                                *
+    *   symbol   - Mandatory Single     contains applic.                 *
+    *  or                                                                *
+    *   subscrpt - Mandatory Single     contains Replaceable Character   *
+    *                                            Data.                   *
+    *  or                                                                *
+    *   supscrpt - Mandatory Single     contains Replaceable Character   *
+    *                                            Data.                   *
+    *  or                                                                *
+    *   refdm    - Mandatory Single     contains applic, age, avee,      *
+    *                                            issno, dmtitle,         *
+    *                                            Definition stored in    *
+    *                                            group "XLINKEXT".       *
+    *  or                                                                *
+    *   reftp    - Mandatory Single     contains applic, text,           *
+    *                                            definitions stored in   *
+    *                                            groups "PUBREF" and     *
+    *                                            "XLINKEXT".             *
+    *  or                                                                *
+    *   ftnote   - Mandatory Single     contains applic, para.           *
+    *  or                                                                *
+    *   ftnref   - Mandatory Single     contains No Other Tags.          *
+    *  or                                                                *
+    *   acronym  - Mandatory Single     contains acroterm, acrodef.      *
+    *  or                                                                *
+    *   acroterm - Mandatory Single     contains Definition stored in    *
+    *                                            group "SPARCON".        *
+    *  or                                                                *
+    *   caption  - Mandatory Single     contains applic, capline.        *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="xref"/>
+			<xs:element ref="indxflag"/>
+			<xs:element ref="change"/>
+			<xs:element ref="emphasis"/>
+			<xs:element ref="symbol"/>
+			<xs:element ref="subscrpt"/>
+			<xs:element ref="supscrpt"/>
+			<xs:element ref="refdm"/>
+			<xs:element ref="reftp"/>
+			<xs:element ref="ftnote"/>
+			<xs:element ref="ftnref"/>
+			<xs:element ref="acronym"/>
+			<xs:element ref="acroterm"/>
+			<xs:element ref="caption"/>
+		</xs:choice>
+	</xs:group>	
+<!-- Content model amended -->
+
+<!-- use 	<xs:complexType mixed="true"> -->
+<!-- call with  minOccurs="0" maxOccurs="unbounded" !!! -->
+	<xs:group name="TEXT-NOREFS">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "TEXT-NOREFS" (Running Text without References)       *
+    * containing:-                                                       *
+    *   Parsed Character Data.                                           *
+    *  or                                                                *
+    *    xref           - Mandatory Single   contains applic, Definition *
+    *                                        stored in group "SPARCON".  *
+    *  or                                                                *
+    *   indxflag        - Mandatory Single   contains No Other Tags.     *
+    *  or                                                                *
+    *   symbol          - Mandatory Single   contains applic.            *
+    *  or                                                                *
+    *   subscrpt        - Mandatory Single   contains Replaceable        *
+    *                                        Character Data.             *
+    *  or                                                                *
+    *   supscrpt        - Mandatory Single   contains Replaceable        *
+    *                                        Character Data.             *
+    *  or                                                                *
+    *   ftnref          - Mandatory Single   contains No Other Tags.     *
+    *  or                                                                *
+    *   acronym         - Mandatory Single   contains acroterm, acrodef. *
+    *  or                                                                *
+    *   acroterm        - Mandatory Single   contains Definition stored  *
+    *                                        in group "SPARCON".         *
+    *  or                                                                *
+    *   caption  - Mandatory Single     contains applic, capline.        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice> 
+			<xs:element ref="xref"/>
+			<xs:element ref="indxflag"/>
+			<xs:element ref="symbol"/>
+			<xs:element ref="subscrpt"/>
+			<xs:element ref="supscrpt"/>
+			<xs:element ref="ftnref"/>
+			<xs:element ref="acronym"/>
+			<xs:element ref="acroterm"/> 
+			<xs:element ref="caption"/>
+		</xs:choice>
+	</xs:group>
+<!-- Newly introduced group -->
+
+	<xs:element name="descript">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element descript (Descriptive Content) containing:-         *
+    *====================================================================*
+    *  Optional Repeatable Group                                         *
+    *====================================================================*
+    *====================================================================*
+    *   Mandatory Single Group                                           *
+    *====================================================================*
+    *    para     - Optional  Repeatable  contains applic, Definition    *
+    *                                     stored in group "paracon".     *
+    *    Definition stored in group "spcpara".                           *
+    *    para0    - Optional  Repeatable  contains Definition stored in  *
+    *                                     groups "nparcon" and "SUBPAR1".*
+    *====================================================================*
+    *   or                                                               *
+    *    Definition stored in group "FFTC"     - Mandatory Single.       *
+    *====================================================================*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:sequence>
+					<xs:element ref="para" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:group ref="spcpara"/>
+					<xs:element ref="para0" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:group ref="FFTC"/>	
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

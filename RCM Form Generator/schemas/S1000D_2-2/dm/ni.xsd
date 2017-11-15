@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.0                            *
+    *                       Date: 2003-05-31                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. Update public identifier.                                       *
+    * 2. CPF 2002-06F: Define new substructure for identno.              *
+    *                  Move definition of csnref to APPLIC.ENT.          *
+    *                  Rename group from "NIC" to "NI".                  *
+    *                                                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="ni.xsd"/>                              *
+    ********************************************************************** -->
+
+
+	<xs:element name="nomen">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element nomen (Nomenclature) containing:-                   *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="INSDEL"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="identno">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element identno (Identification Number) containing:-        *
+    *  mfc      - Mandatory Single       contains Parsed Character Data. *
+    *====================================================================*
+    *  Optional Repeatable Group.                                        *
+    *====================================================================*
+    *    pnr      - Optional Single      contains Parsed Character Data. *
+    *    serialno - Optional Repeatable  contains single, range.         *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "INSDEL".     *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="mfc"/>
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">			
+					<xs:element ref="pnr"/>
+					<xs:element ref="serialno" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:sequence>
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

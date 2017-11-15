@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.0                            *
+    *                       Date: 2003-05-31                             *
+    *                                                                    *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. Update public identifier.                                       *
+    * 2. Reflect the changes done for the DM DTD.                        *
+    * 3. Change Element zip from mandatory to optional (UK request).     *
+    * 4. Add optional Element postcode (UK request).                     *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="dispaddr.xsd"/>                        *
+    ********************************************************************** -->
+
+
+	<xs:element name="dispaddr">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dispaddr (Sending/Receiving Address Details)        *
+    *  containing:-                                                      *
+    *   enterprise - Mandatory   Single  contains ent-name,division,unit *
+    *   person     - Optional    Single  contains lastname, firstname,   *
+    *                                             jobtitle               *
+    *   address    - Mandatory   Single  contains dept,street,pobox,zip, *
+    *                                    city,country,state,province,    *
+    *                                    building,room,phone,fax,email,  *
+    *                                    internet                        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="enterprise"/>
+				<xs:element ref="person" minOccurs="0"/>
+				<xs:element ref="address"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="enterprise">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element enterprise (Sending/Receiving Company/Authority     *
+    *                            details) containing:-                   *
+    *   ent-name  - Mandatory    Single  contains Parsed Character Data. *
+    *   division  - Optional     Single  contains Parsed Character Data. *
+    *   ent-unit  - Optional     Single  contains Parsed Character Data. *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ent-name"/>
+				<xs:element ref="division" minOccurs="0"/>
+				<xs:element ref="ent-unit" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ent-name" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ent-name (Sending/Receiving Company's/Authority's   *
+    *                          name, eg "EADS Deutschland")              *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="division" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element division (Sending/Receiving Company's/Authority's   *
+    *                          division, eg "Military Aircraft")         *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="ent-unit" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ent-unit (Sending/Receiving Company/Authority       *
+    *                          business unit, eg "Customer Support       *
+    *                                               Operations")         *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="person">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element person (Details of receiving/sending person)        *
+    *  containing:-                                                      *
+    *   lastname   - Mandatory  Single   contains Parsed Character Data. *
+    *   firstname  - Optional   Single   contains Parsed Character Data. *
+    *   jobtitle   - Optional   Single   contains Parsed Character Data. *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *   prefix  - CDATA - IMPLIED  -      contains name prefix (eg Mr.,  *
+    *                                             Mrs., Dr., Sig., Sen.) *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="lastname"/>
+				<xs:element ref="firstname" minOccurs="0"/>
+				<xs:element ref="jobtitle" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="prefix" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="lastname" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element lastname (Person's Last Name) containing:-          *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="firstname" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element firstname (Person's First Name) containing:-        *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="jobtitle" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element jobtitle (Person's job title, eg "Tech Pubs         *
+    *                                                  Manager")         *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="address">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element address (Receiving/Sending postal address details)  *
+    * containing:-                                                       *
+    *  dept     - Optional   Single      contains Parsed Character Data. *
+    *  street   - Optional   Single      contains Parsed Character Data. *
+    *  pobox    - Optional   Single      contains Parsed Character Data. *
+    *  zip      - Optional   Single      contains Parsed Character Data. *
+    *  city     - Mandatory  Single      contains Parsed Character Data. *
+    *  postcode - Optional   Single      contains Parsed Character Data. *
+    *  country  - Mandatory  Single      contains Parsed Character Data. *
+    *  state    - Optional   Single      contains Parsed Character Data. *
+    *  province - Optional   Single      contains Parsed Character Data. *
+    *  building - Optional   Single      contains Parsed Character Data. *
+    *  room     - Optional   Single      contains Parsed Character Data. *
+    *  phone    - Optional   Repeatable  contains Parsed Character Data. *
+    *  fax      - Optional   Repeatable  contains Parsed Character Data. *
+    *  email    - Optional   Repeatable  contains Parsed Character Data. *
+    *  internet - Optional   Repeatable  contains Parsed Character Data. *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dept" minOccurs="0"/>
+				<xs:element ref="street" minOccurs="0"/>
+				<xs:element ref="pobox" minOccurs="0"/>
+				<xs:element ref="zip" minOccurs="0"/>
+				<xs:element ref="city"/>
+				<xs:element ref="postcode" minOccurs="0"/>
+				<xs:element ref="country"/>
+				<xs:element ref="state" minOccurs="0"/>
+				<xs:element ref="province" minOccurs="0"/>
+				<xs:element ref="building" minOccurs="0"/>
+				<xs:element ref="room" minOccurs="0"/>
+				<xs:element ref="phone" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="fax" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="email" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="internet" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dept" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dept (Departmental Code, eg "W820", "MB46", etc)    *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="street" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element street (Street Name/Number, eg "65 Brown Street")   *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="pobox" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pobox (P.O. Box or Departmental Post Code,          *
+    *                       eg "W17","801160")                           *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="zip" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element zip (Zip Code incl Country Identifier if applicable,*
+    *                     eg "D-81663", "F-92552")                       *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="city" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element city (City Name, eg "Warton", "Munich", "St. Cloud",*
+    *                                    "Glasgow")                      *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="postcode" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element postcode (UK Post Code, eg "G2 8EX", "BA20 2YB")    *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="country" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element country (Country Name, eg "United Kingdom",         *
+    *                                          "Germany", "France")      *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="state" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element state (State Name within Country, eg "England",     *
+    *                                                     "Bavaria")     *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="province" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element province (Province Name within State,               *
+    *                          eg "Lancashire", "Provence")              *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="building" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element building (Building Name/Number, eg "6.C")           *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="room" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element room (Room Number, eg "308") containing:-           *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="phone" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element phone (Phone Number) containing:-                   *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="fax" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element fax (Fax Number) containing:-                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="email" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element email (Email Address) containing:-                  *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="internet" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element internet (WWW Address) containing:-                 *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+
+</xs:schema>

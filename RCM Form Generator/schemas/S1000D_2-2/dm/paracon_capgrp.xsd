@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2004-32US: Move group "paracon" out of PARACON.XSD for      *
+    *                   static descriptive and procedural data modules.  *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="paracon_capgrp.xsd"/>                  *
+    ********************************************************************** -->
+
+
+<!-- Call with minOccurs="0" maxOccurs="unbounded" !-->
+	<xs:group name="paracon">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "paracon" (Paragraph Continuation) containing:-       *
+    *====================================================================*
+    * Mandatory Repeatable Group.                                        *
+    *====================================================================*
+    *  Definition stored in group "text".                                *
+    * or                                                                 *
+    *  Definition stored in group "list".                                *
+    * or                                                                 *
+    *  Definition stored in group "CAPPCON".                             *
+    *====================================================================*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:group ref="text"/>
+			<xs:group ref="list"/>
+			<xs:group ref="CAPPCON"/>
+		</xs:choice>
+	</xs:group>
+
+
+</xs:schema>

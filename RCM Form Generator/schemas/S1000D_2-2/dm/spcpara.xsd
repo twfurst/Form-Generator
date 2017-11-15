@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Move group "spcpara" from COMMON.XSD to here.    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="spcpara.xsd"/>                         *
+    ********************************************************************** -->
+
+
+	<xs:group name="spcpara">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "spcpara" (Special Paragraphs) containing:-           *
+    *  Definition stored in group "WC"                                   *
+    *           - Optional Single      contains warning, caution         *
+    *  note     - Optional Repeatable  contains applic,symbol,para,"list"*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="WC"/>
+			<xs:element ref="note" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:group>
+
+
+</xs:schema>

@@ -1,0 +1,35 @@
+URI "http://www.s1000d.org/S1000D_2-2/xml_schema/dm/descriptSchema.xsd" "./dm/descriptSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2/xml_schema/dm/schedulSchema.xsd" "./dm/schedulSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2/xml_schema/dm/procedSchema.xsd" "./dm/procedSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2/xml_schema/dm/processSchema.xsd" "./dm/processSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2/xml_schema/dm/crewSchema.xsd" "./dm/crewSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2/xml_schema/dm/faultSchema.xsd" "./dm/faultSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2/xml_schema/dm/brexSchema.xsd" "./dm/brexSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2/xml_schema/dm/ipdSchema.xsd" "./dm/ipdSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2/xml_schema/dm/wrngdataSchema.xsd" "./dm/wrngdataSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2/xml_schema/dm/wrngfldsSchema.xsd" "./dm/wrngfldsSchema.xsd"
+
+URI "http://www.s1000d.org/S1000D_2-2/xml_schema/ddn/ddnSchema.xsd" "./ddn/ddnSchema.xsd"
+
+URI "http://www.s1000d.org/S1000D_2-2/xml_schema/dml/dmlSchema.xsd" "./dml/dmlSchema.xsd"
+
+URI "http://www.s1000d.org/S1000D_2-2/xml_schema/pm/pmSchema.xsd" "./pm/pmSchema.xsd"
+
+URI "http://www.s1000d.org/S1000D_2-2-1/xml_schema/dm/descriptSchema.xsd" "./dm/descriptSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2-1/xml_schema/dm/schedulSchema.xsd" "./dm/schedulSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2-1/xml_schema/dm/procedSchema.xsd" "./dm/procedSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2-1/xml_schema/dm/processSchema.xsd" "./dm/processSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2-1/xml_schema/dm/crewSchema.xsd" "./dm/crewSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2-1/xml_schema/dm/faultSchema.xsd" "./dm/faultSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2-1/xml_schema/dm/brexSchema.xsd" "./dm/brexSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2-1/xml_schema/dm/ipdSchema.xsd" "./dm/ipdSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2-1/xml_schema/dm/wrngdataSchema.xsd" "./dm/wrngdataSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-2-1/xml_schema/dm/wrngfldsSchema.xsd" "./dm/wrngfldsSchema.xsd"
+
+URI "http://www.s1000d.org/S1000D_2-2-1/xml_schema/ddn/ddnSchema.xsd" "./ddn/ddnSchema.xsd"
+
+URI "http://www.s1000d.org/S1000D_2-2-1/xml_schema/dml/dmlSchema.xsd" "./dml/dmlSchema.xsd"
+
+URI "http://www.s1000d.org/S1000D_2-2-1/xml_schema/pm/pmSchema.xsd" "./pm/pmSchema.xsd"
+
+PUBLIC "ISO 8879-1986//ENTITIES ISO Character Entities 20030531//EN//XML" "./ent/ISOEntities"

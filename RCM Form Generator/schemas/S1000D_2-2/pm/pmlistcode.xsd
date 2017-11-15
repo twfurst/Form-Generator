@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. TPSMG request: Amend element <p> by attribute definitions of    *
+    *                   group "bodyatt". Groups "SPAR" and "SPARCON"     *
+    *                   moved to file dmaddr2.xsd.                       *
+    * 2. Consistency:   Redefine the type of all elements which contain  *
+    *                   only Parsed Character Data and have no           *
+    *                   attributes to be of type="xs:string".            *
+    *====================================================================*
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="pmlistcode.xsd"/>                      *
+    ********************************************************************** -->
+
+
+	<xs:element name="p">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element p (Simple Paragraph) containing:-                   *
+    *  Definition stored in group "SPARCON".                             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:group ref="SPARCON" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Attribute group "bodyatt" added -->
+
+	<xs:element name="subscrpt" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element subscrpt (Sub Script) containing:-                  *
+    *  Replaceable Character Data.                                       *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+<!-- Type of element changed -->
+
+	<xs:element name="supscrpt" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element supscrpt (Super Script) containing:-                *
+    *  Replaceable Character Data.                                       *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+<!-- Type of element changed -->
+
+	<xs:element name="remarks">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define element remarks (Remarks) containing:-                      *
+    *   Definition stored in group "SPAR".                               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:group ref="SPAR" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

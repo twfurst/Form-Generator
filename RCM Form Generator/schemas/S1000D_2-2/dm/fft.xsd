@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Move group "fft_inc" from S1000D.XSD to here and *
+    *                   rename it to "FFT" for alignment with the SGML   *
+    *                   DTD.                                             *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="fft.xsd"/>                             *
+    ********************************************************************** -->
+
+
+	<xs:group name="FFT">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "FFT" (Figure or Foldout or Table) containing:-       *
+    *   figure   - Mandatory  Single    contains Definition stored in    *
+    *                                   group "titles", applic, graphic, *
+    *                                   sheet, rfa, legend.              *
+    *  or                                                                *
+    *   foldout  - Mandatory  Single    contains figure, table.          *
+    *  or                                                                *
+    *   table    - Mandatory  Single    contains Definition stored in    *
+    *                                   group "titles", tgroup, graphic. *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="figure"/>
+			<xs:element ref="foldout"/>
+			<xs:element ref="table"/>
+		</xs:choice>
+	</xs:group>
+<!-- Group "fft_inc" renamed to "FFT" for alignment with SGML DTD -->
+
+
+</xs:schema>

@@ -1,0 +1,421 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                   Document Type Definition                         *
+    *                                                                    *
+    *                     Release Version 2.0                            *
+    *                       Date: 2003-05-31                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Remove inclusion of group "fft_inc" from element *
+    *                   <captext>.                                       *
+    *                   Move group "CAPPCON" from file PROCED.XSD to     *
+    *                   here.                                            *
+    * 2. CPF 2004-06SE: Change content model of element <reftp>.         *
+    *                                                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="capgrp.xsd"/>                          *
+    ********************************************************************** -->
+
+
+	<xs:group name="CAPPCON">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "CAPPCON" (Caption Paragraph Continuation)            *
+    * containing:-                                                       *
+    * or                                                                 *
+    *  capgrp   - Mandatory Single     contains applic, colspec,         *
+    *                                  spanspec, capbody.                *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="capgrp"/>
+		</xs:choice>
+	</xs:group>
+
+	<xs:element name="capgrp">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element capgrp (Caption Group) containing:-                 *
+    *  applic   - Optional   Single      contains type, model.           *
+    *  colspec  - Optional   Repeatable  contains No Other Tags.         *
+    *  spanspec - Optional   Repeatable  contains No Other Tags.         *
+    *  capbody  - Mandatory  Single      contains caprow.                *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  cols     - NUMBER   - REQUIRED - Number of columns in caption     *
+    *                                    group                           *
+    *  align    - Declared - "left"   - Align Caption Group              *
+    *           - "left"   - Quad (flush) left.                          *
+    *           - "center" - Centered.                                   *
+    *           - "right"  - Quad (flush) right.                         *
+    *  toctype  - Declared - "none"   - Identifies the appropriate Table *
+    *                                   of Contents                      *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  colsep   - NUMBER   - IMPLIED  - Internal Column rulings.         *
+    *           - "0"      - Do Not display internal column rulings.     *
+    *           - "1"      - Display internal column rulings.            *
+    *  rowsep   - NUMBER   - IMPLIED  - Internal Row rulings.            *
+    *           - "0"      - Do Not display internal row rulings.        *
+    *           - "1"      - Display internal row rulings.               *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:element ref="colspec" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="spanspec" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="capbody"/>
+			</xs:sequence>
+
+			<xs:attribute name="cols" type="xs:string" use="required"/>
+			<xs:attribute name="align" default="left">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="left"/>
+						<xs:enumeration value="right"/>
+						<xs:enumeration value="center"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="toctype" default="none">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="none"/>
+						<xs:enumeration value="redtoc"/>
+						<xs:enumeration value="comdtoc"/>
+						<xs:enumeration value="ambertoc"/>
+						<xs:enumeration value="greentoc"/>
+						<xs:enumeration value="yelowtoc"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attributeGroup ref="bodyatt"/>
+			<xs:attribute name="colsep" type="yesorno"/>
+			<xs:attribute name="rowsep" type="yesorno"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="capbody">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element capbody (Caption Group Body) containing:-           *
+    *   applic   - Optional   Single      contains type, model.          *
+    *   caprow   - Mandatory  Repeatable  contains capentry.             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  valign   - Declared - "top"    - Text vertical positioning within *
+    *                                 - the entries.                     *
+    *           - "top"    - Align text vertically to top of entries.    *
+    *           - "middle" - Approximately vertically centered.          *
+    *           - "bottom" - Align text vertically to bottom of entries. *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>	
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:element ref="caprow" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="valign" default="top">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="top"/>
+						<xs:enumeration value="middle"/>
+						<xs:enumeration value="bottom"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="caprow">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element caprow (Row of Captions) containing:-               *
+    *====================================================================*
+    * Mandatory Repeatable Group                                         *
+    *====================================================================*
+    *   applic   - Optional   Single      contains type, model.          *
+    *   capentry - Mandatory  Single      contains applic, caption,      *
+    *                                      captext.                      *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  rowsep   - NUMBER   - IMPLIED  - Internal Row rulings.            *
+    *           - "0"      - Do Not display internal row rulings.        *
+    *           - "1"      - Display internal row rulings.               *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:element ref="capentry"/>
+			</xs:sequence>
+			<xs:attribute name="rowsep" type="yesorno"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="capentry">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element capentry (Caption Group Entry) containing:-         *
+    *  applic   - Optional  Single     contains type, model.             *
+    *====================================================================*
+    * Optional Repeatable Group                                          *
+    *====================================================================*
+    *  caption  - Mandatory Single     contains applic, capline.         *
+    * or                                                                 *
+    *  captext  - Mandatory Single     contains Parsed Character Data,   *
+    *                                   xref, indxflag, change, emphasis,*
+    *                                   subscrpt, supscrpt, refdm, reftp.*
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  colname  - NMTOKEN  - IMPLIED  - Column name of entry.            *
+    *  namest   - NMTOKEN  - IMPLIED  - Name of the left most column of  *
+    *                      - the span.                                   *
+    *  nameend  - NMTOKEN  - IMPLIED  - Name of the right most column of *
+    *                      - the span.                                   *
+    *  spanname - NMTOKEN  - IMPLIED  - Name of horizontal span.         *
+    *  morerows - NUMBER   - "0"      - Number of additional rows in a   *
+    *                      - vertical straddle.                          *
+    *  colsep   - NUMBER   - IMPLIED  - Internal Column rulings.         *
+    *           - "0"      - Do Not display internal column rulings.     *
+    *           - "1"      - Display internal column rulings.            *
+    *  rowsep   - NUMBER   - IMPLIED  - Internal Row rulings.            *
+    *           - "0"      - Do Not display internal row rulings.        *
+    *           - "1"      - Display internal row rulings.               *
+    *  valign   - Declared - "top"    - Text vertical positioning within *
+    *                      - the entries.                                *
+    *           - "top"    - Align text vertically to top of entries.    *
+    *           - "middle" - Approximately vertically centered.          *
+    *           - "bottom" - Align text vertically to bottom of entries. *
+    *  align    - Declared - IMPLIED  - Text horizontal position within  *
+    *                      - the column.                                 *
+    *           - "left"   - Quad (flush) left.                          *
+    *           - "center" - Centered.                                   *
+    *           - "right"  - Quad (flush) right.                         *
+    *           - "justify"- Both quad left and quad right.              *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>	
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:choice minOccurs="0">
+					<xs:element ref="caption"/>	
+					<xs:element ref="captext"/>
+				</xs:choice>
+			</xs:sequence>
+
+			<xs:attribute name="colname" type="xs:NMTOKEN"/>
+			<xs:attribute name="namest" type="xs:NMTOKEN"/>
+			<xs:attribute name="nameend" type="xs:NMTOKEN"/>
+			<xs:attribute name="spanname" type="xs:NMTOKEN"/>
+			<xs:attribute name="morerows" type="xs:string" default="0"/>
+			<xs:attribute name="colsep" type="yesorno"/>
+			<xs:attribute name="rowsep" type="yesorno"/>
+			<xs:attribute name="valign" default="top">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="top"/>
+						<xs:enumeration value="bottom"/>
+						<xs:enumeration value="middle"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="align">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="left"/>
+						<xs:enumeration value="right"/>
+						<xs:enumeration value="center"/>
+						<xs:enumeration value="justify"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="caption">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element caption (Caption) containing:-                      *
+    *  applic   - Optional  Single      contains type, model.            *
+    *  capline  - Mandatory Repeatable  contains Parsed Character Data.  *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  colour  - "COLOURS" -         - Color of Caption.                 *
+    *                                  "COLOURS" declared in S1000D.CFG. *
+    *  width   - CDATA    - IMPLIED - Width of caption box               *
+    *  height  - CDATA    - IMPLIED - Height of caption box              *
+    *  sysid   - CDATA    - IMPLIED - External flight systems identifier *
+    *                                 for caption                        *
+    *  align   - Declared - "center" - Alignment of text within Caption  *
+    *                                  box.                              *
+    *          - "left"   - Quad (flush) left.                           *
+    *          - "center" - Centered.                                    *
+    *          - "right"  - Quad (flush) right.                          *
+    *          - "justify"- Both quad left and quad right.               *
+    *  toctype - Declared - "none"   - Identifies the appropriate Table  *
+    *                                  of Contents                       *
+    *  type    - Declared - "primary" - Type of caption                  *
+    *          - "primary"   - Primary level caption                     *
+    *          - "secondary" - Secondary level caption                   *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>	
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:element ref="capline" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute ref="colour"/>
+			<xs:attribute name="width" type="xs:string"/>
+			<xs:attribute name="height" type="xs:string"/>
+			<xs:attribute name="sysid" type="xs:string"/>
+			<xs:attribute name="align" default="center">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="left"/>
+						<xs:enumeration value="right"/>
+						<xs:enumeration value="justify"/>
+						<xs:enumeration value="center"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="toctype" default="none">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="none"/>
+						<xs:enumeration value="redtoc"/>
+						<xs:enumeration value="combtoc"/>
+						<xs:enumeration value="ambertoc"/>
+						<xs:enumeration value="greentoc"/>
+						<xs:enumeration value="yelowtoc"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="type" default="primary">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="primary"/>
+						<xs:enumeration value="secondary"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="capline">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element capline (Caption line of text) containing:-         *
+    *====================================================================*
+    *  Mandatory Repeatable Group.                                       *
+    *====================================================================*
+    *   Parsed Character Data.                                           *
+    *  or                                                                *
+    *   acroterm  - Mandatory Single     contains Definition stored in   *
+    *                                             group "SPARCON".       *
+    *====================================================================*
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="acroterm" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>	
+	</xs:element>
+
+	<xs:element name="captext">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element captext (Caption Text [not within a caption box])   *
+    *  containing:-                                                      *
+    *====================================================================*
+    *  Mandatory Repeatable Group.                                       *
+    *====================================================================*
+    *   Parsed Character Data.                                           *
+    *  or                                                                *
+    *   xref     - Mandatory Single     contains applic, Definition      *
+    *                                   stored in group "SPARCON".       *
+    *  or                                                                *
+    *   indxflag - Mandatory Single     contains No Other Tags.          *
+    *  or                                                                *
+    *   change   - Mandatory Single     contains Definition stored in    *
+    *                                   group "text".                    *
+    *  or                                                                *
+    *   emphasis - Mandatory Single     contains Definition stored in    *
+    *                                   group "text".                    *
+    *  or                                                                *
+    *   subscrpt - Mandatory Single     contains Replaceable Character   *
+    *                                   Data.                            *
+    *  or                                                                *
+    *   supscrpt - Mandatory Single     contains Replaceable Character   *
+    *                                   Data.                            *
+    *  or                                                                *
+    *   refdm    - Mandatory Single     contains applic, Definition      *
+    *                                   stored in group "ALLDMC",        *
+    *                                   issno, dmtitle.                  *
+    *  or                                                                *
+    *   reftp    - Mandatory Single     contains applic, Definition      *
+    *                                   stored in group "TEXT-NOREFS",   *
+    *                                   Definition stored in group       *
+    *                                   "PUBREF".                        *
+    *   acronym  - Mandatory Single     contains acroterm, acrodef.      *
+    *  or                                                                *
+    *   acroterm  - Mandatory Single    contains Definition stored in    *
+    *                                   group "SPARCON".                 *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    * Attribute Definition list stored in attribute group "INSDEL".      *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="xref"/>
+				<xs:element ref="indxflag"/>
+				<xs:element ref="change"/>
+				<xs:element ref="emphasis"/>
+				<xs:element ref="subscrpt"/>
+				<xs:element ref="supscrpt"/>
+				<xs:element ref="refdm"/>
+				<xs:element ref="reftp"/>
+				<xs:element ref="acronym"/>
+				<xs:element ref="acroterm"/>				
+			</xs:choice>
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Content model changed -->
+
+
+</xs:schema>

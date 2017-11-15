@@ -1,0 +1,17 @@
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/descript.xsd" "./xml_schema_flat/descript.xsd"
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/schedul.xsd" "./xml_schema_flat/schedul.xsd"
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/proced.xsd" "./xml_schema_flat/proced.xsd"
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/process.xsd" "./xml_schema_flat/process.xsd"
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/crew.xsd" "./xml_schema_flat/crew.xsd"
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/fault.xsd" "./xml_schema_flat/fault.xsd"
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/brex.xsd" "./xml_schema_flat/brex.xsd"
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/ipd.xsd" "./xml_schema_flat/ipd.xsd"
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/wrngdata.xsd" "./xml_schema_flat/wrngdata.xsd"
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/wrngflds.xsd" "./xml_schema_flat/wrngflds.xsd"
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/techrep.xsd" "./xml_schema_flat/techrep.xsd"
+
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/ddn.xsd" "./xml_schema_flat/ddnSchema.xsd"
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/dml.xsd" "./xml_schema_flat/dml.xsd"
+URI "http://www.s1000d.org/S1000D_2-3/xml_schema_flat/pm.xsd" "./xml_schema_flat/pm.xsd"
+
+PUBLIC "ISO 8879-1986//ENTITIES ISO Character Entities 20030531//EN//XML" "./ent/xml/ISOEntities"

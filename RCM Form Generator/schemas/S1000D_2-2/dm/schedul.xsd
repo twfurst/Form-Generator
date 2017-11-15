@@ -1,0 +1,611 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Move inclusion of files LISTS.XSD, WCNP.XSD and  *
+    *                   PARACON_STATIC.XSD to SCHEDULSCHEMA.XSD.         *
+    *                   Remove the inclusion of file FIG_TAB.XSD.        *
+    * 2. CPF 2004-06SE: Update comment areas of elements <trigger>,      *
+    *                   <deftask>, <taskitem>.                           *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="schedul.xsd"/>                         *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Include the Preliminary Requirements definitions.                  *
+    ********************************************************************** -->
+	<xs:include schemaLocation="prelreq.xsd" />
+
+	<xs:group name="CONTENT">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "CONTENT" (Content Breakdown) containing:-  schedule. *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="schedule"/>
+		</xs:sequence>
+	</xs:group>
+	 
+	<xs:element name="schedule">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element schedule (Schedule Information) containing:-        *
+    *   definspec - Mandatory Repeatable  contains inspection, tasklist. *
+    * or                                                                 *
+    *   deftask   - Mandatory Repeatable  contains task, prelreqs, refs, *
+    *                                      equip, supervis, limit, applic*
+    * or                                                                 *
+    *   timelim   - Mandatory Repeatable  contains equip, qty, cat,      *
+    *                                      timelimit, applic.            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  type     - CDATA   - IMPLIED - Type of Schedule                   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="definspec" maxOccurs="unbounded"/>
+				<xs:element ref="deftask" maxOccurs="unbounded"/>
+				<xs:element ref="timelim" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:attribute name="type" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="definspec">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element definspec (Inspection Definition) containing:-      *
+    *   inspection - Mandatory Single    contains limit, remarks.        *
+    *   tasklist   - Optional  Single    contains taskitem.              *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="inspection"/>
+				<xs:element ref="tasklist" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="threshold">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element threshold (Threshold Inspection) containing:-       *
+    *   value     - Mandatory Single   contains Parsed Character Data.   *
+    *   tolerance - Optional  Single   contains No Other Tags.           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom       - "THIUOMS"   - REQUIRED - Unit of Measurement          *
+    *                                       "THIUOMS" decl in S1000D.CFG *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="value"/>
+				<xs:element ref="tolerance" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="uom" type="THIUOMS" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="equip">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element equip (Equipment) containing:-                      *
+    *====================================================================*
+    * Mandatory Repeatable Group                                         *
+    *====================================================================*
+    *  nomen    - Mandatory Single       contains Parsed Character Data. *
+    *  nsn      - Optional  Single       contains No Other Tags.         *
+    *====================================================================*
+    * Mandatory Repeatable Group                                         *
+    *====================================================================*
+    *  identno  - Mandatory Single       contains pnr, mfc.              *
+    * or                                                                 *
+    *  csnref   - Mandatory Single       contains No Other Tags.         *
+    *====================================================================*
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element ref="nomen"/>
+				<xs:element ref="nsn" minOccurs="0"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="identno"/>
+					<xs:element ref="csnref"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="value" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element value (Value) containing:-                          *
+    *   Parsed Character Data.                                           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	     
+	<xs:element name="limrange">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element limrange (Limit Range) containing:-                 *
+    *   from    - Mandatory Single   contains threshold.                 *
+    *   to      - Optional  Single   contains threshold.                 *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="from"/>
+				<xs:element ref="to" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="timelimit">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element timelimit (Time Limit) containing:-                 *
+    *   limittype - Mandatory Repeatable  contains threshold, remarks.   *
+    *  or                                                                *
+    *   remarks   - Optional  Repeatable  contains Definition stored in  *
+    *                                              group "SPAR".         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="limittype" maxOccurs="unbounded"/>
+				<xs:element ref="remarks" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="tasklist">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element tasklist (Task List) containing:-                   *
+    *   taskitem  - Mandatory  Repeatable  contains refs, task, applic.  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="taskitem" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="from">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element from (Limrange from) containing:-                   *
+    *   threshold  - Mandatory Single   contains value, tolerance.       *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="threshold"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="to">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element to (Limrange to) containing:-                       *
+    *   threshold  - Mandatory Single   contains value, tolerance.       *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="threshold"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="sampling" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element sampling (Sampling) containing:-                    *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="tolerance">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element tolerance (Tolerance Value) containing:-            *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  minus  - NUMBER - IMPLIED - Minus tolerance value                 *
+    *  plus   - NUMBER - IMPLIED - Plus tolerance value                  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="minus" type="xs:string"/>
+			<xs:attribute name="plus" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="limit">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element limit (Time Limit) containing:-                     *
+    *   sampling   - Optional Single      contains Parsed Character Data.*
+    *   threshold  - Optional Repeatable  contains value, tolerance.     *
+    *   refinspec  - Optional Repeatable  contains No Other Tags.        *
+    *   trigger    - Optional Single      contains refs, threshold.      *
+    *   limrange   - Optional Single      contains from, to.             *
+    *   remarks    - Optional Repeatable  contains Definition stored in  *
+    *                                              group "SPAR".         *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  typex     - Declared - "pe"    -   Type of Time Limit.            *
+    *              - "po"   - Perform Once.                              *
+    *              - "ev"   - On Event/Condition.                        *
+    *              - "pe"   - Perform Periodically.                      *
+    *  condition - CDATA    - IMPLIED - conditions                       *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sampling" minOccurs="0"/>
+				<xs:element ref="threshold" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="refinspec" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="trigger" minOccurs="0"/>
+				<xs:element ref="limrange" minOccurs="0"/>
+				<xs:element ref="remarks" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="typex" default="pe">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">					
+						<xs:enumeration value="po"/>
+						<xs:enumeration value="ev"/>
+						<xs:enumeration value="pe"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="condition" type="xs:string"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="trigger">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element trigger (Trigger) containing:-                      *
+    *   refs      - Mandatory Single  contains norefs, refdm, reftp.     *
+    *   threshold - Optional Single   contains value, tolerance.         *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  release   - Declared - IMPLIED - "before", "with", "after"        *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="refs"/>
+				<xs:element ref="threshold" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="release">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="before"/>
+						<xs:enumeration value="with"/>
+						<xs:enumeration value="after"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Comment area updated. -->
+
+	<xs:element name="timelim">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element timelim (Time Limit) containing:-                   *
+    *   equip     - Mandatory Single      contains nomen, nsn, identno,  *
+    *                                     csnref.                        *
+    *   qty       - Optional  Single      contains Parsed Character Data.*
+    *   cat       - Optional  Single      contains No Other Tags.        *
+    *   timelimit - Mandatory Repeatable  contains limittype, remarks.   *
+    *   applic    - Mandatory Single      contains type, model.          *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  identifier   - CDATA    - REQUIRED -                              *
+    *  skill        - Declared - IMPLIED  - Personnel skill level        *
+    *                                       Definition stored in         *
+    *                                       type "SKILL".                *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="equip"/>
+				<xs:element ref="qty" minOccurs="0"/>
+				<xs:element ref="cat" minOccurs="0"/>
+				<xs:element ref="timelimit" maxOccurs="unbounded"/>
+				<xs:element ref="applic"/>
+			</xs:sequence>
+			<xs:attribute name="identifier" type="xs:string" use="required"/>
+			<xs:attribute name="skill" type="SKILL"/>
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="limittype">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element limittype (Limit Type) containing:-                 *
+    *   threshold - Mandatory Repeatable  contains value, tolerance.     *
+    *   remarks   - Optional  Repeatable  contains Definition stored in  *
+    *                                              group "SPAR".         *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  type       - "TYPES"   - IMPLIED -  Identifies the limit type.    *
+    *                                      "TYPES" declared in S1000D.CFG*
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="threshold" maxOccurs="unbounded"/>
+				<xs:element ref="remarks" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="type" type="TYPES"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="supervis">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element supervis (Supervisor) containing:-                  *
+    *   No Other Tags.                                                   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  sup.lev    - "SUP.LEVS" - IMPLIED - Supervisor level              *
+    *                                      "SUP.LEVS" decl in S1000D.CFG.*
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>
+			<xs:attribute name="sup.lev" type="SUP.LEVS"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="deftask">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element deftask (Task Definition) containing:-              *
+    *   task     - Mandatory Single      contains Parsed Character Data. *
+    *   prelreqs - Optional  Single      contains pmd, reqconds, reqpers,*
+    *                                     supequip, supplies, spares,    *
+    *                                     safety.                        *
+    *   refs     - Optional  Single      contains norefs, refdm, reftp.  *
+    *   equip    - Optional  Single      contains nomen, nsn, identno,   *
+    *                                     csnref.                        *
+    *   supervis - Optional  Single      contains No Other Tags.         *
+    *   limit    - Optional  Repeatable  contains sampling, threshold,   *
+    *                                     refinspec, trigger, limrange,  *
+    *                                     remarks.                       *
+    *   applic    - optional single      contains type, model.           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  taskid       - CDATA    - REQUIRED - Task identifier.             *
+    *  airworthlim  - Declared - IMPLIED  - Airworthiness limit          *
+    *                            "recommended", "mandatory", "none".     *
+    *  reducem      - CDATA    - IMPLIED  - Reduced maintenance.         *
+    *  skill        - Declared - IMPLIED  - Personnel skill level        *
+    *                                       Definition stored in type    *
+    *                                       "SKILL".                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="task"/>
+				<xs:element ref="prelreqs" minOccurs="0"/>
+				<xs:element ref="refs" minOccurs="0"/>
+				<xs:element ref="equip" minOccurs="0"/>
+				<xs:element ref="supervis" minOccurs="0"/>
+				<xs:element ref="limit" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="applic" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="taskid" type="xs:string" use="required"/>
+			<xs:attribute name="airworthlim">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="recommended"/>
+						<xs:enumeration value="mandatory"/>
+						<xs:enumeration value="none"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="reducem" type="xs:string"/>
+			<xs:attribute name="skill" type="SKILL"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Comment area updated. -->
+
+	<xs:element name="inspection">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element inspection (Inspection) containing:-                *
+    *   limit    - Optional Repeatable  contains sampling, threshold,    *
+    *                                    refinspec, trigger, limrange,   *
+    *                                    remarks.                        *
+    *   remarks  - Optional Repeatable  contains Definition stored in    *
+    *                                            group "SPAR".           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="limit" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="remarks" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="taskitem">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element taskitem (Task Item) containing:-                   *
+    *   refs      - Optional Single     contains norefs, refdm, reftp.   *
+    *   task      - Optional Single     contains Parsed Character Data.  *
+    *   applic    - Optional Single     contains type, model.            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  seqnum    - CDATA    - REQUIRED - Sequence Number.                *
+    *  taskname  - CDATA    - REQUIRED - Task Name.                      *
+    *  skill     - Declared - IMPLIED  - Personnel skill level           *
+    *                                    Definition stored in type       *
+    *                                    "SKILL".                        *
+    *  id        - ID       - IMPLIED  - Unique identifier of task item. *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="refs" minOccurs="0"/>
+				<xs:element ref="task" minOccurs="0"/>
+				<xs:element ref="applic" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="seqnum" type="xs:string" use="required"/>
+			<xs:attribute name="taskname" type="xs:string" use="required"/>
+			<xs:attribute name="skill" type="SKILL"/>
+			<xs:attribute name="id" type="xs:ID"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Comment area updated. -->
+
+	<xs:element name="task" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element task (Short Task Description) containing:-          *
+    *   Parsed Character Data.                                           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="cat">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element cat (Category) containing:-                         *
+    *   No Other Tags.                                                   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  cat    - Declared  - "1"    - Category "1" or "2"                 *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="cat" default="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="refinspec">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element refinspec (Inspection Reference) containing:-       *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  insptype    - CDATA - REQUIRED  - Inspection Type.                *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="insptype" type="xs:string" use="required"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

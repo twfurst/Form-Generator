@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2005-06SE: Publication module number <pmnumber> within      *
+    *                   publication module code <pmc> to be alphanumeric.*
+    *                                                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="pmc.xsd"/>                             *
+    ********************************************************************** -->
+
+
+	<xs:element name="pmc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pmc (Publication Module Code) containing:-          *
+    *   modelic  - Mandatory Single     contains Parsed Character Data.  *
+    *   pmissuer - Mandatory Single     contains Parsed Character Data.  *
+    *   pmnumber - Mandatory Single     contains Parsed Character Data.  *
+    *   pmvolume - Mandatory Single     contains Parsed Character Data.  * 
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="modelic"/>
+				<xs:element ref="pmissuer"/>
+				<xs:element ref="pmnumber"/>
+				<xs:element ref="pmvolume"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="pmissuer">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pmissuer (5-character NCAGE Code of Issuing         *
+    *                          Authority (YYYYY))                        *
+    * containing:-                                                       *
+    *   Parsed Character Data.                                           *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="[A-Za-z0-9]{5}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	
+	<xs:element name="pmnumber">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pmnumber (5-character Publication Module Number     *
+    *                          (YYYYY) depending on modelic, pmissuer)   *
+    * containing:-                                                       *
+    *   Parsed Character Data.                                           *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="[A-Za-z0-9]{5}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+<!-- Content shall be alphanumeric -->
+
+	<xs:element name="pmvolume" type="NONNEGI2">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pmvolume (2-digit sequential Publication Volume     *
+    *                          Number (NN), default is 00 for a single   *
+    *                          volume publication)                       *
+    * containing:-                                                       *
+    *   Parsed Character Data.                                           *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+
+</xs:schema>

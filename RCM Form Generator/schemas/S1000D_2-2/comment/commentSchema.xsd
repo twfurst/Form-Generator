@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<xs:schema	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		elementFormDefault="qualified" 
+		attributeFormDefault="qualified">
+		
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                                                                    *
+    *                          Commenting                                *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. Update Schema location path.                                    *
+    * 2. CPF 2004-22GB: Replace the inclusion of DATAREST.XSD by         *
+    *                   DATAREST2.XSD for CSDB objects other than DM.    *
+    * 3. CPF 2004-49DE: Replace the inclusion of SEQNUM_COMMENT.XSD by   *
+    *                   SEQNUM.XSD for the definition of uniform 5-digit *
+    *                   sequential numbers in DDN, DML and COMMENT       *
+    *                   starting with 00001.                             *
+    *                                                                    *
+    *                                                                    *
+    * The following attribute definition on the root element may be used *
+    * to call this set of declarations:-                                 *
+    *                                                                    *
+    * xsi:noNamespaceSchemaLocation=                                     *
+    * "http://www.s1000d.org/S1000D_2-2/xml_schema/comment/              *
+    *  commentSchema.xsd"                                                *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Include the Project Configuration Text.                            *
+    * Project Configuration may alter delaration of selected objects.    *
+    * For information on which objects are available for tailoring,      *
+    * refer to S1000D!                                                   *
+    ********************************************************************** -->
+	<xs:include schemaLocation="project.cfg"/>
+
+<!--**********************************************************************
+    * Include the DM Address Details 1st Part                            *
+    ********************************************************************** -->
+	<xs:include schemaLocation="dmaddr1.xsd"/>
+
+<!--**********************************************************************
+    * Include the Comment definitions                                    *
+    ********************************************************************** -->
+	<xs:include schemaLocation="comment.xsd"/>
+
+<!--**********************************************************************
+    * Include the DM Address Details 3rd Part Reduced                    *
+    ********************************************************************** -->
+	<xs:include schemaLocation="dmaddr3r.xsd"/>
+
+<!--**********************************************************************
+    * Include the Dispatch Address details                               *
+    ********************************************************************** -->
+	<xs:include schemaLocation="dispaddr.xsd"/>
+
+<!--**********************************************************************
+    * Include the List Code definitions                                  *
+    ********************************************************************** -->
+	<xs:include schemaLocation="listcode.xsd"/>
+
+<!--**********************************************************************
+    * Include the Sequential Number definition                           *
+    ********************************************************************** -->
+	<xs:include schemaLocation="seqnum.xsd"/>
+<!-- Inclusion of SEQNUM_COMMENT.XSD replaced by SEQNUM.XSD -->
+
+<!--**********************************************************************
+    * Include the Data Restriction definitions for other CSDB objects    *
+    * (see DATAREST2.XSD).                                               *
+    ********************************************************************** -->
+	<xs:include schemaLocation="datarest2.xsd"/>
+<!-- Inclusion of DATAREST.XSD replaced by DATAREST2.XSD -->
+
+<!--**********************************************************************
+    * Include the Publication Module Code Breakdown (see PMC.XSD).       *
+    ********************************************************************** -->
+	<xs:include schemaLocation="pmc.xsd"/>
+
+
+</xs:schema>

@@ -1,0 +1,1241 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Move inclusion of files WCNP.XSD, FIG_TAB.XSD,   *
+    *                   LISTS.XSD and PARACON_STATIC.XSD to file         *
+    *                   FAULTSCHEMA.XSD.                                 *
+    *                   Replace group "fft_inc" by "FFT" on <isolatep>.  *
+    *                   Amend content model of group "ISOSTPA" by "FFT". *
+    *                   Remove inclusion of group "fft_inc" from the     *
+    *                   content model of elements <isostep>, <isoend>,   *
+    *                   <action>, <question>, <answer>, <yesno>,         *
+    *                   <sel-list>, <yes>, <no>, <entfield> and <choice>.* 
+    *                   Define new element <delruitem> based on <lruitem>*
+    *                   which does not contain <test> and <repair>.      *
+    *                   Define new element <desruitem> based on <sruitem>*
+    *                   which does not contain <test> and <repair>.      *
+    *                   Define new element <lrlruitem> based on <lruitem>*
+    *                   which does not contain <test>.                   *
+    *                   Define new element <lrsruitem> based on <sruitem>*
+    *                   which does not contain <test>.                   *
+    *                   Replace <lruitem> by <delruitem> in the content  *
+    *                   model of <detect>.                               *
+    *                   Replace <lruitem> by <lrlruitem> in the content  *
+    *                   model of <locandrep>.                            *
+    * 2. CPF 2004-06SE: Make occurrence of sub element <refs> single     *
+    *                   within content models of elements <describe>,    *
+    *                   <afiref>, <repair>, <testdesc>, <testproc>.      *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="fault.xsd"/>                           *
+    ********************************************************************** -->
+
+<!--**********************************************************************
+    * Include the heading group definition.                              *
+    ********************************************************************** -->
+	<xs:include schemaLocation="heading.xsd"/>
+
+<!--**********************************************************************
+    * Include the Preliminary Requirements definitions.                  *
+    ********************************************************************** -->
+	<xs:include schemaLocation="prelreq.xsd"/>
+
+	<xs:group name="CONTENT">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "CONTENT" (Content Breakdown) containing:-            *
+    *   afr      - mandatory single    contains ifault, dfault, ofault.  *
+    *  or                                                                *
+    *   afi      - mandatory single    contains fault, describe, isoproc.*
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:choice>
+			<xs:element ref="afr"/>
+			<xs:element ref="afi"/>
+		</xs:choice>
+	</xs:group>
+
+	<xs:group name="ISOSTPH">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Group "ISOSTPH" (Isolation Step Heading) containing:-       *
+    *   Definition stored in group "HEADING1".                           *
+    *   Definition stored in group "WC".                                 *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:sequence>
+			<xs:group ref="HEADING1"/>
+			<xs:group ref="WC"/>
+		</xs:sequence>
+	</xs:group>
+
+<!-- Call with minOccurs="0" maxOccurs="unbounded" !-->
+	<xs:group name="ISOSTPA">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Group "ISOSTPA" (Isolation Step Action) containing:-        *
+    *====================================================================*
+    *   Optional Repeatable Group                                        *
+    *====================================================================*
+    *     note     - Mandatory Single    contains applic, symbol, para,  *
+    *                                    Definition stored in group      *
+    *                                    "list".                         *
+    *    or                                                              *
+    *     action   - Mandatory Single    contains Definition stored in   *
+    *                                    group "text".                   *
+    *    or                                                              *
+    *     Definition stored in group "FFT".                              *
+    *====================================================================*
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:choice>
+			<xs:element ref="note"/>
+			<xs:element ref="action"/>
+			<xs:group ref="FFT"/>
+		</xs:choice>
+	</xs:group>
+<!-- Content model amended by group "FFT" -->
+
+
+<!--**********************************************************************
+    **********************************************************************
+    **                                                                  **
+    **             AIR VEHICLE FAULT REPORTING (AFR) PART               **
+    **                                                                  **
+    **********************************************************************
+    ********************************************************************** -->
+    
+	<xs:element name="afr">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element afr (All Fault Reporting) containing:-              *
+    *   ifault   - Mandatory Repeatable  contains describe, detect,      *
+    *                                             locandrep, remarks.    *
+    * or                                                                 *
+    *   dfault   - Mandatory Repeatable  contains describe, detect,      *
+    *                                             disolate, remarks.     *
+    * or                                                                 *
+    *   ofault   - Mandatory Repeatable  contains describe, fcontext,    *
+    *                                             isolate, remarks.      *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="ifault" maxOccurs="unbounded"/>
+				<xs:element ref="dfault" maxOccurs="unbounded"/>
+				<xs:element ref="ofault" maxOccurs="unbounded"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="ifault">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element ifault (Isolated Fault) concerns only one LRU,      *
+    * containing:-                                                       *
+    *   describe  - Mandatory Single   contains fdesc, refs.             *
+    *   detect    - Optional  Single   contains delruitem.               *
+    *   locandrep - Mandatory Single   contains lrlruitem.               *
+    *   remarks   - Optional  Single   contains Definition stored in     *
+    *                                           group "SPAR".            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id    - ID    - REQUIRED - Fault ID                               *
+    *  fcode - CDATA - REQUIRED - Fault code                             *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="describe"/>
+				<xs:element ref="detect" minOccurs="0"/>
+				<xs:element ref="locandrep"/>
+				<xs:element ref="remarks" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID" use="required"/>
+			<xs:attribute name="fcode" type="xs:string" use="required"/>
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="describe">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element describe (Description) containing:-                 *
+    *   fdesc    - Mandatory Single      contains Parsed Character Data. *
+    *   refs     - Optional  Single      contains norefs, refdms, reftp. *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fdesc"/>
+				<xs:element ref="refs" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Occurrence of element <refs> changed. -->
+	
+	<xs:element name="fdesc" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element fdesc (Fault Description) containing:-              *
+    *  Parsed Character Data.                                            *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="detect">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element detect (Fault Detection) containing:-               *
+    *   delruitem  - Mandatory  Single   contains lru,remarks,desruitem. *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  type  - CDATA - IMPLIED - Detection Type : Unique, Dual...        *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="delruitem"/>
+			</xs:sequence>
+			<xs:attribute name="type" type="xs:string"/>
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Content model changed -->
+	
+	<xs:element name="locandrep">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element locandrep (LRU Location And Repair Procedure)       *
+    *  containing:-                                                      *
+    *   lrlruitem - Mandatory Single  contains lru, repair, remarks,     *
+    *                                          lrsruitem.                *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="lrlruitem"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Content model changed -->
+	
+	<xs:element name="lruitem">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element lruitem (Line Replaceable Unit Item) containing:-   *
+    *  lru      - Mandatory Single      contains nomen, nsn, identno,    *
+    *                                            csnref, abbrev.         *
+    *  test     - Optional  Repeatable  contains testdesc, data, testproc*
+    *  repair   - Optional  Single      contains refs.                   *
+    *  remarks  - Optional  Single      contains Definition stored in    *
+    *                                            group "SPAR".           *
+    *  sruitem  - Optional  Single      contains sru, test, repair,      *
+    *                                            remarks.                *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  probfac  - CDATA - IMPLIED - Probability Factor for LRU Failure   *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="lru"/>
+				<xs:element ref="test" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="repair" minOccurs="0"/>
+				<xs:element ref="remarks" minOccurs="0"/>
+				<xs:element ref="sruitem" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="probfac" type="xs:string"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="delruitem">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element delruitem (Line Replaceable Unit Item used in Fault *
+    *                           Detection)                               *
+    * containing:-                                                       *
+    *  lru        - Mandatory Single      contains nomen, nsn, identno,  *
+    *                                              csnref, abbrev.       *
+    *  remarks    - Optional  Single      contains Definition stored in  *
+    *                                              group "SPAR".         *
+    *  desruitem  - Optional  Single      contains sru, remarks.         *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  probfac  - CDATA - IMPLIED - Probability Factor for LRU Failure   *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="lru"/>
+				<xs:element ref="remarks" minOccurs="0"/>
+				<xs:element ref="desruitem" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="probfac" type="xs:string"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Newly introduced element -->
+	
+	<xs:element name="lrlruitem">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element lrlruitem (Line Replaceable Unit Item used in       *
+    *                           Location And Repair Procedure)           *
+    * containing:-                                                       *
+    *  lru        - Mandatory Single      contains nomen, nsn, identno,  *
+    *                                              csnref, abbrev.       *
+    *  repair     - Optional  Single      contains refs.                 *
+    *  remarks    - Optional  Single      contains Definition stored in  *
+    *                                              group "SPAR".         *
+    *  lrsruitem  - Optional  Single      contains sru, repair, remarks. *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  probfac  - CDATA - IMPLIED - Probability Factor for LRU Failure   *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="lru"/>
+				<xs:element ref="repair" minOccurs="0"/>
+				<xs:element ref="remarks" minOccurs="0"/>
+				<xs:element ref="lrsruitem" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="probfac" type="xs:string"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Newly introduced element -->
+
+	<xs:element name="sruitem">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element sruitem (Shop Replaceable Unit Item) containing:-   *
+    *  sru      - Mandatory Single      contains nomen, nsn, identno,    *
+    *                                            csnref, abbrev.         *
+    *  test     - Optional  Repeatable  contains testdesc, data, testproc*
+    *  repair   - Optional  Single      contains refs.                   *
+    *  remarks  - Optional Single       contains Definition stored in    *
+    *                                            group "SPAR".           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  probfac  - CDATA - IMPLIED - Probability Factor for SRU Failure   *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sru"/>
+				<xs:element ref="test" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="repair" minOccurs="0"/>
+				<xs:element ref="remarks" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="probfac" type="xs:string"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="desruitem">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element desruitem (Shop Replaceable Unit Item used in Fault *
+    *                           Detection)                               *
+    * containing:-                                                       *
+    *  sru      - Mandatory Single      contains nomen, nsn, identno,    *
+    *                                            csnref, abbrev.         *
+    *  remarks  - Optional Single       contains Definition stored in    *
+    *                                            group "SPAR".           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  probfac  - CDATA - IMPLIED - Probability Factor for SRU Failure   *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sru"/>
+				<xs:element ref="remarks" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="probfac" type="xs:string"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Newly introduced element -->
+	
+	<xs:element name="lrsruitem">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element lrsruitem (Shop Replaceable Unit Item used in       *
+    *                           Location And Repair Procedure)           *
+    * containing:-                                                       *
+    *  sru      - Mandatory Single      contains nomen, nsn, identno,    *
+    *                                            csnref, abbrev.         *
+    *  repair   - Optional  Single      contains refs.                   *
+    *  remarks  - Optional Single       contains Definition stored in    *
+    *                                            group "SPAR".           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  probfac  - CDATA - IMPLIED - Probability Factor for SRU Failure   *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sru"/>
+				<xs:element ref="repair" minOccurs="0"/>
+				<xs:element ref="remarks" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="probfac" type="xs:string"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Newly introduced element -->
+	
+	<xs:element name="lru">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element lru (On Line Replaceable Unit) containing:-         *
+    *  nomen    - Mandatory Single       contains Parsed Character Data. *
+    *  nsn      - Optional  Single       contains No Other Tags.         *
+    *====================================================================*
+    * Mandatory Repeatable Group                                         *
+    *====================================================================*
+    *  identno  - Mandatory Single       contains pnr, mfc.              *
+    * or                                                                 *
+    *  csnref   - Mandatory Single       contains No Other Tags.         *
+    *====================================================================*
+    *  abbrev   - Optional Single        contains Parsed Character Data. *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="nomen"/>
+				<xs:element ref="nsn" minOccurs="0"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="identno"/>
+					<xs:element ref="csnref"/>
+				</xs:choice>
+				<xs:element ref="abbrev" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="sru">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element sru (On Shop Replaceable Unit) containing:-         *
+    *  nomen    - Mandatory Single       contains Parsed Character Data. *
+    *  nsn      - Optional  Single       contains No Other Tags.         *
+    *====================================================================*
+    * Mandatory Repeatable Group                                         *
+    *====================================================================*
+    *  identno  - Mandatory Single       contains pnr, mfc.              *
+    * or                                                                 *
+    *  csnref   - Mandatory Single       contains No Other Tags.         *
+    *====================================================================*
+    *  abbrev   - Optional Single        contains Parsed Character Data. *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="nomen"/>
+				<xs:element ref="nsn" minOccurs="0"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="identno"/>
+					<xs:element ref="csnref"/>
+				</xs:choice>
+				<xs:element ref="abbrev" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="abbrev">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element abbrev (LRU short designation) containing:-         *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="bodyatt"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="dfault">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element dfault (Detected Fault)                             *
+    *      detected but not localized fault;                             *
+    *      this fault may concern more than one LRU                      *
+    *      and require more investigation to isolate the on failure LRU. *
+    * containing:-                                                       *
+    *   describe - Mandatory Single   contains fdesc, refs.              *
+    *   detect   - Optional  Single   contains lruitem.                  *
+    *   disolate - Mandatory Single   contains afiref, lruitem.          *
+    *   remarks  - Optional  Single   contains Definition stored in      *
+    *                                          group "SPAR".             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id    - ID    - REQUIRED - Fault ID                               *
+    *  fcode - CDATA - REQUIRED - Fault code                             *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="describe"/>
+				<xs:element ref="detect" minOccurs="0"/>
+				<xs:element ref="disolate"/>
+				<xs:element ref="remarks" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID" use="required"/>
+			<xs:attribute name="fcode" type="xs:string" use="required"/>
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="ofault">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element ofault (Observed Fault)                             *
+    *     not detected by built-in test system;                          *
+    *     this fault may concern more than one LRU                       *
+    *     and require more investigation to isolate the on failure LRU.  *
+    * containing:-                                                       *
+    *   describe  - Mandatory Single  contains fdesc, refs.              *
+    *====================================================================*
+    * Mandatory Repeatable Group                                         *
+    *====================================================================*
+    *   fcontext  - Optional  Single  contains Parsed Character Data.    *
+    *   isolate   - Mandatory Single  contains afiref, diagnost, lruitem.*
+    *====================================================================*
+    *   remarks   - Optional  Single  contains Definition stored in      *
+    *                                          group "SPAR".             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id    - ID    - REQUIRED - Fault ID                               *
+    *  fcode - CDATA - REQUIRED - Fault code                             *
+    *  ftype - CDATA - IMPLIED  - Fault Type for Observed Fault          *
+    *     allows to sort the faults depending of cabin / not cabin observ*
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="describe"/>
+				<xs:sequence maxOccurs="unbounded">
+					<xs:element ref="fcontext" minOccurs="0"/>
+					<xs:element ref="isolate"/>
+				</xs:sequence>
+				<xs:element ref="remarks" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID" use="required"/>
+			<xs:attribute name="fcode" type="xs:string"/>
+			<xs:attribute name="ftype" type="xs:string"/>
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="disolate">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element disolate (D Fault Location)                         *
+    *  for an ambiguous fault, this part allows to refer either to:      *
+    *  the list of on failure LRU a trouble shooting procedure           *
+    * containing:-                                                       *
+    *   afiref  - Mandatory Single      contains refs.                   *
+    * or                                                                 *
+    *   lruitem - Mandatory Repeatable  contains lru, test, repair,      *
+    *                                            remarks, sruitem.       *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="afiref"/>
+				<xs:element ref="lruitem" maxOccurs="unbounded"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="afiref">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element afiref (All Fault Isolation Reference)              *
+    *     for an ambiguous fault, reference to AFI DM for LRU isolation  *
+    * containing:-                                                       *
+    *  refs    - Mandatory Single      contains norefs, refdms, reftp.   *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="refs"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Occurrence of element <refs> changed. -->
+	
+	<xs:element name="repair">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element repair (Action To Be Performed For Repair)          *
+    *            Reference to procedural data module for fault repair    *
+    * containing:-                                                       *
+    *  refs    - Mandatory Single      contains norefs, refdm, reftp.    *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="refs"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Occurrence of element <refs> changed. -->
+	
+	<xs:element name="testdesc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element testdesc (Test Description),                        *
+    *            allows to describe the test to be performed.            *
+    *            Text or reference to descriptive DM,                    *
+    *                ie for graphic test system presentation             *
+    * containing:-                                                       *
+    *  testnomen - Mandatory Single      contains Parsed Character Data. *
+    *  refs      - Optional  Single      contains norefs, refdm, reftp.  *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="testnomen"/>
+				<xs:element ref="refs" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Occurrence of element <refs> changed -->
+	
+	<xs:element name="testnomen" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element testnomen (Test Designation) containing:-           *
+    *  Parsed Character Data.                                            *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="testproc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element testproc (Test Procedure)                           *
+    *        Reference to procedural data modules describing             *
+    *        the way to perform the test                                 *
+    * containing:-                                                       *
+    *  refs     - Mandatory Single      contains norefs, refdm, reftp.   *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="refs"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Occurrence of element <refs> changed -->
+	
+	<xs:element name="isolate">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element isolate (O Fault Location)                          *
+    *     for an ambiguous fault, this part allows to refer either to:   *
+    *             the list of on failure LRU                             *
+    *             a trouble shooting procedure                           *
+    *             a diagnostic procedure                                 *
+    * containing:-                                                       *
+    *   afiref   - Mandatory Single      contains refs.                  *
+    *  or                                                                *
+    *   diagnost - Mandatory Single      contains reason, repair,        *
+    *                                             lrlruitem.             *
+    *  or                                                                *
+    *   lruitem  - Mandatory Repeatable  contains lru, test, repair,     *
+    *                                             remarks, sruitem.      *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="afiref"/>
+				<xs:element ref="diagnost"/>
+				<xs:element ref="lruitem" maxOccurs="unbounded"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="diagnost">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element diagnost (Fault Diagnostic)                         *
+    *  contains either an LRU identification, or the reason of failure   *
+    * containing:-                                                       *
+    *====================================================================*
+    * Mandatory Single Group                                             *
+    *====================================================================*
+    *  reason  - Mandatory Single  contains Parsed Character Data.       *
+    *  repair  - Mandatory Single  contains refs.                        *
+    *====================================================================*
+    * or                                                                 *
+    *  lrlruitem - Mandatory Single  contains lru, repair, remarks,      *
+    *                                         lrsruitem.                 *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="reason"/>
+					<xs:element ref="repair"/>
+				</xs:sequence>
+				<xs:element ref="lrlruitem"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="reason" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element reason (Cause of Failure) containing:-              *
+    *     text describing the fault diagnostic                           *
+    *     if not identifiable by an LRU/SRU, ie leak of fuel system      *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="fcontext" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element fcontext (Context For Isolate Proc Determination)   *
+    *   refering to specific conditions under which the fault occured,   *
+    *   allows to isolate the on failure LRU                             *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="test">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element test (Test Needed For LRU Isolation)                *
+    * containing:-                                                       *
+    *   testdesc - Optional  Single      contains testnomen, refs.       *
+    *   data     - Optional  Repeatable  contains No Other Tags.         *
+    *   testproc - Optional  Single      contains refs.                  *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  type  - CDATA - REQUIRED - Test Type                              *
+    *  code  - CDATA - REQUIRED - Test Identifier                        *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="testdesc" minOccurs="0"/>
+				<xs:element ref="data" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="testproc" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="type" type="xs:string" use="required"/>
+			<xs:attribute name="code" type="xs:string" use="required"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="data">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element data (Range Of Data To Be Set For Testing)          *
+    *      (depending on test procedure),                                *
+    *      ie rotate from 24 to 60 degree, input 24 volts ...            *
+    * containing:-                                                       *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  from  - CDATA - IMPLIED - Range From                              *
+    *  to    - CDATA - IMPLIED - Range To                                *
+    *  uom   - CDATA - IMPLIED - Unit Of Measurement                     *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="from" type="xs:string"/>
+			<xs:attribute name="to" type="xs:string"/>
+			<xs:attribute name="uom" type="xs:string"/>
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+	
+		
+<!--**********************************************************************
+    **********************************************************************
+    **                                                                  **
+    **             AIR VEHICLE FAULT ISOLATION (AFI) PART               **
+    **                                                                  **
+    **********************************************************************
+    **********************************************************************-->
+    
+	<xs:element name="afi">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element afi (All Fault Isolation) containing:-              *
+    *====================================================================*
+    * Mandatory Repeatable Group                                         *
+    *====================================================================*
+    *   fault     - Mandatory Single   contains No Other Tags.           *
+    *   describe  - Mandatory Single   contains fdesc, refs.             *
+    *   isoproc   - Mandatory Single   contains prelreqs, isolatep,      *
+    *                                           closetxt.                *
+    *====================================================================*
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element ref="fault"/>
+				<xs:element ref="describe"/>
+				<xs:element ref="isoproc"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="fault">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element fault (Fault) containing:-                          *
+    *  No Other Tags.                                                    *
+    *                                                                    *
+    * Remark:  Fault is either an Observed Fault or a Detected Fault     *
+    *          because AFI trouble shooting procedure is called by       *
+    *          an afiref element located either in an observed or        *
+    *          detected fault from AFR.                                  *
+    *                                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  fcode - CDATA - REQUIRED - Fault Code                             *
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="fcode" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="isoproc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element isoproc (Isolation Procedure) containing:-          *
+    *   prelreqs  - Mandatory Single  contains pmd, reqconds, reqpers,   *
+    *                                 supequip, supplies, spares, safety.*
+    *   isolatep  - Mandatory Single  contains isostep, isoend,          *
+    *                                 Definition stored in group "FFT".  *
+    *   closetxt  - Optional  Single  contains Definition stored in      *
+    *                                 group "text" or para.              *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="prelreqs"/>
+				<xs:element ref="isolatep"/>
+				<xs:element ref="closetxt" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="closetxt">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element closetxt (Close Text) containing:-                  *
+    *====================================================================*
+    * Mandatory Repeatable Group                                         *
+    *====================================================================*
+    *  Definition stored in group "text".                                *
+    * or                                                                 *
+    *  para     - Mandatory  Single    contains Definition stored in     *
+    *                                           group "paracon".         *
+    *====================================================================*
+    **********************************************************************	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:choice maxOccurs="unbounded">
+				<xs:group ref="text" minOccurs="0"/>
+				<xs:element ref="para"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="isolatep">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element isolatep (Isolation Procedure Core) containing:-    *
+    *====================================================================*
+    * Mandatory Repeatable Group                                         *
+    *====================================================================*
+    *   isostep - Mandatory Single   contains action, question, answer.  *
+    * or                                                                 *
+    *   isoend  - mandatory single   contains action.                    *
+    * or                                                                 *
+    *   Definition stored in group "FFT".                                *
+    *====================================================================*
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element ref="isostep"/>
+				<xs:element ref="isoend"/>
+				<xs:group ref="FFT"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" replaced by "FFT" and content model changed -->
+
+	<xs:element name="isostep">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	 
+    * Define Element isostep (Step of Isolation Procedure) containing:-  *
+    *   Definition stored in group "ISOSTPH".                            *
+    *====================================================================*
+    *   Optional Single Group                                            *
+    *====================================================================*
+    *     Definition stored in group "ISOSTPA"  - Optional Repeatable.   *
+    *     question  - Mandatory Single   contains Parsed Character Data. *
+    *     answer    - Mandatory Single   contains yesno,sel-list,entfield*
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id    - ID    - REQUIRED - Isolation step ID                      *
+    *  Attribute Definition List stored in attribute group "CHECKSTP".   *
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="ISOSTPH"/>
+				<xs:sequence minOccurs="0">
+					<xs:group ref="ISOSTPA" minOccurs="0" maxOccurs="unbounded"/>						
+					<xs:element ref="question"/>
+					<xs:element ref="answer"/>
+				</xs:sequence>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID" use="required"/>
+			<xs:attributeGroup ref="CHECKSTP"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed from content model -->
+
+	<xs:element name="isoend">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	 
+    * Define Element isoend (Final Step of Isolation Procedure)          *
+    * containing:-                                                       *
+    *   Definition stored in group "ISOSTPH".                            *
+    *   Definition stored in group "ISOSTPA"  - Optional Repeatable.     *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id    - ID    - REQUIRED - Isolation End Step ID                  *
+    *  Attribute Definition List stored in attribute group "CHECKSTP".   *
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="ISOSTPH"/>
+				<xs:group ref="ISOSTPA" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID" use="required"/>
+			<xs:attributeGroup ref="CHECKSTP"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed from content model -->
+
+	<xs:element name="action">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element action (Action to be performed) containing:-        *
+    *====================================================================*
+    * Mandatory Repeatable Group                                         *
+    *====================================================================*
+    *   Definition stored in group "text".                               *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:group ref="text" minOccurs="0" maxOccurs="unbounded"/>	
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed from content model -->
+
+	<xs:element name="question" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element question (Question) containing:-                    *
+    *   Parsed Character Data.                                           *
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed from content model -->
+
+	<xs:element name="answer">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element answer (Answer to Question) containing:-            *
+    *   yesno     - Mandatory Single   contains yes, no.                 *
+    * or                                                                 *
+    *   sel-list  - Mandatory Single   contains choice.                  *
+    * or                                                                 *
+    *   entfield  - Mandatory Single   contains No Other Tags.           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>				
+			<xs:choice>
+				<xs:element ref="yesno"/>
+				<xs:element ref="sel-list"/>
+				<xs:element ref="entfield"/>
+			</xs:choice>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed from content model -->
+
+	<xs:element name="yesno">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element yesno (Yes and No Answer) containing:-              *
+    *   yes   - Mandatory Single     contains No Other Tags.             *
+    *   no    - Mandatory Single     contains No Other Tags.             *
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>				
+			<xs:sequence>
+				<xs:element ref="yes"/>
+				<xs:element ref="no"/>
+			</xs:sequence>
+		</xs:complexType>				
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed from content model -->
+	
+	<xs:element name="sel-list">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element sel-list (Selection List Answer) containing:-       *
+    *   choice - Mandatory Repeatable   contains Parsed Character Data.  *
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>				
+			<xs:sequence>
+				<xs:element ref="choice" maxOccurs="unbounded"/>		
+			</xs:sequence>
+		</xs:complexType>				
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed from content model -->
+
+	<xs:element name="yes">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element yes (Yes) containing:-                              *
+    *   No Other Tags.                                                   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  refid    - IDREF   - REQUIRED - Refer to an isostep or isoend.    *
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="refid" type="xs:IDREF" use="required"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed from content model -->
+
+	<xs:element name="no">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element no (No) containing:-                                *
+    *   No Other Tags.                                                   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  refid    - IDREF   - REQUIRED - Refer to an isostep or isoend.    *
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="refid" type="xs:IDREF" use="required"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed from content model -->
+
+	<xs:element name="entfield">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element entfield (Entry Field) containing:-                 *
+    *   No Other Tags.                                                   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  refid    - IDREF   - REQUIRED - Refer to an isostep or isoend     *
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="refid" type="xs:IDREF" use="required"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed from content model -->
+
+	<xs:element name="choice">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************	
+    * Define Element choice (Choice in a Selection List) containing:-    *
+    *   Parsed Character Data.                                           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  refid    - IDREF   - REQUIRED - Refer to an isostep or isoend     *
+    **********************************************************************	 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="refid" type="xs:IDREF" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed from content model -->
+	
+
+</xs:schema>

@@ -1,0 +1,683 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 		
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Replace group "text" by "TEXT-NOREFS" in the     *
+    *                   content model of element <reqcond>.              *
+    * 2. CPF 2004-02SE: Amend content models of elements <supequi>,      *
+    *                   <supply> and <spare> by optional subelement      *
+    *                   <refs>, see group "SESUSP".                      *
+    * 3. CPF 2004-06SE: Replace elements <reqdm> and <reqtp> by <refdm>  *
+    *                   and <reftp>, respectively.                       *
+    * 4. CPF 2004-58SE: Amend content models of elements <supequi>,      *
+    *                   <supply> and <spare> by optional subelement      *
+    *                   <remarks>, see group "SESUSP".                   *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="prelreq.xsd"/>                         *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Import the XLINK definitions.                                      *
+    ********************************************************************** -->
+	<xs:import 	namespace="http://www.w3.org/1999/xlink" 
+			schemaLocation="xlink.xsd"/>
+
+<!--**********************************************************************
+    * Include the Product Management Data definitions.                   *
+    ********************************************************************** -->
+	<xs:include schemaLocation="pmdata.xsd" />
+
+<!--**********************************************************************
+    * Include the NOMEN and IDENTNO definitions.                         *
+    ********************************************************************** -->
+	<xs:include schemaLocation="ni.xsd"/>
+
+
+	<xs:element name="prelreqs">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element prelreqs (Preliminary Requirements) containing:-    *
+    *  pmd      - Optional   Single      contains thi, zone, accpnl,     *
+    *                                     avehcfg, opndurn.              *
+    *  reqconds - Mandatory  Single      contains noconds, reqcond,      *
+    *                                     reqcondm, reqcontp.            *
+    *  reqpers  - Optional   Single      contains asrequir, person,      *
+    *                                     perscat, perskill, trade,      *
+    *                                     esttime.                       *
+    *  supequip - Mandatory  Single      contains nosupeq, supeqli.      *
+    *  supplies - Mandatory  Single      contains nosupply, supply.      *
+    *  spares   - Mandatory  Single      contains nospares, sparesli.    *
+    *  safety   - Mandatory  Single      contains nosafety, safecond.    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pmd" minOccurs="0"/>
+				<xs:element ref="reqconds"/>
+				<xs:element ref="reqpers" minOccurs="0"/>
+				<xs:element ref="supequip"/>
+				<xs:element ref="supplies"/>
+				<xs:element ref="spares"/>
+				<xs:element ref="safety"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="reqconds">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element reqconds (Required Conditions) containing:-         *
+    *  noconds  - Mandatory  Single      contains No Other Tags.         *
+    * or                                                                 *
+    *====================================================================*
+    * Mandatory Repeatable Group                                         *
+    *====================================================================*
+    *  reqcond  - Mandatory  Single      contains applic, Definition     *
+    *                                     stored in group "text".        *
+    * or                                                                 *
+    *  reqcondm - Mandatory  Single      contains applic, reqcond, refdm.*
+    * or                                                                 *
+    *  reqcontp - Mandatory  Single      contains applic, reqcond, reftp.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="noconds"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="reqcond"/>
+					<xs:element ref="reqcondm"/>
+					<xs:element ref="reqcontp"/>
+				</xs:choice>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="noconds">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element noconds (No Required Conditions) containing:-       *
+    *   No Other Tags.                                                   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType/>
+	</xs:element>
+
+	<xs:element name="reqcondm">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element reqcondm (Required Condition Data Modules)          *
+    * containing:-                                                       *
+    *  applic    - Optional  Single     contains type, model.            *
+    *====================================================================*
+    * Mandatory Repeatable Group                                         *
+    *====================================================================*
+    *  reqcond   - Mandatory Single     contains Definition stored in    *
+    *                                            group "text".           *
+    *  refdm     - Mandatory Single     contains Definition stored in    *
+    *                                            group "ALLDMC", issno,  *
+    *                                            dmtitle, Definition     *
+    *                                            stored in group         *
+    *                                            "XLINKEXT".             *
+    *====================================================================*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:sequence maxOccurs="unbounded">
+					<xs:element ref="reqcond"/>
+					<xs:element ref="refdm"/>
+				</xs:sequence>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="reqcond">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element reqcond (Required Condition) containing:-           *
+    *  applic    - Optional  Single     contains type, model.            *
+    *  Definition stored in group "text" - Mandatory Repeatable.         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:group ref="text" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="reqcontp">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element reqcontp (Required Condition Technical              *
+    *                          Publications)                             *
+    * containing:-                                                       *
+    *  applic    - Optional  Single     contains type, model.            *
+    *====================================================================*
+    * Mandatory Repeatable Group.                                        *
+    *====================================================================*
+    *  reqcond   - Mandatory Single     contains Definition stored in    *
+    *                                            group "text".           *
+    *  reftp     - Mandatory Single     contains applic, Definitions     *
+    *                                            stored in groups "text",*
+    *                                            "PUBREF" and "XLINKEXT".*
+    *====================================================================*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:sequence maxOccurs="unbounded">
+					<xs:element ref="reqcond"/>
+					<xs:element ref="reftp"/>
+				</xs:sequence>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="reqpers">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element reqpers (Required Persons) containing:-             *
+    *====================================================================*
+    * Mandatory Repeatable Group.                                        *
+    *====================================================================*
+    *++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
+    *  asrequir  - Mandatory Single     contains No Other Tags.          *
+    * or                                                                 *
+    *  person    - Mandatory Single     contains No Other Tags.          *
+    *++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
+    *====================================================================*
+    * Optional Single Group                                              *
+    *====================================================================*
+    *  perscat   - Mandatory Single     contains No Other Tags.          *
+    *  perskill  - Optional  Single     contains No Other Tags.          *
+    *  trade     - Optional  Single     contains Parsed Character Data.  *
+    *  esttime   - Optional  Single     contains Parsed Character Data.  *
+    *====================================================================*
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:choice>
+					<xs:element ref="asrequir"/>
+					<xs:element ref="person"/>
+				</xs:choice>
+				<xs:sequence minOccurs="0">
+					<xs:element ref="perscat"/>
+					<xs:element ref="perskill" minOccurs="0"/>
+					<xs:element ref="trade" minOccurs="0"/>
+					<xs:element ref="esttime" minOccurs="0"/>
+				</xs:sequence>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="asrequir">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element asrequir (As Required) containing:-                 *
+    *  No Other Tags.                                                    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType/>
+	</xs:element>
+
+	<xs:element name="person">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element person (Personnel) containing:-                     *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  man      - NMTOKEN  - REQUIRED - Man identifier.                  *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="man" type="xs:NMTOKEN" use="required"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="perscat">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element perscat (Personnel Category) containing:-           *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  category - Declared - REQUIRED - Personnel category of required   *
+    *                                   trade to complete the task.      *
+    *             Definition stored in type "CATEG".                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="category" type="CATEG" use="required"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="perskill">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element perskill (Personnel Skill Level) containing:-       *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  skill    - Declared - REQUIRED - Personnel skill level            *
+    *             Definition stored in type "SKILL".                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="skill" type="SKILL" use="required"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="trade">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element trade (Personnel Trade Code) containing:-           *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="bodyatt"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="esttime">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element esttime (Estimated Time Spent) containing:-         *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="bodyatt"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:group name="SESUSP">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group SESUSP (SUPEQUI, SUPPLY and SPARE breakdown)          *
+    *  containing:-                                                      *
+    *  applic   - Optional   Single      contains type, model.           *
+    *  nomen    - Mandatory Single       contains Parsed Character Data. *
+    *====================================================================*
+    *   Mandatory Repeatable Group                                       *
+    *====================================================================*
+    *    csnref   - Mandatory Single      contains No Other Tags.        *
+    *   or                                                               *
+    *    nsn      - Mandatory Single      contains No Other Tags.        *
+    *   or                                                               *
+    *    identno  - Mandatory Single      contains mfc, pnr, serialno.   *
+    *   refs      - Optional  Single      contains norefs, refdm, reftp. *
+    *====================================================================*
+    *   qty      - Mandatory Single       contains Parsed Character Data.*
+    *   remarks  - Optional  Single       contains Definition stored in  *
+    *                                              group "SPAR".         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="applic" minOccurs="0"/>
+			<xs:element ref="nomen"/>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:choice>
+					<xs:element ref="csnref"/>
+					<xs:element ref="nsn"/>
+					<xs:element ref="identno"/>
+				</xs:choice>
+				<xs:element ref="refs" minOccurs="0"/>
+			</xs:sequence>
+			<xs:element ref="qty"/>
+			<xs:element ref="remarks" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+<!-- Newly introduced group -->
+
+	<xs:element name="supequip">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element supequip (Support Equipment) containing:-           *
+    *  nosupeq  - Mandatory Single       contains No Other Tags.         *
+    * or                                                                 *
+    *  supeqli  - Mandatory Single       contains supequi.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="nosupeq"/>
+				<xs:element ref="supeqli"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="nosupeq">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element nosupeq (No Support Equipment) containing:-         *
+    *  No Other Tags.                                                    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType/>
+	</xs:element>
+
+	<xs:element name="supeqli">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element supeqli (Support Equipment List) containing:-       *
+    *  supequi  - Mandatory Repeatable   contains Definition stored in   *
+    *                                             group "SESUSP".        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="supequi" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="supequi">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element supequi (Support Equipment Item) containing:-       *
+    *  Definition stored in group "SESUSP".                              *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:group ref="SESUSP"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Content model changed. -->
+
+	<xs:element name="qty">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element qty (Quantity) containing:-                         *
+    *   Parsed Character Data.                                           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom    - CDATA  - IMPLIED - Unit of measurement.                  *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+					<xs:attributeGroup ref="INSDEL"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="supplies">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element supplies (Supplies) containing:-                    *
+    *  nosupply - Mandatory  Single      contains No Other Tags.         *
+    * or                                                                 *
+    *  supplyli - Mandatory  Single      contains supply.                *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="nosupply"/>
+				<xs:element ref="supplyli"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="nosupply">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element nosupply (No Supplies) containing:-                 *
+    *  No Other Tags.                                                    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType/>
+	</xs:element>
+
+	<xs:element name="supplyli">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element supplyli (Supply List) containing:-                 *
+    *  supply   - Mandatory Repeatable   contains Definition stored in   *
+    *                                             group "SESUSP".        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="supply" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="supply">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element supply (Supply Item) containing:-                   *
+    *  Definition stored in group "SESUSP".                              *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:group ref="SESUSP"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Content model changed. -->
+
+	<xs:element name="spares">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element spares (Spares) containing:-                        *
+    *  nospares - Mandatory  Single      contains No Other Tags.         *
+    * or                                                                 *
+    *  sparesli - Mandatory  Single      contains spare.                 *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="nospares"/>
+				<xs:element ref="sparesli"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="nospares">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element nospares (No Spares) containing:-                   *
+    *  No Other Tags.                                                    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType/>
+	</xs:element>
+
+	<xs:element name="sparesli">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element sparesli (Spare List) containing:-                  *
+    *  spare    - Mandatory Repeatable   contains Definition stored in   *
+    *                                             group "SESUSP".        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="spare" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="spare">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element spare (Spare Item) containing:-                     *
+    *  Definition stored in group "SESUSP".                              *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:group ref="SESUSP"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Content model changed. -->
+	
+	<xs:element name="safety">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element safety (Safety Conditions) containing:-             *
+    *  nosafety - Mandatory  Single      contains No Other Tags.         *
+    * or                                                                 *
+    *  safecond - Mandatory  Single      contains Definition stored in   *
+    *                                             group "spcpara".       *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="nosafety"/>
+				<xs:element ref="safecond"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="nosafety">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element nosafety (No Safety Conditions) containing:-        *
+    *  No Other Tags.                                                    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType/>
+	</xs:element>
+
+	<xs:element name="safecond">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element safecond (Safety Condition) containing:-            *
+    *  Definition stored in group "spcpara".                             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id       - ID       - IMPLIED - Unique identifier of safety       *
+    *                                  conditions                        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:group ref="spcpara"/>
+			<xs:attribute name="id" type="xs:ID"/>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

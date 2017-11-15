@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Move group "fft_inc" to new file FFT.XSD and     *
+    *                   rename it to "FFT" for alignment with the SGML   *
+    *                   DTD.                                             *
+    * 2. CPF 2004-21GB: Amend value list of attribute change by "modify" *
+    *                   within group "INSDEL".                           *
+    * 3. Bug fix:       Correct the pattern definitions for year, month  *
+    *                   and day.                                         *
+    *                                                                    *
+    * NOTE:-                                                             *
+    * ======                                                             *
+    * The S1000D configuration component is for information purposes only*
+    * and should NOT be configured as project specific.                  *
+    * Project specific declarations should all be made in the project    *
+    * configuration file PROJECT.CFG.                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="s1000d.xsd"/>                          *
+    ********************************************************************** -->
+
+
+	<xs:attributeGroup name="COMMSEC">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Attribute Group "COMMSEC" (Commercial Security) containing:-*
+    *  Attribute Definition List.                                        *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *                                                                    *
+    *  commcls    - Declared - IMPLIED - Identifies Commercial Security. *
+    *  caveat     - Declared - IMPLIED - Identifies Caveats.             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="commcls" type="COMMCLSS"/>
+		<xs:attribute name="caveat" type="CAVEATS"/>
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="secur">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Attribute Group "secur" (Content Security) containing:-     *
+    *  Attribute Definition List.                                        *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *                                                                    *
+    *  class    - Declared - IMPLIED - Identifies Security Marking.      *
+    *  Definition stored in attribute group "COMMSEC".                   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="class" type="CLASSES"/>
+		<xs:attributeGroup ref="COMMSEC"/>
+	</xs:attributeGroup>
+
+	<xs:simpleType name="RPCNAME">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Simple Type "RPCNAME" (Responsible Partner Company Names)   *
+    * containing:-                                                       *
+    *====================================================================*
+    *  RPC names allowed by the project.                                 *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="ORGNAME">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Simple Type "ORGNAME" (Originator Names) containing:-       *
+    *====================================================================*
+    *  ORIG names allowed by the project.                                *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	
+	<xs:simpleType name="CATEG">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Simple Type "CATEG" (Personnel Category) containing:-       *
+    *====================================================================*
+    * To tailor the type "CATEG" for project use, add enumeration with   *
+    * personnel category as required.                                    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>		
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+	<xs:attributeGroup name="INSDEL">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Attribute Group "INSDEL" (Change Level Attributes)          *
+    *  containing:-                                                      *
+    *  Attribute Definition List.                                        *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  level     - NUMBER   - IMPLIED  - Identifies the level or Data    *
+    *                         issue (project specific) at which the      *
+    *                         information was revised/updated            *
+    *  mark      - NUMBER   - IMPLIED - Revision Bar. (This can be used  *
+    *                         in conjunction which level to only produce *
+    *                         revision bar for the current level/issue of*
+    *                         data module.)                              *
+    *              - "0"      - Do not mark change with Revision bars    *
+    *              - "1"      - Mark this change with Revision Bars      *
+    *  change    - Declared - IMPLIED  - Identifies the type of change   *
+    *              - "add"    - Information was added                    *
+    *              - "delete" - Information was deleted                  *
+    *              - "modify" - Information was modified                 *
+    *  rfc       - CDATA    - IMPLIED  - Specifies the reason for change *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="level" type="xs:string"/>
+		<xs:attribute name="mark" type="xs:string"/>
+		<xs:attribute name="change">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="add"/>
+					<xs:enumeration value="delete"/>
+					<xs:enumeration value="modify"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="rfc" type="xs:string"/>
+	</xs:attributeGroup>
+<!-- Value list of attribute change amended by "modify" -->
+
+	<xs:attributeGroup name="bodyatt">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Attribute Group "bodyatt" (Body Attributes) containing:-    *
+    *  Attribute Definition List.                                        *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id        - ID       - IMPLIED  - An identifier of the element    *
+    *                       which is assigned at origination and which   *
+    *                       remains unchanged as the document is revised *
+    *                       or updated even though the automatically     *
+    *                       assigned enumeration "labels" change. The    *
+    *                       value of "id" is used when making references *
+    *                       to the element from other portions of the    *
+    *                       document.                                    *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attributeGroup ref="INSDEL"/>
+	</xs:attributeGroup>
+
+	<xs:simpleType name="SKILL">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Simple Type "SKILL" (Personnel Skill Level) containing:-    *
+    *  Declared Attribute List.                                          *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    *   Definition stored in type "SKILLS".                              *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="SKILLS"/>
+	</xs:simpleType>
+	
+
+	<xs:simpleType name="MONTH">
+		<xs:restriction base="xs:positiveInteger">
+			 <xs:maxInclusive value="12"/>
+			 <xs:pattern value="\d{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+<!-- Pattern definition corrected -->
+
+	<xs:simpleType name="DAY">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:maxInclusive value="31"/>
+			<xs:pattern value="\d{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+<!-- Pattern definition corrected -->
+
+	<xs:attributeGroup name="DATE">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Attribute Group "DATE" (Date breakdown) containing:-        *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  year     - NUMBER - REQUIRED - The year. (YYYY)                   *
+    *  month    - NUMBER - REQUIRED - The month of the year. (MM)        *
+    *  day      - NUMBER - REQUIRED - The day of the month. (DD)         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="year" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:gYear">
+					<xs:pattern value="\d{4}"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="month" type="MONTH" use="required"/>
+		<xs:attribute name="day" type="DAY" use="required"/>
+	</xs:attributeGroup>
+<!-- Pattern definition on attribute year corrected -->
+
+	<xs:attributeGroup name="SECURIT">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Attribute Group "SECURIT" (Status Security) containing:-    *
+    *  Attribute Definition List.                                        *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *                                                                    *
+    *  class    - Declared - REQUIRED - Identifies Security Marking.     *
+    *  Definition stored in attribute group "COMMSEC".                   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="class" type="CLASSES" use="required"/>
+		<xs:attributeGroup ref="COMMSEC"/>
+	</xs:attributeGroup>
+
+	<xs:simpleType name="FIC">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Simple Type "FIC" (Functional Item Code) containing:-       *
+    *  Parsed Character Data.                                            *
+    *====================================================================*
+    * To tailor the element fic for project specific use,                *
+    * replace PCDATA as required.                                        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="SBC">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Simple Type "SBC" (System Breakdown Code) containing:-      *
+    *  Parsed Character Data.                                            *
+    *====================================================================*
+    * To tailor the element sbc for project specific use,                *
+    * replace PCDATA as required.                                        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+
+</xs:schema>

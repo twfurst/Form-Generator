@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+Instructions for use.
+
+General information for all applications:
+- It is assumed that the directory names and structure of the
+  downloaded Schema/DTD package have been retained.
+- Change the value of the rewritePrefix attributes to point to the
+  local directory where the Schema/DTD package was unpacked.
+
+The location and naming of the catalog file depends on
+the application being used
+
+Altova XMLSpy (all versions)
+============================
+Edit the CustomCatalog.xml file located in the application
+installation directory and include the rewriteSystem and rewriteURI
+(with attribute name uriIdStartString instead of uriStartString)
+entries below with the correct rewritePrefix attribute values
+
+-->
+<catalog  xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:oasis:names:tc:entity:xmlns:xml:catalog catalog.xsd"
+          prefer="system">
+  <rewriteSystem systemIdStartString="http://www.s1000d.org/" rewritePrefix="file:///C:/" />
+  <rewriteURI uriStartString="http://www.s1000d.org/" rewritePrefix="file:///C:/" />
+</catalog>

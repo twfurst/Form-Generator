@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Define new group "TEXT-NOREFS", same as "text",  *
+    *                   except <refdm>, <reftp>, <change>, <emphasis>    *
+    *                   and <ftnote> removed.                            *
+    * 2. CPF 2004-45US: Amend group "text" by elements <ftnote> and      *
+    *                   <ftnref> to allow markup of footnotes in running *
+    *                   text and tables.                                 *
+    ********************************************************************** -->
+
+
+<!-- use 	<xs:complexType mixed="true"> -->
+<!-- call with  minOccurs="0" maxOccurs="unbounded" !!! -->
+	<xs:group name="text">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "text" (Running Text) containing:-                    *
+    *   Parsed Character Data.                                           *
+    *  or                                                                *
+    *   xref     - Mandatory Single     contains applic, Definition      *
+    *                                            stored in group         *
+    *                                            "SPARCON".              *
+    *  or                                                                *
+    *   indxflag - Mandatory Single     contains No Other Tags.          *
+    *  or                                                                *
+    *   change   - Mandatory Single     contains Definition stored in    *
+    *                                            group "text".           *
+    *  or                                                                *
+    *   emphasis - Mandatory Single     contains Definition stored in    *
+    *                                            group "text".           *
+    *  or                                                                *
+    *   symbol   - Mandatory Single     contains applic.                 *
+    *  or                                                                *
+    *   subscrpt - Mandatory Single     contains Replaceable Character   *
+    *                                            Data.                   *
+    *  or                                                                *
+    *   supscrpt - Mandatory Single     contains Replaceable Character   *
+    *                                            Data.                   *
+    *  or                                                                *
+    *   refdm    - Mandatory Single     contains applic, age, avee,      *
+    *                                            issno, dmtitle,         *
+    *                                            Definition stored in    *
+    *                                            group "XLINKEXT".       *
+    *  or                                                                *
+    *   reftp    - Mandatory Single     contains applic, text,           *
+    *                                            definitions stored in   *
+    *                                            groups "PUBREF" and     *
+    *                                            "XLINKEXT".             *
+    *  or                                                                *
+    *   ftnote   - Mandatory Single     contains applic, para.           *
+    *  or                                                                *
+    *   ftnref   - Mandatory Single     contains No Other Tags.          *
+    *  or                                                                *
+    *   acronym  - Mandatory Single     contains acroterm, acrodef.      *
+    *  or                                                                *
+    *   acroterm - Mandatory Single     contains Definition stored in    *
+    *                                            group "SPARCON".        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice> 
+			<xs:element ref="xref"/>
+			<xs:element ref="indxflag"/>
+			<xs:element ref="change"/>
+			<xs:element ref="emphasis"/>
+			<xs:element ref="symbol"/>
+			<xs:element ref="subscrpt"/>
+			<xs:element ref="supscrpt"/>
+			<xs:element ref="refdm"/>
+			<xs:element ref="reftp"/>
+			<xs:element ref="ftnote"/>
+			<xs:element ref="ftnref"/>
+			<xs:element ref="acronym"/>
+			<xs:element ref="acroterm"/> 
+		</xs:choice>
+	</xs:group>
+<!-- Content model changed -->
+
+<!-- use 	<xs:complexType mixed="true"> -->
+<!-- call with  minOccurs="0" maxOccurs="unbounded" !!! -->
+	<xs:group name="TEXT-NOREFS">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "TEXT-NOREFS" (Running Text without References)       *
+    * containing:-                                                       *
+    *   Parsed Character Data.                                           *
+    *  or                                                                *
+    *    xref           - Mandatory Single   contains applic, Definition *
+    *                                        stored in group "SPARCON".  *
+    *  or                                                                *
+    *   indxflag        - Mandatory Single   contains No Other Tags.     *
+    *  or                                                                *
+    *   symbol          - Mandatory Single   contains applic.            *
+    *  or                                                                *
+    *   subscrpt        - Mandatory Single   contains Replaceable        *
+    *                                        Character Data.             *
+    *  or                                                                *
+    *   supscrpt        - Mandatory Single   contains Replaceable        *
+    *                                        Character Data.             *
+    *  or                                                                *
+    *   ftnref          - Mandatory Single   contains No Other Tags.     *
+    *  or                                                                *
+    *   acronym         - Mandatory Single   contains acroterm, acrodef. *
+    *  or                                                                *
+    *   acroterm        - Mandatory Single   contains Definition stored  *
+    *                                        in group "SPARCON".         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice> 
+			<xs:element ref="xref"/>
+			<xs:element ref="indxflag"/>
+			<xs:element ref="symbol"/>
+			<xs:element ref="subscrpt"/>
+			<xs:element ref="supscrpt"/>
+			<xs:element ref="ftnref"/>
+			<xs:element ref="acronym"/>
+			<xs:element ref="acroterm"/> 
+		</xs:choice>
+	</xs:group>
+<!-- Newly introduced group -->
+
+
+</xs:schema>

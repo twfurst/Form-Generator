@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2004-22GB: Replace the inclusion of DATAREST.XSD by         *
+    *                   DATAREST_PM.XSD for Publication Modules.         *
+    *                                                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="pmcomps.xsd"/>                         *
+    ********************************************************************** -->
+    
+    
+<!--**********************************************************************
+    * Import the RDF Metadata definitions.                               *
+    ********************************************************************** -->
+	<xs:import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+		   schemaLocation="rdf_pm.xsd"/>
+
+<!--**********************************************************************
+    * Import the XLINK definitions.                                      *
+    ********************************************************************** -->
+	<xs:import namespace="http://www.w3.org/1999/xlink" 
+		   schemaLocation="xlink.xsd"/>
+			
+
+<!--**********************************************************************
+    * Include the Project Configuration Text.                            *
+    * Project Configuration may alter delaration of selected objects.    *
+    * For information on which objects are available for tailoring,      *
+    * refer to S1000D!                                                   *
+    ********************************************************************** -->
+	<xs:include schemaLocation="project.cfg"/>
+	
+<!--**********************************************************************
+    * Include the DM Address Details 1st Part                            *
+    ********************************************************************** -->
+	<xs:include schemaLocation="dmaddr1.xsd"/>
+	
+<!--**********************************************************************
+    * Include the DM Address Details 2nd Part                            *
+    ********************************************************************** -->
+	<xs:include schemaLocation="dmaddr2.xsd"/>
+	
+<!--**********************************************************************
+    * Include the DM Address Details 3rd Part                            *
+    ********************************************************************** -->
+	<xs:include schemaLocation="dmaddr3.xsd"/>
+	
+<!--**********************************************************************
+    * Include the Publication Module List Code definitions.              *
+    ********************************************************************** -->
+	<xs:include schemaLocation="pmlistcode.xsd"/>
+	
+<!--**********************************************************************
+    * Include the Publication Module Code Breakdown (see PMC.XSD).       *
+    ********************************************************************** -->
+	<xs:include schemaLocation="pmc.xsd"/>
+	
+<!--**********************************************************************
+    * Include the Data Module Code Breakdown (see DMC.XSD).              *
+    ********************************************************************** -->
+	<xs:include schemaLocation="dmc.xsd"/>
+
+<!--**********************************************************************
+    * Include the Data Restriction definitions for other CSDB objects    *
+    * (see DATAREST_PM.XSD).                                             *
+    ********************************************************************** -->
+	<xs:include schemaLocation="datarest_pm.xsd"/>
+<!-- Inclusion of DATAREST.XSD replaced by DATAREST_PM.XSD -->
+	
+	
+	<xs:simpleType name="ORGNAME">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Type "ORGNAME" (Originator Names) containing:-              *
+    *====================================================================*
+    *  ORIG names allowed by the project.                                *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	
+	<xs:simpleType name="FIC">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Type "FIC" (Functional Item Code) containing:-              *
+    *  Parsed Character Data.                                            *
+    *====================================================================*
+    * To tailor the fic element for project specific use,                *
+    * replace PCDATA as required.                                        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	
+	<xs:simpleType name="SBC">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Type "SBC" (System Breakdown Code) containing:-             *
+    *  Parsed Character Data.                                            *
+    *====================================================================*
+    * To tailor the sbc element for project specific use,                *
+    * replace PCDATA as required.                                        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+
+</xs:schema>

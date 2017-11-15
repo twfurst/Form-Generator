@@ -1,0 +1,1885 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Fragment document type declaration subset:
+Arbortext, Inc., 1988-2010, v.4002
+<!DOCTYPE Styler>
+-->
+<?Pub Inc?>
+<?APT StylesheetID Title="S1000D idstatus Styler Editor Stylesheet module" Description="" CompositionTypes="htmlfile,print,pdf,htmlhelp,web,rtf,dmp" StylerVersion="5.23"?><Styler
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="http://www.arbortext.com/namespace/doctypes/styler"
+xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements"
+xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements"
+xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements"
+xmlns:_dtd="http://www.arbortext.com/namespace/Styler/UserElements"
+xmlns:rtf="http://www.cambridgedocs.com/namespace/fo/rtf"
+xmlns:saxon="http://saxon.sf.net/"
+xmlns:ns1="http://www.purl.org/dc/elements/1.1/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:ch="http://www.arbortext.com/namespace/chunker"
+xmlns:atidlm="http://www.arbortext.com/namespace/atidlm">
+<StyleSheetInfo minorVersion="23" printPdfEngine="FOSI" stylerVersion="5">
+<ElementSet/>
+<ChunkConfig chunkMaxLevels="3"/></StyleSheetInfo>
+<PropertySets></PropertySets>
+<Elements>
+<Element description="This element wraps all generated external links."
+name="_sfe:ExternalLink" style="link">
+<LinkDetails primary="no" uriAttrname="href"/>
+<Context priority="0" selector="_sfe:ExternalLink">
+<BaseProperties propertySetReferences="Link"></BaseProperties>
+</Context>
+</Element>
+<Element description="This element wraps all generated internal links."
+name="_sfe:InternalLink" style="link">
+<LinkDetails idrefAttrname="targetId" primary="no"/>
+<Context priority="0" selector="_sfe:InternalLink">
+<BaseProperties propertySetReferences="Link"></BaseProperties>
+</Context>
+</Element>
+<Element name="authorityExceptions" style="block">
+<Context priority="0" selector="authorityExceptions">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<ContentTest testContent="#any" testDepth="atTopLevel"
+testType="includes"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Authority
+exceptions: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="authorityInfo" style="block">
+<Context priority="0" selector="authorityInfo">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Source
+data authority: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="authorityInfoAndTp" style="block">
+<Context priority="0" selector="authorityInfoAndTp">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="authorityNotes" style="block">
+<Context priority="0" selector="authorityNotes">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<ContentTest testContent="#any" testDepth="atTopLevel"
+testType="includes"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Authority
+notes: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="authorization" style="block">
+<Context priority="0" selector="authorization">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<SpaceBefore optimum="8.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Authorization: </_gte:Font
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="copyright" style="block">
+<Context priority="0" selector="copyright">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Copyright: </_gte:Font
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="dataConds" style="block">
+<Context priority="0" selector="dataConds">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Data conditions: </_gte:Font
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="dataDestruction" style="block">
+<Context priority="0" selector="dataDestruction">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Destruction: </_gte:Font
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="dataDisclosure" style="block">
+<Context priority="0" selector="dataDisclosure">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Disclosure: </_gte:Font
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="dataDistribution" style="block">
+<Context priority="0" selector="dataDistribution">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Distribution: </_gte:Font
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="dataHandling" style="block">
+<Context priority="0" selector="dataHandling">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Handling: </_gte:Font
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="dataRestrictions" style="block">
+<Context priority="0" selector="dataRestrictions">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<SpaceBefore optimum="14.00pt"/>
+<SpaceAfter optimum="8.00pt" precedence="force"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font TypeSize="14pt"
+Weight="bold">Data Restrictions</_gte:Font></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="dmAddress" style="block">
+<Context priority="0" selector="dmAddress">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="dmAddressItems" style="block">
+<Context priority="0" selector="dmAddressItems">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="dmCode" style="block">
+<Context priority="20" selector="dmIdent/dmCode">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font TypeSize="16pt"
+Weight="bold" FontColor="blue"><_gte:AttributeContent
+attr="modelIdentCode" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="systemDiffCode" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="systemCode" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="subSystemCode" occur="1" scope="dmCode"/><_gte:AttributeContent
+attr="subSubSystemCode" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="assyCode" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="disassyCode" occur="1" scope="dmCode"/><_gte:AttributeContent
+attr="disassyCodeVariant" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="infoCode" occur="1" scope="dmCode"/><_gte:AttributeContent
+attr="infoCodeVariant" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="itemLocationCode" occur="1" scope="dmCode"/></_gte:Font></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="or">
+<AttributeTest attributeName="learnCode" testType="any"/>
+<AttributeTest attributeName="learnEventCode" testType="any"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font TypeSize="16pt"
+Weight="bold" FontColor="blue"><_gte:AttributeContent
+attr="modelIdentCode" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="systemDiffCode" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="systemCode" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="subSystemCode" occur="1" scope="dmCode"/><_gte:AttributeContent
+attr="subSubSystemCode" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="assyCode" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="disassyCode" occur="1" scope="dmCode"/><_gte:AttributeContent
+attr="disassyCodeVariant" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="infoCode" occur="1" scope="dmCode"/><_gte:AttributeContent
+attr="infoCodeVariant" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="itemLocationCode" occur="1" scope="dmCode"/>-<_gte:AttributeContent
+attr="learnCode" occur="1" scope="dmCode"/><_gte:AttributeContent
+attr="learnEventCode" occur="1" scope="dmCode"/></_gte:Font></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+<Context priority="10" selector="content//dmCode">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold"
+FontColor="blue"><_gte:AttributeContent attr="modelIdentCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="systemDiffCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="systemCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="subSystemCode" occur="1"
+scope="dmCode"/><_gte:AttributeContent attr="subSubSystemCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="assyCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="disassyCode" occur="1"
+scope="dmCode"/><_gte:AttributeContent attr="disassyCodeVariant"
+occur="1" scope="dmCode"/>-<_gte:AttributeContent attr="infoCode"
+occur="1" scope="dmCode"/><_gte:AttributeContent attr="infoCodeVariant"
+occur="1" scope="dmCode"/>-<_gte:AttributeContent attr="itemLocationCode"
+occur="1" scope="dmCode"/></_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="or">
+<AttributeTest attributeName="learnCode" testType="any"/>
+<AttributeTest attributeName="learnEventCode" testType="any"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold"
+FontColor="blue"><_gte:AttributeContent attr="modelIdentCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="systemDiffCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="systemCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="subSystemCode" occur="1"
+scope="dmCode"/><_gte:AttributeContent attr="subSubSystemCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="assyCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="disassyCode" occur="1"
+scope="dmCode"/><_gte:AttributeContent attr="disassyCodeVariant"
+occur="1" scope="dmCode"/>-<_gte:AttributeContent attr="infoCode"
+occur="1" scope="dmCode"/><_gte:AttributeContent attr="infoCodeVariant"
+occur="1" scope="dmCode"/>-<_gte:AttributeContent attr="itemLocationCode"
+occur="1" scope="dmCode"/>-<_gte:AttributeContent attr="learnCode"
+occur="1" scope="dmCode"/><_gte:AttributeContent attr="learnEventCode"
+occur="1" scope="dmCode"/></_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+<Context priority="0" selector="dmCode">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold"
+FontColor="blue"><_gte:AttributeContent attr="modelIdentCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="systemDiffCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="systemCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="subSystemCode" occur="1"
+scope="dmCode"/><_gte:AttributeContent attr="subSubSystemCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="assyCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="disassyCode" occur="1"
+scope="dmCode"/><_gte:AttributeContent attr="disassyCodeVariant"
+occur="1" scope="dmCode"/>-<_gte:AttributeContent attr="infoCode"
+occur="1" scope="dmCode"/><_gte:AttributeContent attr="infoCodeVariant"
+occur="1" scope="dmCode"/>-<_gte:AttributeContent attr="itemLocationCode"
+occur="1" scope="dmCode"/></_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="or">
+<AttributeTest attributeName="learnCode" testType="any"/>
+<AttributeTest attributeName="learnEventCode" testType="any"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold"
+FontColor="blue"><_gte:AttributeContent attr="modelIdentCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="systemDiffCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="systemCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="subSystemCode" occur="1"
+scope="dmCode"/><_gte:AttributeContent attr="subSubSystemCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="assyCode" occur="1"
+scope="dmCode"/>-<_gte:AttributeContent attr="disassyCode" occur="1"
+scope="dmCode"/><_gte:AttributeContent attr="disassyCodeVariant"
+occur="1" scope="dmCode"/>-<_gte:AttributeContent attr="infoCode"
+occur="1" scope="dmCode"/><_gte:AttributeContent attr="infoCodeVariant"
+occur="1" scope="dmCode"/>-<_gte:AttributeContent attr="itemLocationCode"
+occur="1" scope="dmCode"/>-<_gte:AttributeContent attr="learnCode"
+occur="1" scope="dmCode"/><_gte:AttributeContent attr="learnEventCode"
+occur="1" scope="dmCode"/></_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="dmIdent" style="block">
+<Context priority="0" selector="dmIdent">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="dmStatus" style="block">
+<Context priority="0" selector="dmStatus">
+<BaseProperties>
+<Font size="11pt"/>
+<Indent leftIndent="@24.00pt"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="issueType" testType="any"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold"
+FontColor="blue">Issue type: </_gte:Font><_gte:Font FontColor="black"
+AllCap="yes"><_gte:AttributeContent attr="issueType" occur="1"
+scope="dmStatus"/></_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="dmTitle" style="block">
+<Context priority="10" selector="content//dmTitle">
+<BaseProperties>
+<Highlight color="#0000FF"/>
+<SpaceAfter optimum="12.00pt" precedence="force"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="0" selector="dmTitle">
+<BaseProperties>
+<Highlight color="#0000FF"/>
+<SpaceBefore optimum="6.00pt"/>
+<SpaceAfter optimum="12.00pt" precedence="force"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="exportControl" style="block">
+<Context priority="0" selector="exportControl">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="exportRegistrationCode" style="block">
+<Context priority="0" selector="exportRegistrationCode">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Export
+registration code: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="exportRegistrationStmt" style="block">
+<Context priority="0" selector="exportRegistrationStmt">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_dtd:_touchup TextbrkStartln="no"
+TextbrkEndln="no" FontWeight="bold">Export control statement: </_dtd:_touchup
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="firstVerification" style="block">
+<Context priority="0" selector="firstVerification">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="verificationType" testType="equals"
+testValue="tabtop"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_dtd:_touchup TextbrkStartln="yes"
+TextbrkEndln="yes" FontWeight="bold" IndentLeftind="48pt"
+IndentFirstln="48pt">Validation: <_gte:Font FontColor="black">Table
+Top</_gte:Font></_dtd:_touchup></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="verificationType" testType="equals"
+testValue="onobject"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_dtd:_touchup TextbrkStartln="yes"
+TextbrkEndln="yes" FontWeight="bold" IndentLeftind="48pt"
+IndentFirstln="48pt">Validation: <_gte:Font FontColor="black">On Object</_gte:Font
+></_dtd:_touchup></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="verificationType" testType="equals"
+testValue="ttandoo"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_dtd:_touchup TextbrkStartln="yes"
+TextbrkEndln="yes" FontWeight="bold" IndentLeftind="48pt"
+IndentFirstln="48pt">Validation: <_gte:Font FontColor="black">Table
+Top and On Object</_gte:Font></_dtd:_touchup></_sfe:BeforeOrAfterText
+></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="functionalItemCode" style="block">
+<Context priority="0" selector="functionalItemCode">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Functional
+item code: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="identAndStatusSection" style="block">
+<Context priority="0" selector="identAndStatusSection">
+<BaseProperties>
+<Font size="10pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_dtd:table frame="top"><_dtd:tgroup
+cols="1"><?PubTbl tgroup rth="3.00pt" ctmarg="0.00pt" cbmarg="0.00pt"?><_dtd:colspec
+colname="col1"/><_dtd:tbody><_dtd:row><?PubTbl row rht="6.00pt"?><_dtd:entry
+></_dtd:entry></_dtd:row></_dtd:tbody></_dtd:tgroup></_dtd:table></_sfe:BeforeOrAfterText
+></AddBefore>
+<AddAfter><_sfe:BeforeOrAfterText><_dtd:table frame="bottom"><_dtd:tgroup
+cols="1"><?PubTbl tgroup rth="3.00pt" ctmarg="0.00pt" cbmarg="0.00pt"?><_dtd:colspec
+colname="col1"/><_dtd:tbody><_dtd:row><?PubTbl row rht="6.00pt"?><_dtd:entry
+></_dtd:entry></_dtd:row></_dtd:tbody></_dtd:tgroup></_dtd:table></_sfe:BeforeOrAfterText
+></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="identExtension" style="block">
+<Context priority="0" selector="identExtension">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="issueDate" style="block">
+<Context priority="0" selector="issueDate">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Issue
+date: </_gte:Font><_gte:Font Weight="bold" FontColor="black"><_gte:AttributeContent
+attr="year" occur="1" scope="issueDate"/>-<_gte:AttributeContent
+attr="month" occur="1" scope="issueDate"/>-<_gte:AttributeContent
+attr="day" occur="1" scope="issueDate"/></_gte:Font></_sfe:BeforeOrAfterText
+></AddBefore>
+<AddAfter><_sfe:BeforeOrAfterText></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="issueInfo" style="block">
+<Context priority="20" selector="deliveryListItem/issueInfo">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Issue
+number: </_gte:Font><_gte:Font FontColor="black"><_gte:AttributeContent
+attr="issueNumber" occur="1" scope="issueInfo"/></_gte:Font></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="inWork" testType="notEqual" testValue="00"/>
+<AttributeTest attributeName="inWork" testType="any"/></Tests>
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Issue
+number: </_gte:Font><_gte:Font FontColor="black"><_gte:AttributeContent
+attr="issueNumber" occur="1" scope="issueInfo"/></_gte:Font><_dtd:_touchup
+TextbrkStartln="yes" FontWeight="bold" PrespNominal="6pt"
+PrespMinimum="6pt" PrespMaximum="6pt">Draft number: </_dtd:_touchup
+><_gte:Font FontColor="black"><_gte:AttributeContent attr="inWork"
+occur="1" scope="issueInfo"/></_gte:Font></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+<Context priority="10" selector="dmStatus//issueInfo">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Issue
+number: </_gte:Font><_gte:Font FontColor="black"><_gte:AttributeContent
+attr="issueNumber" occur="1" scope="issueInfo"/></_gte:Font></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="inWork" testType="notEqual" testValue="00"/>
+<AttributeTest attributeName="inWork" testType="any"/></Tests>
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Issue
+number: </_gte:Font><_gte:Font FontColor="black"><_gte:AttributeContent
+attr="issueNumber" occur="1" scope="issueInfo"/></_gte:Font><_dtd:_touchup
+TextbrkStartln="yes" FontWeight="bold" PrespNominal="6pt"
+PrespMinimum="6pt" PrespMaximum="6pt">Draft number: </_dtd:_touchup
+><_gte:Font FontColor="black"><_gte:AttributeContent attr="inWork"
+occur="1" scope="issueInfo"/></_gte:Font></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+<Context priority="0" selector="issueInfo">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Issue
+number: </_gte:Font><_gte:Font Weight="bold" FontColor="black"><_gte:AttributeContent
+attr="issueNumber" occur="1" scope="issueInfo"/></_gte:Font></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="inWork" testType="notEqual" testValue="00"/>
+<AttributeTest attributeName="inWork" testType="any"/></Tests>
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Issue
+number: </_gte:Font><_gte:Font Weight="bold" FontColor="black"><_gte:AttributeContent
+attr="issueNumber" occur="1" scope="issueInfo"/></_gte:Font><_dtd:_touchup
+TextbrkStartln="yes" FontWeight="bold" PrespNominal="6pt"
+PrespMinimum="6pt" PrespMaximum="6pt">Draft number: </_dtd:_touchup
+><_gte:Font Weight="bold" FontColor="black"><_gte:AttributeContent
+attr="inWork" occur="1" scope="issueInfo"/></_gte:Font></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="language" style="block">
+<Context priority="10" selector="dmStatus//language">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold"
+FontColor="blue">Language: </_gte:Font><_gte:Font FontColor="black"
+AllCap="yes"><_gte:AttributeContent attr="countryIsoCode" occur="1"
+scope="language"/>-<_gte:AttributeContent attr="languageIsoCode"
+occur="1" scope="language"/></_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="0" selector="language">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold"
+FontColor="blue">Language: </_gte:Font><_gte:Font Weight="bold"
+FontColor="black" AllCap="yes"><_gte:AttributeContent
+attr="countryIsoCode" occur="1" scope="language"/>-<_gte:AttributeContent
+attr="languageIsoCode" occur="1" scope="language"/></_gte:Font></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="originator" style="block">
+<Context priority="0" selector="originator">
+<BaseProperties>
+<Indent firstLineIndent="*-4.00pt" leftIndent="@24pt"/>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Originator: </_gte:Font
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="origname" testType="any"/></Tests>
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Originator
+name: </_gte:Font><_gte:Font FontColor="black"><_gte:AttributeContent
+attr="origname" occur="1" scope="originator"/></_gte:Font><_dtd:_touchup
+TextbrkStartln="yes" FontWeight="bold" PrespNominal="6pt"
+PrespMinimum="6pt" PrespMaximum="6pt">Originator code: </_dtd:_touchup
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="policyStatement" style="block">
+<Context priority="0" selector="policyStatement">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Policy
+statement: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="productSafety" style="block">
+<Context priority="0" selector="productSafety">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Product
+safety: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="_ufe:qa" style="block">
+<Context priority="0" selector="_ufe:qa">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:ElementContent
+xpath="//identAndStatusSection//qualityAssurance"
+include="elementAndContent"/></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="qualityAssurance" style="block">
+<Context priority="0" selector="qualityAssurance">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold"
+Underline="yes">QA Status</_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="reasonForUpdate" style="block">
+<Context priority="0" selector="reasonForUpdate">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Reasons
+for update:</_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="referencedApplicGroup" style="block">
+<Context priority="0" selector="referencedApplicGroup">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Element>
+<Element name="remarks" style="block">
+<Context priority="20.01" selector="spareDescr/remarks">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<ContentTest testContent="#any" testDepth="atTopLevel"
+testType="includes"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Remarks: </_gte:Font
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+<Context priority="20.005" selector="supplyDescr/remarks">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<ContentTest testContent="#any" testDepth="atTopLevel"
+testType="includes"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Remarks: </_gte:Font
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+<Context priority="20" selector="supportEquipDescr/remarks">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<ContentTest testContent="#any" testDepth="atTopLevel"
+testType="includes"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Remarks: </_gte:Font
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+<Context priority="0" selector="remarks">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<ContentTest testContent="#any" testDepth="atTopLevel"
+testType="includes"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Remarks: </_gte:Font
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="responsiblePartnerCompany" style="block">
+<Context priority="10.005" selector="dmEntry//responsiblePartnerCompany">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Responsible
+partner company: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="enterpriseCode" testType="any"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Responsible
+partner company: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+<AddAfter><_sfe:BeforeOrAfterText> (<_gte:AttributeContent
+attr="enterpriseCode" occur="1" scope="responsiblePartnerCompany"
+/>)</_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+<Context priority="10" selector="wiringData//responsiblePartnerCompany">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Responsible
+partner company: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="enterpriseCode" testType="any"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Responsible
+partner company: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+<AddAfter><_sfe:BeforeOrAfterText> (<_gte:AttributeContent
+attr="enterpriseCode" occur="1" scope="responsiblePartnerCompany"
+/>)</_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+<Context priority="0" selector="responsiblePartnerCompany">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Responsible
+partner company: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="restrictionInfo" style="block">
+<Context priority="0" selector="restrictionInfo">
+<BaseProperties>
+<SpaceBefore optimum="14.00pt"/>
+<SpaceAfter optimum="8.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold"
+Underline="yes">Information</_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="restrictionInstructions" style="block">
+<Context priority="0" selector="restrictionInstructions">
+<BaseProperties>
+<SpaceBefore optimum="14.00pt"/>
+<SpaceAfter optimum="8.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold"
+Underline="yes">Instructions</_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="secondVerification" style="block">
+<Context priority="0" selector="secondVerification">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="verificationType" testType="equals"
+testValue="tabtop"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_dtd:_touchup TextbrkStartln="yes"
+TextbrkEndln="yes" FontWeight="bold" IndentLeftind="48pt"
+IndentFirstln="48pt">Verification: <_gte:Font FontColor="black">Table
+Top</_gte:Font></_dtd:_touchup></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="verificationType" testType="equals"
+testValue="onobject"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_dtd:_touchup TextbrkStartln="yes"
+TextbrkEndln="yes" FontWeight="bold" IndentLeftind="48pt"
+IndentFirstln="48pt">Verification: <_gte:Font FontColor="black">On
+Object</_gte:Font></_dtd:_touchup></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="verificationType" testType="equals"
+testValue="ttandoo"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_dtd:_touchup TextbrkStartln="yes"
+TextbrkEndln="yes" FontWeight="bold" IndentLeftind="48pt"
+IndentFirstln="48pt">Verification: <_gte:Font FontColor="black">Table
+Top and On Object</_gte:Font></_dtd:_touchup></_sfe:BeforeOrAfterText
+></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="security" style="block">
+<Context priority="0" selector="security">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt" precedence="force"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Classification: </_gte:Font
+><_gte:Font Weight="bold" FontColor="black"><_gte:AttributeContent
+attr="securityClassification" occur="1" scope="security"/></_gte:Font
+></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="securityClassification" testType="equals"
+testValue="01"/></Tests>
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Classification: </_gte:Font
+><_gte:Font Weight="bold" FontColor="black" AllCap="yes">Unclassified</_gte:Font
+><_dtd:_newline/><_ufe:qa></_ufe:qa></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="securityClassification" testType="equals"
+testValue="02"/></Tests>
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Classification: </_gte:Font
+><_gte:Font Weight="bold" FontColor="black" AllCap="yes">Restricted</_gte:Font
+></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="securityClassification" testType="equals"
+testValue="03"/></Tests>
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Classification: </_gte:Font
+><_gte:Font Weight="bold" AllCap="yes">Confidential</_gte:Font></_sfe:BeforeOrAfterText
+></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="securityClassification" testType="equals"
+testValue="04"/></Tests>
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Classification: </_gte:Font
+><_gte:Font Weight="bold" FontColor="red" AllCap="yes">Secret</_gte:Font
+></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="securityClassification" testType="equals"
+testValue="05"/></Tests>
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Classification: </_gte:Font
+><_gte:Font Weight="bold" FontColor="red" AllCap="yes">TOP Secret</_gte:Font
+></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="skillLevel" style="block">
+<Context priority="0" selector="skillLevel">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Skill:
+level: </_gte:Font><_gte:Font FontColor="black"><_gte:AttributeContent
+attr="skillLevelCode" occur="1" scope="skillLevel"/></_gte:Font></_sfe:BeforeOrAfterText
+></AddAfter>
+</GeneratedText>
+</BaseProperties>
+<Conditions>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="skillLevelCode" testType="equals"
+testValue="sk03"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Skill:
+level: </_gte:Font><_gte:Font FontColor="black">Advanced</_gte:Font
+></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="skillLevelCode" testType="equals"
+testValue="sk02"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Skill:
+level: </_gte:Font><_gte:Font FontColor="black">Intermediate</_gte:Font
+></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+<Condition>
+<Tests logic="and">
+<AttributeTest attributeName="skillLevelCode" testType="equals"
+testValue="sk01"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Skill:
+level: </_gte:Font><_gte:Font FontColor="black">Basic</_gte:Font></_sfe:BeforeOrAfterText
+></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Condition>
+</Conditions>
+</Context>
+</Element>
+<Element name="sourceDmIdent" style="block">
+<Context priority="0" selector="sourceDmIdent">
+<BaseProperties>
+<Indent leftIndent="@24pt"/>
+<SpaceBefore optimum="14pt"/>
+<SpaceAfter optimum="8.00pt" precedence="force"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_dtd:_touchup FontWeight="bold"
+PrespNominal="6pt" PrespMinimum="6pt" PrespMaximum="6pt"
+HighltScoring="on">Source identification</_dtd:_touchup></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="systemBreakdownCode" style="block">
+<Context priority="0" selector="systemBreakdownCode">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">System
+breakdown code: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="techName" style="block">
+<Context priority="10" selector="content//techName">
+<BaseProperties>
+<Font weight="bold"/>
+<Alignment align="left"/>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+<Context priority="0" selector="techName">
+<BaseProperties>
+<Font size="20pt" weight="bold"/>
+<Alignment align="left"/>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Element>
+<Element name="techPubBase" style="block">
+<Context priority="0" selector="techPubBase">
+<BaseProperties>
+<SpaceBefore optimum="6.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold">Publication
+baseline: </_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="techStandard" style="block">
+<Context priority="0" selector="techStandard">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<SpaceBefore optimum="14.00pt"/>
+<SpaceAfter optimum="8.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font Weight="bold"
+Underline="yes">Technical Standard</_gte:Font></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+<Element name="unverified" style="block">
+<Context priority="0" selector="unverified">
+<BaseProperties>
+<Indent leftIndent="@24.00pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddAfter><_sfe:BeforeOrAfterText><_dtd:_touchup TextbrkStartln="yes"
+TextbrkEndln="yes" FontWeight="bold" IndentLeftind="48pt"
+IndentFirstln="48pt">Unverified: <_gte:Font FontColor="black">DRAFT</_gte:Font
+></_dtd:_touchup></_sfe:BeforeOrAfterText></AddAfter>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Element>
+</Elements>
+<Styles>
+<Style styleName="block"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="crossReference"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<GeneratedText></GeneratedText>
+</BaseProperties>
+</Context>
+</Style>
+<Style styleName="customTable"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Table_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="customTableCell"><?Pub Dtl?>
+<Context priority="0" selector="$customTable//$elemname">
+<BaseProperties>
+<Indent firstLineIndent="*0pt" leftIndent="0pt" rightIndent="0pt"/>
+<SpaceBefore maximum="0pt" minimum="0pt" optimum="0pt" precedence="force"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="customTableHeaderCell"><?Pub Dtl?>
+<Context priority="0" selector="$customTable//$elemname">
+<BaseProperties>
+<Indent firstLineIndent="*0pt" leftIndent="0pt" rightIndent="0pt"/>
+<SpaceBefore maximum="0pt" minimum="0pt" optimum="0pt" precedence="force"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="customTableRow"><?Pub Dtl?>
+<Context priority="0" selector="$customTable/$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="customTableHeaderRow"><?Pub Dtl?>
+<Context priority="0" selector="$customTable/$elemname">
+<BaseProperties>
+<Font weight="bold"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="customTableTitle"><?Pub Dtl?>
+<Context priority="10" selector="$customTable/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space">
+<Font size="14pt" weight="bold"/>
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/>
+</_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText></AddBefore>
+<RepeatingTitle>
+<_sfe:Gentext><_sfe:RepeatingTitle><_gte:ElementLabelAndNumber/>
+<_gte:Leaders leaderType="space" lenType="specified" specLen="1em"
+/>
+<_gte:ElementContent/> (cont'd.)</_sfe:RepeatingTitle></_sfe:Gentext
+>
+</RepeatingTitle>
+<Numbering alignAt="0pt" followWith="space" format="(CURRENT)"
+numberAlignment="left" numberScope="(none)" numberStyle="1"/>
+</GeneratedText>
+</BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+</Style>
+<Style styleName="definitionList"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="definitionListItem"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division1"><?Pub Dtl?>
+<Context divisionLevel="1" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block" startNew="page"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division2"><?Pub Dtl?>
+<Context divisionLevel="2" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block" startNew="page"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division3"><?Pub Dtl?>
+<Context divisionLevel="3" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division4"><?Pub Dtl?>
+<Context divisionLevel="4" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division5"><?Pub Dtl?>
+<Context divisionLevel="5" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division6"><?Pub Dtl?>
+<Context divisionLevel="6" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division7"><?Pub Dtl?>
+<Context divisionLevel="7" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division8"><?Pub Dtl?>
+<Context divisionLevel="8" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="division9"><?Pub Dtl?>
+<Context divisionLevel="9" priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="document"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Font/>
+<Breaks blockOrInline="block" newPageSet="Default_US_Letter_Page_Set"
+startNew="page"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="footnote">
+<Context priority="0" selector="$elemname"><?Pub Dtl?>
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/>
+<Footnote footnoteModelReference="Default_Footnotes"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font TypeSize=".69em"
+Offset=".33em"><_gte:ElementNumber/></_gte:Font></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="0.00pt" followWith="nothing" format="(CURRENT)"
+numberAlignment="left"/></GeneratedText>
+</BaseProperties>
+</Context>
+<Context footnoteModelReference="Default_Footnotes" priority="-0.005"
+selector="$elemname">
+<BaseProperties propertySetReferences="Footnote_font">
+<Indent firstLineIndent="*-1.50pc" leftIndent="@1.50pc"/>
+<Alignment align="justify"/>
+<Breaks blockOrInline="block"/>
+<Footnote footnoteModelReference="Default_Footnotes"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber display="1."/></_gte:Font></_gte:LabelAndNumberMarker
+></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0.00pt" followWith="tab" format="(CURRENT) '.'"
+numberAlignment="left" tabtoAfter="1.5pc"/></GeneratedText>
+</BaseProperties>
+</Context>
+</Style>
+<Style styleName="footnoteReference"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/>
+<Footnote footnoteIdRefAttrName="rid"
+footnoteModelReference="Default_Footnotes" referenceType="references"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Font TypeSize=".69em"
+Offset=".33em"><_gte:CrossReference refAttr="rid" xrefStyle="Number"
+/></_gte:Font></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+</Style>
+<Style styleName="formalBlock"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="graphic"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="hidden"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="index"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block" spanInto="2" startNew="page"/>
+<GeneratedText></GeneratedText>
+</BaseProperties>
+</Context>
+</Style>
+<Style styleName="indexTermAttributeModel"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="indexTermElementModel"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="indexTermNestingElementModel"><?Pub Dtl?>
+<Context priority="20"
+selector="$elemname//$elemname//$elemname/$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+<Context priority="15" selector="$elemname//$elemname/$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+<Context priority="10" selector="$elemname/$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Hidden hidden="yes"/>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="inline"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="link"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Link">
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="linkTarget"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties></BaseProperties>
+</Context>
+</Style>
+<Style styleName="bulletedList"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="numberedList"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="listItem"><?Pub Dtl?>
+<Context priority="25"
+selector="*numberedList//*numberedList//*numberedList//*numberedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-2.5em" leftIndent="@2.5em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="1.5em" followWith="tab" format="(CURRENT) ')'"
+numberAlignment="right" numberStyle="1" tabtoAfter="2.5em"/>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="20"
+selector="*bulletedList//*bulletedList//*bulletedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-1.25em" leftIndent="@1.25em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:BulletMarker><_gte:Font>♦</_gte:Font
+></_gte:BulletMarker></_sfe:BeforeOrAfterText></AddBefore>
+<Bulleting alignAt="0em" followWith="tab" tabtoAfter="1.25em"/>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="20"
+selector="*numberedList//*numberedList//*numberedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-3em" leftIndent="@3em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="2em" followWith="tab" format="(CURRENT) '.'"
+numberAlignment="right" numberStyle="i" tabtoAfter="3em"/>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="15" selector="*bulletedList//*bulletedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-1.25em" leftIndent="@1.25em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:BulletMarker><_gte:Font>–</_gte:Font
+></_gte:BulletMarker></_sfe:BeforeOrAfterText></AddBefore>
+<Bulleting alignAt="0em" followWith="tab" tabtoAfter="1.25em"/>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="15" selector="*numberedList//*numberedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-2em" leftIndent="@2em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="1.em" followWith="tab" format="(CURRENT) '.'"
+numberAlignment="right" numberStyle="a" tabtoAfter="2.em"/>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="10" selector="*bulletedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-1.25em" leftIndent="@1.25em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:BulletMarker><_gte:Font>•</_gte:Font
+></_gte:BulletMarker></_sfe:BeforeOrAfterText></AddBefore>
+<Bulleting alignAt="0em" followWith="tab" tabtoAfter="1.25em"/>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="10" selector="*numberedList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Indent firstLineIndent="*-2.5em" leftIndent="@2.5em"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="1.5em" followWith="tab" format="(CURRENT) '.'"
+numberAlignment="right" numberStyle="1" tabtoAfter="2.5em"/>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="10" selector="*definitionList/$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="List_item_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="paragraph">
+<Context priority="20" selector="*listItem/$elemname[1]">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+<Context priority="15" selector="*footnote//$elemname[1]">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+<Context priority="10" selector="*listItem/$elemname[position()>1]">
+<BaseProperties propertySetReferences="List_item_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="preformatted"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Font family="Monospace"/>
+<Alignment align="preformatted"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="table"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="tableCell"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Indent firstLineIndent="*0pt" leftIndent="0pt" rightIndent="0pt"/>
+<SpaceBefore maximum="0pt" minimum="0pt" optimum="0pt" precedence="force"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="tableHeaderCell"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Font weight="bold"/>
+<Indent firstLineIndent="*0pt" leftIndent="0pt" rightIndent="0pt"/>
+<SpaceBefore maximum="0pt" minimum="0pt" optimum="0pt" precedence="force"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="tableRoot"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties propertySetReferences="Table_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="tableTgroup"><?Pub Dtl?>
+<Context priority="0" selector="$elemname[1]">
+<BaseProperties propertySetReferences="Table_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+<Context priority="0" selector="$elemname[position()>1]">
+<BaseProperties>
+<Breaks blockOrInline="block"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="tableOfContents"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText></GeneratedText>
+</BaseProperties>
+</Context>
+</Style>
+<Style styleName="title"><?Pub Dtl?>
+<Context priority="10" selector="*document/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space">
+<Font size="24pt" weight="bold"/>
+<Breaks blockOrInline="block"/></BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+<Context priority="10" selector="*tableOfContents/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space">
+<Font size="18pt" weight="bold"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText></GeneratedText>
+</BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+<Context priority="10" selector="*formalBlock/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space">
+<Font size="14pt" weight="bold"/>
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<RepeatingTitle><_sfe:Gentext><_sfe:RepeatingTitle><_gte:ElementLabelAndNumber
+/><_gte:Leaders leaderType="space" lenType="specified" specLen="1em"
+/><_gte:ElementContent/> (cont'd.)</_sfe:RepeatingTitle></_sfe:Gentext
+></RepeatingTitle>
+<Numbering alignAt="0pt" followWith="space" format="(CURRENT)"
+numberAlignment="left" numberScope="(none)" numberStyle="1"/>
+</GeneratedText>
+</BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+<Context priority="10" selector="*division1/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_1">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="0pt" followWith="space" format="(CURRENT)"
+numberAlignment="left" numberStyle="1"/></GeneratedText>
+</BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+<Context priority="10" selector="*division2/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_2">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1"/>
+</GeneratedText>
+</BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+<Context priority="10" selector="*division3/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_3">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1"/>
+</GeneratedText>
+</BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+<Context selector="*division4/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_4">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1"/>
+</GeneratedText>
+</BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+<Context selector="*division5/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_5">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1"/>
+</GeneratedText>
+</BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+<Context selector="*division6/$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space Title_6">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1"/>
+</GeneratedText>
+</BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+<Context selector="*division7/$elemname">
+<BaseProperties
+propertySetReferences="Title_color Title_alignment Title_keeps Title_space Title_7">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1"/>
+</GeneratedText>
+</BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+<Context selector="*division8/$elemname">
+<BaseProperties
+propertySetReferences="Title_color Title_alignment Title_keeps Title_space Title_8">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1"/>
+</GeneratedText>
+</BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+<Context selector="*division9/$elemname">
+<BaseProperties
+propertySetReferences="Title_color Title_alignment Title_keeps Title_space Title_9">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:LabelAndNumberMarker><_gte:Font
+><_gte:ElementNumber/></_gte:Font></_gte:LabelAndNumberMarker></_sfe:BeforeOrAfterText
+></AddBefore>
+<Numbering alignAt="0pt" followWith="space"
+format="(PREVIOUS) '.' (CURRENT)" numberAlignment="left" numberStyle="1"/>
+</GeneratedText>
+</BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+<Context priority="0" selector="$elemname">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space">
+<Font weight="bold"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText></GeneratedText>
+</BaseProperties>
+<OutputProperties output="printpdf"
+propertySetReferences="Title_color_for_print"></OutputProperties>
+</Context>
+</Style>
+<Style styleName="nostyle"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties>
+<Breaks blockOrInline="inline"/></BaseProperties>
+</Context>
+</Style>
+<Style styleName="unstyled"><?Pub Dtl?>
+<Context priority="0" selector="$elemname">
+<BaseProperties></BaseProperties>
+</Context>
+</Style>
+</Styles>
+<Bullets><?Pub Dtl?>
+<Bullet><_gte:Font>•</_gte:Font></Bullet>
+<Bullet><_gte:Font>–</_gte:Font></Bullet>
+<Bullet><_gte:Font>♦</_gte:Font></Bullet>
+<Bullet><_gte:Font>◊</_gte:Font></Bullet>
+<Bullet><_gte:Font>⇒</_gte:Font></Bullet>
+</Bullets>
+<ReferenceFormats></ReferenceFormats>
+<Indexes>
+<Index indexName="Main_Index"/></Indexes>
+<PrintPageSets></PrintPageSets>
+<HeaderDefinitions></HeaderDefinitions>
+<FooterDefinitions></FooterDefinitions>
+<TablesOfContents></TablesOfContents>
+<FootnoteModels>
+<FootnoteModel columnOrPageWide="page"
+footnoteModelName="Default_Footnotes" footnoteNumberStyle="1"
+insertSeparator="yes" separatorAlign="left"
+separatorLengthType="specified" separatorRuleLength="9pc"
+separatorRuleThickness=".5pt" spaceAboveFootnote="15pt"
+spaceBelowSeparator="2pt"/></FootnoteModels>
+<Tables>
+<TableModel model="cals" primary="yes"/></Tables>
+<CustomTables></CustomTables>
+<SizeDefinitions></SizeDefinitions>
+<CombinedFonts></CombinedFonts>
+</Styler>
+<?Pub *0000068958?>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Move group "gen_inc" from S1000D.XSD to here and *
+    *                   rename it to "FFTC" for alignment with the SGML  *
+    *                   DTD.                                             *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="fftc.xsd"/>                            *
+    ********************************************************************** -->
+
+
+	<xs:group name="FFTC">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "FFTC" (Figure or Foldout or Table or Caption)        *
+    * containing:-                                                       *
+    *   Definition stored in group "FFT".                                *
+    *  or                                                                *
+    *   caption  - Mandatory Single     contains applic, capline.        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:group ref="FFT"/>
+			<xs:element ref="caption"/>
+		</xs:choice>
+	</xs:group>
+<!-- Group "gen_inc" renamed to "FFTC" for alignment with SGML DTD -->
+
+</xs:schema>

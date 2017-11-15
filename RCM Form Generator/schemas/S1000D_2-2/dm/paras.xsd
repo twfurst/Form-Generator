@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2.1                          *
+    *                       Date: 2006-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2006-01GB: Occurrence indicator in the complex type         *
+    *                    definition of elements <para0> and <subpara1>   *
+    *                    to <subpara3> have been removed in order to     *
+    *                    have only one element <title> per heading level.*
+    *                                                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="paras.xsd"/>                           *
+    ********************************************************************** -->
+
+
+	<xs:group name="nparcon">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "nparcon" (Numbered/Titled Paragraphs) containing:-   *
+    *  Definition stored in group "HEADING".                             *
+    *  Definition stored in group "NPAR".                                *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>		
+			<xs:group ref="HEADING" minOccurs="0"/>
+			<xs:group ref="NPAR" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:group name="SUBPAR1">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "SUBPAR1" (Sub Paragraph 1) containing:-              *
+    *  subpara1 - Optional   Repeatable  contains Definition stored in   *
+    *                                     group "nparcon", subpara2.     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>		
+			<xs:element ref="subpara1" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>		
+	</xs:group>
+
+	<xs:element name="para0">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element para0 (Primary Paragraph) containing:-              *
+    *  Definition stored in group "nparcon".                             *
+    *  Definition stored in group "SUBPAR1".                             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>	
+				<xs:group ref="nparcon" minOccurs="0"/>
+				<xs:group ref="SUBPAR1" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+			<xs:attributeGroup ref="secur"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="subpara1">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element subpara1 (Sub Paragraph Level 1) containing:-       *
+    *  Definition stored in group "nparcon".                             *
+    *  subpara2 - Optional  Repeatable   contains Definition stored in   *
+    *                                     group "nparcon", subpara3.     *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="nparcon" minOccurs="0"/>
+				<xs:element ref="subpara2" minOccurs="0" maxOccurs="unbounded"/>
+		 	</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+			<xs:attributeGroup ref="secur"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="subpara2">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element subpara2 (Sub Paragraph Level 2) containing:-       *
+    *  Definition stored in group "nparcon".                             *
+    *  subpara3 - Optional  Repeatable   contains Definition stored in   *
+    *                                     group "nparcon", subpara4.     *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>	
+			<xs:sequence>
+				<xs:group ref="nparcon" minOccurs="0"/>
+				<xs:element ref="subpara3" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+			<xs:attributeGroup ref="secur"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="subpara3">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element subpara3 (Sub Paragraph Level 3) containing:-       *
+    *  Definition stored in group "nparcon".                             *
+    *  subpara4 - Optional  Repeatable   contains Definition stored in   *
+    *                                     group "nparcon".               *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>	
+			<xs:sequence>
+				<xs:group ref="nparcon" minOccurs="0"/>
+				<xs:element ref="subpara4" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+			<xs:attributeGroup ref="secur"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="subpara4">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element subpara4 (Sub Paragraph Level 4) containing:-       *
+    *  Definition stored in group "nparcon".                             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:group ref="nparcon" minOccurs="0"/>
+			<xs:attributeGroup ref="bodyatt"/>
+			<xs:attributeGroup ref="secur"/>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

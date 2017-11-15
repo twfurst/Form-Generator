@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Elements <graphic> and <hotspot> moved to here   *
+    *                   from COMMON.XSD.                                 *
+    *                   Split FIG_TAB.XSD into FIGURE.XSD and TABLE.XSD. *
+    * 2. CPF 2004-40US: Introduce attribute visibility on element        *
+    *                   <hotspot> to enable the reuse of graphic objects.*
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="figure.xsd"/>                          *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Import the XLINK Definition Public Text.                           *
+    ********************************************************************** -->
+	<xs:import 	namespace="http://www.w3.org/1999/xlink" 
+			schemaLocation="xlink.xsd"/>
+
+<xs:element name="figure">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element figure (Figure) containing:-                        *
+    *====================================================================*
+    * Mandatory Single Group.                                            *
+    *====================================================================*
+    *  Definition stored in group "titles".                              *
+    *++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
+    *  graphic  - Mandatory  Single      contains hotspot.               *
+    *  rfa      - Optional   Repeatable  contains applic, Definition     *
+    *                                     stored in group "text".        *
+    * or                                                                 *
+    *====================================================================*
+    * Mandatory Repeatable Group.                                        *
+    *====================================================================*
+    *  applic   - Optional   Single      contains type, model.           *
+    *  sheet    - Mandatory  Single      contains No Other Tags.         *
+    *  graphic  - Mandatory  Single      contains hotspot.               *
+    *  rfa      - Optional   Repeatable  contains applic, Definition     *
+    *                                     stored in group "text".        *
+    *====================================================================*
+    *++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
+    *  legend   - Optional   Single      contains deflist.               *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    * Attribute Definition List stored in attribute group "bodyatt".     *
+    * Attribute Definition List stored in attribute group "secur".       *
+    ********************************************************************** 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexType>
+		<xs:sequence>
+			<xs:group ref="titles"/>	
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="graphic"/>
+					<xs:element ref="rfa" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:sequence maxOccurs="unbounded">
+					<xs:element ref="applic" minOccurs="0"/>
+					<xs:element ref="sheet"/>
+					<xs:element ref="graphic"/>
+					<xs:element ref="rfa" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:choice>
+			<xs:element ref="legend" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="bodyatt"/>
+		<xs:attributeGroup ref="secur"/>
+	</xs:complexType>
+</xs:element>
+
+	<xs:element name="graphic">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element graphic (Graphic / Image) containing:-              *
+    *  hotspot - Optional Repeatable   contains applic and optional      *
+    *                                  repeatable group consisting of    *
+    *                                  hotspot or xref.                  *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  boardno  - ENTITY   - REQUIRED - Unique graphic identifier.       *
+    *  id       - ID       - IMPLIED  - Unique identifier of graphic     *
+    *  reprowid - CDATA    - IMPLIED  - Reproduction area width in mm.   *
+    *  reprohgt - CDATA    - IMPLIED  - Reproduction area height in mm.  *
+    *  reproscl - CDATA    - IMPLIED  - Reproduction scaling (yes/no)    *
+    *  Attribute Definition List stored in group "XLINKATT0".            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="hotspot" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="boardno" type="xs:ENTITY" use="required"/>
+			<xs:attribute name="id" type="xs:ID"/>
+			<xs:attribute name="reprowid" type="xs:string"/>
+			<xs:attribute name="reprohgt" type="xs:string"/>
+			<xs:attribute name="reproscl" type="xs:string"/>
+			<xs:attributeGroup ref="xlink:XLINKATT0"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="hotspot">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element hotspot (Graphical Hotspot) containing:-            *
+    *   applic   - Optional  Single     contains type, model.            *
+    *====================================================================*
+    *  Optional Repeatable Group.                                        *
+    *====================================================================*
+    *    hotspot - Mandatory Single   contains applic, optional          *
+    *                                 repeatable group consisting of     *
+    *                                 hotspot or xref.                   *
+    *   or                                                               *
+    *    xref    - Mandatory Single   contains applic, Definition stored *
+    *                                          in group "SPARCON".       *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id            - ID            - IMPLIED - Unique identifier of    *
+    *                                            hotspot.                *
+    *  apsid         - CDATA         - IMPLIED - Unique identifier of    *
+    *                                            CGM APS.                *
+    *  apsname       - CDATA         - IMPLIED - CGM APS name attribute. *
+    *  type          - CDATA         - IMPLIED - Type of graphical       *
+    *                                            hotspot.                *
+    *  title         - CDATA         - IMPLIED - Label / Screentip of    *
+    *                                            hotspot.                *
+    *  descript      - CDATA         - IMPLIED - Description of          *
+    *                                            graphical hotspot.      *
+    *  coords        - CDATA         - IMPLIED - Closed polygon          *
+    *                                            coordinates of graphical*
+    *                                            hotspot picking region. *
+    *  visibility    - Declared      - "visible" - Object visibility.    *
+    *                  - "visible"     - Display this graphical object.  *
+    *                  - "hidden"      - Hide this graphical object.     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="hotspot"/>
+					<xs:element ref="xref"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID"/>
+			<xs:attribute name="apsid" type="xs:string"/>
+			<xs:attribute name="apsname" type="xs:string"/>
+			<xs:attribute name="type" type="xs:string"/>
+			<xs:attribute name="title" type="xs:string"/>
+			<xs:attribute name="descript" type="xs:string"/>
+			<xs:attribute name="coords" type="xs:string"/>
+     			<xs:attribute name="visibility" default="visible">
+				<xs:simpleType>
+          				<xs:restriction base="xs:NMTOKEN">
+            					<xs:enumeration value="visible"/>
+            					<xs:enumeration value="hidden"/>
+          				</xs:restriction>
+        			</xs:simpleType>
+      			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+<!-- Attribute VISIBILITY introduced -->
+
+<xs:element name="sheet">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element sheet (Figure Sheet) containing:-                   *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  sheetno  - NUMBER   - REQUIRED - Sheet number.                    *
+    *  total    - NUMBER   - REQUIRED - Total number of sheets.          *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexType>
+		<xs:attribute name="sheetno" type="xs:string" use="required"/>
+		<xs:attribute name="total" type="xs:string" use="required"/>
+		<xs:attributeGroup ref="bodyatt"/>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="rfa">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element rfa (Reason For Amendment) containing:-             *
+    *  applic   - Optional   Single      contains type, model.           *
+    *  Definition stored in group "text" - Mandatory Repeatable.         *
+    ********************************************************************** 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:complexType mixed="true">
+		<xs:sequence>
+			<xs:element ref="applic" minOccurs="0"/>
+			<xs:group ref="text" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="legend">
+	<xs:annotation>
+		<xs:documentation>
+    **********************************************************************
+    * Define Element legend (Legend) containing:-                        *
+    *  deflist  - Mandatory  Single      contains definition stored in   *
+    *                                    group "titles", term, def.      *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+		</xs:documentation>
+	</xs:annotation>	
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="deflist"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="bodyatt"/>
+	</xs:complexType>
+</xs:element>
+
+
+</xs:schema>

@@ -1,0 +1,31 @@
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/descript.xsd" "./xml_schema_flat/descript.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/schedul.xsd" "./xml_schema_flat/schedul.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/proced.xsd" "./xml_schema_flat/proced.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/process.xsd" "./xml_schema_flat/process.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/crew.xsd" "./xml_schema_flat/crew.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/fault.xsd" "./xml_schema_flat/fault.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/brex.xsd" "./xml_schema_flat/brex.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/ipd.xsd" "./xml_schema_flat/ipd.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/wrngdata.xsd" "./xml_schema_flat/wrngdata.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/wrngflds.xsd" "./xml_schema_flat/wrngflds.xsd"
+
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/container.xsd" "./xml_schema_flat/container.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/condcrossreftable.xsd" "./xml_schema_flat/condcrossreftable.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/appliccrossreftable.xsd" "./xml_schema_flat/appliccrossreftable.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/prdcrossreftable.xsd" "./xml_schema_flat/prdcrossreftable.xsd"
+
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/ddn.xsd" "./xml_schema_flat/ddn.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/dml.xsd" "./xml_schema_flat/dml.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/pm.xsd" "./xml_schema_flat/pm.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/comment.xsd" "./xml_schema_flat/comment.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/scormcontentpackage.xsd" "./xml_schema_flat/scormcontentpackage.xsd"
+
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/learning.xsd" "./xml_schema_flat/learning.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/checklist.xsd" "./xml_schema_flat/checklist.xsd"
+
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/comrep.xsd" "./xml_schema_flat/comrep.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/frontmatter.xsd" "./xml_schema_flat/frontmatter.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/sb.xsd" "./xml_schema_flat/sb.xsd"
+URI "http://www.s1000d.org/S1000D_4-1/xml_schema_flat/scocontent.xsd" "./xml_schema_flat/scocontent.xsd"
+
+PUBLIC "ISO 8879-1986//ENTITIES ISO Character Entities 20030531//EN//XML" "./ent/xml/ISOEntities"

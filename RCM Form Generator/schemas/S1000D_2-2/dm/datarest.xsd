@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2004-22GB: Replace content model of element <copyright> by  *
+    *                   mandatory repeatable sub element <para>.         *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="datarest.xsd"/>                        *
+    ********************************************************************** -->
+
+
+	<xs:element name="datarest">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element datarest (Data Restrictions) containing:-           *
+    *  instruct  - Mandatory   Single    contains distrib, handling,     *
+    *                                             destruct, disclose.    *
+    *  inform    - Optional    Single    contains copyright, polref,     *
+    *                                             datacond.              *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="instruct"/>
+				<xs:element ref="inform" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="instruct">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element instruct (Specific Instructions) containing:-       *
+    *  distrib  - Mandatory   Single    contains Parsed Character Data.  *
+    *  expcont  - Optional    Single    contains Parsed Character Data.  *
+    *  handling - Optional    Single    contains Parsed Character Data.  *
+    *  destruct - Optional    Single    contains Parsed Character Data.  *
+    *  disclose - Optional    Single    contains Parsed Character Data.  *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="distrib"/>
+				<xs:element ref="expcont" minOccurs="0"/>
+				<xs:element ref="handling" minOccurs="0"/>
+				<xs:element ref="destruct" minOccurs="0"/>
+				<xs:element ref="disclose" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="distrib">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element distrib (Distribution Requirements) containing:-    *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="expcont">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element expcont (Export Control Notice) containing:-        *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="handling">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element handling (Data Handling Requirements) containing:-  *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="destruct">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element destruct (Destruction Requirements) containing:-    *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="disclose">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element disclose (Intended Use or Disclosure) containing:-  *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="inform">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element inform (Additional Information)  containing:-       *
+    *  copyright - Mandatory  Single    contains para.                   *
+    *  polref    - Optional   Single    contains Parsed Character Data.  *
+    *  datacond  - Optional   Single    contains Parsed Character Data.  *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="copyright"/>
+				<xs:element ref="polref" minOccurs="0"/>
+				<xs:element ref="datacond" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="copyright">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element copyright (Copyright) containing:-                  *
+    *  para     - Mandatory Repeatable  contains applic, definition      *
+    *                                   stored in group "paracon".       *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="para" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="polref">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element polref (Security Policy Document Reference)         *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="datacond">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element datacond (Specific Conditions) containing:-         *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

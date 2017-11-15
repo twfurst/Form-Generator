@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. Bug fix:       Change content model of element <remarks> to     *
+    *                   allow optional repeatable sub element <p>.       *
+    * 2. TPSMG request: Amend element <p> by attribute definitions of    *
+    *                   group "bodyatt". Groups "SPAR" and "SPARCON"     *
+    *                   moved to file dmaddr2.xsd.                       *
+    * 3. Consistency:   Redefine the type of all elements which contain  *
+    *                   only Parsed Character Data and have no           *
+    *                   attributes to be of type="xs:string".            *
+    *                                                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="listcode.xsd"/>                        *
+    ********************************************************************** -->
+
+	
+	<xs:simpleType name="NCAGEcode">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Za-z0-9]{5}"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="sendid" type="NCAGEcode">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element sendid (Senders Identification) containing:-        *
+    *  Parsed Character Data.                                            *
+    * may contain the NCAGE code                                         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="diyear">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element diyear (Data Identification Year) containing:-      *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:gYear">
+				<xs:pattern value="[0-9]{4}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+	<xs:element name="subscrpt" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element subscrpt (Sub Script) containing:-                  *
+    *  Replaceable Character Data.                                       *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+<!-- Type of element changed -->
+
+	<xs:element name="supscrpt" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element supscrpt (Super Script) containing:-                *
+    *  Replaceable Character Data.                                       *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+<!-- Type of element changed -->
+
+	<xs:element name="p">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element p (Simple Paragraph) containing:-                   *
+    *  Definition stored in group "SPARCON".                             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:group ref="SPARCON" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Attribute group "bodyatt" added -->
+
+	<xs:element name="remarks">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element remarks (Remarks) containing:-                      *
+    *   Definition stored in group "SPAR".                               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:group ref="SPAR" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Bug fix: Content model changed -->
+
+</xs:schema>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+           	
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.0                            *
+    *                       Date: 2003-05-31                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    *                                                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="dmaddr1.xsd"/>                         *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Include the Data Module Code Breakdown definitions.                *
+    ********************************************************************** -->
+	<xs:include schemaLocation="dmc.xsd"/>
+
+
+</xs:schema>

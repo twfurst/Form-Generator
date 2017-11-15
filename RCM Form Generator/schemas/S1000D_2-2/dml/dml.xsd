@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.0                            *
+    *                       Date: 2003-05-31                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. Update public identifier.                                       *
+    * 2. Reflect the changes done for the DM DTD.                        *
+    * 3. XML Extension: Import RDF/DC Metadata Definitions.              *
+    * 4. XML Extension: Import XLINK Definitions (see XLINK.XSD).        * 
+    *====================================================================*
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="dml.xsd"/>                             *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Import the RDF Metadata Definitions.                               *
+    ********************************************************************** -->
+	<xs:import 	namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+			schemaLocation="rdf_dml.xsd"/>
+
+<!--**********************************************************************
+    * Import the XLINK Definitions.                                      *
+    ********************************************************************** -->
+	<xs:import 	namespace="http://www.w3.org/1999/xlink" 
+			schemaLocation="xlink.xsd"/>
+
+
+	<xs:element name="dml">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dml (Data Module List) containing:-                 *
+    *  rdf:Description - Optional  Single      contains Defintion stored *
+    *                                          in group "DCMES".         *
+    *  dmlc            - Mandatory Single      contains modelic, sendid, *
+    *                                          type, diyear, seqnum.     *
+    *  issno           - Mandatory Single      contains No Other Tags.   *
+    *  issdate         - Mandatory Single      contains No Other Tags.   *
+    *  security        - Mandatory Single      contains No Other Tags.   *
+    *  datarest        - Optional  Single      contains instruct, inform.*
+    *  dmlref          - Optional  Repeatable  contains dmlc, issno or   *
+    *                                          Definition stored in      *
+    *                                          group "XLINKEXT".         *
+    *  dmentry         - Mandatory Repeatable  contains addresdm,        *
+    *                                          security, rpc, answer,    *
+    *                                          remarks.                  *
+    *  remarks         - Optional  Single      contains Definition       *
+    *                                          stored in group "SPAR".   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id          - ID       - IMPLIED   - Unique identifier of element.*
+    *  direction   - Declared - IMPLIED   - Direction:                   *
+    *              - "send"                 - original dispatched DML    *
+    *              - "reply"                - answer to same DML         *
+    *                                         returned with remarks      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="rdf:Description" minOccurs="0"/>
+				<xs:element ref="dmlc"/>
+				<xs:element ref="issno"/>
+				<xs:element ref="issdate"/>
+				<xs:element ref="security"/>
+				<xs:element ref="datarest" minOccurs="0"/>
+				<xs:element ref="dmlref" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="dmentry" maxOccurs="unbounded"/>
+				<xs:element ref="remarks" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID"/>
+			<xs:attribute name="direction">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="send"/>
+						<xs:enumeration value="reply"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dmlc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dmlc (Data Module List Code) containing:-           *
+    *  modelic   - Mandatory   Single     contains Parsed Character Data.*
+    *  sendid    - Mandatory   Single     contains Parsed Character Data.*
+    *  dmltype   - Mandatory   Single     contains No Other Tags.        *
+    *  diyear    - Mandatory   Single     contains Parsed Character Data.*
+    *  seqnum    - Mandatory   Single     contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="modelic"/>
+				<xs:element ref="sendid"/>
+				<xs:element ref="dmltype"/>
+				<xs:element ref="diyear"/>
+				<xs:element ref="seqnum"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dmltype">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dmltype (Type of Data Module List) containing:-     *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  dmltype   - Declared - REQUIRED   - Identifies Type of DML:       *
+    *            - "c"  - Complete Data Module Requirement List (DMRL-C) *
+    *            - "p"  - Partial Data Module Requirement List (DMRL-P)  *
+    *            - "s"  - CSDB Status List (CSL)                         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="c"/>
+						<xs:enumeration value="p"/>
+						<xs:enumeration value="s"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dmlref">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dmlref (Data Module List Reference) containing:-    *
+    *  dmlc      - Mandatory   Single      contains modelic, sendid,     *
+    *                                               type, diyear, seqnum.*
+    *  issno     - Optional    Single      contains No Other Tags.       *
+    * or                                                                 *
+    *  Definition stored in group "XLINKEXT".                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "XLINKATT".   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="dmlc"/>
+					<xs:element ref="issno" minOccurs="0"/>
+				</xs:sequence>
+				<xs:group ref="xlink:XLINKEXT" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:attributeGroup ref="xlink:XLINKATT"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dmentry">
+		<xs:annotation>
+			<xs:documentation>
+<!--**********************************************************************
+    * Define Element dmentry (Data Module Entry) containing:-            *
+    *  addresdm    - Mandatory   Single   contains dmc, dmtitle, issno,  *
+    *                                              issdate, language or  *
+    *                                              Definition stored in  *
+    *                                              group "XLINKEXT".     *
+    *  security    - Optional    Single   contains No Other Tags.        *
+    *  rpc         - Mandatory   Single   contains Parsed Character Data.*
+    *  answer      - Optional    Single   contains remarks.              *
+    *  remarks     - Optional    Single   contains Definition stored in  *
+    *                                              group "SPAR".         *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  type   - Declared - IMPLIED  - Change Type of DM Entry compared   *
+    *                                 to last DML issue                  *
+    *            - "c"  - Changed DM entry (eg. rpc or dmtitle changed)  *
+    *            - "d"  - Deleted DM entry                               *
+    *            - "n"  - New DM entry                                   *
+    *         If attribute is not used: no changes in DM entry.          *
+    ********************************************************************** -->
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="addresdm"/>
+				<xs:element ref="security" minOccurs="0"/>
+				<xs:element ref="rpc"/>
+				<xs:element ref="answer" minOccurs="0"/>
+				<xs:element ref="remarks" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="type">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="c"/>
+						<xs:enumeration value="d"/>
+						<xs:enumeration value="n"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="addresdm">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element addresdm (Data Module Entry Address) containing:-   *
+    *====================================================================*
+    * Mandatory Single Group.                                            *
+    *====================================================================*
+    *  dmc      - Mandatory  Single      contains Definition stored in   *
+    *                                    group "EXTDMC".                 *
+    *  dmtitle  - Optional  Single       contains techname, infoname.    *
+    *  issno    - Optional  Single       contains No Other Tags.         *
+    *  issdate  - Optional  Single       contains No Other Tags.         *
+    *  language - Optional  Single       contains No Other Tags.         *
+    *====================================================================*
+    * or                                                                 *
+    *  Definition stored in group "XLINKEXT".                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "XLINKATT4".  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="dmc"/>
+					<xs:element ref="dmtitle" minOccurs="0"/>
+					<xs:element ref="issno" minOccurs="0"/>
+					<xs:element ref="issdate" minOccurs="0"/>
+					<xs:element ref="language" minOccurs="0"/>
+				</xs:sequence>
+				<xs:group ref="xlink:XLINKEXT" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:attributeGroup ref="xlink:XLINKATT4"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="answer">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element answer (Reservation query Answer) containing:-      *
+    *  remarks  - Optional  Single       contains Definition stored in   *
+    *                                             group "SPAR".          *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  answer  - Declared - "y"         - answer is either               *
+    *                                     "y" for accepted DM entry or   *
+    *                                     "n" for not accepted DM entry  *
+    *                                     in case of a DML reply         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="remarks" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="answer">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="y"/>
+						<xs:enumeration value="n"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+
+</xs:schema>

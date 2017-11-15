@@ -1,0 +1,651 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+           	
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2004-63DE: Introduce optional sub element <language> in the *
+    *                   content model of element <cstatus>.              *
+    * 2. Bug fix:       Correct the definition of empty element cnorefs. *
+    *====================================================================*
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="comment.xsd"/>                         *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Import the RDF Metadata Definitions.                               *
+    ********************************************************************** -->
+	<xs:import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+		   schemaLocation="rdf_comment.xsd"/>
+
+<!--**********************************************************************
+    * Import the XLINK Definitions.                                      *
+    ********************************************************************** -->
+	<xs:import namespace="http://www.w3.org/1999/xlink" 
+		   schemaLocation="xlink.xsd"/>
+
+
+	<xs:element name="comment">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element comment (Comment) containing:-                      *
+    *  rdf:Description - Optional  Single  contains Defintion stored in  *
+    *                                               group "DCMES".       *
+    *  cstatus         - Mandatory Single  contains ccode, ctitle,       *
+    *                                               issdate, language,   *
+    *                                               corig, security,     *
+    *                                               datarest, priority,  *
+    *                                               response, crefs,     *
+    *                                               remarks.             *
+    *  ccontent        - Mandatory Single   contains p, refcattach.      *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id       - ID       - IMPLIED  - Unique identifier of Element.    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="rdf:Description" minOccurs="0"/>
+				<xs:element ref="cstatus"/>
+				<xs:element ref="ccontent"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="cstatus">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element cstatus (Comment Status) containing:-               *
+    *   ccode    - Mandatory Single     contains modelic, sendid, diyear,*
+    *                                            seqnum, ctype.          *
+    *   ctitle   - Optional  Single     contains Parsed Character Data.  *
+    *   issdate  - Mandatory Single     contains No Other Tags.          *
+    *   language - Optional  Single     contains No Other Tags.          *
+    *   corig    - Mandatory Single     contains dispaddr.               *
+    *   security - Mandatory Single     contains No Other Tags.          *
+    *   datarest - Optional  Single     contains instruct, inform.       *
+    *   priority - Mandatory Single     contains No Other Tags.          *
+    *   response - Optional  Single     contains No Other Tags.          *
+    *   crefs    - Mandatory Single     contains No Other Tags.          *
+    *   remarks  - Optional  Single     contains Definition stored in    *
+    *                                            group "SPAR".           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ccode"/>
+				<xs:element ref="ctitle" minOccurs="0"/>
+				<xs:element ref="issdate"/>
+				<xs:element ref="language" minOccurs="0"/>
+				<xs:element ref="corig"/>
+				<xs:element ref="security"/>
+				<xs:element ref="datarest" minOccurs="0"/>
+				<xs:element ref="priority"/>
+				<xs:element ref="response" minOccurs="0"/>
+				<xs:element ref="crefs"/>
+				<xs:element ref="remarks" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Element <language> introduced in content model -->
+
+	<xs:element name="ccode">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ccode (Comment Code generated by the Originator of  *
+    *                       the Comment)                                 *
+    * containing:-                                                       *
+    *  modelic   - Mandatory   Single    contains Parsed Character Data. *
+    *  sendid    - Mandatory   Single    contains Parsed Character Data. *
+    *  diyear    - Mandatory   Single    contains Parsed Character Data. *
+    *  seqnum    - Mandatory   Single    contains Parsed Character Data. *
+    *  ctype     - Mandatory   Single    contains No Other Tags.         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="modelic"/>
+				<xs:element ref="sendid"/>
+				<xs:element ref="diyear"/>
+				<xs:element ref="seqnum"/>
+				<xs:element ref="ctype"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ctype">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ctype (Type of Comment) containing:-                *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  ctype   - Declared - REQUIRED   - Identifies Type of Comment:     *
+    *           - "q"        - Query (raised comment)                    *
+    *           - "i"        - Interim response                          *
+    *           - "r"        - Final response                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="q"/>
+						<xs:enumeration value="i"/>
+						<xs:enumeration value="r"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ctitle" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ctitle (Comment Title) containing:-                 *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="corig">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element corig (Comment Originator) containing:-             *
+    *  dispaddr - Mandatory Single    contains enterprise,person,address.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dispaddr"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="priority">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element priority (Priority of the Comment) containing:-     *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  cprio    - "CPRIOS"        - Level of comment priority.           *
+    *                               "CPRIOS" is declared in PROJECT.CFG. *
+    *    Examples:                                                       *
+    *             - "cp01"        - Routine                              *
+    *             - "cp02"        - Emergency                            *
+    *             - "cp03"        - Safety critical                      *
+    *             - . . . . .                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute ref="cprio" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="response">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element response (Type of Response to the Comment)          * 
+    *   containing:-        No Other Tags.                               *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  rsptype  - "RSPTYPES"  - REQUIRED  - Identifying the type of      *
+    *                                       response to a comment.       *
+    *                           "RSPTYPES" is declared in PROJECT.CFG.   *
+    *    Examples:                                                       *
+    *              - "rt01"     - Accepted                               *
+    *              - "rt02"     - Pending                                *
+    *              - "rt03"     - Partly Accepted                        *
+    *              - "rt04"     - Rejected                               *
+    *              - . . . . .                                           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="rsptype" type="RSPTYPES" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="crefs">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element crefs (References) containing:-                     *
+    *  cnorefs  - Mandatory  Single      contains No Other Tags.         *
+    * or                                                                 *
+    *  crefdms  - Mandatory  Single      contains refdm.                 *
+    * or                                                                 *
+    *  crefdmls - Mandatory  Single      contains dmlref.                *
+    * or                                                                 *
+    *  crefpms  - Mandatory  Single      contains crefpm.                *
+    * or                                                                 *
+    *  crefddns - Mandatory  Single      contains crefddn.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="cnorefs"/>
+				<xs:element ref="crefdms"/>
+				<xs:element ref="crefdmls"/>
+				<xs:element ref="crefpms"/>
+				<xs:element ref="crefddns"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="cnorefs">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element cnorefs (No References) containing:-                *
+    *  No Other Tags.                                                    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType/>
+	</xs:element>
+<!-- Content model corrected -->
+
+	<xs:element name="crefdms">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element crefdms (Reference Data Modules) containing:-       *
+    *  crefdm    - Mandatory  Repeatable  contains dmc, issno, dmtitle,  *
+    *                                              issdate, language or  *
+    *                                              Definition stored in  *
+    *                                              group "XLINKEXT".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="crefdm" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="crefdm">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element crefdm (Reference Data Module) containing:-         *
+    *====================================================================*
+    * Mandatory Single Group.                                            *
+    *====================================================================*
+    *  dmc      - Mandatory  Single      contains age, avee.             *
+    *  dmtitle  - Optional   Single      contains Techname, infoname.    *
+    *  issno    - Optional   Single      contains No Other Tags.         *
+    *  issdate  - Optional   Single      contains No Other Tags.         *
+    *  language - Optional   Single      contains No Other Tags.         *
+    *====================================================================*
+    * or                                                                 *
+    *  Definition stored in group "XLINKEXT".                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "XLINKATT4".  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="dmc"/>
+					<xs:element ref="dmtitle"  minOccurs="0"/>
+					<xs:element ref="issno"    minOccurs="0"/>
+					<xs:element ref="issdate"  minOccurs="0"/>
+					<xs:element ref="language" minOccurs="0"/>
+				</xs:sequence>
+				<xs:group ref="xlink:XLINKEXT" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:attributeGroup ref="xlink:XLINKATT4"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="crefdmls">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element crefdmls (Reference Data Module Lists)              *
+    * containing:-                                                       *
+    *  dmlref    - Mandatory  Repeatable  contains dmlc, issno or        *
+    *                                              Definition stored in  *
+    *                                              group "XLINKEXT".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dmlref" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dmlref">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dmlref (Data Module List Reference) containing:-    *
+    *====================================================================*
+    * Mandatory Single Group.                                            *
+    *====================================================================*
+    *  dmlc      - Mandatory   Single      contains modelic, sendid,     *
+    *                                               type, diyear, seqnum.*
+    *  issno     - Optional    Single      contains No Other Tags.       *
+    *====================================================================*
+    * or                                                                 *
+    *  Definition stored in group "XLINKEXT".                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "XLINKATT4".  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="dmlc"/>
+					<xs:element ref="issno" minOccurs="0"/>
+				</xs:sequence>
+				<xs:group ref="xlink:XLINKEXT" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:attributeGroup ref="xlink:XLINKATT4"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dmlc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dmlc (Data Module List Code) containing:-           *
+    *  modelic   - Mandatory   Single     contains Parsed Character Data.*
+    *  sendid    - Mandatory   Single     contains Parsed Character Data.*
+    *  dmltype   - Mandatory   Single     contains No Other Tags.        *
+    *  diyear    - Mandatory   Single     contains Parsed Character Data.*
+    *  seqnum    - Mandatory   Single     contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="modelic"/>
+				<xs:element ref="sendid"/>
+				<xs:element ref="dmltype"/>
+				<xs:element ref="diyear"/>
+				<xs:element ref="seqnum"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dmltype">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dmltype (Type of Data Module List) containing:-     *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  dmltype   - Declared - REQUIRED   - Identifies Type of DML:       *
+    *            - "c"  - Complete Data Module Requirement List (DMRL-C) *
+    *            - "p"  - Partial Data Module Requirement List (DMRL-P)  *
+    *            - "s"  - CSDB Status List (CSL)                         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="c"/>
+						<xs:enumeration value="p"/>
+						<xs:enumeration value="s"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="crefpms">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element crefpms (Reference Publication Modules)             *
+    * containing:-                                                       *
+    *  crefpm  - Mandatory  Repeatable    contains pmc, pmtitle, issno,  *
+    *                                              issdate, language or  *
+    *                                              Definition stored in  *
+    *                                              group "XLINKEXT".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="crefpm" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="crefpm">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element crefpm (Reference Publication Module)               *
+    * containing:-                                                       *
+    *====================================================================*
+    * Mandatory Single Group.                                            *
+    *====================================================================*
+    *  pmc      - Mandatory Single      contains modelic, pmissuer,      *
+    *                                            pmnumber, pmvolume.     *
+    *  pmtitle  - Optional  Single      contains Parsed Character Data.  *
+    *  issno    - Optional  Single      contains No Other Tags.          *
+    *  issdate  - Optional  Single      contains No Other Tags.          *
+    *  language - Optional  Single      contains No Other Tags.          *
+    *====================================================================*
+    * or                                                                 *
+    *  Definition stored in group "XLINKEXT".                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "XLINKATT4".  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="pmc"/>
+					<xs:element ref="pmtitle"  minOccurs="0"/>
+					<xs:element ref="issno"    minOccurs="0"/>
+					<xs:element ref="issdate"  minOccurs="0"/>
+					<xs:element ref="language" minOccurs="0"/>
+				</xs:sequence>
+				<xs:group ref="xlink:XLINKEXT" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:attributeGroup ref="xlink:XLINKATT4"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="pmtitle" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pmtitle (Publication Module Title) containing:-     *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="crefddns">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element crefddns (Reference Data Dispatch Notes)            *
+    * containing:-                                                       *
+    *  crefddn  - Mandatory  Repeatable   contains ddnc, issdate         *
+    *                                              or Definition stored  *
+    *                                              in group "XLINKEXT".  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="crefddn" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="crefddn">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element crefddn (Reference Data Dispatch Note)              *
+    * containing:-                                                       *
+    *====================================================================*
+    * Mandatory Single Group.                                            *
+    *====================================================================*
+    *  ddnc     - Mandatory Single      contains modelic, sendid, recvid,*
+    *                                            diyear, seqnum.         *
+    *  issdate  - Optional  Single      contains No Other Tags.          *
+    *====================================================================*
+    * or                                                                 *
+    *  Definition stored in group "XLINKEXT".                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "XLINKATT4".  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="ddnc"/>
+					<xs:element ref="issdate" minOccurs="0"/>
+				</xs:sequence>
+				<xs:group ref="xlink:XLINKEXT" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:attributeGroup ref="xlink:XLINKATT4"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ddnc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ddnc (Data Dispatch Note Identification Code)       *
+    * containing:-                                                       *
+    *  modelic   - Mandatory   Single     contains Parsed Character Data.*
+    *  sendid    - Mandatory   Single     contains Parsed Character Data.*
+    *  recvid    - Mandatory   Single     contains Parsed Character Data.*
+    *  diyear    - Mandatory   Single     contains Parsed Character Data.*
+    *  seqnum    - Mandatory   Single     contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="modelic"/>
+				<xs:element ref="sendid"/>
+				<xs:element ref="recvid"/>
+				<xs:element ref="diyear"/>
+				<xs:element ref="seqnum"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="recvid" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element recvid (Receiver Identification) containing:-       *
+    *  Parsed Character Data                                             *
+    * must contain the NCAGE code.                                       *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="ccontent">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ccontent (Comment Content) containing:-             *
+    *  p           - Mandatory Repeatable   contains Definition stored   *
+    *                                                in group "SPARCON". *
+    *  refcattach  - Optional  Repeatable   contains Definition stored   *
+    *                                                in group "XLINKEXT".*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="p" maxOccurs="unbounded"/>
+				<xs:element ref="refcattach" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="refcattach">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element refcattach (Reference To Attached File)             *
+    * containing:-                                                       *   
+    *  Definition stored in group "XLINKEXT".                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  seqatt   - NUMBER - REQUIRED - 2-digit Number of Attachment(XX).  *
+    *  extend   - CDATA  - REQUIRED - File extension of Attachment.      *
+    *  Attribute Definition List stored in attribute group "XLINKATT4".  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="xlink:XLINKEXT" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="seqatt" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:positiveInteger">
+						 <xs:totalDigits value="2" fixed="true"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="extend" type="xs:NMTOKEN" use="required"/>
+			<xs:attributeGroup ref="xlink:XLINKATT4"/>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

@@ -1,0 +1,947 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Move inclusion of files WCNP.XSD, FIG_TAB.XSD,   *
+    *                   PARACON_STATIC.XSD and LISTS.XSD to file         *
+    *                   IPDSCHEMA.XSD.                                   *
+    *                   Remove inclusion of CAPGRP.XSD.                  *
+    * 2. CPF 2004-59FR: Amend content model of element <ipp> by optional *
+    *                   repeatable element <vas> to reflect the S2000M   *
+    *                   definition and use of SID and SNS. The new       *
+    *                   element <vas> contains new element <sid> and     *
+    *                   already existing element <nsn>.                  *
+    *                                                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="ipd.xsd"/>                             *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Define Group "CONTENT" (Content Breakdown) containing:- ipc.       *
+    ********************************************************************** -->
+	<xs:group name="CONTENT">
+		<xs:sequence>
+			<xs:element ref="ipc"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:element name="ipc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ipc (Illustrated Parts Catalog) containing:-        *
+    *  figure   - Optional  Single      contains Definition stored in    *
+    *                                    group "titles", applic,         *
+    *                                    graphic, sheet, rfa, legend.    *
+    *  ipp      - Optional  Single      contains vas.                    *
+    *  csn      - Mandatory Repeatable  contains isn.                    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="figure" minOccurs="0"/>
+				<xs:element ref="ipp" minOccurs="0"/>
+				<xs:element ref="csn" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+ 
+	<xs:element name="ipp">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ipp (Initial Provisioning Project) containing:-     *
+    *  vas      - Optional  Repeatable  contains sid, nsn.               *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  ippn  - CDATA     - REQUIRED - Initial Provisioning Project Number*
+    *  ips   - CDATA     - REQUIRED - Initial Provisioning Project Number*
+    *                                  Subject                           *
+    *  fid   - Declared  - IMPLIED  - File Identifier                    *
+    *          - "s"                  = Structure and Engine             *
+    *          - "t"                  = Equipment                        *
+    *  lge   - CDATA     - IMPLIED  - Language Code                      *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="vas" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="ippn" type="xs:string" use="required"/>
+			<xs:attribute name="ips" type="xs:string" use="required"/>
+			<xs:attribute name="fid">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="s"/>
+						<xs:enumeration value="t"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="lge" type="xs:string"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Content model changed -->
+ 
+	<xs:element name="vas">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element vas (S2000M VAS SEGMENT) containing:-               *
+    *  sid      - Mandatory Single      contains mfc, pnr.               *
+    *  nsn      - Optional  Single      contains No Other Tags.          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sid"/>
+				<xs:element ref="nsn" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Newly introduced element -->
+
+	<xs:element name="sid">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element sid (Subject Identification) containing:-           *
+    *  mfc      - Mandatory Single      contains Parsed Character Data.  *
+    *  pnr      - Mandatory Single      contains Parsed Character Data.  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mfc"/>
+				<xs:element ref="pnr"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Newly introduced element -->
+
+	<xs:element name="csn">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element csn (Catalog Sequence Number) containing:-          *
+    *  isn     - Mandatory Repeatable  contains rfs, qna, mfc, pnr, pas, *
+    *                                  nsn, cbs, ccs, ctl, ces, rfd, ils,*
+    *                                  can                               *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  csn     - CDATA  - IMPLIED  - Catalog Sequence Number             *
+    *  ind     - NUMBER - REQUIRED - Indenture   (1 - 9)                 *
+    *  item    - CDATA  - IMPLIED  - (Last 4 digits of the CSN)          *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="isn" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="csn" type="xs:string"/>
+			<xs:attribute name="ind" type="xs:string" use="required"/>
+			<xs:attribute name="item" type="xs:string"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+ 
+	<xs:element name="isn">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element isn (Item Sequence Number) containing:-             *
+    *  rfs      - Optional  Single      contains No Other Tags.          *
+    *  qna      - Mandatory Single      contains Parsed Character Data.  *
+    *  mfr      - Mandatory Single      contains Parsed Character Data.  *
+    *  pnr      - Mandatory Single      contains Parsed Character Data.  *
+    *  pas      - Mandatory Repeatable  contains dfp, uoi, pcs, str, ftc,*
+    *                                            psc, cmk.               *
+    *  nsn      - Optional  Single      contains No Other Tags.          *
+    *  cbs      - Optional  Single      contains asp, nil, rtx, smf, dfl.*
+    *  ccs      - Optional  Single      contains uce, uca, icy.          *
+    *  ctl      - Optional  Single      contains No Other Tags.          *
+    *  ces      - Mandatory Single      contains srv, smr, mov.          *
+    *  rfd      - Optional  Repeatable  contains Parsed Character Data.  *
+    *  ils      - Optional  Repeatable  contains Parsed Character Data.  *
+    *  can      - Optional  Repeatable  contains Parsed Character Data.  *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  isn     - CDATA   - REQUIRED - ISN Identifier                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="rfs" minOccurs="0"/>
+				<xs:element ref="qna"/>
+				<xs:element ref="mfc"/>
+				<xs:element ref="pnr"/>
+				<xs:element ref="pas" maxOccurs="unbounded"/>
+				<xs:element ref="nsn" minOccurs="0"/>
+				<xs:element ref="cbs" minOccurs="0"/>
+				<xs:element ref="ccs" minOccurs="0"/>
+				<xs:element ref="ctl" minOccurs="0"/>
+				<xs:element ref="ces" maxOccurs="unbounded"/>
+				<xs:element ref="rfd" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="ils" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="can" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="isn" type="xs:string" use="required"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="rfs">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element rfs  (Reason for Selection) containing:-            *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  value     - Declared - REQUIRED - Choice value for rfs            *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="value" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="0"/>
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="2"/>
+						<xs:enumeration value="3"/>
+						<xs:enumeration value="4"/>
+						<xs:enumeration value="5"/>
+						<xs:enumeration value="6"/>
+						<xs:enumeration value="7"/>
+						<xs:enumeration value="8"/>
+						<xs:enumeration value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="qna">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element qna (Quantity per Next higher Assembly)             *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="INSDEL"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+ 
+	<xs:element name="pas">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pas (S2000M PAS SEGMENT) containing:-               *
+    *  dfp      - Mandatory Single     contains Parsed Character Data.   *
+    *  uoi      - Optional  Single     contains Parsed Character Data.   *
+    *  pcs      - Optional  Single     contains qui.                     *
+    *  str      - Optional  Single     contains Parsed Character Data.   *
+    *  ftc      - Optional  Single     contains No Other Tags.           *
+    *  psc      - Optional  Single     contains Parsed Character Data.   *
+    *  cmk      - Optional  Single     contains Parsed Character Data.   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dfp"/>
+				<xs:element ref="uoi" minOccurs="0"/>
+				<xs:element ref="pcs" minOccurs="0"/>
+				<xs:element ref="str" minOccurs="0"/>
+				<xs:element ref="ftc" minOccurs="0"/>
+				<xs:element ref="psc" minOccurs="0"/>
+				<xs:element ref="cmk" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="dfp">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dfp (Description oF Part) containing:-              *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="INSDEL"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="uoi">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element uoi (Unit Of Issue) containing:-                    *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="INSDEL"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="pcs">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pcs  (S2000M PCS SEGMENT) containing:-              *
+    *  qui      - Optional  Single     contains Parsed Character Data.   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom    - CDATA  - IMPLIED - Unit of measure.                      *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="qui" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="uom" type="xs:string" use="required"/>
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+ 
+	<xs:element name="qui" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element qui (Quantity per Unit of Issue) containing:-       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+   
+	<xs:element name="str">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element str (Special sToRage) containing:-                  *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="INSDEL"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+ 
+	<xs:element name="ftc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ftc (FiTment Code) containing:-                     *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  value      - Declared  - REQUIRED                                 * 
+    *               - "1"         if piercing needed                     *
+    *               - "m"         if mounting equipment needed           *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="value" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="m"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="psc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element psc (Physical Security / pilferage Code)            *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="INSDEL"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="cmk">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element cmk (Calibration MarKer) containing:-               *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="INSDEL"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="cbs">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element cbs (S2000M CBS SEGMENT)  containing:-              *
+    *  asp      - Optional  Single     contains No Other Tags.           *
+    *  nil      - Optional  Single     contains Parsed Character Data.   *
+    *  rtx      - Optional  Single     contains ippref, csnref.          *
+    *  smf      - Optional  Single     contains mfm.                     *
+    *  dfl      - Optional  Single     contains Parsed Character Data.   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="asp" minOccurs="0"/>
+				<xs:element ref="nil" minOccurs="0"/>
+				<xs:element ref="rtx" minOccurs="0"/>
+				<xs:element ref="smf" minOccurs="0"/>
+				<xs:element ref="dfl" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="asp">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element asp (Attaching, Storage or shipping Part)           *
+    * containing:-                                                       *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  asp    - Declared - REQUIRED - Attaching Storage or Shipping Value*
+    *           - "1"      - Attaching Part                              *
+    *           - "2"      - Storage   Part                              *
+    *           - "3"      - Shipping  Part                              *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="asp" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="2"/>
+						<xs:enumeration value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="nil">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element nil (Not ILlustrated) containing:-                  *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="INSDEL"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="rtx">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element rtx (Refer To) containing:-                         *
+    *  ippref   - Mandatory Single     contains No Other Tags.           *
+    * or                                                                 *
+    *  csnref   - Mandatory Single     contains No Other Tags.           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="ippref"/>
+				<xs:element ref="csnref"/>
+			</xs:choice>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+ 
+	<xs:element name="ippref">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ippref (Reference to IPP) containing:-              *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  refipp   - CDATA  - REQUIRED - IPP code                           *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="refipp" type="xs:string" use="required"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="smf">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element smf (Select or Manufacture From)  containing:-      *
+    *  mfm      - Optional  Single     contains Parsed Character Data.   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  value   - Declared  - REQUIRED                                    *
+    *            - "f"       - select on Fit                             *
+    *            - "t"       - select on Test                            *
+    *            - "m"       - Manufacture from                          *
+    *            - "r"       - Reworked from                             *
+    *            - "p"       - rePaired                                  *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mfm" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="value" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="f"/>
+						<xs:enumeration value="t"/>
+						<xs:enumeration value="m"/>
+						<xs:enumeration value="r"/>
+						<xs:enumeration value="p"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+ 
+	<xs:element name="mfm">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element mfm (select or Manufacture FroM range)              *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="INSDEL"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="dfl">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dfl (Description oF Location) containing:-          *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="INSDEL"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ccs">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ccs  (S2000M CCS SEGMENT) containing:-              *
+    *====================================================================*
+    *  uce      - Optional  Single     contains Parsed Character Data.   *
+    * or                                                                 *
+    *  uca      - Optional  Single     contains Parsed Character Data.   *
+    *====================================================================*
+    *  icy      - Optional  Single     contains Parsed Character Data.   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element ref="uce" minOccurs="0"/>
+					<xs:element ref="uca" minOccurs="0"/>
+				</xs:choice>
+				<xs:element ref="icy" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="uce">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element uce (Usable on Code Equipment) containing:-         *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="bodyatt"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+ 
+	<xs:element name="uca">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element uca (Usable on Code Assembly) containing:-          *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="bodyatt"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+   
+	<xs:element name="icy">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element icy (Interchangeability) containing:-               *
+    *  Parsed Character Data.                                            *
+    * Note                                                               *
+    *  icy is only present when rfs is different from 0.                 *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="bodyatt"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+ 
+	<xs:element name="ctl">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ctl (Category 1 conTainer Location) containing:-    *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  refcsn   - CDATA  - REQUIRED - CSN code                           *
+    *  refisn   - CDATA  - IMPLIED  - ISN code                           *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="refcsn" type="xs:string" use="required"/>
+			<xs:attribute name="refisn" type="xs:string"/>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="ces">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ces (S2000M CES SEGMENT) containing:-               *
+    *  srv      - Mandatory Single      contains Parsed Character Data.  *
+    *  smr      - Mandatory Single      contains Parsed Character Data.  *
+    *  mov      - Optional  Repeatable  contains efy.                    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element ref="srv"/>
+				<xs:element ref="smr"/>
+				<xs:element ref="mov" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="srv">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element srv (Service) containing:-                          *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="bodyatt"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="smr">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element smr (Source Maintenance and Recoverability)         *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="bodyatt"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+ 
+	<xs:element name="mov">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element mov (Model Version) containing:-                    *
+    *  efy      - Optional  Repeatable  contains Parsed Character Data.  *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  mov   - CDATA  - REQUIRED - MOV code                              *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="efy" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="mov" type="xs:string" use="required"/>
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="efy">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element efy (EFfectivitY) containing:-                      *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="INSDEL"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="rfd">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element rfd (ReFerence Designator) containing:-             *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="bodyatt"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="ils">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ils (Integrated Logistic Support number)            *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="bodyatt"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+  
+	<xs:element name="can">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element can (Change Authority Number)containing:-           *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="bodyatt"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

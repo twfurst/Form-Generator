@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.0                            *
+    *                       Date: 2003-05-31                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-38SE: Redefine content model in group "HEADING"        *
+    *                   by call of group "HEADING1".                     *
+    *                                                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="heading.xsd"/>                         *
+    ********************************************************************** -->
+
+	<xs:group name="HEADING">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "HEADING" (Numbered Paragraphs Heading) containing:-  *
+    *  Definition stored in group "HEADING1".                            *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>		
+			<xs:group ref="HEADING1"/>
+		</xs:sequence>
+	</xs:group>
+
+	
+</xs:schema>

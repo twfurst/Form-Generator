@@ -1,0 +1,9 @@
+# Expand the identAndStatusSection if present.
+if (tag_exists("identAndStatusSection")) {
+   detail_tag("identAndStatusSection",1)
+}
+
+# Collapse the rdf:Description if present.
+if (tag_exists("rdf:Description")) {
+   detail_tag("rdf:Description",0)
+}

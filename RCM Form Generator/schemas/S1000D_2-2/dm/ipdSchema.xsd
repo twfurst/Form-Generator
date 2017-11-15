@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2.1                          *
+    *                       Date: 2006-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    *                                                                    *
+    * The following attribute definition on the root element may be used *
+    * to call this set of declarations:-                                 *
+    *                                                                    *
+    * xsi:noNamespaceSchemaLocation=                                     *
+    * "http://www.s1000d.org/S1000D_2-2-1/xml_schema/dm/ipdSchema.xsd"   *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Include the Project Configuration Text.                            *
+    * Project Configuration may alter delaration of selected objects.    *
+    * For information on which objects are available for tailoring,      *
+    * refer to S1000D!                                                   *
+    ********************************************************************** -->
+	<xs:include schemaLocation="project.cfg"/>
+
+<!--**********************************************************************
+    * Include the text group definition.                                 *
+    ********************************************************************** -->
+	<xs:include schemaLocation="text.xsd"/>
+
+<!--**********************************************************************
+    * Include the Common Entities definition.                            *
+    ********************************************************************** -->
+	<xs:include schemaLocation="common.xsd" />
+
+<!--**********************************************************************
+    * Include the APPLIC group definition for static data modules.       *
+    ********************************************************************** -->
+	<xs:include schemaLocation="applic_static.xsd" />
+
+<!--**********************************************************************
+    * Include the S1000D Base definitions.                               *
+    ********************************************************************** -->
+	<xs:include schemaLocation="base.xsd" />
+
+<!--**********************************************************************
+    * Call the Illustrated Parts Data definiions.                        *
+    ********************************************************************** -->
+	<xs:include schemaLocation="ipd.xsd" />
+
+<!--**********************************************************************
+    * Include the Content Breakdown definitions.                         *
+    ********************************************************************** -->
+	<xs:include schemaLocation="content.xsd" />
+
+<!--**********************************************************************
+    * Include the Paracon definitions for static DMs.                    *
+    ********************************************************************** -->
+	<xs:include schemaLocation="paracon_static.xsd"/>
+
+<!--**********************************************************************
+    * Include the Lists definitions.                                     *
+    ********************************************************************** -->
+	<xs:include schemaLocation="lists.xsd" />
+ 
+<!--**********************************************************************
+    * Include the Figure definitions.                                    *
+    ********************************************************************** -->
+	<xs:include schemaLocation="figure.xsd" />
+
+<!--**********************************************************************
+    * Include the Para definitions.                                      *
+    ********************************************************************** -->
+	<xs:include schemaLocation="paragraphs.xsd"/>
+
+</xs:schema>

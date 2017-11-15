@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Move inclusion of files CAPGRP.XSD and           *
+    *                   PARACON_CAPGRP.XSD to PROCEDSCHEMA.XSD.          *
+    * 2. CPF 2004-03SE: Replace element <closeup> by new element         *
+    *                   <closereqs> in the content model of <proced>.    *
+    *                   Move group "CAPPCON" to file CAPGRP.XSD.         *
+    * 3. CPF 2004-32US: Expand Process DM to include <step1> content:    *
+    *                   Include the schema for the static STEPX groups.  *
+    *                   Move element <closereqs> to file CLOSEREQ.XSD.   *
+    *                   Move group "paracon" to file PARACON_CAPGRP.XSD. *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="proced.xsd"/>                          *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Include the Preliminary and Closeup Requirements definitions.      *
+    ********************************************************************** -->
+	<xs:include schemaLocation="prelreq.xsd" />
+	<xs:include schemaLocation="closereq.xsd" />
+
+<!--**********************************************************************
+    * Include the Steps definitions for static procedural data modules.  *
+    ********************************************************************** -->
+	<xs:include schemaLocation="steps.xsd" />
+	<xs:include schemaLocation="steps_static.xsd" />
+
+	<xs:group name="CONTENT">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "CONTENT" (Content Breakdown) containing:-  proced.   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="proced"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:element name="proced">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element proced (Procedural Information) containing:-        *
+    *   prelreqs   - Mandatory  Single   contains pmd, reqconds, reqpers,*
+    *                                    supequip, supplies, spares,     *
+    *                                    safety.                         *
+    *   mainfunc   - Mandatory  Single   contains step1, Definition      *
+    *                                    stored in group "FFT".          *
+    *   closereqs  - Mandatory  Single   contains reqconds.              *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="prelreqs"/>
+				<xs:element ref="mainfunc"/>
+				<xs:element ref="closereqs"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="mainfunc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element mainfunc (Maintenance Function) containing:-        *
+    *====================================================================*
+    * Mandatory Repeatable Group                                         *
+    *====================================================================*
+    *   step1    - Mandatory Single      contains Definition stored in   *
+    *                                    group "stepcon", step2.         *
+    *  or                                                                *
+    *   Definition stored in group "FFT".                                *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition list stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element ref="step1"/>
+				<xs:group ref="FFT"/>
+			</xs:choice>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Group "fft_inc" renamed to "FFT" and content model changed -->
+
+
+</xs:schema>

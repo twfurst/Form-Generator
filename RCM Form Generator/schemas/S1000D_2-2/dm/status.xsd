@@ -1,0 +1,584 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2004-25SE: Introduce element <brexref> within DM status.    *
+    * 2. Bug fix:       Correct the definition of empty element unverif. *
+    * 3. Consistency:   Redefine the type of all elements which contain  *
+    *                   only Parsed Character Data and have no           *
+    *                   attributes to be of type="xs:string".            *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="status.xsd"/>                          *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Include the Applicability Breakdown definitions.                   *
+    ********************************************************************** -->
+	<xs:include schemaLocation="applic.xsd" />
+
+<!--**********************************************************************
+    * Include the Data Restrictions Breakdown definitions.               *
+    ********************************************************************** -->
+	<xs:include schemaLocation="datarest.xsd" />
+
+
+	<xs:group name="STATUS">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "STATUS" (Status) containing:-                       *
+    *  security  - Mandatory Single    contains No Other Tags.           *
+    *  datarest  - Optional  Single    contains instruct, inform.        *
+    *  dmsize    - Optional  Single    contains Parsed Character Data.   *
+    *  rpc       - Mandatory Single    contains Parsed Character Data.   *
+    *  orig      - Mandatory Single    contains Parsed Character Data.   *
+    *  applic    - Mandatory Single    contains type, model.             *
+    *  techstd   - Optional  Single    contains autandtp, authblk, tpbase*
+    *                                   authex, notes.                   *
+    *  brexref   - Mandatory Single    contains refdm.                   *
+    *  qa        - Mandatory Single    contains unverif, firstver, secver*
+    *====================================================================*
+    * Optional Repeatable Group                                          *
+    *====================================================================*
+    *  sbc      - Mandatory Single      contains Definition stored in    *
+    *                                    group "SBC".                    *
+    * or                                                                 *
+    *  fic      - Mandatory Single      contains Definition stored in    *
+    *                                    group "FIC".                    *
+    *====================================================================*
+    *  skill    - Optional  Single      contains Parsed Character Data.  *
+    *  rfu      - Optional  Single      contains Definition stored in    *
+    *                                    group "SPAR".                   *
+    *  remarks  - Optional  Single      contains Definition stored in    *
+    *                                    group "SPAR".                   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="security"/>
+			<xs:element ref="datarest" minOccurs="0"/>
+			<xs:element ref="dmsize" minOccurs="0"/>
+			<xs:element ref="rpc"/>
+			<xs:element ref="orig"/>
+			<xs:element ref="applic"/>
+			<xs:element ref="techstd" minOccurs="0"/>
+			<xs:element ref="brexref"/>
+			<xs:element ref="qa"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="sbc"/>
+				<xs:element ref="fic"/>
+			</xs:choice>
+			<xs:element ref="skill" minOccurs="0"/>
+			<xs:element ref="rfu" minOccurs="0"/>
+			<xs:element ref="remarks" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+<!-- Element <brexref> introduced -->
+
+	<xs:element name="status">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element status (Status Section) containing:-                *
+    *  Definition stored in group "STATUS".                              *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id       - ID       - IMPLIED  - Unique identifier of status      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:group ref="STATUS"/>
+			<xs:attribute name="id" type="xs:ID"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="dmsize" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element dmsize (Data Module Size) containing:-              *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="security">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element security (Security Marking) containing:-            *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "SECURIT".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attributeGroup ref="SECURIT"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="rpc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element rpc (Responsible Partner Company) containing:-      *
+    *  Parsed Character Data              - The NCAGE code of the        *
+    *                                       responsible partner company. *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  rpcname  - "RPCNAME" - IMPLIED - The name of the responsible      *
+    *                                   partner company.                 *
+    *  id       - ID        - IMPLIED - Unique identifier of the element.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="rpcname" type="RPCNAME"/>
+					<xs:attribute name="id" type="xs:ID"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="orig">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element orig (Originator) containing:-                      *
+    *  Parsed Character Data          - The NCAGE code of the originator.*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  origname - "ORGNAME" - IMPLIED - The name of the originator.      *
+    *  id       - ID        - IMPLIED - Unique identifier of the element.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="origname" type="ORGNAME"/>
+					<xs:attribute name="id" type="xs:ID"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="techstd">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element techstd (Technical Standard) containing:-           *
+    *====================================================================*
+    *   autandtp - Mandatory Single     contains authblk, tpbase.        *
+    *  or                                                                *
+    *   authblk  - Mandatory Single     contains Parsed Character Data.  *
+    *  or                                                                *
+    *   tpbase   - Mandatory Single     contains Parsed Character Data.  *
+    *====================================================================*
+    *   authex   - Mandatory Single     contains inline, retrofit.       *
+    *   notes    - Mandatory Single     contains Parsed Character Data.  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element ref="autandtp"/>
+					<xs:element ref="authblk"/>
+					<xs:element ref="tpbase"/>
+				</xs:choice>
+				<xs:element ref="authex"/>
+				<xs:element ref="notes"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="autandtp">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element autandtp (Authority Block and Technical Publication *
+    * Baseline) containing:-                                             *
+    *   authblk  - Mandatory Single     contains Parsed Character Data.  *
+    *   tpbase   - Mandatory Single     contains Parsed Character Data.  *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="authblk"/>
+				<xs:element ref="tpbase"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="authblk" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    *  Define Element authblk (Authority Block) containing:-             *
+    *    Parsed Character Data.                                          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="tpbase" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element tpbase (Technical Publication Base Line)            *
+    * containing:-                                                       *
+    *   Parsed Character Data.                                           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="authex">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element authex (Authority Exceptions) containing:-          *
+    *   inline   - Optional  Single     contains exmod, addmod.          *
+    *   retrofit - Optional  Single     contains No Other Tags.          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="inline" minOccurs="0"/>
+				<xs:element ref="retrofit" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="inline">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element inline (Inline Information) containing:-            *
+    *   exmod    - Optional  Repeatable  contains Parsed Character Data. *
+    *   addmod   - Optional  Repeatable  contains Parsed Character Data. *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="exmod" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="addmod" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="exmod" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element exmod (Excluded Modifications) containing:-         *
+    *   Parsed Character Data.                                           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="addmod" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element addmod (Additional Modifications) containing:-      *
+    *   Parsed Character Data.                                           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="retrofit">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element retrofit (Retrofit Information) containing:-        *
+    *   mod      - Mandatory Repeatable  contains No Other Tags.         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mod" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="mod">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element mod (Modification Order) containing:-               *
+    *  modtitle  - Optional   Single      contains Parsed Character Data.*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  authno   - NMTOKEN  - REQUIRED - Retrofit order number.           *
+    *  modtype  - Declared - REQUIRED - Standard for this modification.  *
+    *           - "pre"     - Pre-modification.                          *
+    *           - "post"    - Post modification.                         *
+    *           - "prandpo" - Both Pre and Post modifications.           *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="modtitle" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="authno" type="xs:NMTOKEN" use="required"/>
+			<xs:attribute name="modtype" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">					
+						<xs:enumeration value="pre"/>
+						<xs:enumeration value="post"/>
+						<xs:enumeration value="prandpo"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="modtitle" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element modtitle (Modification Title) containing:-          *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+<!-- Type of element changed -->
+
+	<xs:element name="notes" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element notes (Notes) containing:-                          *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="brexref">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element brexref (Business Rules Exchange Reference)         *
+    * containing:-                                                       *
+    *   refdm    - Mandatory Single     contains applic, age, avee,      *
+    *                                            issno, dmtitle.         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="refdm"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Newly introduced element -->
+
+	<xs:element name="qa">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element qa (Quality Assurance Status) containing:-          *
+    *   unverif  - Mandatory Single     contains No Other Tags.          *
+    *  or                                                                *
+    *   firstver - Mandatory Single     contains No Other Tags.          *
+    *   secver   - Optional  Single     contains No Other Tags.          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="unverif"/>
+				<xs:sequence>
+					<xs:element ref="firstver"/>
+					<xs:element ref="secver" minOccurs="0"/>
+				</xs:sequence>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="unverif">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element unverif (Unverified) containing:-                   *
+    *   No Other Tags.                                                   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType/>
+	</xs:element>
+<!-- Content model corrected -->
+
+	<xs:element name="firstver">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element firstver (First Level Verification (by SDR          *
+    * Contractor)) containing:-                                          *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  type     - Declared - REQUIRED  - Type of verification performed. *
+    *           - "tabtop"   - Performed with only designs and drawings. *
+    *           - "onobject" - Performed with actual piece of equipment. *
+    *           - "ttandoo"  - Performed by both the above ways.         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="tabtop"/>
+						<xs:enumeration value="onobject"/>
+						<xs:enumeration value="ttandoo"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="secver">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element secver (Second Level Verification (by Customer))    *
+    * containing:-                                                       *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  type     - Declared - REQUIRED  - Type of verification performed. *
+    *           - "tabtop"   - Performed with only designs and drawings. *
+    *           - "onobject" - Performed with actual piece of equipment. *
+    *           - "ttandoo"  - Performed by both the above ways.         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="tabtop"/>
+						<xs:enumeration value="onobject"/>
+						<xs:enumeration value="ttandoo"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="sbc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element sbc (System Breakdown Code) containing:-            *
+    *   Definition stored in type "SBC".                                 *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id       - ID       - IMPLIED - Unique identifier of system       *
+    *                                   breakdown code                   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+<!-- Removed mixed="true" which is not allowed for simple content -->
+			<xs:simpleContent>
+				<xs:extension base="SBC">
+					<xs:attribute name="id" type="xs:ID"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="fic" type="FIC">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element fic (Functional Item Code) containing:-             *
+    *   Definition stored in type "FIC".                                 *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="rfu">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define element rfu (Reason For Update) containing:-                *
+    *   Definition stored in group "SPAR".                               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:group ref="SPAR" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="remarks">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define element remarks (Remarks) containing:-                      *
+    *   Definition stored in group "SPAR".                               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:group ref="SPAR" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="skill">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element skill (Skill Level) containing:-                    *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  skill    - Declared - REQUIRED - Personnel skill level            *
+    *             Definition stored in type "SKILL".                     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="skill" type="SKILL" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

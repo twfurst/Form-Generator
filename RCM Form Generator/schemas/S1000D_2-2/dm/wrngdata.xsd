@@ -1,0 +1,2418 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Remove inclusion of file FIG_TAB.XSD.            *
+    *                   Move inclusion of files LISTS.XSD and            *
+    *                   PARACON_STATIC.XSD to file WRNGDATASCHEMA.XSD.   *
+    * 2. CPF 2004-37DE: Introduce optional attribute cconnect on element *
+    *                   <contact> and optional attributes scrlevel,      *
+    *                   scrtype, scrstyle on element <screen>.           *
+    * 3. CPF 2004-46US: Introduce optional subelement <elogic> on        *
+    *                   <elecequip>, <connector> and optional subelement *
+    *                   <nomenc> on <elecequip>.                         *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="wrngdata.xsd"/>                        *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Define Group "CONTENT" (Content Breakdown) containing:-  wrngdata. *
+    ********************************************************************** -->
+	<xs:group name="CONTENT">
+		<xs:sequence>
+			<xs:element ref="wrngdata"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:group name="CM.EQUIPMENT">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "CM.EQUIPMENT" (Content Model Electrical Equipment)   *
+    * containing:-                                                       *
+    *  rfd          - Mandatory Single    contains Parsed Character Data.*
+    *  contactinfo  - Optional  Single    contains contact, wireconcode, *
+    *                                              netanacode.           *
+    *  screens      - Optional  Single    contains screen.               *
+    *  twists       - Optional  Single    contains twist.                *
+    *  wireins      - Optional  Single    contains pre, fin.             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="rfd"/>
+			<xs:element ref="contactinfo" minOccurs="0"/>
+			<xs:element ref="screens" minOccurs="0"/>
+			<xs:element ref="twists" minOccurs="0"/>
+			<xs:element ref="wireins" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:group name="CM.PREFIN">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "CM.PREFIN" (Content Model pre/fin)   containing:-    *
+    *  val          - Optional  Single    contains Parsed Character Data.*
+    *  refs         - Optional  Single    contains norefs, refdm, reftp. *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="val" minOccurs="0"/>
+			<xs:element ref="refs" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+
+
+	<xs:element name="wrngdata">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wrngdata (Wiring Data Container)  containing:-      *
+    *  wires        - Optional  Single     contains wire.                *
+    *  harnesses    - Optional  Single     contains harness.             *
+    *  elecequips   - Optional  Single     contains elecequip.           *
+    *  stdparts     - Optional  Single     contains connectors, vparts,  *
+    *                                      accessories, solder-sleeves,  *
+    *                                      shrink-sleeves, ident-sleeves,*
+    *                                      conduits, wire-mats.          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="wires" minOccurs="0"/>
+				<xs:element ref="harnesses" minOccurs="0"/>
+				<xs:element ref="elecequips" minOccurs="0"/>
+				<xs:element ref="stdparts" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="wires">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wires (List of Wires) containing:-                  *
+    *  wire   - Mandatory Repeatable       contains wireid,              *
+    *                                       wireconnection,              *
+    *                                       wireinformation, applics.    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="wire" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="harnesses">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element harnesses (List of Harnesses) containing:-          *
+    *  harness   - Mandatory Repeatable    contains harnid, harninfo,    *
+    *                                       routing, rpc, fdescref,      *
+    *                                       illref, applics.             *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="harness" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="elecequips">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element elecequips (List of Electrical Equipment)           *
+    * containing:-                                                       *
+    *  elecequip   - Mandatory Repeatable  contains rfd, pnr, altids,    *
+    *                                       instloc, accdopl, assyinstr, *
+    *                                       nhassy, sbc, sibplugid, trl, *
+    *                                       clc, elogic, rpc, nomenc,    *
+    *                                       equdescref, fdescref, illref,*
+    *                                       applics.                     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="elecequip" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="stdparts">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element stdparts (List of Electrical Standard Parts)        *
+    * containing:-                                                       *
+    *  connectors     - Optional  Single     contains connector.         *
+    *  vparts         - Optional  Single     contains vpart.             *
+    *  accessories    - Optional  Single     contains accessory.         *
+    *  solder-sleeves - Optional  Single     contains solder-sleeve.     *
+    *  shrink-sleeves - Optional  Single     contains shrink-sleeve.     *
+    *  ident-sleeves  - Optional  Single     contains ident-sleeve.      *
+    *  conduits       - Optional  Single     contains conduit.           *
+    *  wire-mats      - Optional  Single     contains wire-mat.          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="connectors" minOccurs="0"/>
+				<xs:element ref="vparts" minOccurs="0"/>
+				<xs:element ref="accessories" minOccurs="0"/>
+				<xs:element ref="solder-sleeves" minOccurs="0"/>
+				<xs:element ref="shrink-sleeves" minOccurs="0"/>
+				<xs:element ref="ident-sleeves" minOccurs="0"/>
+				<xs:element ref="conduits" minOccurs="0"/>
+				<xs:element ref="wire-mats" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="wire">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wire (Particular Wire Description)  containing:-    *
+    *  wireid          - Mandatory Single     contains circode, wireno,  *
+    *                                                  secid.            *
+    *  wireconnection  - Mandatory Single     contains fromequip,toequip.*
+    *  wireinformation - Optional  Single     contains Wirecode, harnid, *
+    *                                           screens, twists, coax,   *
+    *                                           triax, emc-code, length, *
+    *                                           colour, signal, rpc,     *
+    *                                           routing, wireroute,      *
+    *                                           restriction, fdescref,   *
+    *                                           illref.                  *
+    *  applics         - Mandatory Single     contains applic.           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  wirestate - Declared  - IMPLIED   - Wire State.                   *
+    *              - "active"    - Active Wire.                          *
+    *              - "stowed"    - Stowed Wire.                          *
+    *              - "pigtail"   - Pigtail Wire.                         *
+    *              - "notactiv"  - Not Active Wire.                      *
+    *              - "logconn"   - Logical/Virtual Connection only.      *
+    *  chginfo   - Declared  - IMPLIED   - Wire Change Information.      *
+    *              - "add"       - Added Wire.                           *
+    *              - "delete"    - Removed Wire.                         *
+    *              - "modify"    - Modified Wire.                        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="wireid"/>
+				<xs:element ref="wireconnection"/>
+				<xs:element ref="wireinformation" minOccurs="0"/>
+				<xs:element ref="applics"/>
+			</xs:sequence>
+			<xs:attribute name="wirestate">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="active"/>
+						<xs:enumeration value="stowed"/>
+							<xs:enumeration value="pigtail"/>
+						<xs:enumeration value="notactiv"/>
+						<xs:enumeration value="logconn"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="chginfo">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="add"/>
+						<xs:enumeration value="delete"/>
+						<xs:enumeration value="modify"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="applics">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element applics (Applicability Group) containing:-          *
+    *  applic       - Mandatory Repeatable      contains type, model.    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="wireid">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wireid (Wire Identification) containing:-           *
+    *  circode      - Optional  Single    contains Parsed Character Data.*
+    *  wireno       - Mandatory Single    contains Parsed Character Data.*
+    *  secid        - Optional  Single    contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="circode" minOccurs="0"/>
+				<xs:element ref="wireno"/>
+				<xs:element ref="secid" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="circode" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element circode (Circuit Code) containing:-                 *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="wireno" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wireno (Wire Identification Number) containing:-    *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="secid" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element secid (Wire Section Identification) containing:-    *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="wireconnection">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wireconnection (Wire Connection) containing:-       *
+    *  fromequip    - Mandatory Single    contains Definition stored in  *
+    *                                              group "CM.EQUIPMENT". *
+    *  toequip      - Optional  Single    contains Definition stored in  *
+    *                                              group "CM.EQUIPMENT". *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fromequip"/>
+				<xs:element ref="toequip" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="elecequip">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element elecequip (Electrical Equipment) containing:-       *
+    *  rfd         - Mandatory Single     contains Parsed Character Data.*
+    *  pnr         - Optional  Single     contains Parsed Character Data.*
+    *  altids      - Optional  Single     contains altid.                *
+    *  instloc     - Optional  Single     contains Parsed Character Data.*
+    *  accdopl     - Optional  Single     contains Parsed Character Data.*
+    *  assyinstr   - Optional  Single     contains assy.                 *
+    *  nhassy      - Optional  Single     contains Parsed Character Data.*
+    *  sbc         - Optional  Single     contains Parsed Character Data.*
+    *  sibplugid   - Optional  Single     contains Parsed Character Data.*
+    *  trl         - Optional  Single     contains Parsed Character Data.*
+    *  clc         - Optional  Single     contains Parsed Character Data.*
+    *  elogic      - Optional  Single     contains ecstate.              *
+    *  rpc         - Optional  Single     contains Parsed Character Data.*
+    *  nomenc      - Optional  Single     contains Parsed Character Data.*
+    *  equdescref  - Optional  Single     contains refs.                 *
+    *  fdescref    - Optional  Single     contains refs.                 *
+    *  illref      - Optional  Single     contains refs.                 *
+    *  applics     - Mandatory Single     contains applic.               *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  chginfo   - Declared  - IMPLIED   - Type of Change.               *
+    *              - "add"       - Added Item.                           *
+    *              - "delete"    - Deleted Item.                         *
+    *              - "modify"    - Modified Item.                        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="rfd"/>
+				<xs:element ref="pnr" minOccurs="0"/>
+				<xs:element ref="altids" minOccurs="0"/>
+				<xs:element ref="instloc" minOccurs="0"/>
+				<xs:element ref="accdopl" minOccurs="0"/>
+				<xs:element ref="assyinstr" minOccurs="0"/>
+				<xs:element ref="nhassy" minOccurs="0"/>
+				<xs:element ref="sbc" minOccurs="0"/>
+				<xs:element ref="sibplugid" minOccurs="0"/>
+				<xs:element ref="trl" minOccurs="0"/>
+				<xs:element ref="clc" minOccurs="0"/>
+				<xs:element ref="elogic" minOccurs="0"/>
+				<xs:element ref="rpc" minOccurs="0"/>
+				<xs:element ref="nomenc" minOccurs="0"/>
+				<xs:element ref="equdescref" minOccurs="0"/>
+				<xs:element ref="fdescref" minOccurs="0"/>
+				<xs:element ref="illref" minOccurs="0"/>
+				<xs:element ref="applics"/>
+			</xs:sequence>
+<!-- Elements <nomenc> and <elogic> added to content model -->
+			<xs:attribute name="chginfo">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="add"/>
+						<xs:enumeration value="delete"/>
+						<xs:enumeration value="modify"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="nomenc" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element nomenc (Electrical Equipment Nomenclature)          *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="elogic">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element elogic (Electrical Logic) containing:-              *
+    *  ecstate   - Mandatory Repeatable   contains eeconnection,statedes.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ecstate" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ecstate">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ecstate (Electrical Equipment State) containing:-   *
+    *  eeconnection   - Mandatory Repeatable  contains contact.          *
+    *  statedes       - Optional  Single      contains Parsed Character  *
+    *                                                  Data.             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  initstate   - NUMBER  - IMPLIED     - Initial State Yes or No.    *
+    *                - "1"     - Yes.                                    *
+    *                - "0"     - No.                                     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="eeconnection" maxOccurs="unbounded"/>
+				<xs:element ref="statedes" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="initstate" type="yesorno"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="eeconnection">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element eeconnection (Electrical Equipment Connection)      *
+    * containing:-                                                       *
+    *  contact      - Mandatory Repeatable    contains No Other Tags.    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  conntype    - CDATA   - IMPLIED    - Connection Type, e.g. "coil".*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="contact" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="conntype" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="statedes" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+<!--**********************************************************************
+    * Define Element statedes (Electrical State Description) containing:-*
+    *  Parsed Character Data.                                            *
+    ********************************************************************** -->
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="fdescref">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element fdescref (Functional Description Reference)         *
+    * containing:-                                                       *
+    *  refs  - Mandatory Single  contains norefs, refdm, reftp.          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="refs"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="instloc" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element instloc (Install Location) containing:-             *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="accdopl" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element accdopl (Access Door and Panel) containing:-        *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="rfd">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element rfd (Reference Designator) containing:-             *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="assyinstr">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element assyinstr (Assembly Instruction) containing:-       *
+    *  assy     - Optional  Repeatable    contains Definition stored in  *
+    *                                              group "CM.PREFIN".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="assy" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="assy">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element assy (Assembly) containing:-                        *
+    *  Definition stored in group "CM.PREFIN".                           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+			<xs:group ref="CM.PREFIN"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="nhassy" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element nhassy (Next Higher Assembly) containing:-          *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="equdescref">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element equdescref (Equipment Description Reference)        *
+    * containing:-                                                       *
+    *  refs  - Mandatory Single  contains norefs, refdm, reftp.          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="refs"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="sibplugid" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element sibplugid (Ident Twin Connector) containing:-       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="trl" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element trl (Transverse Link) containing:-                  *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="clc" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element clc (Connection List Code) containing:-             *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="wireinformation">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wireinformation (Wire Information) containing:-     *
+    *  wirecode    - Optional  Single     contains wiretype, wiregauge.  *
+    *  harnid      - Optional  Single     contains Parsed Character Data.*
+    *  screens     - Optional  Single     contains screen.               *
+    *  twists      - Optional  Single     contains twist.                *
+    *  coax        - Optional  Single     contains Parsed Character Data.*
+    *  triax       - Optional  Single     contains Parsed Character Data.*
+    *  emc-code    - Optional  Single     contains Parsed Character Data.*
+    *  length      - Optional  Single     contains Parsed Character Data.*
+    *  colour      - Optional  Single     contains Parsed Character Data.*
+    *  signal      - Optional  Single     contains Parsed Character Data.*
+    *  rpc         - Optional  Single     contains Parsed Character Data.*
+    *  routing     - Optional  Single     contains clipid.               *
+    *  wireroute   - Optional  Single     contains Parsed Character Data.*
+    *  restriction - Optional  Single     contains Parsed Character Data.*
+    *  fdescref    - Optional  Single     contains refs.                 *
+    *  illref      - Optional  Single     contains refs.                 *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="wirecode" minOccurs="0"/>
+				<xs:element ref="harnid" minOccurs="0"/>
+				<xs:element ref="screens" minOccurs="0"/>
+				<xs:element ref="twists" minOccurs="0"/>
+				<xs:element ref="coax" minOccurs="0"/>
+				<xs:element ref="triax" minOccurs="0"/>
+				<xs:element ref="emc-code" minOccurs="0"/>
+				<xs:element ref="length" minOccurs="0"/>
+				<xs:element ref="colour" minOccurs="0"/>
+				<xs:element ref="signal" minOccurs="0"/>
+				<xs:element ref="rpc" minOccurs="0"/>
+				<xs:element ref="routing" minOccurs="0"/>
+				<xs:element ref="wireroute" minOccurs="0"/>
+				<xs:element ref="restriction" minOccurs="0"/>
+				<xs:element ref="fdescref" minOccurs="0"/>
+				<xs:element ref="illref" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="illref">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element illref (Illustration Reference) containing:-        *
+    *  refs  - Mandatory Single  contains norefs, refdm, reftp.          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="refs"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="restriction" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element restriction (Wire Restriction Info) containing:-    *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="signal" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element signal (Signal Information) containing:-            *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="coax" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element coax (Coax Information) containing:-                *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="triax" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element triax (Triax Information) containing:-              *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="twists">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element twists (Twisting of Twisted Wires) containing:-     *
+    *  twist    - Mandatory Repeatable    contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="twist" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="twist">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element twist (Twist Information) containing:-              *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  twsttype    - CDATA   - IMPLIED     - Twist Type.                 *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="twsttype" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="length">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element length (Length Information) containing:-            *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+         
+	<xs:element name="emc-code" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element emc-code (EMC Code) containing:-                    *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="colour" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element colour (Colour Information) containing:-            *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="wireins">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wireins (Wire Installation Code) containing:-       *
+    *  pre      - Optional  Repeatable    contains Definition stored in  *
+    *                                              group "CM.PREFIN".    *
+    *  fin      - Optional  Repeatable    contains Definition stored in  *
+    *                                              group "CM.PREFIN".    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pre" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="fin" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="screens">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element screens (List of Screens) containing:-              *
+    *  screen   - Mandatory Repeatable    contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="screen" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="routing">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element routing (Routing Information) containing:-          *
+    *  clipid   - Mandatory Repeatable    contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="clipid" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="clipid" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element clipid (Clipping Point Identification)              *
+    * containing:-                                                       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="wireroute" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wireroute (Wire Route Lane Code) containing:-       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="contactinfo">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element contactinfo (Contact Information) containing:-      *
+    *  contact     - Optional  Single     contains No Other Tags.        *
+    *  wireconcode - Optional  Single     contains Parsed Character Data.*
+    *  netanacode  - Optional  Single     contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="contact" minOccurs="0"/>
+				<xs:element ref="wireconcode" minOccurs="0"/>
+				<xs:element ref="netanacode" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="contact">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element contact (Contact Identification) containing:-       *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  ident     - CDATA   - REQUIRED    - Contact Designation Ident.    *
+    *  function  - CDATA   - IMPLIED     - Contact Function, describes   *
+    *                                      the functional identification *
+    *                                      of the contact, e.g. ON, OFF, *
+    *                                      BRIGHT, DIM.                  *
+    *  ctype     - CDATA   - IMPLIED     - Contact Type, describes the   *
+    *                                      type of the contact, e.g.     *
+    *                                      PIN, SOCKET, COAX, BUS.       *
+    *  cconnect  - NUMBER   - IMPLIED    - Contact Connection, describes *
+    *                                      the type of connection, e.g.  *
+    *                                      0 = not connected,            *
+    *                                      1 = connected.                *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="ident" use="required" type="xs:string"/>
+			<xs:attribute name="function" type="xs:string"/>
+			<xs:attribute name="ctype" type="xs:string"/>
+			<xs:attribute name="cconnect" type="xs:unsignedByte"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Attribute cconnect added -->
+	  
+	<xs:element name="wireconcode" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wireconcode (Wire Connection Code) containing:-     *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="netanacode" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element netanacode (Network Analysis Code) containing:-     *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="screen">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element screen (Screen/Shield Identification) containing:-  *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  scrlevel  - NUMBER  - IMPLIED  - Screen Level, describes the level*
+    *                                   of the screen especially when    *
+    *                                   more than one screen is used.    *
+    *  scrtype   - NUMBER  - IMPLIED  - Screen Type, describes the type  *
+    *                                   of wire in a screen situation.   *
+    *  scrstyle  - NUMBER  - IMPLIED  - Screen Style, describes the style*
+    *	                                of the screen for graphical      *
+    *                                   retrieval purposes, e.g. coax,   *
+    *                                   databus in coded form.           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="scrlevel" type="xs:unsignedByte"/>
+					<xs:attribute name="scrtype" type="xs:unsignedByte"/>
+					<xs:attribute name="scrstyle" type="xs:unsignedByte"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+<!-- Attributes scrlevel, scrtype and scrstyle added -->  
+
+	<xs:element name="wirecode">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wirecode (Wire Code) containing:-                   *
+    *  wiretype  - Mandatory  Single      contains Parsed Character Data.*
+    *  wiregauge - Optional   Repeatable  contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="wiretype"/>
+				<xs:element ref="wiregauge" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="wiregauge">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wiregauge (Wire Gauge) containing:-                 *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  gaugetype - Declared  - IMPLIED   - Type of Wire Gauge.           *
+    *              - "proj"    - Project Specific Information.           *
+    *              - "awg"     - American Wire Gauge.                    *
+    *              - "mt"      - Metric Measure.                         *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="gaugetype" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:NMTOKEN">
+								<xs:enumeration value="proj"/>
+								<xs:enumeration value="awg"/>
+								<xs:enumeration value="mt"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="wiretype" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wiretype (Wire Type) containing:-                   *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		</xs:element>
+
+
+	<xs:element name="harnid" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element harnid (Harness Identification) containing:-        *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="fromequip">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element fromequip (From Equipment) containing:-             *
+    *  Definition stored in group "CM.EQUIPMENT".                        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+			<xs:group ref="CM.EQUIPMENT"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="toequip">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element toequip (To Equipment) containing:-                 *
+    *  Definition stored in group "CM.EQUIPMENT".                        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+			<xs:group ref="CM.EQUIPMENT"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="pre">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pre (Installation Preparation) containing:-         *
+    *  Definition stored in group "CM.PREFIN".                           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+			<xs:group ref="CM.PREFIN"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="fin">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element fin (Finish Installation) containing:-              *
+    *  Definition stored in group "CM.PREFIN".                           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+			<xs:group ref="CM.PREFIN"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="val" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element val (Pre/Fin Value) containing:-                    *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="harness">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element harness (Harness/Bundle) containing:-               *
+    *  harnid      - Mandatory Single     contains Parsed Character Data.*
+    *  harninfo    - Optional  Single     contains pnr, altids, harnvar, *
+    *                                              harnissue.            *
+    *  routing     - Optional  Single     contains clipid.               *
+    *  rpc         - Optional  Single     contains Parsed Character Data.*
+    *  fdescref    - Optional  Single     contains refs.                 *
+    *  illref      - Optional  Single     contains refs.                 *
+    *  applics     - Mandatory Single     contains applic.               *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  chginfo   - Declared  - IMPLIED   - Type of Change.               *
+    *              - "add"       - Added Item.                           *
+    *              - "delete"    - Deleted Item.                         *
+    *              - "modify"    - Modified Item.                        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="harnid"/>
+				<xs:element ref="harninfo" minOccurs="0"/>
+				<xs:element ref="routing" minOccurs="0"/>
+				<xs:element ref="rpc" minOccurs="0"/>
+				<xs:element ref="fdescref" minOccurs="0"/>
+				<xs:element ref="illref" minOccurs="0"/>
+				<xs:element ref="applics"/>
+			</xs:sequence>
+			<xs:attribute name="chginfo">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="add"/>
+						<xs:enumeration value="delete"/>
+						<xs:enumeration value="modify"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="harninfo">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element harninfo (Harness Information) containing:-         *
+    *  pnr         - Optional  Single     contains Parsed Character Data.*
+    *  altids      - Optional  Single     contains altid.                *
+    *  harnvar     - Optional  Single     contains Parsed Character Data.*
+    *  harnissue   - Optional  Single     contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pnr" minOccurs="0"/>
+				<xs:element ref="altids" minOccurs="0"/>
+				<xs:element ref="harnvar" minOccurs="0"/>
+				<xs:element ref="harnissue" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="harnvar" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element harnvar (Harness Variant) containing:-              *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="harnissue" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element harnissue (Harness Issue) containing:-              *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="connectors">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element connectors (List of Connectors) containing:-        *
+    *  connector  - Mandatory Repeatable   contains pnr, altids, mass,   *
+    *                                       orientation, assyinstr, rack,*
+    *                                       ccount, cdescs, elogic,      *
+    *                                       acclist, fdescref, illref,   *
+    *                                       applics.                     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="connector" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="connector">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element connector (Connector Information) containing:-      *
+    *  pnr         - Mandatory Single     contains Parsed Character Data.*
+    *  altids      - Optional  Single     contains altid.                *
+    *  mass        - Optional  Single     contains Parsed Character Data.*
+    *  orientation - Optional  Single     contains Parsed Character Data.*
+    *  assyinstr   - Optional  Single     contains Parsed Character Data.*
+    *  rack        - Optional  Single     contains Parsed Character Data.*
+    *  ccount      - Optional  Single     contains Parsed Character Data.*
+    *  cdescs      - Optional  Single     contains cdesc.                *
+    *  elogic      - Optional  Single     contains ecstate.              *
+    *  acclist     - Optional  Single     contains pnr.                  *
+    *  fdescref    - Optional  Single     contains refs.                 *
+    *  illref      - Optional  Single     contains refs.                 *
+    *  applics     - Optional  Single     contains applic.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pnr"/>
+				<xs:element ref="altids" minOccurs="0"/>
+				<xs:element ref="mass" minOccurs="0"/>
+				<xs:element ref="orientation" minOccurs="0"/>
+				<xs:element ref="assyinstr" minOccurs="0"/>
+				<xs:element ref="rack" minOccurs="0"/>
+				<xs:element ref="ccount" minOccurs="0"/>
+				<xs:element ref="cdescs" minOccurs="0"/>
+				<xs:element ref="elogic" minOccurs="0"/>
+				<xs:element ref="acclist" minOccurs="0"/>
+				<xs:element ref="fdescref" minOccurs="0"/>
+				<xs:element ref="illref" minOccurs="0"/>
+				<xs:element ref="applics" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Element <elogic> added to content model -->
+
+	<xs:element name="altids">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element altids (Alternative Identifications) containing:-   *
+    *  altid       - Mandatory Repeatable   contains pnr, mfc.           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="altid" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="altid">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element altid (Alternative Identification) containing:-     *
+    *  pnr         - Optional  Single     contains Parsed Character Data.*
+    *  mfc         - Optional  Single     contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pnr" minOccurs="0"/>
+				<xs:element ref="mfc" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="mass">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element mass (Mass) containing:-                            *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+         
+	<xs:element name="orientation" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element orientation (Orientation) containing:-              *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="rack" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element rack (Rack) containing:-                            *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="ccount" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ccount (Contact Count) containing:-                 *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="acclist">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element acclist (List of Accessories) containing:-          *
+    *  pnr        - Mandatory Repeatable  contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pnr" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="cdescs">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element cdescs (List of Contact Descriptions) containing:-  *
+    *  cdesc    - Mandatory Repeatable   contains contact, cdia, fin,    *
+    *                                     tplus, tminus, sterm, coax,    *
+    *                                     triax, module, block, shunt.   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="cdesc" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="cdesc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element cdesc (Contact Description) containing:-            *
+    *  contact   - Mandatory Single       contains No Other Tags.        *
+    *  cdia      - Optional  Single       contains Parsed Character Data.*
+    *  fin       - Optional  Repeatable   contains Definition stored in  *
+    *                                              group "CM.PREFIN".    *
+    *  tplus     - Optional  Single       contains Parsed Character Data.*
+    *  tminus    - Optional  Single       contains Parsed Character Data.*
+    *  sterm     - Optional  Single       contains Parsed Character Data.*
+    *  coax      - Optional  Single       contains Parsed Character Data.*
+    *  triax     - Optional  Single       contains Parsed Character Data.*
+    *  module    - Optional  Single       contains Parsed Character Data.*
+    *  block     - Optional  Single       contains Parsed Character Data.*
+    *  shunt     - Optional  Single       contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="contact"/>
+				<xs:element ref="cdia" minOccurs="0"/>
+				<xs:element ref="fin" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="tplus" minOccurs="0"/>
+				<xs:element ref="tminus" minOccurs="0"/>
+				<xs:element ref="sterm" minOccurs="0"/>
+				<xs:element ref="coax" minOccurs="0"/>
+				<xs:element ref="triax" minOccurs="0"/>
+				<xs:element ref="module" minOccurs="0"/>
+				<xs:element ref="block" minOccurs="0"/>
+				<xs:element ref="shunt" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+          
+	<xs:element name="cdia">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element cdia (Contact Diameter) containing:-                *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="tplus" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element tplus (Termo Couple Plus) containing:-              *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="tminus" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element tminus (Termo Couple Minus) containing:-            *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="sterm" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element sterm (Special Terminal) containing:-               *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="module" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element module (Termination Module) containing:-            *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="block" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element block (Block) containing:-                          *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="shunt" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element shunt (Shunt) containing:-                          *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="vparts">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element vparts (List of Vparts) containing:-                *
+    *  vpart    - Mandatory Repeatable   contains pnr, altids, csize,    *
+    *                                     mat, mass, colour, protect,    *
+    *                                     cdia, temp, fdescref, illref,  *
+    *                                     applics.                       *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="vpart" maxOccurs="unbounded"/>
+			</xs:sequence>
+			</xs:complexType>
+	</xs:element>
+
+	<xs:element name="vpart">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element vpart (Vpart Information) containing:-              *
+    *  pnr         - Mandatory Single     contains Parsed Character Data.*
+    *  altids      - Optional  Single     contains altid.                *
+    *  csize       - Optional  Single     contains Parsed Character Data.*
+    *  mat         - Optional  Single     contains Parsed Character Data.*
+    *  mass        - Optional  Single     contains Parsed Character Data.*
+    *  colour      - Optional  Single     contains Parsed Character Data.*
+    *  protect     - Optional  Single     contains Parsed Character Data.*
+    *  cdia        - Optional  Single     contains Parsed Character Data.*
+    *  temp        - Optional  Single     contains mint, maxt.           *
+    *  fdescref    - Optional  Single     contains refs.                 *
+    *  illref      - Optional  Single     contains refs.                 *
+    *  applics     - Optional  Single     contains applic.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pnr"/>
+				<xs:element ref="altids" minOccurs="0"/>
+				<xs:element ref="csize" minOccurs="0"/>
+				<xs:element ref="mat" minOccurs="0"/>
+				<xs:element ref="mass" minOccurs="0"/>
+				<xs:element ref="colour" minOccurs="0"/>
+				<xs:element ref="protect" minOccurs="0"/>
+				<xs:element ref="cdia" minOccurs="0"/>
+				<xs:element ref="temp" minOccurs="0"/>
+				<xs:element ref="fdescref" minOccurs="0"/>
+				<xs:element ref="illref" minOccurs="0"/>
+				<xs:element ref="applics" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="csize" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element csize (Contact Size) containing:-                   *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="protect" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element protect (Protect) containing:-                      *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="mat" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element mat (Material) containing:-                         *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="temp">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element temp (Temperature) containing:-                     *
+    *  mint        - Mandatory Single     contains Parsed Character Data.*
+    *  maxt        - Mandatory Single     contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mint"/>
+				<xs:element ref="maxt"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="mint">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element mint (Minimum Temperature) containing:-             *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+ 
+	<xs:element name="maxt">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element maxt (Maximum Temperature) containing:-             *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="accessories">
+		<xs:annotation>
+				<xs:documentation>
+    **********************************************************************
+    * Define Element accessories (List of Accessories) containing:-      *
+    *  accessory  - Mandatory Repeatable   contains pnr, altids, mass,   *
+    *                                       orientation, assyinstr,      *
+    *                                       fdescref, illref, applics.   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="accessory" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="accessory">
+		<xs:annotation>
+				<xs:documentation>
+    **********************************************************************
+    * Define Element accessory (Accessory Information) containing:-      *
+    *  pnr         - Mandatory Single     contains Parsed Character Data.*
+    *  altids      - Optional  Single     contains altid.                *
+    *  mass        - Optional  Single     contains Parsed Character Data.*
+    *  orientation - Optional  Single     contains Parsed Character Data.*
+    *  assyinstr   - Optional  Single     contains Parsed Character Data.*
+    *  fdescref    - Optional  Single     contains refs.                 *
+    *  illref      - Optional  Single     contains refs.                 *
+    *  applics     - Optional  Single     contains applic.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pnr"/>
+				<xs:element ref="altids" minOccurs="0"/>
+				<xs:element ref="mass" minOccurs="0"/>
+				<xs:element ref="orientation" minOccurs="0"/>
+				<xs:element ref="assyinstr" minOccurs="0"/>
+				<xs:element ref="fdescref" minOccurs="0"/>
+				<xs:element ref="illref" minOccurs="0"/>
+				<xs:element ref="applics" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="solder-sleeves">
+		<xs:annotation>
+				<xs:documentation>
+    **********************************************************************
+    * Define Element solder-sleeves (List of Solder-Sleeves)             *
+    * containing:-                                                       *
+    *  solder-sleeve - Mandatory Repeatable   contains pnr, altids,      *
+    *                                          length, mat, mass, sdia,  *
+    *                                          fdescref, illref, applics.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="solder-sleeve" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="solder-sleeve">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element solder-sleeve (Solder-Sleeve Info) containing:-     *
+    *  pnr         - Mandatory Single     contains Parsed Character Data.*
+    *  altids      - Optional  Single     contains altid.                *
+    *  length      - Optional  Single     contains Parsed Character Data.*
+    *  mat         - Optional  Single     contains Parsed Character Data.*
+    *  mass        - Optional  Single     contains Parsed Character Data.*
+    *  sdia        - Optional  Single     contains mind, maxd.           *
+    *  fdescref    - Optional  Single     contains refs.                 *
+    *  illref      - Optional  Single     contains refs.                 *
+    *  applics     - Optional  Single     contains applic.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pnr"/>
+				<xs:element ref="altids" minOccurs="0"/>
+				<xs:element ref="length" minOccurs="0"/>
+				<xs:element ref="mat" minOccurs="0"/>
+				<xs:element ref="mass" minOccurs="0"/>
+				<xs:element ref="sdia" minOccurs="0"/>
+				<xs:element ref="fdescref" minOccurs="0"/>
+				<xs:element ref="illref" minOccurs="0"/>
+				<xs:element ref="applics" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="sdia">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element sdia (Sleeve Diameter) containing:-                 *
+    *  mind        - Mandatory Single     contains Parsed Character Data.*
+    *  maxd        - Mandatory Single     contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="mind"/>
+				<xs:element ref="maxd"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="mind">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element mind (Minimum Diameter) containing:-                *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="maxd">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element maxd (Maximum Diameter) containing:-                *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+          
+	<xs:element name="shrink-sleeves">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element shrink-sleeves (List of Shrink-Sleeves)             *
+    * containing:-                                                       *
+    *  shrink-sleeve - Mandatory Repeatable   contains pnr, altids,      *
+    *                                          size, mass, colour, sdia, *
+    *                                          temp, harnsize, fdescref, *
+    *                                          illref, applics.          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="shrink-sleeve" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="shrink-sleeve">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element shrink-sleeve (Shrink-Sleeve Info) containing:-     *
+    *  pnr         - Mandatory Single     contains Parsed Character Data.*
+    *  altids      - Optional  Single     contains altid.                *
+    *  size        - Optional  Single     contains Parsed Character Data.*
+    *  mass        - Optional  Single     contains Parsed Character Data.*
+    *  colour      - Optional  Single     contains Parsed Character Data.*
+    *  sdia        - Optional  Single     contains mind, maxd.           *
+    *  temp        - Optional  Single     contains mint, maxt.           *
+    *  harnsize    - Optional  Single     contains minh, maxh.           *
+    *  fdescref    - Optional  Single     contains refs.                 *
+    *  illref      - Optional  Single     contains refs.                 *
+    *  applics     - Optional  Single     contains applic.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pnr"/>
+				<xs:element ref="altids" minOccurs="0"/>
+				<xs:element ref="size" minOccurs="0"/>
+				<xs:element ref="mass" minOccurs="0"/>
+				<xs:element ref="colour" minOccurs="0"/>
+				<xs:element ref="sdia" minOccurs="0"/>
+				<xs:element ref="temp" minOccurs="0"/>
+				<xs:element ref="harnsize" minOccurs="0"/>
+				<xs:element ref="fdescref" minOccurs="0"/>
+				<xs:element ref="illref" minOccurs="0"/>
+				<xs:element ref="applics" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="size">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element size (Size) containing:-                            *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+          
+	<xs:element name="harnsize">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element harnsize (Harness Size) containing:-                *
+    *  minh        - Mandatory Single     contains Parsed Character Data.*
+    *  maxh        - Mandatory Single     contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="minh"/>
+				<xs:element ref="maxh"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="minh">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element minh (Minimum Harness Size) containing:-            *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="maxh">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element maxh (Maximum Harness Size) containing:-            *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ident-sleeves">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ident-sleeves (List of Ident-Sleeves) containing:-  *
+    *  ident-sleeve - Mandatory Repeatable   contains pnr, altids,       *
+    *                                          length, mat, mass,        *
+    *                                          fdescref, illref, applics.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ident-sleeve" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ident-sleeve">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element ident-sleeve (Ident-Sleeve Information)             *
+    * containing:-                                                       *
+    *  pnr         - Mandatory Single     contains Parsed Character Data.*
+    *  altids      - Optional  Single     contains altid.                *
+    *  length      - Optional  Single     contains Parsed Character Data.*
+    *  mat         - Optional  Single     contains Parsed Character Data.*
+    *  mass        - Optional  Single     contains Parsed Character Data.*
+    *  fdescref    - Optional  Single     contains refs.                 *
+    *  illref      - Optional  Single     contains refs.                 *
+    *  applics     - Optional  Single     contains applic.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pnr"/>
+				<xs:element ref="altids" minOccurs="0"/>
+				<xs:element ref="length" minOccurs="0"/>
+				<xs:element ref="mat" minOccurs="0"/>
+				<xs:element ref="mass" minOccurs="0"/>
+				<xs:element ref="fdescref" minOccurs="0"/>
+				<xs:element ref="illref" minOccurs="0"/>
+				<xs:element ref="applics" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="conduits">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element conduits (List of Conduits) containing:-            *
+    *  conduit   - Mandatory Repeatable   contains pnr, altids, size,    *
+    *                                       mass, colour, wallthk, temp, *
+    *                                       fdescref, illref, applics.   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="conduit" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="conduit">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element conduit (Conduit Information) containing:-          *
+    *  pnr         - Mandatory Single     contains Parsed Character Data.*
+    *  altids      - Optional  Single     contains altid.                *
+    *  size        - Optional  Single     contains Parsed Character Data.*
+    *  mass        - Optional  Single     contains Parsed Character Data.*
+    *  colour      - Optional  Single     contains Parsed Character Data.*
+    *  wallthk     - Optional  Single     contains Parsed Character Data.*
+    *  temp        - Optional  Single     contains mint, maxt.           *
+    *  fdescref    - Optional  Single     contains refs.                 *
+    *  illref      - Optional  Single     contains refs.                 *
+    *  applics     - Optional  Single     contains applic.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pnr"/>
+				<xs:element ref="altids" minOccurs="0"/>
+				<xs:element ref="size" minOccurs="0"/>
+				<xs:element ref="mass" minOccurs="0"/>
+				<xs:element ref="colour" minOccurs="0"/>
+				<xs:element ref="wallthk" minOccurs="0"/>
+				<xs:element ref="temp" minOccurs="0"/>
+				<xs:element ref="fdescref" minOccurs="0"/>
+				<xs:element ref="illref" minOccurs="0"/>
+				<xs:element ref="applics" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="wallthk">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wallthk (Wall Thickness) containing:-               *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+         
+	<xs:element name="wire-mats">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wire-mats (List of Wire Materials) containing:-     *
+    *  wire-mat  - Mandatory Repeatable   contains pnr, altids, wirecode,*
+    *                                       core, size, mass, colour,    *
+    *                                       outjackcol, outdia, res,     *
+    *                                       voltage, amerage, temp,      *
+    *                                       screencount, coax, triax,    *
+    *                                       freqchar, fdescref, illref,  *
+    *                                       applics.                     *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="wire-mat" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="wire-mat">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element wire-mat (Wire Material Information) containing:-   *
+    *  pnr         - Mandatory Single     contains Parsed Character Data.*
+    *  altids      - Optional  Single     contains altid.                *
+    *  wirecode    - Optional  Single     contains wiretype, wiregauge.  *
+    *  core        - Optional  Single     contains Parsed Character Data.*
+    *  size        - Optional  Single     contains Parsed Character Data.*
+    *  mass        - Optional  Single     contains Parsed Character Data.*
+    *  colour      - Optional  Single     contains Parsed Character Data.*
+    *  outjackcol  - Optional  Single     contains Parsed Character Data.*
+    *  outdia      - Optional  Single     contains Parsed Character Data.*
+    *  res         - Optional  Single     contains Parsed Character Data.*
+    *  voltage     - Optional  Single     contains Parsed Character Data.*
+    *  amperage    - Optional  Single     contains Parsed Character Data.*
+    *  temp        - Optional  Single     contains mint, maxt.           *
+    *  screencount - Optional  Single     contains Parsed Character Data.*
+    *  coax        - Optional  Single     contains Parsed Character Data.*
+    *  triax       - Optional  Single     contains Parsed Character Data.*
+    *  freqchar    - Optional  Single     contains impedance, freqatt.   *
+    *  fdescref    - Optional  Single     contains refs.                 *
+    *  illref      - Optional  Single     contains refs.                 *
+    *  applics     - Optional  Single     contains applic.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pnr"/>
+				<xs:element ref="altids" minOccurs="0"/>
+				<xs:element ref="wirecode" minOccurs="0"/>
+				<xs:element ref="core" minOccurs="0"/>
+				<xs:element ref="size" minOccurs="0"/>
+				<xs:element ref="mass" minOccurs="0"/>
+				<xs:element ref="colour" minOccurs="0"/>
+				<xs:element ref="outjackcol" minOccurs="0"/>
+				<xs:element ref="outdia" minOccurs="0"/>
+				<xs:element ref="res" minOccurs="0"/>
+				<xs:element ref="voltage" minOccurs="0"/>
+				<xs:element ref="amperage" minOccurs="0"/>
+				<xs:element ref="temp" minOccurs="0"/>
+				<xs:element ref="screencount" minOccurs="0"/>
+				<xs:element ref="coax" minOccurs="0"/>
+				<xs:element ref="triax" minOccurs="0"/>
+				<xs:element ref="freqchar" minOccurs="0"/>
+				<xs:element ref="fdescref" minOccurs="0"/>
+				<xs:element ref="illref" minOccurs="0"/>
+				<xs:element ref="applics" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="freqchar">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element freqchar (Frequency Characteristics) containing:-   *
+    *  impedance - Mandatory Single       contains Parsed Character Data.*
+    *  freqatt   - Optional  Repeatable   contains freq, attenuation.    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="impedance"/>
+				<xs:element ref="freqatt" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="freqatt">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element freqatt (Frequency and Attenuation) containing:-    *
+    *  freq        - Mandatory Single     contains Parsed Character Data.*
+    *  attenuation - Mandatory Single     contains Parsed Character Data.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="freq"/>
+				<xs:element ref="attenuation"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="impedance">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element impedance (Impedance) containing:-                  *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+          
+	<xs:element name="core" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element core (Core) containing:-                            *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="outjackcol" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element outjackcol (Outer Jacket Colour) containing:-       *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="outdia">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element outdia (Outer Diameter) containing:-                *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="res">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element res (Resistance) containing:-                       *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+          
+	<xs:element name="voltage">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element voltage (Voltage) containing:-                      *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+         
+	<xs:element name="amperage">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element amperage (Amperage) containing:-                    *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="screencount" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element screencount (Screen Count) containing:-             *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="freq">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element freq (Frequency) containing:-                       *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+         
+	<xs:element name="attenuation">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element attenuation (Attenuation) containing:-              *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom     - CDATA  - IMPLIED   - Unit of Measurement.               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="uom" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

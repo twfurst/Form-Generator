@@ -1,0 +1,950 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Move inclusion of files WCNP.XSD, LISTS.XSD and  *
+    *                   PARACON_STATIC.XSD to CREWSCHEMA.XSD.            *
+    *                   Define new group "TEXT-NOREFS", same as "text",  *
+    *                   except <refdm>, <reftp>, <change> and <ftnote>   *
+    *                   removed.                                         *
+    *                   Replace group "text" by "TEXT-NOREFS" in the     *
+    *                   content model of <tabtitle>.                     *
+    *                   Replace group "fft_inc" by "FFT" on <frc>,       *
+    *                   <descacrw>, <procd>, <challeng>, <response>,     *
+    *                   <endmattr> and "DRLINTRO".                       *
+    *                   Replace group "NP" by new group "NPFFT" in the   *
+    *                   content models of "ACSTCON" and "NPAR".          *
+    * 2. CPF 2002-11FR, 2004-66US:                                       *
+    *                   Remove inclusion of group "fft_inc" from         *
+    *                   elements <crew>, <crewmem>, <tabtitle>, <if>,    *
+    *                   <elseif>, <case>, <drill>, <subdrill>, <step>.   *
+    *                   Reposition element <applic> within content model *
+    *                   of <procd>.                                      *
+    * 3. CPF 2004-45US: Amend group "text" by elements <ftnote> and      *
+    *                   <ftnref> to allow markup of footnotes in running *
+    *                   text and tables.                                 *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="crew.xsd"/>                            *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Include the HEADING group definition.                              *
+    ********************************************************************** -->
+	<xs:include schemaLocation="heading.xsd"/>
+
+	<xs:group name="CONTENT">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "CONTENT" (Content Breakdown) containing :- acrw.     *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="acrw"/>
+		</xs:sequence>
+	</xs:group>
+
+	<!-- call with minOccurs="0" and maxOccurs="unbounded" !-->
+	<xs:group name="NPFFT">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "NPFFT" (Note or Paragraph or Figure or Foldout or    *
+    *                       Table)                                       *
+    * containing:-                                                       *
+    *   Definition stored in group "NP".                                 *
+    *  or                                                                *
+    *   Definition stored in group "FFT".                                *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:group ref="NP"/>
+			<xs:group ref="FFT"/>
+		</xs:choice>
+	</xs:group>
+<!-- Newly introduced group -->
+
+	<xs:group name="NPAR">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define group "NPAR" (Numbered Paragraphs) containing:-             *
+    *   Definition stored in group "WC".                                 *
+    *             - Mandatory Single     contains warning, caution.      *
+    *   Definition stored in group "NPFFT".                              *
+    *             - Optional Repeatable  contains note, para, Definition *
+    *                                    stored in group "FFT".          *
+    *   drill     - Optional  Single     contains Definition stored in   *
+    *                                    groups "DRLINTRO" and "STEPS",  *
+    *                                    subdrill, endmattr.             *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:sequence>
+			<xs:group ref="WC"/>
+			<xs:group ref="NPFFT" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="drill" minOccurs="0"/>	
+		</xs:sequence>
+	</xs:group>
+<!-- Group "NP" replaced by "NPFFT" in content model -->
+
+<!-- use	<xs:complexType mixed="true"> -->
+<!-- call with  minOccurs="0" maxOccurs="unbounded" !!! -->
+	<xs:group name="text">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Group "text" (Running Text) containing:-                    *
+    *   Parsed Character Data.                                           *
+    *  or                                                                *
+    *   xref     - Mandatory Single     contains applic, Definition      *
+    *                                            stored in group         *
+    *                                            "SPARCON".              *
+    *  or                                                                *
+    *   indxflag - Mandatory Single     contains No Other Tags.          *
+    *  or                                                                *
+    *   change   - Mandatory Single     contains Definition stored in    *
+    *                                            group "text".           *
+    *  or                                                                *
+    *   emphasis - Mandatory Single     contains Definition stored in    *
+    *                                            group "text".           *
+    *  or                                                                *
+    *   symbol   - Mandatory Single     contains applic.                 *
+    *  or                                                                *
+    *   subscrpt - Mandatory Single     contains Replaceable Character   *
+    *                                            Data.                   *
+    *  or                                                                *
+    *   supscrpt - Mandatory Single     contains Replaceable Character   *
+    *                                            Data.                   *
+    *  or                                                                *
+    *   refdm    - Mandatory Single     contains applic, age, avee,      *
+    *                                            issno, dmtitle,         *
+    *                                            Definition stored in    *
+    *                                            group "XLINKEXT".       *
+    *  or                                                                *
+    *   reftp    - Mandatory Single     contains applic, Definitions     *
+    *                                            stored in groups        *
+    *                                            "TEXT-NOREFS", "PUBREF" *
+    *                                            and "XLINKEXT".         *
+    *  or                                                                *
+    *   ftnote   - Mandatory Single     contains applic, para.           *
+    *  or                                                                *
+    *   ftnref   - Mandatory Single     contains No Other Tags.          *
+    *  or                                                                *
+    *   acronym  - Mandatory Single     contains acroterm, acrodef.      *
+    *  or                                                                *
+    *   acroterm - Mandatory Single     contains Definition stored in    *
+    *                                            group "SPARCON".        *
+    *  Definition stored in group "ACTEXT".                              *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="xref"/>
+			<xs:element ref="indxflag"/>
+			<xs:element ref="change"/>
+			<xs:element ref="emphasis"/>
+			<xs:element ref="symbol"/>
+			<xs:element ref="subscrpt"/>
+			<xs:element ref="supscrpt"/>
+			<xs:element ref="refdm"/>
+			<xs:element ref="reftp"/>
+			<xs:element ref="ftnote"/>
+			<xs:element ref="ftnref"/>
+			<xs:element ref="acronym"/>
+			<xs:element ref="acroterm"/>
+			<xs:group ref="ACTEXT"/>
+		</xs:choice>
+	</xs:group>	
+<!-- Content model amended -->
+
+<!-- use 	<xs:complexType mixed="true"> -->
+<!-- call with  minOccurs="0" maxOccurs="unbounded" !!! -->
+	<xs:group name="TEXT-NOREFS">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group "TEXT-NOREFS" (Running Text without References)       *
+    * containing:-                                                       *
+    *   Parsed Character Data.                                           *
+    *  or                                                                *
+    *    xref           - Mandatory Single   contains applic, Definition *
+    *                                        stored in group "SPARCON".  *
+    *  or                                                                *
+    *   indxflag        - Mandatory Single   contains No Other Tags.     *
+    *  or                                                                *
+    *   symbol          - Mandatory Single   contains applic.            *
+    *  or                                                                *
+    *   subscrpt        - Mandatory Single   contains Replaceable        *
+    *                                        Character Data.             *
+    *  or                                                                *
+    *   supscrpt        - Mandatory Single   contains Replaceable        *
+    *                                        Character Data.             *
+    *  or                                                                *
+    *   ftnref          - Mandatory Single   contains No Other Tags.     *
+    *  or                                                                *
+    *   acronym         - Mandatory Single   contains acroterm, acrodef. *
+    *  or                                                                *
+    *   acroterm        - Mandatory Single   contains Definition stored  *
+    *                                        in group "SPARCON".         *
+    *  Definition stored in group "ACTEXT".                              *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice> 
+			<xs:element ref="xref"/>
+			<xs:element ref="indxflag"/>
+			<xs:element ref="symbol"/>
+			<xs:element ref="subscrpt"/>
+			<xs:element ref="supscrpt"/>
+			<xs:element ref="ftnref"/>
+			<xs:element ref="acronym"/>
+			<xs:element ref="acroterm"/> 
+			<xs:group ref="ACTEXT"/>
+		</xs:choice>
+	</xs:group>
+<!-- Newly introduced group -->
+
+	<xs:group name="ACTEXT">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Group "ACTEXT" (All Crew Running Text Continuation)         *
+    * containing:                                                        *
+    * or                                                                 *
+    *  capgrp   - Mandatory Single     contains applic, colspec,         *
+    *                                  spanspec, capbody.                *
+    * or                                                                 *
+    *  caption  - Mandatory Single     contains applic, capline.         *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="capgrp"/>
+			<xs:element ref="caption"/>
+		</xs:choice>	
+	</xs:group>
+
+	<xs:group name="ACSTCON">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Group "ACSTCON" (All Crew Step Content) containing:-        *
+    *  Definition stored in group "HEADING1".                            *
+    *  Definition stored in group "WC".                                  *
+    *====================================================================*
+    *  Optional Repeatable Group                                         *
+    *====================================================================*
+    *    Definition stored in group "NPFFT"                              *
+    *                - Optional Repeatable  contains note, para,         *
+    *                                       Definition stored in group   *
+    *                                       "FFT".                       *
+    *   or                                                               *
+    *====================================================================*
+    *    Optional Single   Group                                         *
+    *====================================================================*
+    *      crew     - Optional  Repeatable  contains applic, crewmem.    *
+    *      procd    - Mandatory Single      contains applic, para,       *
+    *                                                Definition stored   *
+    *                                                in group "FFT".     *
+    *====================================================================*
+    *    or                                                              *
+    *      challrsp - Mandatory Single     contains challeng, crew,      *
+    *                                               response.            *
+    *====================================================================*
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+ 		<xs:sequence>
+			<xs:group ref="HEADING1"/>		
+			<xs:group ref="WC"/>		
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="NPFFT" minOccurs="0" maxOccurs="unbounded"/>		
+				<xs:sequence>
+					<xs:element ref="crew" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="procd"/>
+				</xs:sequence>
+				<xs:element ref="challrsp"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+<!-- Group "NP" replaced by "NPFFT" in content model -->
+
+	<xs:group name="DRLINTRO">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Group "DRLINTRO" (Drill Introduction) containing:-          *
+    *  Definition stored in group "HEADING1"   - Mandatory Single.       *
+    *  tabtitle - Optional  Single       contains Definition stored in   *
+    *                                             group "TEXT-NOREFS".   *
+    *  Definition stored in group "spcpara"    - Mandatory Single.       *
+    *  crew       Optional  Repeatable   contains applic, crewmem.       *
+    *====================================================================*
+    *  Optional Repeatable Group                                         *
+    *====================================================================*
+    *   para     - Mandatory Single      contains applic, Definition     *
+    *                                    stored in group "paracon".      *
+    * or                                                                 *
+    *   Definition stored in group "FFT"    - Mandatory Single.          *
+    *====================================================================*
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="HEADING1"/>
+			<xs:element ref="tabtitle" minOccurs="0"/>
+			<xs:group ref="spcpara"/>
+			<xs:element ref="crew" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="para"/>
+				<xs:group ref="FFT"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+<!-- Content model changed -->
+
+	<xs:group name="STEPS">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Group "STEPS" (Multiple Steps) containing:-                 *
+    *  step    - Mandatory Single     contains Definition stored in      *
+    *                                 groups "ACSTCON", "STEPS".         *
+    * or                                                                 *
+    *====================================================================*
+    *  if      - Mandatory Single     contains applic, condit,           *
+    *                                 Definition stored in group "STEPS".*
+    *  elseif  - Optional  Repeatable contains applic, condit,           *
+    *                                 Definition stored in group "STEPS".*
+    *====================================================================*
+    * or                                                                 *
+    *  case    - Mandatory Single     contains applic, condit,           *
+    *                                 Definition stored in group "STEPS".*
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="step"/>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="if"/>
+					<xs:element ref="elseif" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:element ref="case"/>
+			</xs:choice>
+		</xs:choice>
+	</xs:group>
+
+	<xs:element name="acrw">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element acrw (All Crew Content) Containing:-                *
+    *  frc      - Mandatory Single     contains title, warning, caution, *
+    *                                  note, para, drill or Definition   *
+    *                                  stored in group "FFT".            *
+    * or                                                                 *
+    *  descacrw - Mandatory Single     contains warning, caution, note,  *
+    *                                  para0 or Definition stored in     *
+    *                                  group "FFT".                      *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  id        - ID       - IMPLIED  - An identifier of the element    *
+    *                       which is assigned at origination and which   *
+    *                       remains unchanged as the document is revised *
+    *                       or updated even though the automatically     *
+    *                       assigned enumeration "labels" change. The    *
+    *                       value of "id" is used when making references *
+    *                       to the element from other portions of the    *
+    *                       document.                                    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="frc"/>
+				<xs:element ref="descacrw"/>
+			</xs:choice>
+			<xs:attribute name="id" type="xs:ID"/>
+			<xs:attributeGroup ref="secur"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="frc">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element frc (Flight/Operator Reference Cards) containing:-  *
+    *====================================================================*
+    *  Mandatory Repeatable Group                                        *
+    *====================================================================*
+    *====================================================================*
+    *   Mandatory Single Group                                           *
+    *====================================================================*
+    *    title    - Optional  Single     contains Definition stored in   *
+    *                                    group "text".                   *
+    *    Definition stored in group "spcpara"  - Optional Single.        *
+    *    para     - Optional  Repeatable contains applic, Definition     *
+    *                                    stored in group "paracon".      *
+    *    drill    - Mandatory Repeatable contains Definition stored in   *
+    *                                    groups "DRLINTRO" and "STEPS",  *
+    *                                    subdrill, endmattr.             *
+    *====================================================================*
+    *   or                                                               *
+    *    Definition stored in group "FFT"   - Optional Single.           *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:sequence>
+					<xs:element ref="title" minOccurs="0"/>
+					<xs:group ref="spcpara" minOccurs="0"/>
+					<xs:element ref="para" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="drill"/>
+				</xs:sequence>
+				<xs:group ref="FFT" minOccurs="0"/>
+			</xs:choice>
+			<xs:attributeGroup ref="secur"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of fft_inc replaced by FFT and content model changed -->
+
+	<xs:element name="descacrw">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element descacrw (All Crew Description) containing:-        *
+    *====================================================================*
+    *  Optional Repeatable Group                                         *
+    *====================================================================*
+    *====================================================================*
+    *   Mandatory Single Group                                           *
+    *====================================================================*
+    *    Definition stored in group "spcpara"  - Mandatory Single.       *
+    *    para0    - Optional  Repeatable contains Definitions stored in  *
+    *                                    groups "nparacon", "SUBPAR1".   *
+    *====================================================================*
+    *   or                                                               *
+    *    Definition stored in group "FFT"      - Mandatory Single.       *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:sequence>
+					<xs:group ref="spcpara"/>
+					<xs:element ref="para0" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:group ref="FFT"/>
+			</xs:choice>
+			<xs:attributeGroup ref="secur"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of fft_inc replaced by FFT and content model changed -->
+
+	<xs:element name="drill">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element drill (Flight Drill) containing:-                   *
+    *  Definition stored in group "DRLINTRO".                            *
+    *====================================================================*
+    *  Optional Repeatable Group                                         *
+    *====================================================================*
+    *   Definition stored in group "STEPS"   - Mandatory Repeatable.     *
+    *  or                                                                *
+    *   subdrill - Optional  Repeatable contains Definition stored in    *
+    *                                  groups "DRLINTRO" and "STEPS".    *
+    *====================================================================*
+    *  endmattr - Optional  Single     contains applic, para, Definition *
+    *                                  stored in group "FFT".            * 
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  drilltyp  - "DRILLTPS"          - Drill Type                      *
+    *                                    (Flight Deck presentation)      *
+    *                                    "DRILLTPS" decl in S1000D.CFG.  *
+    *  ordered   - Declared - "on"     - Steps form part of              *
+    *                                    chronologically ordered list.   *
+    *            - "on"     - Steps must occur between neighbouring steps*
+    *                         in time.                                   *
+    *            - "off"    - Steps can occur at any time in the drill   *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="DRLINTRO"/>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:group ref="STEPS"/>
+					<xs:element ref="subdrill"/>
+				</xs:choice>
+				<xs:element ref="endmattr" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute ref="drilltyp"/>
+			<xs:attribute name="ordered" default="on">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="on"/>
+						<xs:enumeration value="off"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attributeGroup ref="bodyatt"/>
+			<xs:attributeGroup ref="secur"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed -->
+
+	<xs:element name="step">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element step (Drill or Procedural Step) containing:-        *
+    *  Definition stored in group "ACSTCON".                             *
+    *  Definition stored in group "STEPS"  - Optional Repeatable.        *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  label     - CDATA    - IMPLIED  - Drill Type                      *
+    *                                    (Flight Deck presentation)      *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  memorize  - Declared - "no"     - Memorize this step.             *
+    *            - "no"     - Step not required to be memorized.         *
+    *            - "yes"    - This step must be memorized.               *
+    *  dotline   - Declared - "dot"    - Defines the seperator characters*
+    *                         between the challenge and response elements*
+    *            - "dot"    - sequence of dots.                          *
+    *            - "line"   - solid line.                                *
+    *            - "none"   - No seperator.                              *
+    *  ordered   - Declared - "on"     - Steps form part of              *
+    *                                    chronologically ordered list.   *
+    *            - "on"     - Steps must occur between neighbouring steps*
+    *                         in time.                                   *
+    *            - "off"    - Steps can occur at any time in the drill   *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    *  Attribute Definition List stored in attribute group "CHECKSTP".   *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="ACSTCON"/>	
+				<xs:group ref="STEPS" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="label" type="xs:string"/>
+			<xs:attributeGroup ref="bodyatt"/>
+			<xs:attribute name="memorize" default="no">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="yes"/>
+						<xs:enumeration value="no"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="dotline" default="dot">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="dot"/>
+						<xs:enumeration value="line"/>
+						<xs:enumeration value="none"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ordered" default="on">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="on"/>
+						<xs:enumeration value="off"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attributeGroup ref="secur"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed and content model changed -->
+
+	<xs:element name="crew">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element crew (Responsible Crew) containing:-                *
+    *  applic   - Optional  Single      contains type, model.            *
+    *  crewmem  - Mandatory Repeatable  contains applic.                 *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  response  - Declared - "all"    - Responsible for step            *
+    *            - "all"    - All the identified crew members are        *
+    *                         must respond to the step.                  *
+    *            - "any"    - Any of the identified crew members can     *
+    *                         respond to the step                        *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:element ref="crewmem" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="response" default="all">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="all"/>
+						<xs:enumeration value="any"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed -->
+
+	<xs:element name="crewmem">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element crewmem (Type Of Crew Member) containing:-          *
+    *  applic   - Optional   Single      contains type, model.           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  crewmem  - "CREWMEMS" - REQUIRED - Type(s) of Crew Member(s)      *
+    *                                     "CREWMEMS" decl in S1000D.CFG. *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="crewmem" type="CREWMEMS" use="required"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of group "fft_inc" removed -->
+
+	<xs:element name="procd">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element procd (Procedure) containing:-                      *
+    *  applic   - Optional  Single     contains type, model.             *
+    *====================================================================*
+    *  Mandatory Repeatable Group                                        *
+    *====================================================================*
+    *    para    - Mandatory Single      contains applic, Definition     *
+    *                                    stored in group "paracon".      *
+    *   or                                                               *
+    *    Definition stored in group "FFT".                               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="para"/>
+					<xs:group ref="FFT"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of fft_inc replaced by FFT and content model changed -->
+
+	<xs:element name="challeng">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element challeng (Challenge) containing:-                   *
+    *  applic   - Optional  Single     contains type, model.             *
+    *====================================================================*
+    *  Mandatory Repeatable Group                                        *
+    *====================================================================*
+    *    para    - Mandatory Single      contains applic, Definition     *
+    *                                    stored in group "paracon".      *
+    *   or                                                               *
+    *    Definition stored in group "FFT".                               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="para"/>
+					<xs:group ref="FFT"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of fft_inc replaced by FFT and content model changed -->
+
+	<xs:element name="response">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element response (Response) containing:-                    *
+    *  applic   - Optional  Single     contains type, model.             *
+    *====================================================================*
+    *  Mandatory Repeatable Group                                        *
+    *====================================================================*
+    *    para    - Mandatory Single      contains applic, Definition     *
+    *                                    stored in group "paracon".      *
+    *   or                                                               *
+    *    Definition stored in group "FFT".                               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="para"/>
+					<xs:group ref="FFT"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of fft_inc replaced by FFT and content model changed -->
+
+	<xs:element name="if">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element if (If Condition) containing:-                      *
+    *  applic   - Optional  Single     contains type, model.             *
+    *  condit   - Mandatory Single     contains Definition stored in     *
+    *                                           group "text".            *
+    *  Definition stored in group "STEPS" - Mandatory Repeatable.        *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:element ref="condit"/>
+				<xs:group ref="STEPS" maxOccurs="unbounded"/>			
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of fft_inc removed and content model changed -->
+
+	<xs:element name="elseif">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element elseif (Else If Condition) containing:-             *
+    *  applic   - Optional  Single     contains type, model.             *
+    *  condit   - Mandatory Single     contains Definition stored in     *
+    *                                           group "text".            *
+    *  Definition stored in group "STEPS" - Mandatory Repeatable.        *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:element ref="condit"/>
+				<xs:group ref="STEPS" maxOccurs="unbounded"/>				
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of fft_inc removed and content model changed -->
+
+	<xs:element name="case">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element case (Conditional Case) containing:-                *
+    *  applic   - Optional  Single     contains type, model.             *
+    *  condit   - Mandatory Single     contains Definition stored in     *
+    *                                           group "text".            *
+    *  Definition stored in group "STEPS" - Mandatory Repeatable.        *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:element ref="condit"/>
+				<xs:group ref="STEPS" maxOccurs="unbounded"/>	
+			</xs:sequence>
+			<xs:attributeGroup ref="bodyatt"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of fft_inc removed and content model changed -->
+
+	<xs:element name="condit">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element condit (If, Elseif and Case Condition) containing:- *
+    *  Definition stored in group "text".                                *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:group ref="text" minOccurs="0" maxOccurs="unbounded"/>	
+			<xs:attributeGroup ref="secur"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Content model changed -->
+
+	<xs:element name="subdrill">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element subdrill (Sub Flight Drill) containing:-            *
+    *====================================================================*
+    * Optional Single Group                                              *
+    *====================================================================*
+    *  Definition stored in group "DRLINTRO".                            *
+    *====================================================================*
+    *====================================================================*
+    * Optional Repeatable Group                                          *
+    *====================================================================*
+    *  Definition stored in group "STEPS".                               *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  ordered   - Declared - "on"     - Steps form part of              *
+    *                                    chronologically ordered list.   *
+    *            - "on"     - Steps must occur between neighbouring steps*
+    *                         in time.                                   *
+    *            - "off"    - Steps can occur at any time in the drill   *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>			
+				<xs:group ref="DRLINTRO"/>
+				<xs:group ref="STEPS" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="ordered" default="on">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="on"/>
+						<xs:enumeration value="off"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attributeGroup ref="bodyatt"/>
+			<xs:attributeGroup ref="secur"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of fft_inc removed and content model changed -->
+
+	<xs:element name="tabtitle">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element tabtitle (Tab Title) containing:-                   *
+    *  Definition stored in group "TEXT-NOREFS" - Mandatory Repeatable.  *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  Attribute Definition List stored in attribute group "INSDEL".     *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:group ref="TEXT-NOREFS" minOccurs="0" maxOccurs="unbounded"/>						
+			<xs:attributeGroup ref="INSDEL"/>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of fft_inc removed and content model changed -->
+
+	<xs:element name="endmattr">
+		<xs:annotation>
+			<xs:documentation>
+    ********************************************************************** 
+    * Define Element endmattr (Drill End Matter) containing:-            *
+    *  applic   - Optional  Single      contains type, model.            *
+    *====================================================================*
+    *  Mandatory Repeatable Group                                        *
+    *====================================================================*
+    *    para    - Mandatory Single      contains applic, Definition     *
+    *                                    stored in group "paracon".      *
+    *   or                                                               *
+    *    Definition stored in group "FFT".                               *
+    *====================================================================*
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="applic" minOccurs="0"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="para"/>
+					<xs:group ref="FFT"/>		
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+<!-- Inclusion of fft_inc replaced by FFT and content model changed -->
+
+	<xs:element name="challrsp">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element challrsp (Challenge and Response) containing:-      *
+    *  challeng - Mandatory Single     contains applic, para.            *
+    *====================================================================*
+    *    crew     - Optional  Repeatable  contains applic, crewmem.      *
+    *    response - Mandatory Single      contains applic, para.         *
+    *====================================================================*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="challeng"/>
+				<xs:sequence maxOccurs="unbounded">
+					<xs:element ref="crew" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="response"/>
+				</xs:sequence>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

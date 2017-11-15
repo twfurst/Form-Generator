@@ -1,0 +1,1033 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2004-26US: Move up documentation tags directly under their  *
+    *                   respective <xs:element> tag.                     *
+    * 2. CPF 2004-32US: Expand Process DM to include <step1> content:    *
+    *                   Harmonize <applic> and <expression> by moving    *
+    *                   <expression> into <applic> and remove <precond>. *
+    * 3. CPF 2004-64US: Introduce element <extapp> to enable the launch  *
+    *                   of external applications from a Process DM.      *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="interact.xsd"/>                        *
+    ********************************************************************** -->
+
+<!--**********************************************************************
+    **********************************************************************
+    **                                                                  **
+    **                MISCELLANEOUS DEFINITIONS                         **
+    **                                                                  **
+    **********************************************************************
+    ********************************************************************** -->
+    
+<!--**********************************************************************
+    * Define Element text (Text) containing:-                            *
+    **********************************************************************
+    *   Parsed Character Data  -   PCDATA                                *
+    ********************************************************************** -->
+  <xs:element name="text" type="xs:string"/>
+  
+  
+<!--**********************************************************************
+    **********************************************************************
+    **                                                                  **
+    **                EXPRESSION OPERATOR DEFINITIONS                   **
+    **                                                                  **
+    **********************************************************************
+    ********************************************************************** -->
+  <xs:complexType name="operation"/>
+  
+  
+<!--**********************************************************************
+    * Define Group "BINOP" (Collection of Binary Operators):             *
+    **********************************************************************
+    * The "BINOP" group defines the set of acceptable binary operators.  *
+    ********************************************************************** -->
+  <xs:element name="eq" type="operation"/>
+  <xs:element name="ne" type="operation"/>
+  <xs:element name="lt" type="operation"/>
+  <xs:element name="gt" type="operation"/>
+  <xs:element name="le" type="operation"/>
+  <xs:element name="ge" type="operation"/>
+  <xs:element name="and" type="operation"/>
+  <xs:element name="or" type="operation"/>
+  <xs:element name="xor" type="operation"/>
+  <xs:element name="concat" type="operation"/>
+  <xs:element name="substring" type="operation"/>
+  <xs:element name="plus" type="operation"/>
+  <xs:element name="minus" type="operation"/>
+  <xs:element name="times" type="operation"/>
+  <xs:element name="divide" type="operation"/>
+  <xs:element name="idivide" type="operation"/>
+  <xs:element name="exponent" type="operation"/>
+  <xs:element name="modulus" type="operation"/>
+  <xs:element name="add" type="operation"/>
+  <xs:element name="remove" type="operation"/>
+  <xs:element name="union" type="operation"/>
+  <xs:element name="intersect" type="operation"/>
+  <xs:element name="set-diff" type="operation"/>
+  <xs:element name="member" type="operation"/>
+  <xs:element name="subset" type="operation"/>
+  <xs:element name="disjoint" type="operation"/>
+
+  
+<!--**********************************************************************
+    * Define Group "UNOP" (Collection of Unary Operators):               *
+    **********************************************************************
+    * The "UNOP" group defines the set of acceptable unary operators.    *
+    ********************************************************************** -->
+  <xs:element name="not" type="operation"/>
+  <xs:element name="empty" type="operation"/>
+  <xs:element name="neg" type="operation"/>
+  <xs:element name="trunc" type="operation"/>
+  <xs:element name="float" type="operation"/>
+  <xs:element name="index-value" type="xs:string"/>
+  <xs:element name="index">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="index-value"/>
+        <xs:element ref="index-value" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="defined" type="operation"/>
+  <xs:element name="sizeof" type="operation"/>
+
+  
+<!--**********************************************************************
+    * Define Group "VALUE" (Collection of Explicit Values):              *
+    **********************************************************************
+    * The "VALUE" group defines the set of acceptable explicit values    *
+    * that may be used in an expression.                                 *
+    ********************************************************************** -->
+  <xs:element name="boolean">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="true"/>
+        <xs:element ref="false"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="true" type="operation"/>
+  <xs:element name="false" type="operation"/>
+  <xs:element name="string" type="xs:string"/>
+  <xs:element name="real" type="xs:string"/>
+  <xs:element name="integer" type="xs:string"/>
+  <xs:element name="set">
+    <xs:complexType>
+       <xs:choice>
+            <xs:element ref="string" maxOccurs="unbounded"/>
+            <xs:element ref="real" maxOccurs="unbounded"/>
+            <xs:element ref="integer" maxOccurs="unbounded"/>
+            <xs:element ref="novalue"/>
+       </xs:choice>
+    </xs:complexType>
+ </xs:element>
+ <xs:element name="novalue" type="operation"/>
+
+  
+<!--**********************************************************************
+    **********************************************************************
+    **                                                                  **
+    **                       DIALOG DEFINITIONS                         **
+    **                                                                  **
+    **********************************************************************
+    ********************************************************************** -->
+  <xs:group name="DIALOG">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Group "DIALOG" (Dialog/Dialog Alternate Element):           *
+    **********************************************************************
+    * The "DIALOG" group defines a convenient method to specify either   *
+    * a dialog element or a dialog alternate element.                    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:element ref="dialog"/>
+      <xs:element ref="dialog-alt"/>
+    </xs:choice>
+  </xs:group>
+  
+  <xs:element name="dialog">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element dialog (Dialog Element) containing:-                *
+    **********************************************************************
+    * The dialog element provides a method to display a question to the  *
+    * user for the purpose of updating variable values in the State      *
+    * Information.                                                       *
+    **********************************************************************
+    *   applic       - Optional  Single      Applicability               *
+    *====================================================================*
+    *   Mandatory Repeatable Group                                       *
+    *====================================================================*
+    *   fillin       \                       Fill in the blank           *
+    *  or             >Mandatory Single                                  *
+    *   menu         /                       Menu of choices             *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *   id       - ID       - IMPLIED       - Node ID                    *
+    *   Attribute Definition List stored in attribute group "secur".     *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="applic" minOccurs="0"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="fillin"/>
+          <xs:element ref="menu"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID"/>
+      <xs:attributeGroup ref="secur"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="dialog-alt">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element dialog-alt (Dialog Alternatives) containing:-       *
+    **********************************************************************
+    * The dialog-alt element is a pointer to multiple Dialog Elements    *
+    * where only one is valid determined by required applicability on    *
+    * the contained Dialog Elements.                                     *
+    * This element employs the 'Node Alternate' class.                   *
+    **********************************************************************
+    *   dialog       - mandatory repeatable   Dialog Elements            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *   id       - ID       - IMPLIED       - Node ID                    *
+    *   name     - CDATA    - IMPLIED       - Name of the node           *
+    *   Attribute Definition List stored in attribute group "secur".     *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="dialog" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID"/>
+      <xs:attribute name="name" type="xs:string"/>
+      <xs:attributeGroup ref="secur"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="fillin">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element fillin (Fill-In-The-Blank Dialog) containing:-      *
+    **********************************************************************
+    * The fillin element provides a fill-in-the-blank question to the    *
+    * user. It contains a prompt, the variable to store the user's       *
+    * answer in, and optional default and range constraints.             *
+    **********************************************************************
+    *   prompt         - Mandatory Single   Question to the user         *
+    *   variable-ref   - Mandatory Single   Variable to store answer in  *
+    *   text           - Optional  Single   Default answer - prefill     *
+    *   num-range      - Optional  Single   Acceptable number range      *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id        - ID       - IMPLIED     - Element ID                   *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="prompt"/>
+        <xs:element ref="variable-ref"/>
+        <xs:element ref="text" minOccurs="0"/>
+        <xs:element ref="num-range" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="num-range">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element num-range (Fillin Dialog Number Range)              *
+    * containing:-                                                       *
+    **********************************************************************
+    * The num-range element defines the acceptable input for fillin      *
+    * dialogs requiring an integer or real number input. The user's      *
+    * response is to be validated to fall within the num-range.          *
+    **********************************************************************
+    *   low-bound    \                     Low number and up             *
+    *  or             \                                                  *
+    *   double-bound   >Mandatory Single   Between two numbers           *
+    *  or             /                                                  *
+    *   high-bound   /                     Up to high number             *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="low-bound"/>
+        <xs:element ref="double-bound"/>
+        <xs:element ref="high-bound"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="low-bound">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element low-bound (Low Number Range) containing:-           *
+    **********************************************************************
+    * The low-bound element provides either an integer or a real         *
+    * number used to validate the user's input to a fill-in-the-blank    *
+    * type of dialog.                                                    *
+    **********************************************************************
+    *   integer      \                    Integer number                 *
+    *                 >Mandatory Single                                  *
+    *   real         /                    Real number                    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="integer"/>
+        <xs:element ref="real"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="high-bound">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element high-bound (High Number Range) containing:-         *
+    **********************************************************************
+    * The high-bound element provides either an integer or a real        *
+    * number used to validate the user's input to a fill-in-the-blank    *
+    * type of dialog.                                                    *
+    **********************************************************************
+    *   integer      \                    Integer number                 *
+    *                 >Mandatory Single                                  *
+    *   real         /                    Real number                    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="integer"/>
+        <xs:element ref="real"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="double-bound">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element double-bound (Low and High Number Range)            *
+    * containing:-                                                       *
+    **********************************************************************
+    * The double-bound element defines the acceptable input for fillin   *
+    * dialogs requiring an integer or real number input. The user's      *
+    * response is to be validated to fall within the low and high bounds.*
+    **********************************************************************
+    *   low-bound    - Mandatory Single   Low number                     *
+    *   high-bound   - Mandatory Single   High number                    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="low-bound"/>
+        <xs:element ref="high-bound"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="menu">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element menu (Menu Choice Dialog) containing:-              *
+    **********************************************************************
+    * The menu element provides a question to the user with a list of    *
+    * choices.  It contains a prompt and choices. Each choice contains   *
+    * the action to perform if that choice is selected.                  *
+    **********************************************************************
+    *   prompt     - Mandatory Single      Question to the user          *
+    *   menuchoice - Mandatory Repeatable  Choices for the user to choose*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id        - ID       - IMPLIED     - Element ID                   *
+    *  select    - Declared - "single"    - Selection type:              *
+    *              - "single"    - only one choice may be selected.      *
+    *              - "multiple"  - multiple choices may be selected.     *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="prompt"/>
+        <xs:element ref="menuchoice" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID"/>
+      <xs:attribute name="select" default="single">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="single"/>
+            <xs:enumeration value="multiple"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="prompt">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element prompt (Dialog Prompt) containing:-                 *
+    **********************************************************************
+    * The prompt element provides the question presented to the user     *
+    * for both fillin and menu type of dialogs.                          *
+    **********************************************************************
+    *   text         - Mandatory Single   Text of question to the user   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id        - ID       - IMPLIED     - Element ID                   *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="text"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="menuchoice">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element menuchoice (Menu Dialog Choice) containing:-        *
+    **********************************************************************
+    * The menuchoice element provides one choice in a menu dialog. Each  *
+    * choice contains a precondition to specify applicability, the text  *
+    * of the choice, and the action to perform if the choice is selected *
+    * as either changes to the State Information (assertion) or no       *
+    * further action to perform (noassertions).                          *
+    **********************************************************************
+    *   applic       - Optional Single       Applicability               *
+    *   text         - Mandatory Single      Text of the choice          *
+    *====================================================================*
+    *   Mandatory Single Group                                           *
+    *====================================================================*
+    *   assertion    - Mandatory Repeatable   Changes to the State Info  *
+    *  or                                                                *
+    *   noassertions - Mandatory Single       No action to perform.      *
+    *====================================================================*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id        - ID       - IMPLIED     - Element ID                   *
+    *  default   - NUMBER   - "0"         - Whether the choice should be *
+    *                                       pre-selected as the default. *
+    *              - "1"      - Yes                                      *
+    *              - "0"      - No                                       *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="applic" minOccurs="0"/>
+        <xs:element ref="text"/>
+        <xs:choice>
+          <xs:element ref="assertion" maxOccurs="unbounded"/>
+          <xs:element ref="noassertions"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID"/>
+      <xs:attribute name="default" type="yesorno" default="0"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="noassertions">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element noassertions (No Assertions) containing:-           *
+    **********************************************************************
+    * The noassertions element provides for a Dialog Menu Choice that    *
+    * performs no action when selected.                                  *
+    **********************************************************************
+    *   No Other Tags.                                                   *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  
+  
+<!--**********************************************************************
+    **********************************************************************
+    **                                                                  **
+    **           EXPRESSION AND RELATED DEFINITIONS                     **
+    **                                                                  **
+    **********************************************************************
+    ********************************************************************** -->
+    
+  <xs:element name="preset">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element preset (Preset a Variable Value) containing:-       *
+    **********************************************************************
+    * The preset element provides a method to set a variable value       *
+    * in the State Information prior to executing the rest of the        *
+    * content in an element.                                             *
+    **********************************************************************
+    *   assertion    - Mandatory Single  Assertion to execute            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id        - ID       - IMPLIED     - Element ID                   *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="assertion"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="postset">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element postset (Postset a Variable Value) containing:-     *
+    **********************************************************************
+    * The postset element provides a method to set a variable value      *
+    * in the State Information after executing the rest of the content   *
+    * in an element.                                                     *
+    **********************************************************************
+    *   assertion    - Mandatory Single  Assertion to execute            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id        - ID       - IMPLIED     - Element ID                   *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="assertion"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="assertion">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element assertion (Set a Variable Value) containing:-       *
+    **********************************************************************
+    * The assertion element provides the method to set a variable value  *
+    * in the State Information.  The expression is evaluated and the     *
+    * result is assigned to the variable referenced in the State Info.   *
+    **********************************************************************
+    *   variable-ref - Mandatory Single  Reference to the variable to set*
+    *   expression   - Mandatory Single  Results to be stored in variable*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id        - ID       - IMPLIED     - Element ID                   *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="variable-ref"/>
+        <xs:element ref="expression"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="expression">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element expression (Expression Definition) containing:-     *
+    **********************************************************************
+    * The expression element defines an expression to be evaluated when  *
+    * setting a variable value (assertion) or context filtering (applic) *
+    * Four forms of expressions are supported:                           *
+    *     Binary Operations: expression binary-operator expression       *
+    *     Unary Operations:  unary-operator expression                   *
+    *     Variable Value:    variable-ref                                *
+    *     Explicit Value:    value                                       *
+    * Complicated expressions are built using multiple levels of binary  *
+    * and unary expressions.                                             *
+    **********************************************************************
+    *====================================================================*
+    * Mandatory Single Group                                             *
+    *====================================================================*
+    * Binary Form:                                                       *
+    *   expression   - Mandatory Single  First operand of expression     *
+    *   Definition stored in group "BINOP"                               *
+    *                - Mandatory Single  Operator to apply to operands   *
+    *   expression   - Mandatory Single  Second operand of expression    *
+    *====================================================================*
+    * or                                                                 *
+    *====================================================================*
+    * Mandatory Single Group                                             *
+    *====================================================================*
+    * Unary Form:                                                        *
+    *   Definition stored in group "UNOP"                                *
+    *                - Mandatory Single  Operator to apply to operand    *
+    *   expression   - Mandatory Single  Operand of expression           *
+    *====================================================================*
+    * or                                                                 *
+    * Variable Form:                                                     *
+    *   variable-ref - Mandatory Single  Variable value to use in the    *
+    *                                    expression evaluation           *
+    * or                                                                 *
+    * Value Form:                                                        *
+    *   Definition stored in group "VALUE"                               *
+    *                - Mandatory Single  Explicit value to use in the    *
+    *                                    expression evaluation           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id          - ID       - IMPLIED      - Element ID                *
+    *  print-form  - CDATA    - IMPLIED      - Human readable form       *
+    *                                          suitable for printing     *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice>
+        <xs:sequence>
+          <xs:element ref="expression"/>
+          <xs:choice>
+            <xs:element ref="eq"/>
+            <xs:element ref="ne"/>
+            <xs:element ref="lt"/>
+            <xs:element ref="gt"/>
+            <xs:element ref="le"/>
+            <xs:element ref="ge"/>
+            <xs:element ref="and"/>
+            <xs:element ref="or"/>
+            <xs:element ref="xor"/>
+            <xs:element ref="concat"/>
+            <xs:element ref="substring"/>
+            <xs:element ref="plus"/>
+            <xs:element ref="minus"/>
+            <xs:element ref="times"/>
+            <xs:element ref="divide"/>
+            <xs:element ref="idivide"/>
+            <xs:element ref="exponent"/>
+            <xs:element ref="modulus"/>
+            <xs:element ref="add"/>
+            <xs:element ref="remove"/>
+            <xs:element ref="union"/>
+            <xs:element ref="intersect"/>
+            <xs:element ref="set-diff"/>
+            <xs:element ref="member"/>
+            <xs:element ref="subset"/>
+            <xs:element ref="disjoint"/>
+          </xs:choice>
+          <xs:element ref="expression"/>
+        </xs:sequence>
+        <xs:sequence>
+          <xs:choice>
+            <xs:element ref="not"/>
+            <xs:element ref="empty"/>
+            <xs:element ref="neg"/>
+            <xs:element ref="trunc"/>
+            <xs:element ref="float"/>
+            <xs:element ref="index"/>
+            <xs:element ref="defined"/>
+            <xs:element ref="sizeof"/>
+          </xs:choice>
+          <xs:element ref="expression"/>
+        </xs:sequence>
+        <xs:element ref="variable-ref"/>
+        <xs:choice>
+          <xs:element ref="boolean"/>
+          <xs:element ref="string"/>
+          <xs:element ref="real"/>
+          <xs:element ref="integer"/>
+          <xs:element ref="set"/>
+          <xs:element ref="novalue"/>
+        </xs:choice>
+      </xs:choice>
+      <xs:attribute name="id" type="xs:ID"/>
+      <xs:attribute name="print-form" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  
+  
+<!--**********************************************************************
+    **********************************************************************
+    **                                                                  **
+    **                     VARIABLE DEFINITIONS                         **
+    **                                                                  **
+    **********************************************************************
+    ********************************************************************** -->
+    
+  <xs:element name="variable">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element variable (Variable Declaration) containing:-        *
+    **********************************************************************
+    * The variable element declares a variable to be maintained in the   *
+    * state table.                                                       *
+    **********************************************************************
+    *   dialog     - Optional Single - Dialog to present to the user to  *
+    *                                    obtain a value for the variable *
+    *   initialize - Optional Single - Initial value for the variable    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  name        - CDATA    - REQUIRED    - Name of the variable       *
+    *  description - CDATA    - IMPLIED     - Human readable description *
+    *  config      - NUMBER   - "0"         - Is this a config item?     *
+    *                - "1"      - Yes                                    *
+    *                - "0"      - No                                     *
+    *  valuetype   - Declared - "integer"   - Data type the variable     *
+    *                                         represents.                *
+    *                - "boolean"     - Boolean data type.                *
+    *                - "string"      - String data type.                 *
+    *                - "real"        - Real data type.                   *
+    *                - "integer"     - Integer data type.                *
+    *                - "set-string"  - String Set data type.             *
+    *                - "set-real"    - Real Set data type.               *
+    *                - "set-integer" - Integer Set data type.            *
+    *  precision   - CDATA    - IMPLIED    - Precision of real type data.*
+    *  scope       - Declared - "global"   - Scope of the variable       *
+    *                - "global"   - This variable has global scope;      *
+    *                               local scope to be a future addition  *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0">
+          <xs:element ref="dialog"/>
+          <xs:element ref="dialog-alt"/>
+        </xs:choice>
+        <xs:element ref="initialize" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="description" type="xs:string"/>
+      <xs:attribute name="config" type="yesorno" default="0"/>
+      <xs:attribute name="valuetype" default="integer">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="boolean"/>
+            <xs:enumeration value="string"/>
+            <xs:enumeration value="real"/>
+            <xs:enumeration value="integer"/>
+            <xs:enumeration value="set-string"/>
+            <xs:enumeration value="set-real"/>
+            <xs:enumeration value="set-integer"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="precision" type="xs:string"/>
+      <xs:attribute name="scope" default="global">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="global"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="variable-declarations">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element variable-declarations (Variable Declarations):-     *
+    **********************************************************************
+    * The variable-declarations element provides a grouping of           *
+    * variables that will be used in this Data Module                    *
+    **********************************************************************
+    *   variable   - Mandatory Repeatable  - Variables used in this DM   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id        - ID       - IMPLIED     - Element ID                   *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="variable" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="variable-ref">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element variable-ref (Variable Reference) containing:-      *
+    **********************************************************************
+    * The variable-ref element is used to reference the value of the     *
+    * variable with name from the State Information.                     *
+    **********************************************************************
+    *   No Other Tags.                                                   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  name    - CDATA   - REQUIRED   - Name of the variable to reference*
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+ 	<xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="initialize">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element initialize (Initialize a Variable Value)            *
+    * containing:-                                                       *
+    **********************************************************************
+    * The initialize element provides a method to set the initial        *
+    * variable value at the time of creation                             *
+    **********************************************************************
+    *   expression   - Mandatory Single  Value to assign to the variable *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="expression"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+<!--**********************************************************************
+    **********************************************************************
+    **                                                                  **
+    **               EXTERNAL APPLICATION INTERFACE                     **
+    **                                                                  **
+    **********************************************************************
+    ********************************************************************** -->
+
+  <xs:element name="extapp">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element extapp (External Application Interface) containing:-*
+    **********************************************************************
+    * The extapp element defines an external application to interface    *
+    * with including parameters to send to the external application and  *
+    * expected return results.                                           *
+    **********************************************************************
+    *   text       - Mandatory Single    - Description of the interface  *
+    *   send       - Optional Repeatable - Parameters to send            *
+    *   receive    - Optional Repeatable - Return results                *
+    *   recbyname  - Optional Repeatable - Return results by name        *
+    *   recbypos   - Optional Repeatable - Return results by position    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  application - ENTITY   - REQUIRED    - Name of the service being  *
+    *                                         requested                  *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="text"/>
+        <xs:element ref="send" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:choice minOccurs="0">
+          <xs:element ref="receive" maxOccurs="unbounded"/>
+          <xs:element ref="recbyname" maxOccurs="unbounded"/>
+          <xs:element ref="recbypos" maxOccurs="unbounded"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="application" type="xs:ENTITY"/>
+      <xs:attributeGroup ref="bodyatt"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="send">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element send (Send Parameter) containing:-                  *
+    **********************************************************************
+    * The send element defines parameters to send to an external         *
+    * application.                                                       *
+    **********************************************************************
+    *   sendname     - Optional Single  - Name associated with the param *
+    *   variable-ref - Mandatory Single - Value of a Variable            *
+    *   string       - Mandatory Single - Static string value            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="sendname" minOccurs="0"/>
+        <xs:choice>
+          <xs:element ref="variable-ref"/>
+          <xs:element ref="string"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="sendname" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element sendname (Name associated with Send) containing:-   *
+    **********************************************************************
+    * The sendname element defines a name associated with a Send         *
+    * parameter in order to create a name / value pair.                  *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="receive">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element receive (Receive Parameter) containing:-            *
+    **********************************************************************
+    * The receive element defines the Variable in the state information  *
+    * to update with the return value received from an external          *
+    * application.                                                       *
+    **********************************************************************
+    *   variable-ref - Mandatory Single - Variable to update             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="variable-ref"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="recbyname">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element recbyname (Receive Parameter by Name) containing:-  *
+    **********************************************************************
+    * The recbyname element defines what to do with return values from   *
+    * an external application when the return consists of a name / value *
+    * pair.  The element defines a name expected from the external       *
+    * application and a Variable to place the associated return value    *
+    * into.                                                              *
+    **********************************************************************
+    *   recname      - Mandatory Single - Name associated with the return*
+    *   variable-ref - Mandatory Single - Variable to update             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="recname"/>
+        <xs:element ref="variable-ref"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="recname" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element recname (Name of a returned value) containing:-     *
+    **********************************************************************
+    * The recname element defines a name associated with a returned value*
+    * from an external application that returns name / value pairs.      *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="recbypos">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element recbypos (Receive Parameter by Position) containing:*
+    **********************************************************************
+    * The recbypos element defines what to do with return values from    *
+    * an external application.  The element defines an integer position  *
+    * of the return parameter (starting with 1) from the external        *
+    * application and a Variable to place the associated return value    *
+    * into.                                                              *
+    **********************************************************************
+    *   recposition  - Mandatory Single - Position with the return value *
+    *   variable-ref - Mandatory Single - Variable to update             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="recposition"/>
+        <xs:element ref="variable-ref"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="recposition" type="xs:positiveInteger">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element recposition (Position of a returned value)          *
+    *   containing:-                                                     *
+    **********************************************************************
+    * The recposition element defines a position of a returned value     *
+    * from an external application (starting with 1).                    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  
+</xs:schema>

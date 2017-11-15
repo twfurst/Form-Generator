@@ -1,0 +1,348 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+           	
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2002-11FR: Move inclusion of files STEPS.XSD and            *
+    *                   STEPS_INTERACT.XSD from PROCESSSCHEMA.XSD to     *
+    *                   here.                                            *
+    *                   Move inclusion of files FIG_TAB.XSD, LISTS.XSD   *
+    *                   and PARACON_INTERACT.XSD to PROCESSSCHEMA.XSD.   *
+    * 2. CPF 2004-26US: Move up documentation tags directly under their  *
+    *                   respective <xs:element> tag.                     *
+    * 3. CPF 2004-32US: Expand Process DM to include <step1> content:    *
+    *                   Include the schema for the interactive STEPXs.   *
+    *                   Add <prelreqs> and <closereqs> to <process>.     *
+    *                   Add attribute group "bodyatt" instead of a       *
+    *                     single ID in many elements.                    *
+    *                   Remove element <precond> and replace with        *
+    *                     interactive <applic> containing <expression>.  *
+    *                   Add group "STEP1" content to <dm-node>.          *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="process.xsd"/>                         *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Include the HEADING group definition.                              *
+    ********************************************************************** -->
+  <xs:include schemaLocation="heading.xsd"/>
+
+<!--**********************************************************************
+    * Include the NPAR group definition.                                 *
+    ********************************************************************** -->
+  <xs:include schemaLocation="npar.xsd"/>
+
+<!--**********************************************************************
+    * Include the Preliminary Requirements definitions.                  *
+    ********************************************************************** -->
+	<xs:include schemaLocation="prelreq.xsd" />
+
+<!--**********************************************************************
+    * Include the Closeup Requirements definitions.                      *
+    ********************************************************************** -->
+	<xs:include schemaLocation="closereq.xsd" />
+
+<!--**********************************************************************
+    * Include the Step Content definitions.                              *
+    ********************************************************************** -->
+  <xs:include schemaLocation="steps.xsd" />
+
+<!--**********************************************************************
+    * Include the Interactive Step definitions.                          *
+    ********************************************************************** -->
+  <xs:include schemaLocation="steps_interact.xsd" />
+
+  <xs:group name="CONTENT">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Group "CONTENT" (Content Breakdown) containing:-  process.  *
+    **********************************************************************
+		</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="process"/>
+    </xs:sequence>
+  </xs:group>
+
+  <xs:element name="process">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element process (Process Flow) containing:-                 *
+    *   variable-declaratons                                             *
+    *             - Optional  Single      Variable declarations          *
+    *   prelreqs  - Optional  Single      contains pmd, reqconds,        *
+    *                                      reqpers, supequip, supplies,  *
+    *                                      spares, safety.               *
+    *   dm-seq    - Mandatory Single      Sequence of Data Modules       *
+    *   closereqs - Optional  Single      contains reqconds.             *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="variable-declarations" minOccurs="0"/>
+        <xs:element ref="prelreqs" minOccurs="0"/>
+        <xs:element ref="dm-seq" maxOccurs="unbounded"/>
+        <xs:element ref="closereqs" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+      <xs:attributeGroup ref="secur"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="dm-seq">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element dm-seq (Data Module Sequence) containing:-          *
+    **********************************************************************
+    * The dm-seq element sequences multiple Data Modules and/or the      *
+    * interactive constructs of Alternates, If-Then-Else, and Loops.     *
+    * This element employs the 'Node Sequence' class.                    *
+    **********************************************************************
+    *   dm-node       \                        Data Module node          *
+    *   dm-node-alt    >Mandatory Repeatable   Alted Data Module node    *
+    *   dm-if         /                        If-Then-Else DM node      *
+    *   dm-loop      /                         Loop Data Module node     *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="dm-node"/>
+        <xs:element ref="dm-node-alt"/>
+        <xs:element ref="dm-if"/>
+        <xs:element ref="dm-loop"/>
+      </xs:choice>
+      <xs:attributeGroup ref="bodyatt"/>
+      <xs:attributeGroup ref="secur"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="dm-node">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element dm-node (Data Module Node) containing:-             *
+    **********************************************************************
+    * The dm-node element either references another DM, contains a       *
+    * dialog, or contains another sequence of dm-nodes.                  *
+    * This element employs the 'Node' class.                             *
+    **********************************************************************
+    *   applic      - Optional Single       Applicability                *
+    *   preset      - Optional Repeatable   Changes to variable values   *
+    *   refdm  \                          / Data Module reference        *
+    *   step1   \                        /  Step content                 *
+    *   dialog   }  - Mandatory Single  {   Dialog to collect prop values*
+    *   extapp  /                        \  External application call    *
+    *   dm-seq /                          \ Sequence of dm-nodes         *
+    *   postset     - Optional Repeatable   Changes to variable values   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="applic" minOccurs="0"/>
+        <xs:element ref="preset" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:choice>
+          <xs:element ref="refdm"/>
+          <xs:group ref="STEP1" maxOccurs="unbounded"/>
+          <xs:group ref="DIALOG"/>
+          <xs:element ref="extapp"/>
+          <xs:element ref="dm-seq"/>
+        </xs:choice>
+        <xs:element ref="postset" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+      <xs:attributeGroup ref="secur"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="dm-node-alt">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element dm-node-alt (DM Node Alternatives) containing:-     *
+    **********************************************************************
+    * The dm-node-alt element is a pointer to multiple Data Module       *
+    * Nodes where only one is valid determined by applicability          *
+    * on the contained Data Module Nodes.                                *
+    * This element employs the 'Node Alternate' class.                   *
+    **********************************************************************
+    *   dm-node      - Mandatory Repeatable   Data Module Nodes          *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  name     - CDATA    - IMPLIED       - Name of the node.           *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="dm-node" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+      <xs:attribute name="name" type="xs:string"/>
+      <xs:attributeGroup ref="secur"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="dm-if">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element dm-if (If-Then-Else DM Nodes) containing:-          *
+    **********************************************************************
+    * The dm-if element provides an If-Then-Else conditional selection   *
+    * of Data Module Nodes depending on an expression.                   *
+    * This element employs the 'If Node' class.                          *
+    **********************************************************************
+    *   expression   - Mandatory Single  Expression to evaluate          *
+    *   dm-then-seq  - Mandatory Single  Then branch to a dm-seq         *
+    *   dm-else-seq  - Optional  Single  Else branch to a dm-seq         *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="expression"/>
+        <xs:element ref="dm-then-seq"/>
+        <xs:element ref="dm-else-seq" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="dm-then-seq">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element dm-then-seq (Then Branch DM Sequence) containing:-  *
+    **********************************************************************
+    * The dm-then-seq element provides an explicit tag for the Then      *
+    * branch of an If-Then-Else construct.  This is the sequence to be   *
+    * performed when the dm-if expression evaluates to true.             *
+    * This element employs the 'Node Sequence' class.                    *
+    **********************************************************************
+    *   dm-node     \                          / Data Module node        *
+    *   dm-node-alt  \ - Mandatory Repeatable /  Alted Data Module node  *
+    *   dm-if        /                        \  If-Then-Else DM node    *
+    *   dm-loop     /                          \ Loop Data Module node   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="dm-node"/>
+        <xs:element ref="dm-node-alt"/>
+        <xs:element ref="dm-if"/>
+        <xs:element ref="dm-loop"/>
+      </xs:choice>
+      <xs:attributeGroup ref="bodyatt"/>
+      <xs:attributeGroup ref="secur"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="dm-else-seq">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element dm-else-seq (Else Branch DM Sequence) containing:-  *
+    **********************************************************************
+    * The dm-else-seq provides an explicit tag for the Else branch of    *
+    * an If-Then-Else construct.  This is the sequence to be performed   *
+    * when the dm-if expression evaluates to false.                      *
+    * This element employs the 'Node Sequence' class.                    *
+    **********************************************************************
+    *   dm-node     \                          / Data Module node        *
+    *   dm-node-alt  \ - Mandatory Repeatable /  Alted Data Module node  *
+    *   dm-if        /                        \  If-Then-Else DM node    *
+    *   dm-loop     /                          \ Loop Data Module node   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    *  Attribute Definition List stored in attribute group "secur".      *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="dm-node"/>
+        <xs:element ref="dm-node-alt"/>
+        <xs:element ref="dm-if"/>
+        <xs:element ref="dm-loop"/>
+      </xs:choice>
+      <xs:attributeGroup ref="bodyatt"/>
+      <xs:attributeGroup ref="secur"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="dm-loop">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element dm-loop (Loop Data Module Nodes) containing:-       *
+    **********************************************************************
+    * The dm-loop element provides a looping construct for Data Module   *
+    * Nodes depending on an expression.  The construct allows for        *
+    * setting an initial condition and incrementing at loop completion.  *
+    * This element employs the 'Loop Node' class.                        *
+    **********************************************************************
+    *   preset       - Optional  Single  Initial condition variable value*
+    *   expression   - Mandatory Single  Expression to evaluate for loop *
+    *   dm-seq       - Mandatory Single  Seq of Data Modules to loop     *
+    *   assertion    - Optional  Single  Loop end variable value         *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "bodyatt".    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="preset" minOccurs="0"/>
+        <xs:element ref="expression"/>
+        <xs:element ref="dm-seq"/>
+        <xs:element ref="assertion" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+    </xs:complexType>
+  </xs:element>
+
+
+</xs:schema>

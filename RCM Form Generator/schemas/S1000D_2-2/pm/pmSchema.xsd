@@ -1,0 +1,627 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                                                                    *
+    *                   Publication Module (PM)                          *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. Update Schema location path.                                    *
+    * 2. Bug fix:       Correct the definition of empty element unverif. *
+    *                                                                    *
+    *                                                                    *
+    * The following attribute definition on the root element may be used *
+    * to call this set of declarations:-                                 *
+    *                                                                    *
+    * xsi:noNamespaceSchemaLocation=                                     *
+    * "http://www.s1000d.org/S1000D_2-2/xml_schema/pm/pmSchema.xsd"      *
+    ********************************************************************** -->
+
+
+<!--**********************************************************************
+    * Import the RDF Metadata definitions.                               *
+    ********************************************************************** -->
+	<xs:import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+		   schemaLocation="rdf_pm.xsd"/>
+
+<!--**********************************************************************
+    * Import the XLINK definitions.                                      *
+    ********************************************************************** -->
+	<xs:import namespace="http://www.w3.org/1999/xlink" 
+		   schemaLocation="xlink.xsd"/>
+			
+<!--**********************************************************************
+    * Include the Publication Module Component definitions.              *
+    ********************************************************************** -->
+	<xs:include schemaLocation="pmcomps.xsd" />
+
+
+	<xs:element name="pm">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pm (Publication Module) containing:-                *
+    *   rdf:Description  - Optional  Single  contains Defintion stored in*
+    *                                                 group "DCMES".     *
+    *   idstatus         - Mandatory Single  contains pmaddres, pmstatus.*
+    *   content          - Mandatory Single  contains pmentry.           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id       - ID       - IMPLIED  - Unique identifier of element.    *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="rdf:Description" minOccurs="0"/>
+				<xs:element ref="idstatus"/>
+				<xs:element ref="content"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="idstatus">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element idstatus (Identification and Status Section)        *
+    *  containing:-                                                      *
+    *   pmaddres  - Mandatory   Single      contains pmc, pmtitle, issno,*
+    *                                                issdate, language.  *
+    *   pmstatus  - Mandatory   Single      contains security, datarest, *
+    *                                                rpc, orig, effect,  *
+    *                                                media, qa, rfu,     *
+    *                                                remarks.            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element ref="pmaddres"/>
+					<xs:element ref="pmstatus"/>
+				</xs:sequence>
+			</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="pmaddres">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pmaddres (Publication Module Address) containing:-  *
+    *   pmc       - Mandatory   Single    contains modelic, pmissuer     *
+    *                                              pmnumber, pmvolume.   *
+    *   pmtitle   - Mandatory   Single    contains Parsed Character Data.*
+    *   issno     - Mandatory   Single    contains No Other Tags.        *
+    *   issdate   - Mandatory   Single    contains No Other Tags.        *
+    *   language  - Optional    Single    contains No Other Tags.        *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pmc"/>
+				<xs:element ref="pmtitle"/>
+				<xs:element ref="issno"/>
+				<xs:element ref="issdate"/>
+				<xs:element ref="language" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="pmtitle" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pmtitle (Publication Module Title) containing:-     *
+    *   Parsed Character Data.                                           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="pmstatus">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pmstatus (Publication Module Status) containing:-   *
+    *   security  - Mandatory Single      contains No Other Tags.        *
+    *   datarest  - Optional  Single      contains instruct, inform.     *
+    *   rpc       - Mandatory Single      contains Parsed Character Data.*
+    *   orig      - Optional  Single      contains Parsed Character Data.*
+    *   effect    - Optional  Single      contains Parsed Character Data.*
+    *   media     - Optional  Repeatable  contains No Other Tags.        *
+    *   qa        - Mandatory Single      contains unverif, firstver,    *
+    *                                              secver.               *
+    *====================================================================*
+    * Optional Repeatable Group                                          *
+    *====================================================================*
+    *  sbc      - Mandatory Single      contains Definition stored in    *
+    *                                            type "SBC".             *
+    * or                                                                 *
+    *  fic      - Mandatory Single      contains Definition stored in    *
+    *                                            type "FIC".             *
+    *====================================================================*
+    *   rfu       - Optional    Single   contains Definition stored in   *
+    *                                             group "SPAR".          *
+    *   remarks   - Optional    Single   contains Definition stored in   *
+    *                                             group "SPAR".          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="security"/>
+				<xs:element ref="datarest" minOccurs="0"/>
+				<xs:element ref="rpc"/>
+				<xs:element ref="orig" minOccurs="0"/>
+				<xs:element ref="effect" minOccurs="0"/>
+				<xs:element ref="media" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="qa"/>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="sbc"/>
+					<xs:element ref="fic"/>
+				</xs:choice>
+				<xs:element ref="rfu" minOccurs="0"/>
+				<xs:element ref="remarks" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="orig">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element orig (Originator) containing:-                      *
+    *  Parsed Character Data          - The NCAGE code of the originator.*
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  origname - "ORGNAME" - IMPLIED - The name of the originator.      *
+    *  id       - ID        - IMPLIED - Unique identifier of the element.*
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="origname" type="ORGNAME"/>
+					<xs:attribute name="id" type="xs:ID"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="effect" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element effect (Effectivity) containing:-                   *
+    *   Parsed Character Data.                                           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="media">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element media (Distribution Media) containing:-             *
+    *   No Other Tags.                                                   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *   type     - CDATA  - REQUIRED     Media type (CD-ROM, WEB URL,    *
+    *                                                PAPER, ...)         *
+    *   code     - CDATA  - REQUIRED     Media identification NMTOKEN    *
+    *   volume   - CDATA  - IMPLIED      Media volume if required        *
+    *   location - CDATA  - IMPLIED      Media location if required      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="type" use="required"/>
+					<xs:attribute name="code" use="required"/>
+					<xs:attribute name="volume"/>
+					<xs:attribute name="location"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="qa">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element qa (Quality Assurance Status) containing:-          *
+    *   unverif  - Mandatory Single     contains No Other Tags.          *
+    *  or                                                                *
+    *   firstver - Mandatory Single     contains No Other Tags.          *
+    *   secver   - Optional  Single     contains No Other Tags.          *
+    **********************************************************************
+    			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="unverif"/>
+				<xs:sequence>
+					<xs:element ref="firstver"/>
+					<xs:element ref="secver" minOccurs="0"/>
+				</xs:sequence>
+			</xs:choice>
+		</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="rfu">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element rfu (Reason For Update) containing:-                *
+    *   Definition stored in group "SPAR".                               *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:group ref="SPAR" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:complexType>	
+	</xs:element>
+
+	<xs:element name="content">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element content (Publication Module Content) containing:-   *
+    *   pmentry   - Mandatory Repeatable  contains title, refpm, refextp,*
+    *                                              pmentry.              *
+    **********************************************************************
+    			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pmentry" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="pmentry">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pmentry (Publication Module Entry) containing:-     *
+    *   title     - Mandatory   Single   contains Parsed Character Data. *
+    *====================================================================*
+    *   Mandatory Repeatable Group                                       *
+    *====================================================================*
+    *   refdm     - Mandatory   Single   contains dmc, dmtitle, issno,   *
+    *                                             issdate, language.     *
+    *  or                                                                *
+    *   refpm     - Mandatory   Single   contains pmc, pmtitle, issno,   *
+    *                                             issdate, language,     *
+    *                                             security, rpc, media or*
+    *                                             Definition stored in   *
+    *                                             group "XLINKEXT".      *
+    *  or                                                                *
+    *   refextp   - Mandatory   Single   contains pubcode, pubtitle,     *
+    *                                             pubdate, security,     *
+    *                                             rpc, media or          *
+    *                                             Definition stored in   *
+    *                                             group "XLINKEXT".      *
+    *   or                                                               *
+    *    pmentry  - Mandatory   Single   contains title, refdm or refpm  *
+    *                                            or refexttp or pmentry. *
+    *====================================================================*
+    **********************************************************************
+    			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="title"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="refdm"/>
+					<xs:element ref="refpm"/>
+					<xs:element ref="refextp"/>
+					<xs:element ref="pmentry"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="title" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element title (Title) containing:-                          *
+    *   Parsed Character Data.                                           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="refdm">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element refdm (Reference Data Module) containing:-          *
+    *====================================================================*
+    * Mandatory Single Group.                                            *
+    *====================================================================*
+    *   dmc      - Mandatory   Single   contains ave, agee               *
+    *   dmtitle  - Optional    Single   contains techname, infoname.     *
+    *   issno    - Optional    Single   contains No Other Tags.          *
+    *   issdate  - Optional    Single   contains No Other Tags.          *
+    *   language - Optional    Single   contains No Other Tags.          *
+    *====================================================================*
+    * or                                                                 *
+    *  Definition stored in group "XLINKEXT".                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "XLINKATT4".  *
+    **********************************************************************
+    			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="dmc" />
+					<xs:element ref="dmtitle" minOccurs="0" />
+					<xs:element ref="issno" minOccurs="0" />
+					<xs:element ref="issdate" minOccurs="0" />
+					<xs:element ref="language" minOccurs="0" />
+				</xs:sequence>
+				<xs:group ref="xlink:XLINKEXT" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:attributeGroup ref="xlink:XLINKATT4"/>
+		</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="refpm">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element refpm (Reference Publication Module) containing:-   *
+    *====================================================================*
+    * Mandatory Single Group.                                            *
+    *====================================================================*
+    *   pmc      - Mandatory Single      contains modelic, pmissuer,     *
+    *                                             pmnumber, pmvolume.    *
+    *   pmtitle  - Optional  Single      contains Parsed Character Data. *
+    *   issno    - Optional  Single      contains No Other Tags.         *
+    *   issdate  - Optional  Single      contains No Other Tags.         *
+    *   language - Optional  Single      contains No Other Tags.         *
+    *   security - Optional  Single      contains No Other Tags.         *
+    *   rpc      - Optional  Single      contains No Other Tags.         *
+    *   media    - Optional  Repeatable  contains No Other Tags.         *
+    *====================================================================*
+    * or                                                                 *
+    *  Definition stored in group "XLINKEXT".                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "XLINKATT".   *
+    **********************************************************************
+    			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="pmc"/>
+					<xs:element ref="pmtitle" minOccurs="0"/>
+					<xs:element ref="issno" minOccurs="0"/>
+					<xs:element ref="issdate" minOccurs="0"/>
+					<xs:element ref="language" minOccurs="0"/>
+					<xs:element ref="security" minOccurs="0"/>
+					<xs:element ref="rpc" minOccurs="0"/>
+					<xs:element ref="media" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:group ref="xlink:XLINKEXT" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:attributeGroup ref="xlink:XLINKATT"/>
+		</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="refextp">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element refextp (Reference External Technical Publication)  *
+    *  containing:-                                                      *
+    *====================================================================*
+    * Mandatory Single Group.                                            *
+    *====================================================================*
+    *   pubcode  - Mandatory Single      contains Parsed Character Data. *
+    *   pubtitle - Optional  Single      contains Parsed Character Data. *
+    *   pubdate  - Optional  Single      contains No Other Tags.         *
+    *   security - Optional  Single      contains No Other Tags.         *
+    *   rpc      - Optional  Single      contains No Other Tags.         *
+    *   media    - Optional  Repeatable  contains No Other Tags.         *
+    *====================================================================*
+    * or                                                                 *
+    *  Definition stored in group "XLINKEXT".                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  Attribute Definition List stored in attribute group "XLINKATT4".  *
+    **********************************************************************
+    			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="pubcode"/>
+					<xs:element ref="pubtitle" minOccurs="0"/>
+					<xs:element ref="pubdate" minOccurs="0"/>
+					<xs:element ref="security" minOccurs="0"/>
+					<xs:element ref="rpc" minOccurs="0"/>
+					<xs:element ref="media" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:group ref="xlink:XLINKEXT" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:attributeGroup ref="xlink:XLINKATT4"/>
+		</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="pubcode">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pubcode (Publication Code) containing:-             *
+    *   Parsed Character Data.                                           *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *   pubcodsy - CDATA - IMPLIED - Publication coding system/scheme.   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="pubcodsy"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="pubtitle" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pubtitle (Publication Title) containing:-           *
+    *   Parsed Character Data.                                           *
+    **********************************************************************
+    			</xs:documentation>
+		</xs:annotation>	
+	</xs:element>
+
+	<xs:element name="pubdate">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pubdate (Publication Date) containing:-             *
+    *   No Other Tags.                                                   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *   Definition stored in group "DATE".                               *
+    **********************************************************************
+    			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attributeGroup ref="DATE"/>
+		</xs:complexType>
+	</xs:element>
+         
+	<xs:element name="unverif">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element unverif (Unverified) containing:-                   *
+    *   No Other Tags.                                                   *
+    **********************************************************************
+    			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType/>
+	</xs:element>
+<!-- Content model corrected -->
+
+	<xs:element name="firstver">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element firstver (First Verification) containing:-          *
+    *   No Other Tags.                                                   *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  type   - Declared - REQUIRED - Type of verification performed.    *
+    *            - "tabtop"   - Performed with only designs and drawings.*
+    *            - "onobject" - Performed with actual piece of equipment.*
+    *            - "ttandoo"  - Performed by both the above ways.        *
+    **********************************************************************
+    			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="tabtop"/>
+						<xs:enumeration value="onobject"/>
+						<xs:enumeration value="ttandoo"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="secver">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element secver (Second Verification) containing:-           *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  type   - Declared - REQUIRED - Type of verification performed.    *
+    *            - "tabtop"   - Performed with only designs and drawings.*
+    *            - "onobject" - Performed with actual piece of equipment.*
+    *            - "ttandoo"  - Performed by both the above ways.        *
+    **********************************************************************
+    			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:enumeration value="tabtop"/>
+						<xs:enumeration value="onobject"/>
+						<xs:enumeration value="ttandoo"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="sbc">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element sbc (System Breakdown Code) containing:-            *
+    *   Definition stored in type "SBC".                                 *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id       - ID       - IMPLIED - Unique identifier of system       *
+    *                                   breakdown code                   *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+<!-- Removed mixed="true" which is not allowed for simple content -->
+			<xs:simpleContent>
+				<xs:extension base="SBC">
+					<xs:attribute name="id" type="xs:ID"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="fic" type="FIC">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element fic (Functional Item Code) containing:-             *
+    *   Definition stored in type "FIC".                                 *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+
+</xs:schema>
+

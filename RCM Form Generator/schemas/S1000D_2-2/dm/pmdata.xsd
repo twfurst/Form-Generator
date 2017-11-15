@@ -1,0 +1,446 @@
+<?xml version="1.0"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           	elementFormDefault="qualified"
+           	attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.0                            *
+    *                       Date: 2003-05-31                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. Update public identifier.                                       *
+    * 2. CPF 1999-41UK: Change type of attribute uom on thi to CDATA.    *
+    * 3. CPF 2000-11D:  Make subelements avehcfg and opndurn optional    *
+    *                   within content model of element pmd.             *
+    * 4. Consistency:   Change declared values of attributes status and  *
+    *                   power from uppercase to lowercase.               *
+    * 5. CPF 2001-74SE: Change declaration of values for attribute uom   *
+    *                   of element thi to "THIUOMS" (decl in S1000D.CFG).*
+    *                                                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="pmdata.xsd"/>                          *
+    ********************************************************************** -->
+
+	<xs:attributeGroup name="PMDATA_STAT_POW">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Attribute Group PMDATA_STAT_POW (Attributes status, power)  *
+    * containing:-                                                       *
+    *  Attribute Definition List.                                        *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  status    - Declared      - REQUIRED - Status of vehicle          *
+    *                                         configuration criteria     *
+    *              - "yes"         - Obligation                          *
+    *              - "no"          - Prohibited                          *
+    *              - "indiffer"    - Indifferent                         *
+    *              - "na"          - Not Applicable                      *
+    *  power     - Declared      - REQUIRED - Power source               *
+    *              - "engine"      - Engine                              *
+    *              - "apu"         - APU                                 *
+    *              - "external"    - External                            *
+    *              - "internal"    - Internal                            *
+    *              - "indifferent" - Indifferent                         *
+    *              - "notapplic"   - Not Applicable                      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="status" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="yes"/>
+					<xs:enumeration value="no"/>
+					<xs:enumeration value="indiffer"/>
+					<xs:enumeration value="na"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="power" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="engine"/>
+					<xs:enumeration value="apu"/>
+					<xs:enumeration value="external"/>
+					<xs:enumeration value="internal"/>
+					<xs:enumeration value="indifferent"/>
+					<xs:enumeration value="notapplic"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:attributeGroup>
+
+	<xs:element name="pmd">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element pmd (Production Management Data) containing:-       *
+    *  thi      - Optional  Repeatable  contains Parsed Character Data.  *
+    *  zone     - Optional  Repeatable  contains Parsed Character Data.  *
+    *  accpnl   - Optional  Repeatable  contains Parsed Character Data.  *
+    *  avehcfg  - Optional  Single      contains jacked, safedev,        *
+    *                                    elecpwr, hydpwr, airpwr, fuel,  *
+    *                                    water, fcposn.                  *
+    *  opndurn  - Optional  Single      contains No Other Tags.          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="thi" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="zone" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="accpnl" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="avehcfg" minOccurs="0"/>
+				<xs:element ref="opndurn" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="thi">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element thi (Threshold Interval) containing:-               *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  uom       - "THIUOMS"   - REQUIRED - Unit of Measurement          *
+    *                                       "THIUOMS" decl in S1000D.CFG *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>	
+		<xs:complexType mixed="true">
+			<xs:attribute name="uom" type="THIUOMS" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="zone">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element zone (Zone) containing:-                            *
+    *  Parsed Character Data.                                            *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *  id       - ID     - IMPLIED - Unique identifier of zone           *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="id" type="xs:ID"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="accpnl" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element accpnl (Access Panel) containing:-                  *
+    *  Parsed Character Data.                                            *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="avehcfg">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element avehcfg (All Vehicle Required Conditions)           *
+    * containing:-                                                       *
+    *  jacked   - Mandatory Single  contains No Other Tags.              *
+    *  safedev  - Mandatory Single  contains No Other Tags.              *
+    *  elecpwr  - Mandatory Single  contains No Other Tags.              *
+    *  hydpwr   - Mandatory Single  contains No Other Tags.              *
+    *  airpwr   - Mandatory Single  contains No Other Tags.              *
+    *  fuel     - Mandatory Single  contains No Other Tags.              *
+    *  water    - Mandatory Single  contains No Other Tags.              *
+    *  fcposn   - Mandatory Single  contains No Other Tags.              *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="jacked"/>
+				<xs:element ref="safedev"/>
+				<xs:element ref="elecpwr"/>
+				<xs:element ref="hydpwr"/>
+				<xs:element ref="airpwr"/>
+				<xs:element ref="fuel"/>
+				<xs:element ref="water"/>
+				<xs:element ref="fcposn"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="jacked">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element jacked (Jacked) containing:-                        *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  status    - Declared      - REQUIRED - Status of vehicle          *
+    *                                         configuration criteria     *
+    *              - "yes"         - Obligation                          *
+    *              - "no"          - Prohibited                          *
+    *              - "indiffer"    - Indifferent                         *
+    *              - "na"          - Not Applicable                      *
+    *  power     - Declared      - REQUIRED - Power source               *
+    *              - "engine"      - Engine                              *
+    *              - "apu"         - APU                                 *
+    *              - "external"    - External                            *
+    *              - "internal"    - Internal                            *
+    *              - "indifferent" - Indifferent                         *
+    *              - "notapplic"   - Not Applicable                      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attributeGroup ref="PMDATA_STAT_POW"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="safedev">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element safedev (Safety devices) containing:-               *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  status    - Declared      - REQUIRED - Status of vehicle          *
+    *                                         configuration criteria     *
+    *              - "yes"         - Obligation                          *
+    *              - "no"          - Prohibited                          *
+    *              - "indiffer"    - Indifferent                         *
+    *              - "na"          - Not Applicable                      *
+    *  power     - Declared      - REQUIRED - Power source               *
+    *              - "engine"      - Engine                              *
+    *              - "apu"         - APU                                 *
+    *              - "external"    - External                            *
+    *              - "internal"    - Internal                            *
+    *              - "indifferent" - Indifferent                         *
+    *              - "notapplic"   - Not Applicable                      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attributeGroup ref="PMDATA_STAT_POW"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="elecpwr">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element elecpwr (Electrical power) containing:-             *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  status    - Declared      - REQUIRED - Status of vehicle          *
+    *                                         configuration criteria     *
+    *              - "yes"         - Obligation                          *
+    *              - "no"          - Prohibited                          *
+    *              - "indiffer"    - Indifferent                         *
+    *              - "na"          - Not Applicable                      *
+    *  power     - Declared      - REQUIRED - Power source               *
+    *              - "engine"      - Engine                              *
+    *              - "apu"         - APU                                 *
+    *              - "external"    - External                            *
+    *              - "internal"    - Internal                            *
+    *              - "indifferent" - Indifferent                         *
+    *              - "notapplic"   - Not Applicable                      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attributeGroup ref="PMDATA_STAT_POW"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="hydpwr">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element hydpwr (Hydraulic power) containing:-               *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  status    - Declared      - REQUIRED - Status of vehicle          *
+    *                                         configuration criteria     *
+    *              - "yes"         - Obligation                          *
+    *              - "no"          - Prohibited                          *
+    *              - "indiffer"    - Indifferent                         *
+    *              - "na"          - Not Applicable                      *
+    *  power     - Declared      - REQUIRED - Power source               *
+    *              - "engine"      - Engine                              *
+    *              - "apu"         - APU                                 *
+    *              - "external"    - External                            *
+    *              - "internal"    - Internal                            *
+    *              - "indifferent" - Indifferent                         *
+    *              - "notapplic"   - Not Applicable                      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attributeGroup ref="PMDATA_STAT_POW"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="airpwr">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element airpwr (Air power) containing:-                     *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  status    - Declared      - REQUIRED - Status of vehicle          *
+    *                                         configuration criteria     *
+    *              - "yes"         - Obligation                          *
+    *              - "no"          - Prohibited                          *
+    *              - "indiffer"    - Indifferent                         *
+    *              - "na"          - Not Applicable                      *
+    *  power     - Declared      - REQUIRED - Power source               *
+    *              - "engine"      - Engine                              *
+    *              - "apu"         - APU                                 *
+    *              - "external"    - External                            *
+    *              - "internal"    - Internal                            *
+    *              - "indifferent" - Indifferent                         *
+    *              - "notapplic"   - Not Applicable                      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attributeGroup ref="PMDATA_STAT_POW"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="fuel">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element fuel (Fuel) containing:-                            *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  status    - Declared      - REQUIRED - Status of vehicle          *
+    *                                         configuration criteria     *
+    *              - "yes"         - Obligation                          *
+    *              - "no"          - Prohibited                          *
+    *              - "indiffer"    - Indifferent                         *
+    *              - "na"          - Not Applicable                      *
+    *  power     - Declared      - REQUIRED - Power source               *
+    *              - "engine"      - Engine                              *
+    *              - "apu"         - APU                                 *
+    *              - "external"    - External                            *
+    *              - "internal"    - Internal                            *
+    *              - "indifferent" - Indifferent                         *
+    *              - "notapplic"   - Not Applicable                      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attributeGroup ref="PMDATA_STAT_POW"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="water">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element water (Water) containing:-                          *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  status    - Declared      - REQUIRED - Status of vehicle          *
+    *                                         configuration criteria     *
+    *              - "yes"         - Obligation                          *
+    *              - "no"          - Prohibited                          *
+    *              - "indiffer"    - Indifferent                         *
+    *              - "na"          - Not Applicable                      *
+    *  power     - Declared      - REQUIRED - Power source               *
+    *              - "engine"      - Engine                              *
+    *              - "apu"         - APU                                 *
+    *              - "external"    - External                            *
+    *              - "internal"    - Internal                            *
+    *              - "indifferent" - Indifferent                         *
+    *              - "notapplic"   - Not Applicable                      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attributeGroup ref="PMDATA_STAT_POW"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="fcposn">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element fcposn (Flight control position) containing:-       *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  status    - Declared      - REQUIRED - Status of vehicle          *
+    *                                         configuration criteria     *
+    *              - "yes"         - Obligation                          *
+    *              - "no"          - Prohibited                          *
+    *              - "indiffer"    - Indifferent                         *
+    *              - "na"          - Not Applicable                      *
+    *  power     - Declared      - REQUIRED - Power source               *
+    *              - "engine"      - Engine                              *
+    *              - "apu"         - APU                                 *
+    *              - "external"    - External                            *
+    *              - "internal"    - Internal                            *
+    *              - "indifferent" - Indifferent                         *
+    *              - "notapplic"   - Not Applicable                      *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attributeGroup ref="PMDATA_STAT_POW"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="opndurn">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Element opndurn (Operation Duration) containing:-           *
+    *  No Other Tags.                                                    *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):                                                      *
+    *  prelreqs - CDATA  - REQUIRED  - Duration of preliminary           *
+    *                                  requirements (manhours)           *
+    *  proced   - CDATA  - REQUIRED  - Duration of procedure (manhours)  *
+    *  closeup  - CDATA  - REQUIRED  - Duration of close-up requirements *
+    *                                  (manhours)                        *
+    *  id       - ID     - IMPLIED   - Unique identifier of Operation    *
+    *                                  Duration                          *
+    **********************************************************************
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="prelreqs" type="xs:string" use="required"/>
+			<xs:attribute name="proced" type="xs:string" use="required"/>
+			<xs:attribute name="closeup" type="xs:string" use="required"/>
+			<xs:attribute name="id" type="xs:ID"/>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

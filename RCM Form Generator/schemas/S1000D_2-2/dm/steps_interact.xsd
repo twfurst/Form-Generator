@@ -1,0 +1,261 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           attributeFormDefault="qualified">
+
+<!--**********************************************************************
+    *                                                                    *
+    *                        S1000D Issue 2                              *
+    *                          XML Schema                                *
+    *                                                                    *
+    *                     Release Version 2.2                            *
+    *                       Date: 2005-05-01                             *
+    *                                                                    *
+    * Amendment:-                                                        *
+    * 1. CPF 2004-32US: Expand Process DM to include <step1> content:    *
+    *                   Create STEPX content groups for interactive      *
+    *                   data modules.                                    *
+    *                                                                    *
+    * The following include statement may be used to call this set of    *
+    * declarations:-                                                     *
+    *                                                                    *
+    * <xs:include schemaLocation="steps_interact.xsd"/>                  *
+    ********************************************************************** -->
+
+	<xs:group name="STEP1">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group STEP1 (First Level Step content) containing:-         *
+    *  step1     - Mandatory Single       contains Definition stored in  *
+    *                                     group "stepcon", step2.        *
+    *  step1-alt - Mandatory Single       contains one or more step1.    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="step1"/>
+			<xs:element ref="step1-alt"/>
+		</xs:choice>
+	</xs:group>
+
+  <xs:element name="step1-alt">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element step1-alt (step1 Alternatives) containing:-         *
+    **********************************************************************
+    * The step1-alt element is a pointer to multiple step1 elements      *
+    * where only one is valid determined by applicability on the         *
+    * contained step1 elements.                                          *
+    * This element employs the 'Node Alternate' class.                   *
+    **********************************************************************
+    *   step1        - Mandatory Repeatable   Data Module Nodes          *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *   Definition stored in attribute group "bodyatt".                  *
+    *   name     - CDATA    - IMPLIED       - Name of the node.          *
+    *   Definition stored in attribute group "secur".                    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="step1" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+      <xs:attribute name="name" type="xs:string"/>
+      <xs:attributeGroup ref="secur"/>
+    </xs:complexType>
+  </xs:element>
+
+	<xs:group name="STEP2">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group STEP2 (Second Level Step content) containing:-        *
+    *  step2     - Mandatory Single       contains definition stored in  *
+    *                                     group "stepcon", step3.        *
+    *  step2-alt - Mandatory Single       contains one or more step2.    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="step2"/>
+			<xs:element ref="step2-alt"/>
+		</xs:choice>
+	</xs:group>
+
+  <xs:element name="step2-alt">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element step2-alt (step2 Alternatives) containing:-         *
+    **********************************************************************
+    * The step1-alt element is a pointer to multiple step2 elements      *
+    * where only one is valid determined by applicability on the         *
+    * contained step1 elements.                                          *
+    * This element employs the 'Node Alternate' class.                   *
+    **********************************************************************
+    *   step1        - Mandatory Repeatable   Data Module Nodes          *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *   Definition stored in attribute group "bodyatt".                  *
+    *   name     - CDATA    - IMPLIED       - Name of the node.          *
+    *   Definition stored in attribute group "secur".                    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="step2" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+      <xs:attribute name="name" type="xs:string"/>
+      <xs:attributeGroup ref="secur"/>
+    </xs:complexType>
+  </xs:element>
+
+	<xs:group name="STEP3">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group STEP3 (Third Level Step content) containing:-         *
+    *  step3     - Mandatory Single       contains definition stored in  *
+    *                                     group "stepcon", step4.        *
+    *  step3-alt - Mandatory Single       contains one or more step3.    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="step3"/>
+			<xs:element ref="step3-alt"/>
+		</xs:choice>
+	</xs:group>
+
+  <xs:element name="step3-alt">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element step3-alt (step3 Alternatives) containing:-         *
+    **********************************************************************
+    * The step1-alt element is a pointer to multiple step3 elements      *
+    * where only one is valid determined by applicability on the         *
+    * contained step1 elements.                                          *
+    * This element employs the 'Node Alternate' class.                   *
+    **********************************************************************
+    *   step1        - Mandatory Repeatable   Data Module Nodes          *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *   Definition stored in attribute group "bodyatt".                  *
+    *   name     - CDATA    - IMPLIED       - Name of the node.          *
+    *   Definition stored in attribute group "secur".                    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="step3" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+      <xs:attribute name="name" type="xs:string"/>
+      <xs:attributeGroup ref="secur"/>
+    </xs:complexType>
+  </xs:element>
+
+	<xs:group name="STEP4">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group STEP4 (Fourth Level Step content) containing:-        *
+    *  step4     - Mandatory Single       contains definition stored in  *
+    *                                     group "stepcon", step5.        *
+    *  step4-alt - Mandatory Single       contains one or more step4.    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="step4"/>
+			<xs:element ref="step4-alt"/>
+		</xs:choice>
+	</xs:group>
+
+  <xs:element name="step4-alt">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element step4-alt (step4 Alternatives) containing:-         *
+    **********************************************************************
+    * The step1-alt element is a pointer to multiple step4 elements      *
+    * where only one is valid determined by applicability on the         *
+    * contained step1 elements.                                          *
+    * This element employs the 'Node Alternate' class.                   *
+    **********************************************************************
+    *   step1        - Mandatory Repeatable   Data Module Nodes          *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *   Definition stored in attribute group "bodyatt".                  *
+    *   name     - CDATA    - IMPLIED       - Name of the node.          *
+    *   Definition stored in attribute group "secur".                    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="step4" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+      <xs:attribute name="name" type="xs:string"/>
+      <xs:attributeGroup ref="secur"/>
+    </xs:complexType>
+  </xs:element>
+
+	<xs:group name="STEP5">
+		<xs:annotation>
+			<xs:documentation>
+    **********************************************************************
+    * Define Group STEP5 (Fifth Level Step content) containing:-         *
+    *  step5     - Mandatory Single       contains definition stored in  *
+    *                                     group "stepcon".               *
+    *  step5-alt - Mandatory Single       contains one or more step5.    *
+    ********************************************************************** 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="step5"/>
+			<xs:element ref="step5-alt"/>
+		</xs:choice>
+	</xs:group>
+
+  <xs:element name="step5-alt">
+    <xs:annotation>
+      <xs:documentation>
+    **********************************************************************
+    * Define Element step5-alt (step5 Alternatives) containing:-         *
+    **********************************************************************
+    * The step1-alt element is a pointer to multiple step5 elements      *
+    * where only one is valid determined by applicability on the         *
+    * contained step1 elements.                                          *
+    * This element employs the 'Node Alternate' class.                   *
+    **********************************************************************
+    *   step1        - Mandatory Repeatable   Data Module Nodes          *
+    *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*
+    * Attribute(s):-                                                     *
+    *   Definition stored in attribute group "bodyatt".                  *
+    *   name     - CDATA    - IMPLIED       - Name of the node.          *
+    *   Definition stored in attribute group "secur".                    *
+    **********************************************************************
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="step5" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="bodyatt"/>
+      <xs:attribute name="name" type="xs:string"/>
+      <xs:attributeGroup ref="secur"/>
+    </xs:complexType>
+  </xs:element>
+  
+
+</xs:schema>
