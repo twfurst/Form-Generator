@@ -14,6 +14,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Create PDF"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="popUpPdfItemActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="popUpPdfItem.setIcon(getIcon(&quot;notebook.png&quot;, new Dimension(16, 16)));"/>
           </AuxValues>
@@ -22,6 +25,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Create Boilerplate"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="popUpBpItemActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="popUpBpItem.setIcon(getIcon(&quot;notepad.png&quot;, new Dimension(16,16)));"/>
           </AuxValues>

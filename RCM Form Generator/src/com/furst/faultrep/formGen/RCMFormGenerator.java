@@ -135,10 +135,20 @@ public class RCMFormGenerator extends JRibbonFrame {
 
         popUpPdfItem.setText("Create PDF");
         popUpPdfItem.setIcon(getIcon("notebook.png", new Dimension(16, 16)));
+        popUpPdfItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popUpPdfItemActionPerformed(evt);
+            }
+        });
         tablePopUpMenu.add(popUpPdfItem);
 
         popUpBpItem.setText("Create Boilerplate");
         popUpBpItem.setIcon(getIcon("notepad.png", new Dimension(16,16)));
+        popUpBpItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popUpBpItemActionPerformed(evt);
+            }
+        });
         tablePopUpMenu.add(popUpBpItem);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -231,6 +241,14 @@ public class RCMFormGenerator extends JRibbonFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void popUpPdfItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popUpPdfItemActionPerformed
+        createSinglePdf();
+    }//GEN-LAST:event_popUpPdfItemActionPerformed
+
+    private void popUpBpItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popUpBpItemActionPerformed
+        createSingleBp();
+    }//GEN-LAST:event_popUpBpItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,7 +367,7 @@ public class RCMFormGenerator extends JRibbonFrame {
         jProgressBar1.setString("Creating PDFs...");
         jProgressBar1.setIndeterminate(true);
         FolderTableModel model = (FolderTableModel)folderTable.getModel();
-        final List<DataModuleObject> dms = model.getAllMods();
+        final DataModuleObject d = model.getDmod(folderTable.getSelectedRow());
         SwingWorker<Boolean, Integer> worker = new SwingWorker<Boolean, Integer>()
         {
             @Override
@@ -361,14 +379,9 @@ public class RCMFormGenerator extends JRibbonFrame {
                 }
                 else
                 {
-                    for(DataModuleObject d : dms)
-                    {
-                        jProgressBar1.setString("Creating " + d.getBaseDmc() + " PDF...");
-                        publishOutput("Creating " + d.getBaseDmc() + " PDF");
-//                        outputArea.append("Processing " + d.getBaseDmc() + "...\n");
-//                        outputArea.setCaretPosition(outputArea.getText().length());
-                        populatePdf(d);
-                    }
+                    jProgressBar1.setString("Creating " + d.getBaseDmc() + " PDF...");
+                    publishOutput("Creating " + d.getBaseDmc() + " PDF");
+                    populatePdf(d);
                 }
                 
                 return true; 
@@ -622,6 +635,7 @@ public class RCMFormGenerator extends JRibbonFrame {
         catch (IOException | FOPException | TransformerException ex) {
             java.util.logging.Logger.getLogger(RCMFormGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        processFolder(new File(folderPath));
     }
     
     private void populateBp(DataModuleObject dmod)
