@@ -4,6 +4,30 @@
   <NonVisualComponents>
     <Component class="javax.swing.JFileChooser" name="jFileChooser1">
     </Component>
+    <Container class="javax.swing.JPopupMenu" name="tablePopUpMenu">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+      <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="popUpPdfItem">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Create PDF"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="popUpPdfItem.setIcon(getIcon(&quot;notebook.png&quot;, new Dimension(16, 16)));"/>
+          </AuxValues>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="popUpBpItem">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Create Boilerplate"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="popUpBpItem.setIcon(getIcon(&quot;notepad.png&quot;, new Dimension(16,16)));"/>
+          </AuxValues>
+        </MenuItem>
+      </SubComponents>
+    </Container>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -74,7 +98,7 @@
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List&lt;DataModuleObject&gt; dummyList = new ArrayList();&#xa;DataModuleObject dmo = new DataModuleObject(&quot;TEST&quot;,true,false);&#xa;dummyList.add(dmo);&#xa;ftm = new FolderTableModel(dummyList);"/>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="//folderTable.setDefaultRenderer(Object.class, new BoolCellRenderer());&#xa;clearTable();&#xa;((JComponent) folderTable.getDefaultRenderer(Boolean.class)).setOpaque(true);&#xa;//folderTable.getColumnModel().getColumn(1).setCellRenderer(new BoolCellRenderer());&#xa;//folderTable.getColumnModel().getColumn(2).setCellRenderer(new BoolCellRenderer());"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="//folderTable.setDefaultRenderer(Object.class, new BoolCellRenderer());&#xa;clearTable();&#xa;((JComponent) folderTable.getDefaultRenderer(Boolean.class)).setOpaque(true);&#xa;folderTable.setComponentPopupMenu(tablePopUpMenu);&#xa;//folderTable.getColumnModel().getColumn(1).setCellRenderer(new BoolCellRenderer());&#xa;//folderTable.getColumnModel().getColumn(2).setCellRenderer(new BoolCellRenderer());"/>
               </AuxValues>
             </Component>
           </SubComponents>

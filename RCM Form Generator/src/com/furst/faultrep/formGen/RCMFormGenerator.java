@@ -116,6 +116,9 @@ public class RCMFormGenerator extends JRibbonFrame {
     private void initComponents() {
 
         jFileChooser1 = new javax.swing.JFileChooser();
+        tablePopUpMenu = new javax.swing.JPopupMenu();
+        popUpPdfItem = new javax.swing.JMenuItem();
+        popUpBpItem = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         List<DataModuleObject> dummyList = new ArrayList();
@@ -130,6 +133,14 @@ public class RCMFormGenerator extends JRibbonFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         outputArea = new javax.swing.JTextArea();
 
+        popUpPdfItem.setText("Create PDF");
+        popUpPdfItem.setIcon(getIcon("notebook.png", new Dimension(16, 16)));
+        tablePopUpMenu.add(popUpPdfItem);
+
+        popUpBpItem.setText("Create Boilerplate");
+        popUpBpItem.setIcon(getIcon("notepad.png", new Dimension(16,16)));
+        tablePopUpMenu.add(popUpBpItem);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Forms Generator");
         setMinimumSize(new java.awt.Dimension(1300, 600));
@@ -138,6 +149,7 @@ public class RCMFormGenerator extends JRibbonFrame {
         //folderTable.setDefaultRenderer(Object.class, new BoolCellRenderer());
         clearTable();
         ((JComponent) folderTable.getDefaultRenderer(Boolean.class)).setOpaque(true);
+        folderTable.setComponentPopupMenu(tablePopUpMenu);
         //folderTable.getColumnModel().getColumn(1).setCellRenderer(new BoolCellRenderer());
         //folderTable.getColumnModel().getColumn(2).setCellRenderer(new BoolCellRenderer());
         jScrollPane1.setViewportView(folderTable);
@@ -259,6 +271,11 @@ public class RCMFormGenerator extends JRibbonFrame {
         String resource = "com/furst/faultrep/icons/" + res;
         return ImageWrapperResizableIcon.getIcon(RCMFormGenerator.class.getClassLoader().getResource(resource), new Dimension(32, 32));
     }
+    
+    private ResizableIcon getIcon(String res, Dimension dim) {
+        String resource = "com/furst/faultrep/icons/" + res;
+        return ImageWrapperResizableIcon.getIcon(RCMFormGenerator.class.getClassLoader().getResource(resource), dim);
+    }
     //method call to process the files
     /*
         1. find all .xml
@@ -320,6 +337,55 @@ public class RCMFormGenerator extends JRibbonFrame {
         dmCounterLabel.setText(counterText);
     }
     
+    private void createSinglePdf()
+    {
+        /*
+            swing worker
+            sys out listeners for FOP output to ta
+            look into colored text for differnet level severity
+        */
+        jProgressBar1.setVisible(true);
+        jProgressBar1.setStringPainted(true);
+        jProgressBar1.setString("Creating PDFs...");
+        jProgressBar1.setIndeterminate(true);
+        FolderTableModel model = (FolderTableModel)folderTable.getModel();
+        final List<DataModuleObject> dms = model.getAllMods();
+        SwingWorker<Boolean, Integer> worker = new SwingWorker<Boolean, Integer>()
+        {
+            @Override
+            protected Boolean doInBackground() 
+            {
+                if(rp.getWriter().equals("Choose...") || rp.getQa1().equals("Choose...") || rp.getAtr().equals("Choose..."))
+                {
+                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+                }
+                else
+                {
+                    for(DataModuleObject d : dms)
+                    {
+                        jProgressBar1.setString("Creating " + d.getBaseDmc() + " PDF...");
+                        publishOutput("Creating " + d.getBaseDmc() + " PDF");
+//                        outputArea.append("Processing " + d.getBaseDmc() + "...\n");
+//                        outputArea.setCaretPosition(outputArea.getText().length());
+                        populatePdf(d);
+                    }
+                }
+                
+                return true; 
+            }
+            @Override
+            protected void done()
+            {
+                publishOutput("Processing complete");
+                jProgressBar1.setIndeterminate(false);
+                jProgressBar1.setStringPainted(false);
+                jProgressBar1.setVisible(false);
+            }
+
+        };
+        worker.execute();
+    }
+    
     private void createPdf()
     {
         /*
@@ -359,6 +425,7 @@ public class RCMFormGenerator extends JRibbonFrame {
             @Override
             protected void done()
             {
+                publishOutput("Processing complete");
                 jProgressBar1.setIndeterminate(false);
                 jProgressBar1.setStringPainted(false);
                 jProgressBar1.setVisible(false);
@@ -410,6 +477,47 @@ public class RCMFormGenerator extends JRibbonFrame {
             @Override
             protected void done()
             {
+                publishOutput("Processing complete");
+                jProgressBar1.setIndeterminate(false);
+                jProgressBar1.setStringPainted(false);
+                jProgressBar1.setVisible(false);
+            }
+
+        };
+        worker.execute();
+    }
+    
+    private void createSingleBp()
+    {
+        jProgressBar1.setVisible(true);
+        jProgressBar1.setStringPainted(true);
+        jProgressBar1.setString("Creating boilerplate...");
+        jProgressBar1.setIndeterminate(true);
+        FolderTableModel model = (FolderTableModel)folderTable.getModel();
+        final DataModuleObject d = model.getDmod(folderTable.getSelectedRow());
+        SwingWorker<Boolean, Integer> worker = new SwingWorker<Boolean, Integer>()
+        {
+            @Override
+            protected Boolean doInBackground() 
+            {
+                if(rp.getWriter().equals("Choose...") || rp.getQa1().equals("Choose...") || rp.getAtr().equals("Choose..."))
+                {
+                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+                }
+                else
+                {
+                    System.out.println(d.getBaseDmc());
+                    jProgressBar1.setString("Processing " + d.getBaseDmc() + "...");
+                    publishOutput("Processing " + d.getBaseDmc());
+                    populateBp(d);
+                }
+                
+                return true; 
+            }
+            @Override
+            protected void done()
+            {
+                publishOutput("Processing complete");
                 jProgressBar1.setIndeterminate(false);
                 jProgressBar1.setStringPainted(false);
                 jProgressBar1.setVisible(false);
@@ -454,6 +562,7 @@ public class RCMFormGenerator extends JRibbonFrame {
             @Override
             protected void done()
             {
+                publishOutput("Processing complete");
                 jProgressBar1.setIndeterminate(false);
                 jProgressBar1.setStringPainted(false);
                 jProgressBar1.setVisible(false);
@@ -801,6 +910,9 @@ public class RCMFormGenerator extends JRibbonFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea outputArea;
+    private javax.swing.JMenuItem popUpBpItem;
+    private javax.swing.JMenuItem popUpPdfItem;
+    private javax.swing.JPopupMenu tablePopUpMenu;
     // End of variables declaration//GEN-END:variables
 
     private DocumentBuilderFactory DBF;
@@ -843,7 +955,6 @@ public class RCMFormGenerator extends JRibbonFrame {
                     System.exit(0);//To change body of generated methods, choose Tools | Templates.
                 }
             }, JCommandButton.CommandButtonKind.ACTION_ONLY);
-
             this.addMenuEntry(exitEntry);
 
         }
@@ -859,7 +970,9 @@ public class RCMFormGenerator extends JRibbonFrame {
         @Override
         public void paint(Graphics2D g, JProgressBar object, int width, int height) {
             g.setColor(color);
-            g.fillRect(0, 0, (width/2), height);
+            g.fillRect(0, height-(height/2), width, height/5);
+            g.fillOval(0, 0, width/2, height);
+            //g.fillRect(0, 0, (width/2), height);
         }
         
     }
