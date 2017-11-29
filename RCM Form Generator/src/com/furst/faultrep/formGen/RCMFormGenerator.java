@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -93,6 +94,8 @@ public class RCMFormGenerator extends JRibbonFrame {
     
     private String counterText = "";
     private final String FORM_TIT = "Forms Generator";
+    private String outputFolder = "";
+    private boolean sepOutputFolder = false;
     public RCMFormGenerator() {
         
         initFop();
@@ -153,7 +156,7 @@ public class RCMFormGenerator extends JRibbonFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Forms Generator");
-        setMinimumSize(new java.awt.Dimension(1300, 600));
+        setMinimumSize(new java.awt.Dimension(1400, 600));
 
         folderTable.setModel(ftm);
         //folderTable.setDefaultRenderer(Object.class, new BoolCellRenderer());
@@ -355,6 +358,51 @@ public class RCMFormGenerator extends JRibbonFrame {
         dmCounterLabel.setText(counterText);
     }
     
+    private void processOutputFolder(String f_path, DataModuleObject dmo, int row)
+    {
+        String baseDmc = dmo.getBaseDmc();
+        File directory = new File(f_path);
+        
+        File[] files = directory.listFiles();
+        for(File f : files)
+        {
+            String name = f.getName().substring(0, f.getName().lastIndexOf("."));
+            String bpName = name + ".xlsm";
+            String pdfName = name + ".pdf";
+            boolean bp = dmo.isHasBoiler();
+            boolean pdf = dmo.isHasPdf();
+            
+            if(name.equals(baseDmc))
+            {
+                if(f.getName().equals(bpName))
+                {
+                    bp = true;
+                }
+                if(f.getName().equals(pdfName))
+                {
+                    pdf = true;
+                }
+            }
+            
+            dmo.setHasBoiler(bp);
+            dmo.setHasPdf(pdf);
+        }
+        
+        FolderTableModel model = (FolderTableModel)folderTable.getModel();
+        model.setValueAt(dmo.getBaseDmc(), row, 0);
+        model.setValueAt(dmo.isHasBoiler(), row, 1);
+        model.setValueAt(dmo.isHasPdf(), row, 2);
+        model.fireTableDataChanged();
+//        List<DataModuleObject> mods = model.getAllMods();
+//        mods.set(row, dmo);
+//        folderTable.setModel(new FolderTableModel(mods));
+    }
+    
+    private void personError()
+    {
+        JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+    }
+    
     private void createSinglePdf()
     {
         /*
@@ -368,6 +416,7 @@ public class RCMFormGenerator extends JRibbonFrame {
         jProgressBar1.setIndeterminate(true);
         FolderTableModel model = (FolderTableModel)folderTable.getModel();
         final DataModuleObject d = model.getDmod(folderTable.getSelectedRow());
+        final int row = folderTable.getSelectedRow();
         SwingWorker<Boolean, Integer> worker = new SwingWorker<Boolean, Integer>()
         {
             @Override
@@ -375,13 +424,14 @@ public class RCMFormGenerator extends JRibbonFrame {
             {
                 if(rp.getWriter().equals("Choose...") || rp.getQa1().equals("Choose...") || rp.getAtr().equals("Choose..."))
                 {
-                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+//                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+                    personError();
                 }
                 else
                 {
                     jProgressBar1.setString("Creating " + d.getBaseDmc() + " PDF...");
                     publishOutput("Creating " + d.getBaseDmc() + " PDF");
-                    populatePdf(d);
+                    populatePdf(d,row);
                 }
                 
                 return true; 
@@ -419,17 +469,19 @@ public class RCMFormGenerator extends JRibbonFrame {
             {
                 if(rp.getWriter().equals("Choose...") || rp.getQa1().equals("Choose...") || rp.getAtr().equals("Choose..."))
                 {
-                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+//                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+                    personError();
                 }
                 else
                 {
                     for(DataModuleObject d : dms)
                     {
+                        int i = dms.indexOf(d);
                         jProgressBar1.setString("Creating " + d.getBaseDmc() + " PDF...");
                         publishOutput("Creating " + d.getBaseDmc() + " PDF");
 //                        outputArea.append("Processing " + d.getBaseDmc() + "...\n");
 //                        outputArea.setCaretPosition(outputArea.getText().length());
-                        populatePdf(d);
+                        populatePdf(d,i);
                     }
                 }
                 
@@ -454,6 +506,11 @@ public class RCMFormGenerator extends JRibbonFrame {
         outputArea.setCaretPosition(outputArea.getText().length());
     }
     
+    private void outputFolderError()
+    {
+        JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose an output folder.", "Choice required", JOptionPane.WARNING_MESSAGE);
+    }
+    
     private void createBoth()
     {
         jProgressBar1.setVisible(true);
@@ -469,19 +526,21 @@ public class RCMFormGenerator extends JRibbonFrame {
             {
                 if(rp.getWriter().equals("Choose...") || rp.getQa1().equals("Choose...") || rp.getAtr().equals("Choose..."))
                 {
-                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+//                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+                    personError();
                 }
                 else
                 {
                     for(DataModuleObject d : dms)
                     {
+                        int i = dms.indexOf(d);
                         System.out.println(d.getBaseDmc());
                         jProgressBar1.setString("Processing " + d.getBaseDmc() + "...");
                         publishOutput("Processing " + d.getBaseDmc());
 //                        outputArea.append("Processing " + d.getBaseDmc() + "...\n");
 //                        outputArea.setCaretPosition(outputArea.getText().length());
-                        populateBp(d);
-                        populatePdf(d);
+                        populateBp(d,i);
+                        populatePdf(d,i);
                     }
                 }
                 
@@ -508,6 +567,7 @@ public class RCMFormGenerator extends JRibbonFrame {
         jProgressBar1.setIndeterminate(true);
         FolderTableModel model = (FolderTableModel)folderTable.getModel();
         final DataModuleObject d = model.getDmod(folderTable.getSelectedRow());
+        final int row = folderTable.getSelectedRow();
         SwingWorker<Boolean, Integer> worker = new SwingWorker<Boolean, Integer>()
         {
             @Override
@@ -515,14 +575,15 @@ public class RCMFormGenerator extends JRibbonFrame {
             {
                 if(rp.getWriter().equals("Choose...") || rp.getQa1().equals("Choose...") || rp.getAtr().equals("Choose..."))
                 {
-                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+//                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+                    personError();
                 }
                 else
                 {
                     System.out.println(d.getBaseDmc());
                     jProgressBar1.setString("Processing " + d.getBaseDmc() + "...");
                     publishOutput("Processing " + d.getBaseDmc());
-                    populateBp(d);
+                    populateBp(d,row);
                 }
                 
                 return true; 
@@ -555,18 +616,20 @@ public class RCMFormGenerator extends JRibbonFrame {
             {
                 if(rp.getWriter().equals("Choose...") || rp.getQa1().equals("Choose...") || rp.getAtr().equals("Choose..."))
                 {
-                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+//                     JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose a writer, QA Reviewer, and an ATR. One or more remain as 'Choose...'.", "Incorrect person choice", JOptionPane.WARNING_MESSAGE);
+                    personError();
                 }
                 else
                 {
                     for(DataModuleObject d : dms)
                     {
+                        int i = dms.indexOf(d);
                         System.out.println(d.getBaseDmc());
                         jProgressBar1.setString("Processing " + d.getBaseDmc() + "...");
                         publishOutput("Processing " + d.getBaseDmc());
 //                        outputArea.append("Processing " + d.getBaseDmc() + "...\n");
 //                        outputArea.setCaretPosition(outputArea.getText().length());
-                        populateBp(d);
+                        populateBp(d,i);
                     }
                 }
                 
@@ -610,9 +673,25 @@ public class RCMFormGenerator extends JRibbonFrame {
         }
     }
     
-    private void populatePdf(DataModuleObject dmod)
+    private void populatePdf(DataModuleObject dmod, int index)
     {
-        String pdfSavePath = folderPath + File.separator + dmod.getBaseDmc() + ".pdf";
+        String pdfSavePath;
+        File newDir;
+        String saveFolder;
+        if(sepOutputFolder)
+        {
+            saveFolder = outputFolder + File.separator + dmod.getBaseDmc();
+            newDir = new File(saveFolder);
+            newDir.mkdirs();
+            pdfSavePath = newDir.getAbsolutePath() + File.separator + dmod.getBaseDmc() + ".pdf";
+        }
+        else
+        {
+            saveFolder = folderPath + File.separator + "output" + File.separator + dmod.getBaseDmc();
+            newDir = new File(saveFolder);
+            newDir.mkdirs();
+            pdfSavePath = newDir.getAbsolutePath() + File.separator + dmod.getBaseDmc() + ".pdf";
+        }
         File f = new File(folderPath + File.separator + dmod.getBaseDmc() + ".xml");
         try(OutputStream out = new BufferedOutputStream(new FileOutputStream(pdfSavePath)))
         {
@@ -635,12 +714,29 @@ public class RCMFormGenerator extends JRibbonFrame {
         catch (IOException | FOPException | TransformerException ex) {
             java.util.logging.Logger.getLogger(RCMFormGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        processFolder(new File(folderPath));
+        processOutputFolder(saveFolder, dmod, index);
+        //processFolder(new File(folderPath));
     }
     
-    private void populateBp(DataModuleObject dmod)
+    private void populateBp(DataModuleObject dmod, int index)
     {
-        String bpSavePath = folderPath + File.separator + dmod.getBaseDmc() + ".xlsm";
+        String bpSavePath;
+        String saveFolder;
+        if(sepOutputFolder)
+        {
+            saveFolder = outputFolder + File.separator + dmod.getBaseDmc();
+            File newDir = new File(saveFolder);
+            newDir.mkdirs();
+            bpSavePath = newDir.getAbsolutePath() + File.separator + dmod.getBaseDmc() + ".xlsm";
+        }
+        else
+        {
+            saveFolder = folderPath + File.separator + "output" + File.separator + dmod.getBaseDmc();
+            File newDir = new File(folderPath + File.separator + "output" + File.separator + dmod.getBaseDmc());
+            newDir.mkdirs();
+            bpSavePath = newDir.getAbsolutePath() + File.separator + dmod.getBaseDmc() + ".xlsm";
+        }
+        //String bpSavePath = folderPath + File.separator + dmod.getBaseDmc() + ".xlsm";
         String title = getDmTitle(dmod);
         if(checkBpExist(dmod))
         {
@@ -672,6 +768,13 @@ public class RCMFormGenerator extends JRibbonFrame {
                 qa1DateCell.setCellValue(rp.getQa1Date());
                 atrCell.setCellValue(rp.getAtr());
                 atrDateCell.setCellValue(rp.getAtrDate());
+                
+                XSSFCell sdCell = bpSheet.getRow(19).getCell(1);
+                sdCell.setCellValue("HH60W IETM Report 10/14/2017");
+                XSSFCell groupCell = bpSheet.getRow(15).getCell(1);
+                groupCell.setCellValue("POM/TTM");
+                XSSFCell samsLcnCell = bpSheet.getRow(13).getCell(1);
+                samsLcnCell.setCellValue("N/A");
 
                 jProgressBar1.setString("Updating " + dmod.getBaseDmc() + " QA 20038 sheet...");
                 //outputArea.append("\tUpdating " + dmod.getBaseDmc() + " QA 20038 sheet...\n");
@@ -695,7 +798,9 @@ public class RCMFormGenerator extends JRibbonFrame {
             catch (IOException ex) {
                 Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.FATAL, null, ex);
             }
-            processFolder(new File(folderPath));
+            //what to do here???
+            processOutputFolder(saveFolder, dmod, index);
+            //processFolder(new File(folderPath));
         }
     }
     
@@ -841,11 +946,12 @@ public class RCMFormGenerator extends JRibbonFrame {
     
     private void setRibbon() {
 
-        chooseFolderBand = new JRibbonBand("Input", null);
-        createSettingsBand = new JFlowRibbonBand("Output settings", null);
+        chooseFolderBand = new JRibbonBand("Input folder", null);
+        createSettingsBand = new JFlowRibbonBand("Report settings", null);
+        chooseOutputFolderBand = new JRibbonBand("Output folder", null);
         outputBand = new JRibbonBand("Batch ouput types", null);
 
-        chooseFolderButton = new JCommandButton("Choose Folder", getIcon("folder-12.png"));
+        chooseFolderButton = new JCommandButton("Choose Input Folder", getIcon("folder-12.png"));
         chooseFolderButton.setDisabledIcon(getIcon("folder-12.png"));
         chooseFolderButton.addActionListener(new ActionListener() {
             @Override
@@ -857,6 +963,23 @@ public class RCMFormGenerator extends JRibbonFrame {
                 {
                     clearTable();
                     processFolder(jFileChooser1.getSelectedFile());
+                }
+            }
+        });
+        
+        chooseOutputFolderButton = new JCommandButton("Choose Output Folder", getIcon("folder-12.png"));
+        chooseOutputFolderButton.setDisabledIcon(getIcon("folder-12.png"));
+        chooseOutputFolderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jFileChooser1.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                jFileChooser1.setDialogTitle("Choose Folder");
+                int res = jFileChooser1.showOpenDialog(RCMFormGenerator.this);
+                if(res == JFileChooser.APPROVE_OPTION)
+                {
+                    //set final variable for this path
+                    outputFolder = jFileChooser1.getSelectedFile().getAbsolutePath();
+                    sepOutputFolder = true;
                 }
             }
         });
@@ -889,6 +1012,7 @@ public class RCMFormGenerator extends JRibbonFrame {
         //JRibbonComponent jrc2 = new JRibbonComponent(myjtf);
         
         chooseFolderBand.addCommandButton(chooseFolderButton, RibbonElementPriority.TOP);
+        chooseOutputFolderBand.addCommandButton(chooseOutputFolderButton, RibbonElementPriority.TOP);
         //createSettingsBand.addCommandButton(b1a, RibbonElementPriority.TOP);
         createSettingsBand.addFlowComponent(jrc);
         //createSettingsBand2.addRibbonComponent(jrc2);
@@ -897,6 +1021,7 @@ public class RCMFormGenerator extends JRibbonFrame {
         outputBand.addCommandButton(createAllPdfButton, RibbonElementPriority.MEDIUM);
 
         chooseFolderBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.None(chooseFolderBand.getControlPanel()), new IconRibbonBandResizePolicy(chooseFolderBand.getControlPanel())));
+        chooseOutputFolderBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.None(chooseOutputFolderBand.getControlPanel()), new IconRibbonBandResizePolicy(chooseOutputFolderBand.getControlPanel())));
         //createSettingsBand2.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.(createSettingsBand2.getControlPanel())));
         createSettingsBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.FlowThreeRows(createSettingsBand.getControlPanel())));
         outputBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.None(outputBand.getControlPanel()), 
@@ -904,7 +1029,7 @@ public class RCMFormGenerator extends JRibbonFrame {
                 new CoreRibbonResizePolicies.Mid2Low(outputBand.getControlPanel()),
                 new IconRibbonBandResizePolicy(outputBand.getControlPanel())));
 
-        createTask = new RibbonTask("Generator Functions", chooseFolderBand, createSettingsBand, outputBand);
+        createTask = new RibbonTask("Generator Functions", chooseFolderBand, createSettingsBand, chooseOutputFolderBand,outputBand);
 
         menu = new AppMenu();
 
@@ -946,10 +1071,12 @@ public class RCMFormGenerator extends JRibbonFrame {
     private RibbonApplicationMenu menu;
     
     private JRibbonBand chooseFolderBand;
+    private JRibbonBand chooseOutputFolderBand;
     private JFlowRibbonBand createSettingsBand;
     private JRibbonBand outputBand;
     
     private JCommandButton chooseFolderButton;
+    private JCommandButton chooseOutputFolderButton;
     private JCommandButton createAllItemsButton;
     private JCommandButton createAllBoilerButton;
     private JCommandButton createAllPdfButton;

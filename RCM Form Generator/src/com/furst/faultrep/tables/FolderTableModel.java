@@ -60,6 +60,24 @@ public class FolderTableModel extends AbstractTableModel{
         return value;
     }
     
+//    @Override
+//    public void setValueAt(Object o, int row, int col)
+//    {
+//        DataModuleObject dmo = (DataModuleObject)o;
+//        switch(col)
+//        {
+//            case 0:
+//                dmo.getBaseDmc();
+//                break;
+//            case 1:
+//                dmo.isHasBoiler();
+//                break;
+//            case 2:
+//                dmo.isHasPdf();
+//                break;
+//        }
+//    }
+    
     @Override
     public Class getColumnClass(int col)
     {

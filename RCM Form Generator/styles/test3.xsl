@@ -1460,7 +1460,7 @@
 			<fo:leader leader-length="100%" leader-pattern="rule" rule-style="solid" color="black"/>
 		</fo:block>
 		<fo:block font-size="10pt" keep-with-next="always" font-weight="bold" space-before="1.5mm">
-			<xsl:value-of select="concat('Fault code:', @faultCode)"/>
+			<xsl:value-of select="concat('Fault code: ', @faultCode)"/>
 		</fo:block>
 		<fo:table table-layout="fixed" width="100%">
 			<fo:table-column width="33%"/>
