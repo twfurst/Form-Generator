@@ -7,7 +7,6 @@ package com.furst.faultrep.menus;
 
 import com.furst.faultrep.formGen.ATRReviewer;
 import com.furst.faultrep.formGen.QA1Reviewer;
-import com.furst.faultrep.formGen.RCMFormGenerator;
 import com.furst.faultrep.formGen.Writer;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +25,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *
  * @author tfurst
  */
-public class RibbonPanel extends javax.swing.JPanel {
+public class RibbonStagePanel extends javax.swing.JPanel {
 
     /**
      * Creates new form RibbonPanel
@@ -35,10 +34,7 @@ public class RibbonPanel extends javax.swing.JPanel {
     private List<QA1Reviewer> qa1_revs = new ArrayList();
     private List<ATRReviewer> atr_revs = new ArrayList();
     
-    public RibbonPanel() {
-//        popWriters();
-//        popQa1();
-//        popAtr();
+    public RibbonStagePanel() {
         fillDropDowns();
         initComponents();
     }
@@ -84,36 +80,9 @@ public class RibbonPanel extends javax.swing.JPanel {
             }
         } 
         catch (FileNotFoundException ex) {
-            Logger.getLogger(RibbonPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RibbonStagePanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(RibbonPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    private void popWriters()
-    {
-        String[] writer_names = new String[]{"Some person", "That Guy"};
-        for(String w : writer_names)
-        {
-            writers.add(new Writer(w));
-        }
-    }
-    
-    private void popQa1()
-    {
-        String[] writer_names = new String[]{"Some person", "That Guy"};
-        for(String w : writer_names)
-        {
-            qa1_revs.add(new QA1Reviewer(w));
-        }
-    }
-    
-    private void popAtr()
-    {
-        String[] writer_names = new String[]{"Some person", "That Guy"};
-        for(String w : writer_names)
-        {
-            atr_revs.add(new ATRReviewer(w));
+            Logger.getLogger(RibbonStagePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

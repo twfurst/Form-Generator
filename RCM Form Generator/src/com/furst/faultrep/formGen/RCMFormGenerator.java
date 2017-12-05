@@ -6,7 +6,8 @@
 package com.furst.faultrep.formGen;
 
 import com.furst.faultrep.menus.AppMenuPrimaryEntry;
-import com.furst.faultrep.menus.RibbonPanel;
+import com.furst.faultrep.menus.RibbonDraftPanel;
+import com.furst.faultrep.menus.RibbonStagePanel;
 import com.furst.faultrep.tables.FolderTableModel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -505,11 +506,11 @@ public class RCMFormGenerator extends JRibbonFrame {
         outputArea.append(output + "...\n");
         outputArea.setCaretPosition(outputArea.getText().length());
     }
-    
-    private void outputFolderError()
-    {
-        JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose an output folder.", "Choice required", JOptionPane.WARNING_MESSAGE);
-    }
+//    
+//    private void outputFolderError()
+//    {
+//        JOptionPane.showMessageDialog(RCMFormGenerator.this, "Make sure to choose an output folder.", "Choice required", JOptionPane.WARNING_MESSAGE);
+//    }
     
     private void createBoth()
     {
@@ -534,7 +535,7 @@ public class RCMFormGenerator extends JRibbonFrame {
                     for(DataModuleObject d : dms)
                     {
                         int i = dms.indexOf(d);
-                        System.out.println(d.getBaseDmc());
+                        //System.out.println(d.getBaseDmc());
                         jProgressBar1.setString("Processing " + d.getBaseDmc() + "...");
                         publishOutput("Processing " + d.getBaseDmc());
 //                        outputArea.append("Processing " + d.getBaseDmc() + "...\n");
@@ -657,18 +658,18 @@ public class RCMFormGenerator extends JRibbonFrame {
             
             if(res == JOptionPane.YES_OPTION)
             {
-                System.out.println(true);
+                //System.out.println(true);
                 return true;
             }
             else
             {
-                System.out.println(false);
+                //System.out.println(false);
                 return false;
             }
         }
         else
         {
-            System.out.println(true);
+            //System.out.println(true);
             return true;
         }
     }
@@ -720,14 +721,17 @@ public class RCMFormGenerator extends JRibbonFrame {
     
     private void populateBp(DataModuleObject dmod, int index)
     {
-        String bpSavePath;
-        String saveFolder;
+        String bpSavePath, qa138SavePath, atr38SavePath,lsa38SavePath,_45SavePath, saveFolder;
         if(sepOutputFolder)
         {
             saveFolder = outputFolder + File.separator + dmod.getBaseDmc();
             File newDir = new File(saveFolder);
             newDir.mkdirs();
             bpSavePath = newDir.getAbsolutePath() + File.separator + dmod.getBaseDmc() + ".xlsm";
+            qa138SavePath = newDir.getAbsolutePath() + File.separator + "RCM20038_QA1_" + dmod.getBaseDmc() + ".xlsx";
+            atr38SavePath = newDir.getAbsolutePath() + File.separator + "RCM20038_ATR_" + dmod.getBaseDmc() + ".xlsx";
+            lsa38SavePath = newDir.getAbsolutePath() + File.separator + "SA20038_LSA_" + dmod.getBaseDmc() + ".xlsx";
+            _45SavePath = newDir.getAbsolutePath() + File.separator + "SA20045_" + dmod.getBaseDmc() + ".xlsx";
         }
         else
         {
@@ -735,25 +739,41 @@ public class RCMFormGenerator extends JRibbonFrame {
             File newDir = new File(folderPath + File.separator + "output" + File.separator + dmod.getBaseDmc());
             newDir.mkdirs();
             bpSavePath = newDir.getAbsolutePath() + File.separator + dmod.getBaseDmc() + ".xlsm";
+            qa138SavePath = newDir.getAbsolutePath() + File.separator + "RCM20038_QA1_" + dmod.getBaseDmc() + ".xlsx";
+            atr38SavePath = newDir.getAbsolutePath() + File.separator + "RCM20038_ATR_" + dmod.getBaseDmc() + ".xlsx";
+            lsa38SavePath = newDir.getAbsolutePath() + File.separator + "SA20038_LSA_" + dmod.getBaseDmc() + ".xlsx";
+            _45SavePath = newDir.getAbsolutePath() + File.separator + "SA20045_" + dmod.getBaseDmc() + ".xlsx";
         }
         //String bpSavePath = folderPath + File.separator + dmod.getBaseDmc() + ".xlsm";
         String title = getDmTitle(dmod);
         if(checkBpExist(dmod))
         {
-            try(FileInputStream fis = new FileInputStream(new File("templates/CRH-BoilerPlate-REV2.xlsm")))
+            //System.out.println("BEFORE THE TRY");
+            try(FileInputStream fis = new FileInputStream(new File("templates/CRH-BoilerPlate-REV2.xlsm"));
+                    FileInputStream fis2 = new FileInputStream(new File("templates/RCM20038_QA_template.xlsx"));
+                    FileInputStream fis3 = new FileInputStream(new File("templates/RCM20038_ATR_template.xlsx"));
+                    FileInputStream fis4 = new FileInputStream(new File("templates/SA20038_LSA_template.xlsx"));
+                    FileInputStream fis5 = new FileInputStream(new File("templates/45_template.xlsx"))
+                    )
             {
-                XSSFWorkbook wb = new XSSFWorkbook(fis);
+                //System.out.println("IN THE TRY");
+                XSSFWorkbook bpWb = new XSSFWorkbook(fis);
+                XSSFWorkbook qa38Wb = new XSSFWorkbook(fis2);
+                XSSFWorkbook atr38Wb = new XSSFWorkbook(fis3);
+                XSSFWorkbook lsa38Wb = new XSSFWorkbook(fis4);
+                XSSFWorkbook rcm45Wb = new XSSFWorkbook(fis5);
                 jProgressBar1.setString("Updating " + dmod.getBaseDmc() + " boiler plate sheet...");
                 //outputArea.append("\tUpdating " + dmod.getBaseDmc() + " boiler plate sheet...\n");
                 publishOutput("\tUpdating " + dmod.getBaseDmc() + " boiler plate sheet");
                 //process to the output pane
-                XSSFSheet bpSheet = wb.getSheet("BoilerPlate");
+                XSSFSheet bpSheet = bpWb.getSheet("BoilerPlate");
 
                 XSSFCell titleCell = bpSheet.getRow(5).getCell(1);
                 titleCell.setCellValue(title);
 
                 XSSFCell wpCell = bpSheet.getRow(7).getCell(1);
-                wpCell.setCellValue(getDmWp(dmod));
+                String wp = getDmWp(dmod);
+                wpCell.setCellValue(wp);
 
                 XSSFCell writerCell = bpSheet.getRow(3).getCell(5);
                 XSSFCell writerDateCell = bpSheet.getRow(4).getCell(6);
@@ -769,39 +789,149 @@ public class RCMFormGenerator extends JRibbonFrame {
                 atrCell.setCellValue(rp.getAtr());
                 atrDateCell.setCellValue(rp.getAtrDate());
                 
+                /*
+                    *****20038 form cells*****
+                    XSSFCell modelCell = sheet.getRow(3).getCell(1);
+                    XSSFCell deliverCell = sheet.getRow(3).getCell(4);
+                    XSSFCell startCell = sheet.getRow(3).getCell(8);
+                    XSSFCell groupCell = sheet.getRow(4).getCell(1);
+                    XSSFCell wpCell = sheet.getRow(4).getCell(4);
+                    XSSFCell revByCell = sheet.getRow(5).getCell(2);
+                    XSSFCell revDateCell = sheet.getRow(5).getCell(8);
+                    XSSFCell authorCell = sheet.getRow(6).getCell(2);
+                    XSSFCell draftDueCell = sheet.getRow(13).getCell(2);
+                    XSSFCell submitDateCell = sheet.getRow(13).getCell(5);
+                */
+                String[] Qa1_38Vals = new String[]{"HH60W-A",wp,rp.getWriterDate(),"POM/TTM",wp,rp.getQa1(),rp.getQa1Date(),rp.getWriter(),rdp.getDueDate(),rdp.getDraftDate()};//finsih this
+                String[] ATR_38Vals = new String[]{"HH60W-A",wp,rp.getWriterDate(),"POM/TTM",wp,rp.getAtr(),rp.getAtrDate(),rp.getWriter(),rdp.getDueDate(),rdp.getDraftDate()};
+                String[] LSA_38Vals = new String[]{"HH60W-A",wp,"TBD","POM/TTM",wp,rp.getWriter(),rp.getWriterDate(),"LSA",rdp.getDueDate(),rdp.getDraftDate()};
+                populate38Form(qa38Wb,Qa1_38Vals,false);
+                populate38Form(atr38Wb,ATR_38Vals,false);
+                populate38Form(lsa38Wb,LSA_38Vals,true);
+                
                 XSSFCell sdCell = bpSheet.getRow(19).getCell(1);
-                sdCell.setCellValue("HH60W IETM Report 10/14/2017");
+                sdCell.setCellValue("HH60W IETM Report 10/14/2017");//need to make a entry for this
+                
+                /*
+                    modelCell.setCellValue(vals[0]);
+                    wpCell.setCellValue(vals[1]);
+                    sdCell.setCellValue(vals[2]);
+                    engRevAuthorCell.setCellValue(vals[3]);
+                    engRevDateCell.setCellValue(vals[4]);
+                    lsaRevAuthorCell.setCellValue(vals[5]);
+                    lsaRevDateCell.setCellValue(vals[6]);
+                    iatrCell.setCellValue(vals[7]);
+                    iatrDateCell.setCellValue(vals[8]);
+                */
+                String[] _45Vals = new String[]{"HH60W-A",wp,"HH60W IETM Report 10/14/2017",rp.getWriter(),rp.getWriterDate(),rp.getWriter(),rp.getWriterDate(),rp.getAtr(),rp.getAtrDate()};
+                populate45Form(rcm45Wb,_45Vals);
                 XSSFCell groupCell = bpSheet.getRow(15).getCell(1);
-                groupCell.setCellValue("POM/TTM");
+                groupCell.setCellValue("POM/TTM");//need to create a dropdown for this
                 XSSFCell samsLcnCell = bpSheet.getRow(13).getCell(1);
-                samsLcnCell.setCellValue("N/A");
+                samsLcnCell.setCellValue("N/A");//need to create a text entry for this
 
                 jProgressBar1.setString("Updating " + dmod.getBaseDmc() + " QA 20038 sheet...");
                 //outputArea.append("\tUpdating " + dmod.getBaseDmc() + " QA 20038 sheet...\n");
                 publishOutput("\tUpdating " + dmod.getBaseDmc() + " QA 20038 sheet");
-                XSSFSheet qa20038 = wb.getSheet("RCM20038_QA_");
+                XSSFSheet qa20038 = bpWb.getSheet("RCM20038_QA_");
                 XSSFCell commCell = qa20038.getRow(17).getCell(3);
                 commCell.setCellValue("NO COMMENTS");
                 
                 jProgressBar1.setString("Updating " + dmod.getBaseDmc() + " ATR 20038 sheet...");
                 //outputArea.append("\tUpdating " + dmod.getBaseDmc() + " ATR 20038 sheet...\n");
                 publishOutput("\tUpdating " + dmod.getBaseDmc() + " ATR 20038 sheet");
-                XSSFSheet atr20038 = wb.getSheet("RCM20038_ATR_");
+                XSSFSheet atr20038 = bpWb.getSheet("RCM20038_ATR_");
                 XSSFCell atrcommCell = atr20038.getRow(17).getCell(3);
                 atrcommCell.setCellValue("NO COMMENTS");
 
-                try(FileOutputStream fos = new FileOutputStream(new File(bpSavePath)))
+                try(FileOutputStream fos = new FileOutputStream(new File(bpSavePath));
+                        FileOutputStream fos1 = new FileOutputStream(new File(qa138SavePath));
+                        FileOutputStream fos2 = new FileOutputStream(new File(atr38SavePath));
+                        FileOutputStream fos3 = new FileOutputStream(new File(lsa38SavePath));
+                        FileOutputStream fos4 = new FileOutputStream(new File(_45SavePath)))
                 {
-                    wb.write(fos);
+                    bpWb.write(fos);
+                    qa38Wb.write(fos1);
+                    atr38Wb.write(fos2);
+                    lsa38Wb.write(fos3);
+                    rcm45Wb.write(fos4);
                 }
             } 
             catch (IOException ex) {
                 Logger.getLogger(RCMFormGenerator.class.getName()).log(Level.FATAL, null, ex);
+                System.out.println(ex.getMessage());
             }
             //what to do here???
             processOutputFolder(saveFolder, dmod, index);
             //processFolder(new File(folderPath));
         }
+    }
+    
+    private void populate38Form(XSSFWorkbook wb, String[] vals, boolean isLsa)
+    {
+        XSSFSheet sheet = wb.getSheetAt(0);
+        //get the cell objects
+        XSSFCell modelCell = sheet.getRow(3).getCell(1);
+        XSSFCell deliverCell = sheet.getRow(3).getCell(4);
+        XSSFCell startCell = sheet.getRow(3).getCell(8);
+        XSSFCell groupCell = sheet.getRow(4).getCell(1);
+        XSSFCell wpCell = sheet.getRow(4).getCell(4);
+        
+        XSSFCell revByCell;
+        XSSFCell revDateCell;
+        
+        if(!isLsa)
+        {
+            revByCell = sheet.getRow(5).getCell(2);
+            revDateCell = sheet.getRow(5).getCell(8);
+            XSSFCell draftDueCell = sheet.getRow(13).getCell(2);
+            XSSFCell submitDateCell = sheet.getRow(13).getCell(5);
+            draftDueCell.setCellValue(vals[8]);
+            submitDateCell.setCellValue(vals[9]);
+        }
+        else
+        {
+            revByCell = sheet.getRow(4).getCell(2);
+            revDateCell = sheet.getRow(4).getCell(8);
+        }
+        
+        XSSFCell authorCell = sheet.getRow(6).getCell(2);
+        
+        //fill the cells with data
+        modelCell.setCellValue(vals[0]);
+        deliverCell.setCellValue(vals[1]);
+        startCell.setCellValue(vals[2]);
+        groupCell.setCellValue(vals[3]);
+        wpCell.setCellValue(vals[4]);
+        revByCell.setCellValue(vals[5]);
+        revDateCell.setCellValue(vals[6]);
+        authorCell.setCellValue(vals[7]);
+        
+    }
+    
+    private void populate45Form(XSSFWorkbook wb, String[] vals)
+    {
+        XSSFSheet sheet = wb.getSheetAt(0);
+        //get the cell objects
+        XSSFCell modelCell = sheet.getRow(4).getCell(5);
+        XSSFCell wpCell = sheet.getRow(5).getCell(6);
+        XSSFCell sdCell = sheet.getRow(9).getCell(1);
+        XSSFCell engRevAuthorCell = sheet.getRow(18).getCell(6);
+        XSSFCell engRevDateCell = sheet.getRow(18).getCell(10);
+        XSSFCell lsaRevAuthorCell = sheet.getRow(22).getCell(6);
+        XSSFCell lsaRevDateCell = sheet.getRow(22).getCell(10);
+        XSSFCell iatrCell = sheet.getRow(26).getCell(6);
+        XSSFCell iatrDateCell = sheet.getRow(26).getCell(10);
+        //set the cell values
+        modelCell.setCellValue(vals[0]);
+        wpCell.setCellValue(vals[1]);
+        sdCell.setCellValue(vals[2]);
+        engRevAuthorCell.setCellValue(vals[3]);
+        engRevDateCell.setCellValue(vals[4]);
+        lsaRevAuthorCell.setCellValue(vals[5]);
+        lsaRevDateCell.setCellValue(vals[6]);
+        iatrCell.setCellValue(vals[7]);
+        iatrDateCell.setCellValue(vals[8]);
     }
     
     private String getDmWp(DataModuleObject dmo)
@@ -947,7 +1077,8 @@ public class RCMFormGenerator extends JRibbonFrame {
     private void setRibbon() {
 
         chooseFolderBand = new JRibbonBand("Input folder", null);
-        createSettingsBand = new JFlowRibbonBand("Report settings", null);
+        createSettingsBand = new JFlowRibbonBand("Stage information", null);
+        dueDatesBand = new JFlowRibbonBand("Due dates", null);
         chooseOutputFolderBand = new JRibbonBand("Output folder", null);
         outputBand = new JRibbonBand("Batch ouput types", null);
 
@@ -1006,15 +1137,18 @@ public class RCMFormGenerator extends JRibbonFrame {
             }
         });
         
-        rp = new RibbonPanel();
+        rp = new RibbonStagePanel();
+        rdp = new RibbonDraftPanel();
         
         JRibbonComponent jrc = new JRibbonComponent(rp);
+        JRibbonComponent date_jrc = new JRibbonComponent(rdp);
         //JRibbonComponent jrc2 = new JRibbonComponent(myjtf);
         
         chooseFolderBand.addCommandButton(chooseFolderButton, RibbonElementPriority.TOP);
         chooseOutputFolderBand.addCommandButton(chooseOutputFolderButton, RibbonElementPriority.TOP);
         //createSettingsBand.addCommandButton(b1a, RibbonElementPriority.TOP);
         createSettingsBand.addFlowComponent(jrc);
+        dueDatesBand.addFlowComponent(date_jrc);
         //createSettingsBand2.addRibbonComponent(jrc2);
         outputBand.addCommandButton(createAllItemsButton, RibbonElementPriority.TOP);
         outputBand.addCommandButton(createAllBoilerButton, RibbonElementPriority.MEDIUM);
@@ -1024,17 +1158,21 @@ public class RCMFormGenerator extends JRibbonFrame {
         chooseOutputFolderBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.None(chooseOutputFolderBand.getControlPanel()), new IconRibbonBandResizePolicy(chooseOutputFolderBand.getControlPanel())));
         //createSettingsBand2.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.(createSettingsBand2.getControlPanel())));
         createSettingsBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.FlowThreeRows(createSettingsBand.getControlPanel())));
+        dueDatesBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.FlowThreeRows(dueDatesBand.getControlPanel())));
         outputBand.setResizePolicies((List) Arrays.asList(new CoreRibbonResizePolicies.None(outputBand.getControlPanel()), 
                 new CoreRibbonResizePolicies.Mirror(outputBand.getControlPanel()),
                 new CoreRibbonResizePolicies.Mid2Low(outputBand.getControlPanel()),
                 new IconRibbonBandResizePolicy(outputBand.getControlPanel())));
 
-        createTask = new RibbonTask("Generator Functions", chooseFolderBand, createSettingsBand, chooseOutputFolderBand,outputBand);
-
+        createTask = new RibbonTask("Folders", chooseFolderBand, chooseOutputFolderBand);
+        outputTask = new RibbonTask("Output", outputBand);
+        settingsTask = new RibbonTask("Dates / People", createSettingsBand, dueDatesBand);
         menu = new AppMenu();
 
         this.getRibbon().setApplicationMenu(menu);
         this.getRibbon().addTask(createTask);
+        this.getRibbon().addTask(settingsTask);
+        this.getRibbon().addTask(outputTask);
 
     }
     
@@ -1065,15 +1203,20 @@ public class RCMFormGenerator extends JRibbonFrame {
     
     private String folderPath;
     
-    private RibbonPanel rp;
+    private RibbonStagePanel rp;
+    private RibbonDraftPanel rdp;
     private RibbonTask createTask; //Database actions tab
+    private RibbonTask settingsTask;
+    private RibbonTask outputTask;
     
     private RibbonApplicationMenu menu;
     
     private JRibbonBand chooseFolderBand;
     private JRibbonBand chooseOutputFolderBand;
     private JFlowRibbonBand createSettingsBand;
+    private JFlowRibbonBand dueDatesBand;
     private JRibbonBand outputBand;
+    private JRibbonBand exportBand;
     
     private JCommandButton chooseFolderButton;
     private JCommandButton chooseOutputFolderButton;

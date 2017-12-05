@@ -47,4 +47,11 @@ public class DatePickerPanel extends javax.swing.JPanel{
         Date date = (Date)jdp.getModel().getValue();
         return sdf.format(date);
     }
+    
+    public void setDate(int yr, int month, int day)
+    {
+        UtilDateModel model = (UtilDateModel)jdp.getModel();
+        model.setDate(yr, month, day);
+        model.setSelected(true);
+    }
 }
