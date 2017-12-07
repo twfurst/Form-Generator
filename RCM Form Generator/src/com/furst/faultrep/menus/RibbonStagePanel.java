@@ -44,7 +44,7 @@ public class RibbonStagePanel extends javax.swing.JPanel {
         writers.add(new Writer("Choose..."));
         qa1_revs.add(new QA1Reviewer("Choose..."));
         atr_revs.add(new ATRReviewer("Choose..."));
-        try(FileInputStream fis = new FileInputStream(new File("templates/CRH-BoilerPlate-REV2.xlsm")))
+        try(FileInputStream fis = new FileInputStream(new File("templates/CRH-BoilerPlate.xlsm")))
         {
             XSSFWorkbook wb = new XSSFWorkbook(fis);
             XSSFSheet dataSheet = wb.getSheet("Data Sheet");

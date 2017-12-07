@@ -21,6 +21,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -73,6 +75,7 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonComponent;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
+import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuEntrySecondary;
 import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
@@ -748,15 +751,15 @@ public class RCMFormGenerator extends JRibbonFrame {
         String title = getDmTitle(dmod);
         if(checkBpExist(dmod))
         {
-            //System.out.println("BEFORE THE TRY");
-            try(FileInputStream fis = new FileInputStream(new File("templates/CRH-BoilerPlate-REV2.xlsm"));
+            System.out.println("BEFORE THE TRY");
+            try(FileInputStream fis = new FileInputStream(new File("templates/CRH-BoilerPlate.xlsm"));
                     FileInputStream fis2 = new FileInputStream(new File("templates/RCM20038_QA_template.xlsx"));
                     FileInputStream fis3 = new FileInputStream(new File("templates/RCM20038_ATR_template.xlsx"));
                     FileInputStream fis4 = new FileInputStream(new File("templates/SA20038_LSA_template.xlsx"));
                     FileInputStream fis5 = new FileInputStream(new File("templates/45_template.xlsx"))
                     )
             {
-                //System.out.println("IN THE TRY");
+                System.out.println("IN THE TRY");
                 XSSFWorkbook bpWb = new XSSFWorkbook(fis);
                 XSSFWorkbook qa38Wb = new XSSFWorkbook(fis2);
                 XSSFWorkbook atr38Wb = new XSSFWorkbook(fis3);
@@ -805,10 +808,15 @@ public class RCMFormGenerator extends JRibbonFrame {
                 String[] Qa1_38Vals = new String[]{"HH60W-A",wp,rp.getWriterDate(),"POM/TTM",wp,rp.getQa1(),rp.getQa1Date(),rp.getWriter(),rdp.getDueDate(),rdp.getDraftDate()};//finsih this
                 String[] ATR_38Vals = new String[]{"HH60W-A",wp,rp.getWriterDate(),"POM/TTM",wp,rp.getAtr(),rp.getAtrDate(),rp.getWriter(),rdp.getDueDate(),rdp.getDraftDate()};
                 String[] LSA_38Vals = new String[]{"HH60W-A",wp,"TBD","POM/TTM",wp,rp.getWriter(),rp.getWriterDate(),"LSA",rdp.getDueDate(),rdp.getDraftDate()};
+                publishOutput("\tUpdating " + dmod.getBaseDmc() + " separate QA1 20038 Form");
                 populate38Form(qa38Wb,Qa1_38Vals,false);
+                publishOutput("\tCompleted");
+                publishOutput("\tUpdating " + dmod.getBaseDmc() + " separate ATR 20038 Form");
                 populate38Form(atr38Wb,ATR_38Vals,false);
+                publishOutput("\tCompleted");
+                publishOutput("\tUpdating " + dmod.getBaseDmc() + " separate LSA 20038 Form");
                 populate38Form(lsa38Wb,LSA_38Vals,true);
-                
+                publishOutput("\tCompleted");
                 XSSFCell sdCell = bpSheet.getRow(19).getCell(1);
                 sdCell.setCellValue("HH60W IETM Report 10/14/2017");//need to make a entry for this
                 
@@ -824,7 +832,9 @@ public class RCMFormGenerator extends JRibbonFrame {
                     iatrDateCell.setCellValue(vals[8]);
                 */
                 String[] _45Vals = new String[]{"HH60W-A",wp,"HH60W IETM Report 10/14/2017",rp.getWriter(),rp.getWriterDate(),rp.getWriter(),rp.getWriterDate(),rp.getAtr(),rp.getAtrDate()};
+                publishOutput("\tUpdating " + dmod.getBaseDmc() + " separate 20045 Form");
                 populate45Form(rcm45Wb,_45Vals);
+                publishOutput("\tCompleted");
                 XSSFCell groupCell = bpSheet.getRow(15).getCell(1);
                 groupCell.setCellValue("POM/TTM");//need to create a dropdown for this
                 XSSFCell samsLcnCell = bpSheet.getRow(13).getCell(1);
@@ -843,13 +853,14 @@ public class RCMFormGenerator extends JRibbonFrame {
                 XSSFSheet atr20038 = bpWb.getSheet("RCM20038_ATR_");
                 XSSFCell atrcommCell = atr20038.getRow(17).getCell(3);
                 atrcommCell.setCellValue("NO COMMENTS");
-
+                System.out.println("Prior to output try");
                 try(FileOutputStream fos = new FileOutputStream(new File(bpSavePath));
                         FileOutputStream fos1 = new FileOutputStream(new File(qa138SavePath));
                         FileOutputStream fos2 = new FileOutputStream(new File(atr38SavePath));
                         FileOutputStream fos3 = new FileOutputStream(new File(lsa38SavePath));
                         FileOutputStream fos4 = new FileOutputStream(new File(_45SavePath)))
                 {
+                    System.out.println("In the output try");
                     bpWb.write(fos);
                     qa38Wb.write(fos1);
                     atr38Wb.write(fos2);
@@ -911,7 +922,7 @@ public class RCMFormGenerator extends JRibbonFrame {
     
     private void populate45Form(XSSFWorkbook wb, String[] vals)
     {
-        XSSFSheet sheet = wb.getSheetAt(0);
+        XSSFSheet sheet = wb.getSheetAt(1);
         //get the cell objects
         XSSFCell modelCell = sheet.getRow(4).getCell(5);
         XSSFCell wpCell = sheet.getRow(5).getCell(6);
@@ -1230,15 +1241,51 @@ public class RCMFormGenerator extends JRibbonFrame {
 
         private boolean testBool = false;
         private AppMenuPrimaryEntry exitEntry;
-
+        private AppMenuPrimaryEntry templatesEntry;
+        
         public AppMenu() {
             
+            templatesEntry = new AppMenuPrimaryEntry(getIcon("excel-2.png"),"Templates",null,JCommandButton.CommandButtonKind.POPUP_ONLY);
+            File[] templates = new File("templates").listFiles();
+            
+            RibbonApplicationMenuEntrySecondary[] templateEntries = new RibbonApplicationMenuEntrySecondary[templates.length];
+            int c = 0;
+            for(File template : templates)
+            {
+                String tempName = template.getName().substring(0, template.getName().indexOf("."));
+                RibbonApplicationMenuEntrySecondary templateEntry = new RibbonApplicationMenuEntrySecondary(getIcon("excel-1.png"),tempName,new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        jFileChooser1.setDialogTitle("Choose new verison of " + tempName);
+                        int res = jFileChooser1.showOpenDialog(RCMFormGenerator.this);
+                        if(res == JFileChooser.APPROVE_OPTION)
+                        {
+                            File newForm = jFileChooser1.getSelectedFile();
+                            try 
+                            {
+                                Files.copy(newForm.toPath(), template.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                            } 
+                            catch (IOException ex) {
+                                java.util.logging.Logger.getLogger(RCMFormGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(RCMFormGenerator.this, ex.toString(), "I/O Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    }
+                },JCommandButton.CommandButtonKind.ACTION_ONLY);
+                templateEntries[c] = templateEntry;
+                c++;
+            }
+            //chooseDbEntry.addSecondaryMenuGroup("Available Databases", secEntries);
+            templatesEntry.addSecondaryMenuGroup("Update form templates", templateEntries);
             exitEntry = new AppMenuPrimaryEntry(getIcon("exit.png"), "Exit", new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     System.exit(0);//To change body of generated methods, choose Tools | Templates.
                 }
             }, JCommandButton.CommandButtonKind.ACTION_ONLY);
+            
+            this.addMenuEntry(templatesEntry);
             this.addMenuEntry(exitEntry);
 
         }
